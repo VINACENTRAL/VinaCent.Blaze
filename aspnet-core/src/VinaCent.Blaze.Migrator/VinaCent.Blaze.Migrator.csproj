@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <AssetTargetFallback>$(AssetTargetFallback);portable-net45+win8+wp8+wpa81;</AssetTargetFallback>
+    <AssemblyName>VinaCent.Blaze.Migrator</AssemblyName>
+    <OutputType>Exe</OutputType>
+    <PackageId>VinaCent.Blaze.Migrator</PackageId>
+    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Abp.Castle.Log4Net" Version="7.3.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\VinaCent.Blaze.Core\VinaCent.Blaze.Core.csproj" />
+    <ProjectReference Include="..\VinaCent.Blaze.EntityFrameworkCore\VinaCent.Blaze.EntityFrameworkCore.csproj" />
+  </ItemGroup>
+</Project>

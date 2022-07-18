@@ -1,0 +1,38 @@
+﻿@using Abp.Collections.Extensions
+@using Newtonsoft.Json
+@using VinaCent.Blaze.Themes
+@using VinaCent.Blaze.Web.Themes.Velzon.ThemeOptions
+@model Abp.Web.Mvc.Models.ErrorViewModel
+@inject ITheme Theme
+@inject IVelzonThemeOptions ThemeOptions
+
+@{
+    Layout = Theme.GetLayout(StandardLayouts.Error);
+    var sc = (int)ViewBag.StatusCode;
+}
+
+@switch (sc)
+{
+    case 404:
+        ViewBag.Title = L(LKConstants.Error404Title);
+        await Html.RenderPartialAsync("~/Themes/Velzon/Errors/Code404.cshtml");
+        return;
+
+    case 400:
+        ViewBag.Title = L(LKConstants.Error400Title);
+        await Html.RenderPartialAsync("~/Themes/Velzon/Errors/Code400.cshtml");
+        return;
+
+    case 500:
+        ViewBag.Title = L(LKConstants.Error500Title);;
+        await Html.RenderPartialAsync("~/Themes/Velzon/Errors/Code500.cshtml");
+        return;
+
+    default:
+        ViewBag.Title = !string.IsNullOrEmpty(Model.ErrorInfo.Details) ? Model.ErrorInfo.Details : Model.ErrorInfo.Message;
+        Layout = Theme.GetLayout(StandardLayouts.Application);
+        ThemeOptions.LayoutHorizontal().HideBreadcrumb().Commit(this);
+        <partial name="~/Themes/Velzon/Errors/CodeErrorDev.cshtml" model="@Model" />
+        @*@JsonConvert.SerializeObject(Model);*@
+        break;
+}

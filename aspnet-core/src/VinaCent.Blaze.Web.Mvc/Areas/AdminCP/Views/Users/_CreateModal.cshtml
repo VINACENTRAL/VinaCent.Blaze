@@ -1,0 +1,72 @@
+﻿@using Abp.Authorization.Users
+@using VinaCent.Blaze.Web.Areas.AdminCP.Models.Users
+@using VinaCent.Blaze.Web.Models.Common.Modals
+@model UserListViewModel
+@{
+    Layout = null;
+}
+<div class="modal fade" id="UserCreateModal" tabindex="-1" role="dialog" aria-labelledby="UserCreateModalLabel" data-backdrop="static">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            @await Html.PartialAsync("~/Views/Shared/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L(LKConstants.CreateNewUser)))
+            <form name="userCreateForm" role="form" class="form-horizontal">
+                <div class="modal-body">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="nav-item">
+                            <button class="nav-link active" type="button" data-bs-toggle="tab" role="tab" data-bs-target="#create-user-details">@L(LKConstants.UserDetails)</button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="nav-link" type="button" data-bs-toggle="tab" role="tab" data-bs-target="#create-user-roles">@L(LKConstants.UserRoles)</button>
+                        </li>
+                    </ul>
+                    <div class="tab-content mt-4">
+                        <div role="tabpanel" class="tab-pane container active" id="create-user-details">
+                            <div class="required mb-3">
+                                <label class="form-label">@L(LKConstants.UserName)</label>
+                                <input type="text" class="form-control" name="UserName" required maxlength="@AbpUserBase.MaxUserNameLength" minlength="2">
+                            </div>
+                            <div class="required mb-3">
+                                <label class="form-label">@L(LKConstants.Name)</label>
+                                <input type="text" class="form-control" name="Name" required maxlength="@AbpUserBase.MaxNameLength">
+                            </div>
+                            <div class="required mb-3">
+                                <label class="form-label">@L(LKConstants.Surname)</label>
+                                <input type="text" class="form-control" name="Surname" required maxlength="@AbpUserBase.MaxSurnameLength">
+                            </div>
+                            <div class="required mb-3">
+                                <label class="form-label">@L(LKConstants.EmailAddress)</label>
+                                <input type="email" class="form-control" name="EmailAddress" required maxlength="@AbpUserBase.MaxEmailAddressLength">
+                            </div>
+                            <div class="required mb-3">
+                                <label class="form-label">@L(LKConstants.Password)</label>
+                                <input type="password" class="form-control" name="Password" id="Password" required maxlength="@AbpUserBase.MaxPlainPasswordLength">
+                            </div>
+                            <div class="required mb-3">
+                                <label class="form-label">@L(LKConstants.ConfirmPassword)</label>
+                                <input type="password" class="form-control" name="ConfirmPassword" id="ConfirmPassword" required maxlength="@AbpUserBase.MaxPlainPasswordLength">
+                            </div>
+                            <div class="form-check form-switch form-switch-success mb-3">
+                                <input class="form-check-input" type="checkbox" role="switch" id="IsActive" name="IsActive" value="true" checked>
+                                <label class="form-check-label" for="IsActive">@L(LKConstants.IsActive)</label>
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane container" id="create-user-roles">
+                            <div class="row">
+                                @foreach (var role in Model.Roles)
+                                {
+                                    <div class="col-md-6">
+                                        <div class="form-check form-switch form-switch-success mb-3">
+                                            <input class="form-check-input" type="checkbox" role="switch" name="role" value="@role.NormalizedName" title="@role.Description" id="role-@role.Id">
+                                            <label class="form-check-label" for="role-@role.Id" title="@role.DisplayName">@role.Name</label>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @await Html.PartialAsync("~/Views/Shared/Modals/_ModalFooterWithSaveAndCancel.cshtml")
+            </form>
+        </div>
+    </div>
+</div>

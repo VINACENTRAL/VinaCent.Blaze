@@ -1,0 +1,61 @@
+﻿<header id="page-topbar">
+    <div class="layout-width">
+        <div class="navbar-header">
+            <div class="d-flex">
+                <vc:velzon-brand/>
+
+                <button type="button"
+                        class="btn btn-sm px-3 fs-16 header-item vertical-menu-btn topnav-hamburger shadow-none"
+                        id="topnav-hamburger-icon">
+                    <span class="hamburger-icon">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </span>
+                </button>
+
+                <vc:velzon-topbar-search/>
+            </div>
+
+            <div class="d-flex align-items-center">
+
+                <div class="dropdown d-md-none topbar-head-dropdown header-item">
+                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0"
+                         aria-labelledby="page-header-search-dropdown">
+                        <form class="p-3">
+                            <div class="form-group m-0">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Search ..."
+                                           aria-label="Recipient's username">
+                                    <button class="btn btn-primary" type="submit">
+                                        <i class="mdi mdi-magnify"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <vc:velzon-language-switcher/>
+
+                @* <vc:velzon-topbar-app-list/> *@
+
+                <vc:velzon-topbar-my-cart/>
+
+                <div class="ms-1 header-item d-none d-sm-flex">
+                    <button type="button"
+                            class="btn btn-icon btn-topbar btn-ghost-secondary rounded-circle light-dark-mode shadow-none">
+                        <i class="bx bx-moon fs-22"></i>
+                    </button>
+                </div>
+
+                @if (User.Identity?.IsAuthenticated == true)
+                {
+                    <vc:velzon-topbar-notifications/>
+                }
+
+                <vc:velzon-user-area/>
+            </div>
+        </div>
+    </div>
+</header>

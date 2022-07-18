@@ -1,0 +1,38 @@
+﻿@using VinaCent.Blaze.AppCore.TextTemplates.Dto
+@using VinaCent.Blaze.MultiTenancy.Dto
+@using VinaCent.Blaze.Web.Areas.AdminCP.Models.EmailConfiguration.SetUpMailServer
+@using VinaCent.Blaze.Web.Areas.AdminCP.Models.EmailConfiguration.TextTemplates
+@using VinaCent.Blaze.Web.Models.Common.Modals
+@model TestTextTemplateDto
+@{
+    Layout = null;
+}
+
+<div class="modal fade" id="TextTemplateTestModal" tabindex="-1" role="dialog" aria-labelledby="TextTemplateTestModalLabel" data-backdrop="static">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            @await Html.PartialAsync("~/Views/Shared/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L(LKConstants.TestTextTemplate)))
+            <form name="TextTemplateTestForm" role="form" class="form-horizontal">
+                <input type="hidden" asp-for="TextTemplateId" id="test-text-template-id" />
+                <div class="modal-body">
+                    <div class="required mb-3" id="test-text-template-title">
+                    </div>
+                    <div class="required mb-3">
+                        <label class="form-label" asp-for="Receiver"></label>
+                        <input type="text" class="form-control" asp-for="Receiver">
+                        <span asp-validation-for="Receiver" class="invalid-feedback"></span>
+                    </div>
+                    <div class="required mb-3">
+                        <label class="form-label" asp-for="Parameters"></label>
+                        <textarea class="form-control" asp-for="Parameters" rows="10"></textarea>
+                        <span asp-validation-for="Parameters" class="invalid-feedback"></span>
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-light waves-effect waves-light close-button" data-bs-dismiss="modal">@L(LKConstants.Cancel)</button>
+                    <button type="button" class="btn btn-success waves-effect waves-light save-button"><i class="mdi mdi-send me-2"></i>@L(LKConstants.TestTextTemplate)</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

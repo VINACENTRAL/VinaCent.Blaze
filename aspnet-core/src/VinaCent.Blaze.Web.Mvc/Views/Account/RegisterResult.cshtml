@@ -1,0 +1,30 @@
+﻿@model VinaCent.Blaze.Web.Models.Account.RegisterResultViewModel
+@{
+    ViewBag.Title = L(LKConstants.SuccessfullyRegistered);
+}
+<div class="card">
+    <div class="card-body">
+        <h4>@L(LKConstants.SuccessfullyRegistered)</h4>
+        <ul>
+            <li><span class="text-muted">@L(LKConstants.NameSurname):</span> @Model.NameAndSurname</li>
+            <li><span class="text-muted">@L(LKConstants.TenancyName):</span> @Model.TenancyName</li>
+            <li><span class="text-muted">@L(LKConstants.UserName):</span> @Model.UserName</li>
+            <li><span class="text-muted">@L(LKConstants.EmailAddress):</span> @Model.EmailAddress</li>
+        </ul>
+        <div>
+            @if (!Model.IsActive)
+            {
+                <div class="alert alert-warning" role="alert">
+                    @L(LKConstants.WaitingForActivationMessage)
+                </div>
+            }
+
+            @if (Model.IsEmailConfirmationRequiredForLogin && !Model.IsEmailConfirmed)
+            {
+                <div class="alert alert-warning" role="alert">
+                    @L(LKConstants.WaitingForEmailActivation)
+                </div>
+            }
+        </div>
+    </div>
+</div>

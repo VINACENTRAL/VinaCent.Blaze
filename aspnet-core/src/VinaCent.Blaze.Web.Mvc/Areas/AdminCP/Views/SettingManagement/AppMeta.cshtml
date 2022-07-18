@@ -1,0 +1,62 @@
+﻿@using VinaCent.Blaze.Web.Areas.AdminCP.Models.SettingManagement
+@using VinaCent.Blaze.Web.Themes.Velzon.ThemeOptions
+@inject IVelzonThemeOptions ThemeOptions
+@using VinaCent.Blaze.Web.Areas.AdminCP.Common
+@model AppMetaSettingModel
+@{
+    ThemeOptions.AddBreadcrumb(L(LKConstants.AdminCP)).AddBreadcrumb(L(LKConstants.SettingManagement)).AddBreadcrumb(L(LKConstants.SettingManagement_AppMeta)).Commit(this);
+    ViewBag.Title = L(LKConstants.SettingManagement_AppMeta);
+    ViewBag.CurrentPageName = AdminCpPageNames.SettingManagement_AppMeta;
+}
+
+@section scripts {
+<script src="~/view-resources/Views/AdminCP/SettingManagement/AppMeta.js"></script>
+}
+
+<div class="card">
+    <div class="card-header">
+        <h4 class="card-title mb-0">@L(LKConstants.ConfigInformation)</h4>
+    </div>
+    <form id="AppMetaForm" role="form" class="form-horizontal" asp-action="AppMeta" method="post">
+        <div class="card-body">
+            <div class="col-12 mb-3">
+                <label class="form-label" asp-for="SiteTitle"></label>
+                <input type="text" class="form-control" asp-for="SiteTitle">
+                <span asp-validation-for="SiteTitle" class="invalid-feedback"></span>
+            </div>
+
+            <div class="col-12 mb-3">
+                <label class="form-label" asp-for="SiteName"></label>
+                <input type="text" class="form-control" asp-for="SiteName">
+                <span asp-validation-for="SiteName" class="invalid-feedback"></span>
+            </div>
+
+            <div class="col-12 mb-3">
+                <label class="form-label" asp-for="SiteDescription"></label>
+                <input type="text" class="form-control" asp-for="SiteDescription">
+                <span asp-validation-for="SiteDescription" class="invalid-feedback"></span>
+            </div>
+
+            <div class="col-12 mb-3">
+                <label class="form-label" asp-for="SiteFavicon"></label>
+                <input type="text" class="form-control" asp-for="SiteFavicon">
+                <span asp-validation-for="SiteFavicon" class="invalid-feedback"></span>
+            </div>
+
+            <div class="col-12 mb-3">
+                <label class="form-label" asp-for="SiteAuthor"></label>
+                <input type="text" class="form-control" asp-for="SiteAuthor">
+                <span asp-validation-for="SiteAuthor" class="invalid-feedback"></span>
+            </div>
+
+            <div class="col-12 mb-3">
+                <label class="form-label" asp-for="SiteAuthorProfileUrl"></label>
+                <input type="text" class="form-control" asp-for="SiteAuthorProfileUrl">
+                <span asp-validation-for="SiteAuthorProfileUrl" class="invalid-feedback"></span>
+            </div>
+        </div>
+        <div class="modal-footer justify-content-end">
+            <button type="submit" class="btn btn-primary waves-effect waves-light">@L(LKConstants.Save)</button>
+        </div>
+    </form>
+</div>

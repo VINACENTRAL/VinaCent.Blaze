@@ -1,0 +1,23 @@
+﻿@using VinaCent.Blaze.Profiles.Dto
+@using VinaCent.Blaze.Web.Resources
+@model UpdateAvatarDto
+
+<div class="card mt-n5">
+    <div class="card-body p-4">
+        <div class="text-center">
+            <div class="profile-user position-relative d-inline-block mx-auto  mb-4">
+                <img id="user-avatar" src="@Model.Avatar" class="rounded-circle avatar-xl img-thumbnail user-profile-image shadow" alt="user-profile-image" avatar self-avatar/>
+                <div class="avatar-xs p-0 rounded-circle profile-photo-edit">
+                    <label data-bs-toggle="modal" data-bs-target="#UpdateAvatarModal" class="profile-photo-edit avatar-xs">
+                        <span class="avatar-title rounded-circle bg-light text-body shadow">
+                            <i class="ri-camera-fill"></i>
+                        </span>
+                    </label>
+                </div>
+            </div>
+            <h5 class="fs-16 mb-1">@ViewBag.FullName</h5>
+        </div>
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Views/Profile/Components/ProfileAvatar/_UpdateAvatarModal.cshtml", Model)

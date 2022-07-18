@@ -1,0 +1,19 @@
+﻿@model VinaCent.Blaze.BusinessCore.ShopModule.Categories.Dto.FilterCategoryDto
+@{
+    var currentLevel = (int)ViewBag.CurrentLevel;
+}
+<div class="abp-advanced-search">
+    <form class="form-horizontal search-form">
+        <div class="input-group">
+            <button type="button" class="btn btn-primary waves-effect waves-light btn-search">
+                <span class="fas fa-search" aria-hidden="true"></span>
+            </button>
+            <input type="text" asp-for="Keyword" class="form-control txt-search" />
+            @if (currentLevel == 0)
+            {
+                <input type="hidden" asp-for="ParentId" />
+            }
+            <input type="hidden" asp-for="Level" />
+        </div>
+    </form>
+</div>

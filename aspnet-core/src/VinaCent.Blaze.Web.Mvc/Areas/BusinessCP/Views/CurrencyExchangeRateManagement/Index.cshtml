@@ -1,0 +1,51 @@
+﻿@using VinaCent.Blaze.BusinessCore.CurrencyExchangeRates.Dto
+@using VinaCent.Blaze.BusinessCore.CurrencyUnits.Dto
+@using VinaCent.Blaze.Web.Areas.BusinessCP.Common
+@using VinaCent.Blaze.Web.Areas.BusinessCP.Models.CurrencyExchangeRateManagement
+@using VinaCent.Blaze.Web.Startup
+@using VinaCent.Blaze.Web.Themes.Velzon.ThemeOptions
+@inject IVelzonThemeOptions ThemeOptions
+@model CurrencyExchangeRateManagementViewModel
+
+@{
+    ThemeOptions.AddBreadcrumb(L(LKConstants.BusinessCP)).AddBreadcrumb(L(LKConstants.CurrencyManagement)).AddBreadcrumb(L(LKConstants.CurrencyExchangeRateManagement)).Commit(this);
+    ViewBag.Title = L(LKConstants.CurrencyExchangeRateManagement);
+    ViewBag.CurrentPageName = BusinessCpPageNames.CurrencyExchangeRateManagement;
+}
+@section scripts
+{
+<script src="~/view-resources/Views/BusinessCP/CurrencyExchangeRateManagement/Index.js" asp-append-version="true"></script>
+}
+<div class="card">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-md-6">
+            </div>
+            <div class="col-md-6">
+                @await Html.PartialAsync("~/Areas/BusinessCP/Views/CurrencyExchangeRateManagement/Index.AdvancedSearch.cshtml", new PagedCurrencyUnitResultRequestDto())
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <input type="hidden" id="defaultCurrencyISOSymbol" value="@Model.Default.ISOCurrencySymbol" />
+            <table id="CurrencyExchangeRatesTable" class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>@L(LKConstants.CurrencyNativeName)</th>
+                        <th>@L(LKConstants.CurrencyExchangeRatePairISOSymbolFrom, Model.Default.CurrencyNativeName)</th>
+                        <th>@L(LKConstants.CurrencyExchangeRatePairISOSymbolTo, Model.Default.CurrencyNativeName)</th>
+                        <th>@L(LKConstants.CurrencyExchangeRateLastModificationTime)</th>
+                        <th style="width: 250px">@L(LKConstants.Actions)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/BusinessCP/Views/CurrencyExchangeRateManagement/_CreateModal.cshtml", new UpdateExchangeRateDto())
+@await Html.PartialAsync("~/Areas/BusinessCP/Views/CurrencyExchangeRateManagement/_HistoryModal.cshtml", new PagedExchangeRateHistoryResultRequestDto())

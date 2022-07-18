@@ -1,0 +1,27 @@
+﻿@using VinaCent.Blaze.MultiTenancy.Dto
+@using VinaCent.Blaze.Web.Models.Common.Modals
+@model TenantDto
+@{
+    Layout = null;
+}
+@await Html.PartialAsync("~/Views/Shared/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L(LKConstants.EditTenant)))
+<form name="TenantEditForm" role="form" class="form-horizontal">
+    <input type="hidden" name="Id" value="@Model.Id" />
+    <div class="modal-body">
+        <div class="required mb-3">
+            <label class="form-label" for="tenancy-name">@L(LKConstants.TenancyName)</label>
+            <input id="tenancy-name" type="text" class="form-control" name="TenancyName" value="@Model.TenancyName" required maxlength="64" minlength="2">
+        </div>
+        <div class="required mb-3">
+            <label class="form-label" for="name">@L(LKConstants.Name)</label>
+            <input id="name" type="text" class="form-control" name="Name" value="@Model.Name" required maxlength="128">
+        </div>
+        <div class="form-check form-switch form-switch-success mb-3">
+            <input class="form-check-input" type="checkbox" role="switch" name="role" value="true" id="isactive" @(Model.IsActive ? "checked" : "") />
+            <label class="form-check-label" for="isactive">@L(LKConstants.IsActive)</label>
+        </div>
+    </div>
+    @await Html.PartialAsync("~/Views/Shared/Modals/_ModalFooterWithSaveAndCancel.cshtml")
+</form>
+
+<script src="~/view-resources/Views/Tenants/_EditModal.js" asp-append-version="true"></script>

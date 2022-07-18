@@ -1,0 +1,100 @@
+﻿@using VinaCent.Blaze.Web.Areas.AdminCP.Common
+@using VinaCent.Blaze.Web.Startup
+@using VinaCent.Blaze.Configuration
+@using VinaCent.Blaze.AppCore.FileUnits.Dto
+@using VinaCent.Blaze.Web.Themes.Velzon.ThemeOptions
+@inject IVelzonThemeOptions ThemeOptions
+
+@{
+    ThemeOptions.AddBreadcrumb(L(LKConstants.AdminCP)).AddBreadcrumb(L(LKConstants.FileManagement)).Commit(this);
+    ViewBag.Title = L(AdminCpPageNames.FileManagement);
+    ViewBag.CurrentPageName = AdminCpPageNames.FileManagement;
+}
+
+@section styles {
+    <!-- dropzone css -->
+    <link rel="stylesheet" href="velzon/libs/dropzone/dropzone.css" type="text/css" />
+
+    <!-- Filepond css -->
+    <link rel="stylesheet" href="velzon/libs/filepond/filepond.min.css" type="text/css" />
+    <link rel="stylesheet" href="velzon/libs/filepond-plugin-image-preview/filepond-plugin-image-preview.min.css">
+
+    <style>
+        .table-card td:first-child, .table-card th:first-child {
+            padding-left: 26px;
+        }
+    </style>
+}
+
+@section scripts {
+    <!-- dropzone min -->
+<script src="velzon/libs/dropzone/dropzone-min.js" asp-append-version="true"></script>
+<!-- filepond js -->
+<script src="velzon/libs/filepond/filepond.min.js" asp-append-version="true"></script>
+<script src="velzon/libs/filepond-plugin-image-preview/filepond-plugin-image-preview.min.js" asp-append-version="true"></script>
+<script src="velzon/libs/filepond-plugin-file-validate-size/filepond-plugin-file-validate-size.min.js" asp-append-version="true"></script>
+<script src="velzon/libs/filepond-plugin-image-exif-orientation/filepond-plugin-image-exif-orientation.min.js" asp-append-version="true"></script>
+<script src="velzon/libs/filepond-plugin-file-encode/filepond-plugin-file-encode.min.js" asp-append-version="true"></script>
+
+    <script src="~/view-resources/Views/FileManagement/Index.js" asp-append-version="true"></script>
+}
+
+<div class="card">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-md-6">
+                <button type="button" data-bs-toggle="modal" data-bs-target="#DirectoryCreateModal" class="btn btn-primary waves-effect waves-light mb-3 mb-lg-0" data-quick-key="F2">
+                    <i class="mdi mdi-folder-plus"></i>
+                    @L(LKConstants.CreateDirectory)
+                </button>
+                <button type="button" data-bs-toggle="modal" data-bs-target="#UploadFileModal" class="btn btn-success waves-effect waves-light mb-3 mb-lg-0">
+                    <i class="mdi mdi-cloud-upload-outline"></i>
+                    @L(LKConstants.UploadFile)
+                </button>
+            </div>
+            <div class="col-md-6">
+                @await Html.PartialAsync("~/Areas/AdminCP/Views/FileManagement/Index.AdvancedSearch.cshtml")
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="mb-3">
+            <div class="progress progress-step-arrow progress-primary app-file" id="appfilebreadcrumbs">
+                <div class="progress-bar"><span class="px-3"><i class="mdi mdi-folder-home"></i>@L(LKConstants.RootDirectory)</span></div>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table id="FileUnitsTable" class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>@L(LKConstants.Name)</th>
+                        <th>@L(LKConstants.FileSize)</th>
+                        <th style="width: 350px">@L(LKConstants.Description)</th>
+                        <th>@L(LKConstants.CreationTime)</th>
+                        <th>@L(LKConstants.LastModificationTime)</th>
+                        <th style="width: 150px">@L(LKConstants.Actions)</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/AdminCP/Views/FileManagement/_DirectoryCreateModal.cshtml", new CreateDirectoryDto())
+@await Html.PartialAsync("~/Areas/AdminCP/Views/FileManagement/_UploadFileModal.cshtml", new UploadFileUnitDto())
+
+<div class="modal fade" id="RenameFileUnitModal" tabindex="-1" role="dialog" aria-labelledby="RenameFileUnitModalLabel" data-backdrop="static">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="DetailFileModal" tabindex="-1" role="dialog" aria-labelledby="DetailFileModalLabel" data-backdrop="static">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+        </div>
+    </div>
+</div>

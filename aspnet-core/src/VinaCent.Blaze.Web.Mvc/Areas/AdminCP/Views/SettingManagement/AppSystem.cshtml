@@ -1,0 +1,166 @@
+﻿@using VinaCent.Blaze.Web.Areas.AdminCP.Models.SettingManagement
+@using VinaCent.Blaze.Web.Themes.Velzon.ThemeOptions
+@inject IVelzonThemeOptions ThemeOptions
+@using VinaCent.Blaze.Web.Areas.AdminCP.Common
+@model AppSystemSettingModel
+@{
+    ThemeOptions.AddBreadcrumb(L(LKConstants.AdminCP)).AddBreadcrumb(L(LKConstants.SettingManagement)).AddBreadcrumb(L(LKConstants.SettingManagement_AppSystem)).Commit(this);
+    ViewBag.Title = L(LKConstants.SettingManagement_AppSystem);
+    ViewBag.CurrentPageName = AdminCpPageNames.SettingManagement_AppSystem;
+}
+
+
+@section scripts {
+<script src="~/view-resources/Views/AdminCP/SettingManagement/AppSystem.js"></script>
+}
+
+<form id="AppSystemForm" role="form" class="form-horizontal" asp-action="AppSystem" method="post">
+    <div class="row">
+        <div class="col-md-6 col-lg-4">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title mb-0">@L(LKConstants.AppCommonSettings)</h4>
+                </div>
+                <div class="card-body">
+                    <div class="form-check form-switch form-switch-success mb-3">
+                        <input class="form-check-input" type="checkbox" role="switch" value="true" asp-for="AppSys_DoNotShowLogoutScreen">
+                        <label class="form-check-label" asp-for="AppSys_DoNotShowLogoutScreen"></label>
+                    </div>
+                    <div class="form-check form-switch form-switch-success mb-3">
+                        <input class="form-check-input" type="checkbox" role="switch" value="true" asp-for="AppSys_IsRegisterEnabled">
+                        <label class="form-check-label" asp-for="AppSys_IsRegisterEnabled"></label>
+                    </div>
+                    <div class="form-check form-switch form-switch-success mb-3">
+                        <input class="form-check-input" type="checkbox" role="switch" value="true" asp-for="IsUserNameUpdateEnabled">
+                        <label class="form-check-label" asp-for="IsUserNameUpdateEnabled"></label>
+                    </div>
+                    <div class="form-check form-switch form-switch-success mb-3">
+                        <input class="form-check-input" type="checkbox" role="switch" value="true" asp-for="IsEmailUpdateEnabled">
+                        <label class="form-check-label" asp-for="IsEmailUpdateEnabled"></label>
+                    </div>
+                    <div class="form-check form-switch form-switch-success mb-3">
+                        <input class="form-check-input" type="checkbox" role="switch" value="true" asp-for="UserManagement_IsEmailConfirmationRequiredForLogin">
+                        <label class="form-check-label" asp-for="UserManagement_IsEmailConfirmationRequiredForLogin"></label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title mb-0">@L(LKConstants.FileManagement)</h4>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label class="form-label" asp-for="AllowedMaxFileSize"></label>
+                        <input class="form-control" asp-for="AllowedMaxFileSize">
+                        <span asp-validation-for="AllowedMaxFileSize" class="invalid-feedback"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" asp-for="AllowedUploadFormats"></label>
+                        <input class="form-control" asp-for="AllowedUploadFormats">
+                        <span asp-validation-for="AllowedUploadFormats" class="invalid-feedback"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title mb-0">@L(LKConstants.UserLockOut)</h4>
+                </div>
+                <div class="card-body">
+                    <div class="form-check form-switch form-switch-success mb-3">
+                        <input class="form-check-input" type="checkbox" role="switch" value="true" asp-for="UserManagement_UserLockOut_IsEnabled">
+                        <label class="form-check-label" asp-for="UserManagement_UserLockOut_IsEnabled"></label>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" asp-for="UserManagement_UserLockOut_MaxFailedAccessAttemptsBeforeLockout"></label>
+                        <input class="form-control" asp-for="UserManagement_UserLockOut_MaxFailedAccessAttemptsBeforeLockout">
+                        <span asp-validation-for="UserManagement_UserLockOut_MaxFailedAccessAttemptsBeforeLockout" class="invalid-feedback"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" asp-for="UserManagement_UserLockOut_DefaultAccountLockoutSeconds"></label>
+                        <input class="form-control" asp-for="UserManagement_UserLockOut_DefaultAccountLockoutSeconds">
+                        <span asp-validation-for="UserManagement_UserLockOut_DefaultAccountLockoutSeconds" class="invalid-feedback"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title mb-0">@L(LKConstants.TwoFactorLogin)</h4>
+                </div>
+                <div class="card-body">
+                    <div class="form-check form-switch form-switch-success mb-3">
+                        <input class="form-check-input" type="checkbox" role="switch" value="true" asp-for="UserManagement_TwoFactorLogin_IsEnabled">
+                        <label class="form-check-label" asp-for="UserManagement_TwoFactorLogin_IsEnabled"></label>
+                    </div>
+                    <div class="form-check form-switch form-switch-success mb-3">
+                        <input class="form-check-input" type="checkbox" role="switch" value="true" asp-for="UserManagement_TwoFactorLogin_IsEmailProviderEnabled">
+                        <label class="form-check-label" asp-for="UserManagement_TwoFactorLogin_IsEmailProviderEnabled"></label>
+                    </div>
+                    <div class="form-check form-switch form-switch-success mb-3">
+                        <input class="form-check-input" type="checkbox" role="switch" value="true" asp-for="UserManagement_TwoFactorLogin_IsSmsProviderEnabled">
+                        <label class="form-check-label" asp-for="UserManagement_TwoFactorLogin_IsSmsProviderEnabled"></label>
+                    </div>
+                    <div class="form-check form-switch form-switch-success mb-3">
+                        <input class="form-check-input" type="checkbox" role="switch" value="true" asp-for="UserManagement_TwoFactorLogin_IsRememberBrowserEnabled">
+                        <label class="form-check-label" asp-for="UserManagement_TwoFactorLogin_IsRememberBrowserEnabled"></label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title mb-0">@L(LKConstants.PasswordComplexity)</h4>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label class="form-label" asp-for="UserManagement_PasswordComplexity_RequiredLength"></label>
+                        <input class="form-control" asp-for="UserManagement_PasswordComplexity_RequiredLength">
+                        <span asp-validation-for="UserManagement_PasswordComplexity_RequiredLength" class="invalid-feedback"></span>
+                    </div>
+                    <div class="form-check form-switch form-switch-success mb-3">
+                        <input class="form-check-input" type="checkbox" role="switch" value="true" asp-for="UserManagement_PasswordComplexity_RequireNonAlphanumeric">
+                        <label class="form-check-label" asp-for="UserManagement_PasswordComplexity_RequireNonAlphanumeric"></label>
+                    </div>
+                    <div class="form-check form-switch form-switch-success mb-3">
+                        <input class="form-check-input" type="checkbox" role="switch" value="true" asp-for="UserManagement_PasswordComplexity_RequireLowercase">
+                        <label class="form-check-label" asp-for="UserManagement_PasswordComplexity_RequireLowercase"></label>
+                    </div>
+                    <div class="form-check form-switch form-switch-success mb-3">
+                        <input class="form-check-input" type="checkbox" role="switch" value="true" asp-for="UserManagement_PasswordComplexity_RequireUppercase">
+                        <label class="form-check-label" asp-for="UserManagement_PasswordComplexity_RequireUppercase"></label>
+                    </div>
+                    <div class="form-check form-switch form-switch-success mb-3">
+                        <input class="form-check-input" type="checkbox" role="switch" value="true" asp-for="UserManagement_PasswordComplexity_RequireDigit">
+                        <label class="form-check-label" asp-for="UserManagement_PasswordComplexity_RequireDigit"></label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title mb-0">@L(LKConstants.OrganizationUnits)</h4>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label class="form-label" asp-for="UserManagement_OrganizationUnits_MaxUserMembershipCount"></label>
+                        <input class="form-control" asp-for="UserManagement_OrganizationUnits_MaxUserMembershipCount">
+                        <span asp-validation-for="UserManagement_OrganizationUnits_MaxUserMembershipCount" class="invalid-feedback"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="modal-footer justify-content-end">
+            <button type="submit" class="btn btn-primary waves-effect waves-light">@L(LKConstants.Save)</button>
+        </div>
+    </div>
+</form>

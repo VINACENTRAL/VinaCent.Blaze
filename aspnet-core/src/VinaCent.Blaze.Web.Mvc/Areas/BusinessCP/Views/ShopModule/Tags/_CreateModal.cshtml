@@ -1,0 +1,41 @@
+﻿@using VinaCent.Blaze.BusinessCore.ShopModule.Categories.Dto
+@using VinaCent.Blaze.Web.Models.Common.Modals
+@model VinaCent.Blaze.BusinessCore.ShopModule.Tags.Dto.CreateTagDto
+@{
+    Layout = null;
+    var title = L(LKConstants.ShopModule_CreateTag);
+
+    var titleInputId = $"ref{Guid.NewGuid().ToString("N").ToLower()}";
+}
+<div class="modal fade create-modal" tabindex="-1" role="dialog" data-backdrop="static">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            @await Html.PartialAsync("~/Views/Shared/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(title))
+            <form role="form" class="form-horizontal">
+                <div class="modal-body">
+                    <div class="required mb-3">
+                        <label class="form-label" asp-for="Title"></label>
+                        <input type="text" asp-for="Title" class="form-control" id="@titleInputId" />
+                        <span asp-validation-for="Title" class="invalid-feedback"></span>
+                    </div>
+                    <div class="required mb-3">
+                        <label class="form-label" asp-for="MetaTitle"></label>
+                        <input type="text" asp-for="MetaTitle" class="form-control" />
+                        <span asp-validation-for="MetaTitle" class="invalid-feedback"></span>
+                    </div>
+                    <div class="required mb-3">
+                        <label class="form-label" asp-for="Slug"></label>
+                        <input type="text" asp-for="Slug" class="form-control" slug-of="#@titleInputId" />
+                        <span asp-validation-for="Slug" class="invalid-feedback"></span>
+                    </div>
+                    <div class="required mb-3">
+                        <label class="form-label" asp-for="Content"></label>
+                        <input type="text" asp-for="Content" class="form-control" />
+                        <span asp-validation-for="Content" class="invalid-feedback"></span>
+                    </div>
+                </div>
+                @await Html.PartialAsync("~/Views/Shared/Modals/_ModalFooterWithSaveAndCancel.cshtml")
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,77 @@
+﻿@using Abp
+@using VinaCent.Blaze
+@using Abp.Zero
+@using VinaCent.Blaze.AppCore.LanguageTexts.Dto
+@model PagedLanguageTextResultRequestDto
+
+@{
+    var languages = LanguageManager.GetActiveLanguages();
+    var defaultLanguges = languages.Select(x => new SelectListItem(x.DisplayName, x.Name, x.IsDefault || (x.Name != CultureInfo.CurrentUICulture.Name)));
+    var currentLanguages = languages.Select(x => new SelectListItem(x.DisplayName, x.Name, x.Name == CultureInfo.CurrentUICulture.Name));
+
+    var defaultLanguage = languages.FirstOrDefault(x => x.IsDefault);
+}
+
+<div class="abp-advanced-search">
+    <form class="form-horizontal search-form">
+        <div class="input-group">
+            <button type="button" class="btn btn-primary waves-effect waves-light btn-search">
+                <span class="fas fa-search" aria-hidden="true"></span>
+            </button>
+            <input type="text" name="Keyword" class="form-control txt-search" />
+            <button type="button"
+                    class="btn btn-primary waves-effect waves-light dropdown-toggle"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                <i class="fas fa-filter"></i>
+            </button>
+            <div class="dropdown-menu  dropdown-menu-right dd-menu" role="menu" style="padding: 0">
+                <div class="card" style="margin-bottom: 0">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-@(defaultLanguage != null ? "6":"4")">
+                                <div class="required mb-3">
+                                    <label class="form-label" asp-for="SourceName"></label>
+                                    <select class="form-control" asp-for="SourceName">
+                                        <option value="">@L(LKConstants.All)</option>
+                                        <option value="@BlazeConsts.LocalizationSourceName">@BlazeConsts.LocalizationSourceName</option>
+                                        <option value="@AbpZeroConsts.LocalizationSourceName">@AbpZeroConsts.LocalizationSourceName</option>
+                                        <option value="@AbpConsts.LocalizationSourceName">@AbpConsts.LocalizationSourceName</option>
+                                    </select>
+                                    <span asp-validation-for="SourceName" class="invalid-feedback"></span>
+                                </div>
+                            </div>
+                            @if (defaultLanguage != null)
+                            {
+                                <input type="hidden" asp-for="DefaultLanguageName" value="@defaultLanguage.Name" />
+                            }
+                            else
+                            {
+                                <div class="col-md-4">
+                                    <div class="required mb-3">
+                                        <label class="form-label" asp-for="DefaultLanguageName"></label>
+                                        <select class="form-control" asp-for="DefaultLanguageName" asp-items="@defaultLanguges">
+                                        </select>
+                                        <span asp-validation-for="DefaultLanguageName" class="invalid-feedback"></span>
+                                    </div>
+                                </div>
+                            }
+                            <div class="col-md-@(defaultLanguage != null ? "6":"4")">
+                                <div class="required mb-3">
+                                    <label class="form-label" asp-for="CurrentLanguageName"></label>
+                                    <select class="form-control" asp-for="CurrentLanguageName" asp-items="@currentLanguages">
+                                    </select>
+                                    <span asp-validation-for="CurrentLanguageName" class="invalid-feedback"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button type="button" class="btn btn-danger btn-clear"><i class="fas fa-backspace me-2"></i> @L(LKConstants.Clear)</button>
+                        <button type="button" class="btn btn-primary float-end btn-search"><i class="fas fa-search me-2"></i> @L(LKConstants.Search)</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

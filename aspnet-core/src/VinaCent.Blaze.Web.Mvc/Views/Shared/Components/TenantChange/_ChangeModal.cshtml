@@ -1,0 +1,21 @@
+﻿@using Abp.MultiTenancy
+@using VinaCent.Blaze.Web.Models.Common.Modals
+@using VinaCent.Blaze.Web.Views.Shared.Components.TenantChange
+@model ChangeModalViewModel
+@{
+    Layout = null;
+}
+@await Html.PartialAsync("~/Views/Shared/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L(LKConstants.ChangeTenant)))
+
+<form name="TenantChangeForm" role="form" novalidate class="form-horizontal">
+    <div class="modal-body">
+        <div class="">
+            <label class="form-label" for="TenancyName">@L(LKConstants.TenancyName)</label>
+            <input id="TenancyName" name="TenancyName" class="form-control" type="text" maxlength="@AbpTenantBase.MaxTenancyNameLength.ToString()" value="@Model.TenancyName">
+        </div>
+        <span class="small text-danger"><i class="fa fa-info-circle"></i> @L(LKConstants.LeaveEmptyToSwitchToHost)</span>
+    </div>
+    @await Html.PartialAsync("~/Views/Shared/Modals/_ModalFooterWithSaveAndCancel.cshtml")
+</form>
+
+<script src="~/view-resources/Views/Shared/Components/TenantChange/_ChangeModal.js" asp-append-version="true"></script>

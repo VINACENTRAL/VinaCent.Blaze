@@ -1,0 +1,168 @@
+﻿@using StringExtensions = Abp.Extensions.StringExtensions
+@using Castle.Core.Internal
+@using VinaCent.Blaze.AppCore.AuditLogs.Dto
+@model AuditLogDto
+
+<div class="modal-header">
+	<h5 class="modal-title">@L(LKConstants.Detail)</h5>
+	<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+<div class="form-horizontal">
+	<div class="modal-body">
+		<div class="mb-3">
+			<label class="form-label fw-bold" asp-for="ServiceName"></label>
+			<div class="">
+				@Model.ServiceName
+			</div>
+		</div>
+		<div class="mb-3">
+			<label class="form-label fw-bold"asp-for="MethodName"></label>
+			<div class="">
+				@Model.MethodName
+			</div>
+		</div>
+		@if (AbpSession.TenantId == null)
+		{
+			<div class="mb-3">
+				<label class="form-label fw-bold" asp-for="TenantId"></label>
+				<div class="">
+				@if (Model.TenantId == null)
+				{
+					@L(LKConstants.Unknown)
+				}
+				else
+				{
+					@Model.TenantId
+				}
+				</div>
+			</div>
+		}
+		@if (AbpSession.TenantId == null)
+		{
+			<div class="mb-3">
+				<label class="form-label fw-bold" asp-for="ImpersonatorTenantId"></label>
+				<div class="">
+				@if (Model.ImpersonatorTenantId == null)
+				{
+					@L(LKConstants.Unknown)
+				}
+				else
+				{
+					@Model.ImpersonatorTenantId
+				}
+				</div>
+			</div>
+		}
+		<div class="mb-3">
+			<label class="form-label fw-bold" asp-for="ClientIpAddress"></label>
+			<div class="">
+				@Model.ClientIpAddress
+			</div>
+		</div>
+		<div class="mb-3">
+			<label class="form-label fw-bold" asp-for="ClientName"></label>
+			<div class="">
+				@if (Model.ClientName.IsNullOrEmpty())
+				{
+					@L(LKConstants.Unknown)
+				}
+				else
+				{
+					@Model.ClientName
+				}
+			</div>
+		</div>
+		<div class="mb-3">
+			<label class="form-label fw-bold" asp-for="ExceptionMessage"></label>
+			<div class="">
+				@if (StringExtensions.IsNullOrEmpty(Model.ExceptionMessage))
+				{
+					@L(LKConstants.NoException)
+				}
+				else
+				{
+					@Model.ExceptionMessage
+				}
+			</div>
+		</div>
+		<div class="mb-3">
+			<label class="form-label fw-bold" asp-for="Exception"></label>
+			<div class="" style="overflow-wrap: break-word">
+				@if (Model.Exception.IsNullOrEmpty())
+				{
+					@L(LKConstants.NoException)
+				}
+				else
+				{
+					<textarea asp-for="Exception" class="form-control" readonly></textarea>
+				}
+			</div>
+		</div>
+		<div class="mb-3">
+			<label class="form-label fw-bold" asp-for="UserName"></label>
+			<div class="">
+				@if (Model.UserDto != null)
+				{
+					@Model.UserDto.UserName
+				}
+				else
+				{
+					@L(LKConstants.Unknown)
+				}
+			</div>
+		</div>
+		<div class="mb-3">
+			<label class="form-label fw-bold" asp-for="ImpersonatorUserName"></label>
+			<div class="">
+				@if (Model.ImpersonatorUserDto != null)
+				{
+					@Model.ImpersonatorUserDto.UserName
+				}
+				else
+				{
+					@L(LKConstants.Unknown)
+				}
+			</div>
+		</div>
+		<div class="mb-3">
+			<label class="form-label fw-bold" asp-for="ExecutionTime"></label>
+			<div class="">
+				@Model.ExecutionTime
+			</div>
+		</div>
+		<div class="mb-3">
+			<label class="form-label fw-bold" asp-for="ExecutionDuration"></label>
+			<div class="">
+				@Model.ExecutionDuration (ms)
+			</div>
+		</div>
+		<div class="mb-3">
+			<label class="form-label fw-bold" asp-for="BrowserInfo"></label>
+			<div class="">
+				@Model.BrowserInfo
+			</div>
+		</div>
+		<div class="mb-3">
+			<label class="form-label fw-bold" asp-for="Parameters"></label>
+			<textarea class="form-control" asp-for="Parameters" readonly></textarea>
+		</div>
+		<div class="mb-3">
+			<label class="form-label fw-bold" asp-for="CustomData"></label>
+			<div class="">
+				@if (Model.CustomData.IsNullOrEmpty())
+				{
+					@L(LKConstants.Unknown)
+				}
+				else
+				{
+					@Model.CustomData
+				}
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-light waves-effect waves-light close-button" data-bs-dismiss="modal">
+			@L(LKConstants.Close)
+		</button>
+	</div>
+</div>

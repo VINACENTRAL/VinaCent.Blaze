@@ -1,0 +1,18 @@
+﻿@using VinaCent.Blaze.Web.Views.Shared.Components.RightNavbarLanguageSwitch
+@model RightNavbarLanguageSwitchViewModel
+
+<button type="button" class="btn btn-icon btn-topbar btn-ghost-secondary shadow-none" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <i class="@Model.CurrentLanguage.Icon" title="@Model.CurrentLanguage.DisplayName"></i>
+</button>
+<div class="dropdown-menu dropdown-menu-end">
+    @foreach (var languageInfo in Model.Languages)
+    {
+        if (languageInfo.Name != Model.CurrentLanguage.Name)
+        {
+            <a class="dropdown-item notify-item language py-2" href="@Url.Action("ChangeCulture", "AbpLocalization", new {cultureName = languageInfo.Name, returnUrl = Context.Request.Path + Context.Request.QueryString})">
+                <i class="@languageInfo.Icon"></i>
+                <span class="align-middle">@languageInfo.DisplayName</span>
+            </a>
+        }
+    }
+</div>

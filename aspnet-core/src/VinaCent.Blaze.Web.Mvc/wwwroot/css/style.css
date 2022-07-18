@@ -1,0 +1,64 @@
+﻿table.table-bordered.dataTable th, table.table-bordered.dataTable td {
+    border-left-width: 1px;
+}
+
+.dataTables_length label {
+    margin: 0;
+}
+
+.dataTables_info {
+    padding-top: 0 !important;
+}
+
+.toast-success {
+    background-color: #51A351 !important;
+}
+
+.toast-error {
+    background-color: #BD362F !important;
+}
+
+.toast-info {
+    background-color: #2F96B4 !important;
+}
+
+.toast-warning {
+    background-color: #F89406 !important;
+}
+
+
+#toast-container > div {
+    border: none !important;
+    background-repeat: no-repeat !important;
+    border-radius: 10px !important;
+    background-position: 15px center !important;
+    padding: 22px 22px 22px 50px;
+    opacity: 1 !important;
+}
+
+    #toast-container > div:hover {
+        box-shadow: none;
+    }
+
+.swal-text {
+    text-align: center;
+}
+
+.mid-truncate {
+    position: relative;
+    width: 100px;
+}
+
+    .mid-truncate p {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .mid-truncate:after {
+        content: attr(data-type);
+        position: absolute;
+        left: 100%;
+        top: 0;
+        cursor: text;
+    }

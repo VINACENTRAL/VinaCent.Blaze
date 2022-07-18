@@ -1,0 +1,25 @@
+﻿@using VinaCent.Blaze.Web.Areas.AdminCP.Models.EmailConfiguration.SetUpMailServer
+@model TestEmailSenderDto
+
+<div class="card">
+    <div class="card-header">
+        <h4 class="card-title mb-0">@L(LKConstants.TestEmailSender)</h4>
+    </div>
+    <form id="TestEmailSenderFrom" role="form" class="form-horizontal">
+        <div class="card-body">
+            <div class="mb-3">
+                <label class="form-label" asp-for="Receivers"></label>
+                <input type="text" class="form-control" asp-for="Receivers">
+                <span asp-validation-for="Receivers" class="invalid-feedback"></span>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" asp-for="Content"></label>
+                <textarea class="form-control" rows="11" asp-for="Content"></textarea>
+                <span asp-validation-for="Content" class="invalid-feedback"></span>
+            </div>
+        </div>
+        <div class="modal-footer justify-content-end">
+            <button type="submit" class="btn btn-success waves-effect waves-light"><i class="mdi mdi-send me-1"></i> @L(LKConstants.Send)</button>
+        </div>
+    </form>
+</div>

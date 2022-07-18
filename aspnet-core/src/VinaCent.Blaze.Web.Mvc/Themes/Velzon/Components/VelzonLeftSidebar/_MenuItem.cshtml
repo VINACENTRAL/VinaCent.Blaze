@@ -1,0 +1,90 @@
+﻿@using Abp.Application.Navigation
+@using VinaCent.Blaze.Web.Themes.Velzon.Components.VelzonLeftSidebar
+@using VinaCent.Blaze.Web.Views
+@model Abp.Application.Navigation.UserMenuItem
+@inject ILanguageManager LanguageManager
+@{
+    var isActive = IsActiveMenuItem(Model, ViewBag.CurrentPageName) == true;
+    var subMenus = Model.Items.Where(x => x.IsVisible).OrderByCustom().ToList();
+    var hasSubMenus = subMenus.Any();
+    var level = (int)(ViewBag.MenuItemLevel ?? 0);
+}
+@functions {
+    static bool IsActiveMenuItem(UserMenuItem menuItem, string pageName)
+    {
+        if (string.IsNullOrWhiteSpace(pageName))
+            return false;
+
+        return pageName.Equals(menuItem.Name, StringComparison.InvariantCultureIgnoreCase)
+            || menuItem.Items.Any(cn => IsActiveMenuItem(cn, pageName));
+    }
+
+    string CalculateMenuUrl(string url)
+    {
+        if (string.IsNullOrEmpty(url))
+            return ApplicationPath;
+
+        if (UrlChecker.IsRooted(url))
+            return url;
+
+        return ApplicationPath + url;
+    }
+}
+@if (!hasSubMenus)
+{
+    var linkUrl = CalculateMenuUrl(Model.Url);
+    var linkClasses = $"nav-link {(isActive ? "active" : null)}";
+    var linkTarget = !string.IsNullOrEmpty(Model.Target) ? Html.Raw($" target=\"{Model.Target}\"") : null;
+
+    <li class="nav-item">
+        <a href="@linkUrl" class="@linkClasses" data-key="t-@Model.Name.ToLower()" @linkTarget>
+            @if (!string.IsNullOrEmpty(Model.Icon))
+            {
+                <i class="nav-icon @Url.Content(Model.Icon)"></i>
+            }
+            <span data-key="t-@Model.Name.ToLower()">
+                @Model.DisplayName
+            </span>
+        </a>
+    </li>
+}
+else
+{
+    var navitemClasses = $"nav-item {(hasSubMenus ? "has-treeview" : "")} {(isActive ? "menu-open" : "")}";
+    navitemClasses = !string.IsNullOrEmpty(navitemClasses?.Trim()) ? navitemClasses : null;
+    var linkClasses = $"nav-link menu-link {(isActive ? "active" : null)}";
+
+    var tempId = Guid.NewGuid().ToString("N");
+
+    <li class="@navitemClasses">
+        <a class="@linkClasses" href="#ref-@tempId" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="ref-@tempId">
+            @if (!string.IsNullOrEmpty(Model.Icon))
+            {
+                <i class="nav-icon @Url.Content(Model.Icon)"></i>
+            }
+            <span data-key="t-@Model.Name.ToLower()">
+                @Model.DisplayName
+            </span>
+            @*            @if (LanguageManager.CurrentLanguage.IsRightToLeft)
+                {
+                <i class="fas fa-angle-right right"></i>
+                }
+                else
+                {
+                <i class="fas fa-angle-left right"></i>
+                }*@
+        </a>
+        @if (hasSubMenus)
+        {
+            <div class="collapse menu-dropdown@(isActive?" show":"")" id="ref-@tempId">
+                <ul class="nav nav-sm flex-column">
+                    @foreach (var subMenu in subMenus)
+                    {
+                        ViewBag.MenuItemLevel = level + 1;
+                        @await Html.PartialAsync("~/Themes/Velzon/Components/VelzonLeftSidebar/_MenuItem.cshtml", subMenu)
+                    }
+                </ul>
+            </div>
+        }
+    </li>
+}

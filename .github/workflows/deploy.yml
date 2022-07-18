@@ -1,0 +1,43 @@
+name: Deploy CI
+on:
+  # push:
+  #   branches: [master]
+  # Triggers the workflow on push or pull request events but only for the master branch
+  pull_request:
+    branches: [master]
+    types: [closed]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  release:
+    if: github.event.pull_request.merged
+    runs-on: self-hosted
+    steps:
+      - name: Checkout to current repository
+        uses: actions/checkout@v3
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: 6.0.x
+
+      - name: Build to publish
+        run: dotnet publish ./aspnet-core/src/VinaCent.Blaze.Web.Mvc/VinaCent.Blaze.Web.Mvc.csproj -c Release # Must be change when clone this CI
+
+      - name: Stop running site
+        run: |
+          Stop-WebSite -Name "shop.vinacent.com"
+      - name: Stop running app pool
+        run: |
+          Stop-WebAppPool -Name "shop.vinacent.com"
+      - name: Copy to website root folder
+        run: robocopy "./aspnet-core/src/VinaCent.Blaze.Web.Mvc/bin/Release/net6.0/publish" "C:/inetpub/wwwroot/shop.vinacent.com" /MOVE /COPYALL /B /SEC /E /R:5 /W:5 /NFL /NDL /XD "./.git";exit 0
+
+      - name: Start site
+        run: |
+          Start-WebSite -Name "shop.vinacent.com"
+      - name: Start app pool
+        run: |
+          Start-WebAppPool -Name "shop.vinacent.com"

@@ -1,0 +1,72 @@
+﻿@using Abp.Web.Security.AntiForgery
+@using System.Globalization
+@using VinaCent.Blaze.Configuration
+@using VinaCent.Blaze.Web.Resources
+@inject IAbpAntiForgeryManager AbpAntiForgeryManager
+@inject IWebResourceManager WebResourceManager
+@inject ILanguageManager LanguageManager
+
+@using VinaCent.Blaze.Web.Themes.Velzon.ThemeOptions
+@inject IVelzonThemeOptions ThemeOptions
+
+@{
+    Layout = null;
+    var rtl = CultureInfo.CurrentCulture.TextInfo.IsRightToLeft ? "rtl" : "ltr";
+    ThemeOptions.Load(this);
+
+    AbpAntiForgeryManager.SetCookie(Context);
+
+    var pageTitle = !string.IsNullOrWhiteSpace(ViewBag.Title) ? ViewBag.Title + " | " : "";
+    pageTitle += await SettingManager.GetSettingValueAsync(AppSettingNames.SiteTitle);
+
+    var favicon = await SettingManager.GetSettingValueAsync(AppSettingNames.SiteFavicon);
+}
+
+<!DOCTYPE html>
+<html lang="@LanguageManager.CurrentLanguage.Name" dir="@rtl" data-layout="@ThemeOptions.LayoutDirection" data-topbar="light" data-sidebar="dark" data-sidebar-size="lg" data-layout-mode="@ThemeOptions.UiMode" data-sidebar-image="none">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>@pageTitle</title>
+    <base href="/" />
+
+    @if (ViewBag.Description != null)
+    {
+        <meta name="description" content="@(ViewBag.Description as string)" />
+    }
+    else
+    {
+        var defaultDescription = await SettingManager.GetSettingValueAsync(AppSettingNames.SiteDescription);
+        <meta name="description" content="@defaultDescription" />
+    }
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="@favicon">
+
+    <!-- Layout config Js -->
+    <script src="velzon/js/layout.js"></script>
+    <!-- Bootstrap Css -->
+    <link href="velzon/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <!-- Icons Css -->
+    <link href="velzon/css/icons.min.css" rel="stylesheet" type="text/css" />
+    <!-- App Css-->
+    <link href="velzon/css/app.min.css" rel="stylesheet" type="text/css" />
+    <!-- custom Css-->
+    <link href="velzon/css/custom.css" rel="stylesheet" type="text/css" />
+
+    @await RenderSectionAsync("styles", false)
+    @WebResourceManager.RenderStyles()
+</head>
+<body class="@rtl">
+
+    @RenderBody()
+
+    <script src="~/velzon/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    @await RenderSectionAsync("scripts", false)
+    @WebResourceManager.RenderScripts()
+</body>
+</html>

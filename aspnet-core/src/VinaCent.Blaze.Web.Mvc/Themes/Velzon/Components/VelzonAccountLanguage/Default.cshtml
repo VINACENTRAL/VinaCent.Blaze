@@ -1,0 +1,17 @@
+﻿@using VinaCent.Blaze.Web.Themes.Velzon.Components.VelzonAccountLanguage
+@model LanguageSelectionViewModel
+@if (Model.Languages.Count > 0)
+{
+    <div class="card-footer">
+        <div class="text-center">
+            @foreach (var language in Model.Languages)
+            {
+                var url = Url.Action("ChangeCulture", "AbpLocalization", new { cultureName = language.Name, returnUrl = Context.Request.Path + Context.Request.QueryString });
+                <a href="@url" data-lang="@language.Name" title="@language.DisplayName">
+                    <img src="/vinacent/flags/4x3/@language.Icon" alt="user-image" class="me-2 rounded" height="18"/>
+                    @*<span class="align-middle">@language.DisplayName</span>*@
+                </a>
+            }
+        </div>
+    </div>
+}

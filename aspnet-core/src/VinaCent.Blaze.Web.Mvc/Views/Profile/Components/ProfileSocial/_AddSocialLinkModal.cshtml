@@ -1,0 +1,76 @@
+﻿@using VinaCent.Blaze.Web.Models.Common.Modals
+@using VinaCent.Blaze.Profiles.Dto
+@model SocialNetwork
+@{
+    var icons = new List<string>
+    {
+        "bx bxl-facebook-circle",
+        "bx bxl-instagram",
+        "bx bxl-youtube",
+        "bx bxl-twitter",
+        "bx bxl-tiktok",
+        "bx bxl-steam",
+        "bx bxl-figma",
+        "bx bxl-whatsapp",
+        "bx bxl-tumblr",
+        "bx bxl-behance",
+        "bx bxl-dribbble",
+        "bx bxl-linkedin",
+        "bx bxl-medium-square",
+        "bx bxl-skype",
+        "bx bxl-slack",
+        "bx bxl-twitch",
+        "bx bxl-discord",
+        "bx bxl-reddit",
+        "bx bxl-pinterest",
+        "bx bxl-blogger",
+        "bx bxl-apple",
+        "bx bxl-play-store",
+        "bx bxl-windows",
+        "bx bxl-vk",
+        "bx bxl-wikipedia",
+        "bx bxl-snapchat",
+        "bx bxl-wix",
+        "bx bxl-yahoo",
+        "bx bxl-snapchat",
+        "bx bx-world"
+    };
+}
+
+<div class="modal fade" id="AddSocialLinkModal" tabindex="-1" role="dialog" aria-labelledby="AddSocialLinkModalLabel" data-backdrop="static">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            @await Html.PartialAsync("~/Views/Shared/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L(LKConstants.AddSocialLink)))
+            <form id="addSocialForm" role="form" class="form-horizontal" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <label class="form-label" asp-for="SocialUrl">@L(LKConstants.SocialNetworkLink)</label>
+                    <input type="hidden" asp-for="SocialIcon" value="ri-global-fill"/>
+                    <div class="mb-3">
+                        <div class="input-group">
+                            <button class="btn btn-primary dropdown-toggle" type="button" 
+                                data-bs-toggle="dropdown" aria-expanded="false" 
+                                data-social-icon="ri-global-fill">
+                                <i class="ri-global-fill"></i>
+                            </button>
+                            <ul class="dropdown-menu social-icons flex-wrap">
+                                @foreach(var icon in icons)
+                                {
+                                     <li class="fs-3" data-box-value="@icon">
+                                         <i class="dropdown-item @icon"></i>
+                                     </li>
+                                }
+                            </ul>
+                            <input class="form-control" asp-for="SocialUrl"/>
+                        </div>
+                        <span asp-validation-for="SocialUrl" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">     
+                        <label class="form-label" asp-for="SocialName">@L(LKConstants.Name)</label>
+					    <input class="form-control" asp-for="SocialName"/>
+				    </div>
+                </div>
+                @await Html.PartialAsync("~/Views/Shared/Modals/_ModalFooterWithSaveAndCancel.cshtml")
+            </form>
+        </div>
+    </div>
+</div>

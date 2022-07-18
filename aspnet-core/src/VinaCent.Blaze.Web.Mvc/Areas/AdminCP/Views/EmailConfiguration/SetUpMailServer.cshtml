@@ -1,0 +1,103 @@
+﻿@using VinaCent.Blaze.Web.Areas.AdminCP.Models.EmailConfiguration.SetUpMailServer
+@using VinaCent.Blaze.Web.Themes.Velzon.ThemeOptions
+@inject IVelzonThemeOptions ThemeOptions
+@using VinaCent.Blaze.Web.Areas.AdminCP.Common
+@model SetupEmailerDto
+
+@{
+    ThemeOptions.AddBreadcrumb(L(LKConstants.AdminCP)).AddBreadcrumb(L(LKConstants.SettingManagement)).AddBreadcrumb(L(LKConstants.EmailConfiguration)).AddBreadcrumb(L(LKConstants.EmailConfiguration_SetUpMailServer)).Commit(this);
+    ViewBag.Title = L(LKConstants.EmailConfiguration_SetUpMailServer);
+    ViewBag.CurrentPageName = AdminCpPageNames.EmailConfiguration_SetUpMailServer;
+}
+
+@section scripts
+{
+<script src="~/view-resources/Views/AdminCP/EmailConfiguration/SetUpMailServer/Index.js" asp-append-version="true"></script>
+}
+
+<div class="row">
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title mb-0">@L(LKConstants.ConfigInformation)</h4>
+            </div>
+            <form id="SetupEmailerFrom" role="form" class="form-horizontal">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12 col-md-6 mb-3">
+                            <label class="form-label" asp-for="DefaultFromAddress"></label>
+                            <input type="text" class="form-control" asp-for="DefaultFromAddress">
+                            <span asp-validation-for="DefaultFromAddress" class="invalid-feedback"></span>
+                        </div>
+                        <div class="col-12 col-md-6 mb-3">
+                            <label class="form-label" asp-for="DefaultFromDisplayName"></label>
+                            <input type="text" class="form-control" asp-for="DefaultFromDisplayName">
+                            <span asp-validation-for="DefaultFromDisplayName" class="invalid-feedback"></span>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" role="switch" asp-for="SmtpUseDefaultCredentials" value="true">
+                            <label class="form-check-label" asp-for="SmtpUseDefaultCredentials"></label>
+                        </div>
+                        <span asp-validation-for="SmtpUseDefaultCredentials" class="invalid-feedback"></span>
+                    </div>
+                    <hr />
+
+                    <div id="smtp-config">
+                        <div class="row">
+                            <div class="col-12 col-md-5 mb-3">
+                                <label class="form-label" asp-for="SmtpDomain"></label>
+                                <input type="text" class="form-control" asp-for="SmtpDomain">
+                                <span asp-validation-for="SmtpDomain" class="invalid-feedback"></span>
+                            </div>
+                            <div class="col-12 col-md-5 mb-3">
+                                <label class="form-label" asp-for="SmtpHost"></label>
+                                <input type="text" class="form-control" asp-for="SmtpHost">
+                                <span asp-validation-for="SmtpHost" class="invalid-feedback"></span>
+                            </div>
+                            <div class="col-12 col-md-2 mb-3">
+                                <label class="form-label" asp-for="SmtpPort"></label>
+                                <input type="number" class="form-control" asp-for="SmtpPort">
+                                <span asp-validation-for="SmtpPort" class="invalid-feedback"></span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12 col-md-6 mb-3">
+                                <label class="form-label" asp-for="SmtpUserName"></label>
+                                <input type="text" class="form-control" asp-for="SmtpUserName">
+                                <span asp-validation-for="SmtpUserName" class="invalid-feedback"></span>
+                            </div>
+                            <div class="col-12 col-md-6 mb-3">
+                                <label class="form-label" asp-for="SmtpPassword"></label>
+                                <div class="position-relative auth-pass-inputgroup mb-3">
+                                    <input type="password" class="form-control pe-5" asp-for="SmtpPassword"
+                                           placeholder="@L(LKConstants.SmtpPassword)" id="password-input" value="@Model.SmtpPassword">
+                                    <button class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted shadow-none"
+                                            type="button" id="password-addon">
+                                        <i class="ri-eye-fill align-middle"></i>
+                                    </button>
+                                </div>
+                                <span asp-validation-for="SmtpPassword" class="invalid-feedback"></span>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" role="switch" asp-for="SmtpEnableSsl" value="true">
+                                <label class="form-check-label" asp-for="SmtpEnableSsl"></label>
+                            </div>
+                            <span asp-validation-for="SmtpEnableSsl" class="invalid-feedback"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-end">
+                    <button type="button" class="btn btn-primary waves-effect waves-light save-button">@L(LKConstants.Save)</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <partial name="~/Areas/AdminCP/Views/EmailConfiguration/SetUpMailServer/TestEmailSender.cshtml" model="@(new TestEmailSenderDto())" />
+    </div>
+</div>

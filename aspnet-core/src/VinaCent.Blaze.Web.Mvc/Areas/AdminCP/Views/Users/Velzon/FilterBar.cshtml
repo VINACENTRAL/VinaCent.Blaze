@@ -1,0 +1,43 @@
+<div class="card">
+    <div class="card-body">
+        <div class="row g-2">
+            <div class="col-sm-4">
+                <form id="UsersSearchForm" class="form-horizontal">
+                    <div class="search-box">
+                        <input
+                            type="text"
+                            class="form-control txt-search"
+                            name="Keyword"
+                            autocomplete="off"
+                            placeholder=""/>
+                        <i class="ri-search-line search-icon"></i>
+                    </div>
+                </form>
+            </div>
+            <!--end col-->
+            <div class="col-sm-auto ms-auto">
+                <div class="list-grid-nav hstack gap-1">
+                    <button
+                        type="button"
+                        id="grid-view-button"
+                        class="btn btn-soft-info nav-link btn-icon fs-14 active filter-button shadow-none">
+                        <i class="ri-grid-fill"></i>
+                    </button>
+                    <button
+                        type="button"
+                        id="list-view-button"
+                        class="btn btn-soft-info nav-link btn-icon fs-14 filter-button shadow-none">
+                        <i class="ri-list-unordered"></i>
+                    </button>
+                    <button
+                        class="btn btn-success"
+                        data-bs-toggle="modal" data-bs-target="#UserCreateModal" data-quick-key="F2">
+                        <i class="ri-add-fill me-1 align-bottom"></i> @L(LKConstants.Create)
+                    </button>
+                </div>
+            </div>
+            <!--end col-->
+        </div>
+        <!--end row-->
+    </div>
+</div>

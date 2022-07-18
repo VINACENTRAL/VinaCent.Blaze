@@ -1,0 +1,15 @@
+﻿@using Abp.Localization
+@using Abp.Extensions
+@using VinaCent.Blaze.Helpers
+@using System.Globalization
+@using Microsoft.Extensions.Configuration
+@using Microsoft.Extensions.Hosting
+@using VinaCent.Blaze
+@inherits VinaCent.Blaze.Web.Views.BlazeRazorPage<TModel>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, VinaCent.Web.Mvc
+@addTagHelper *, VinaCent.Blaze.Web.TagHelpers
+
+@inject ILanguageManager LanguageManager
+@inject IHostEnvironment Environment;
+@inject IConfiguration Configuration;

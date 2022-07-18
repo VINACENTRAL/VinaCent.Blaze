@@ -1,0 +1,46 @@
+﻿@using Abp.Authorization.Users
+@using Abp.MultiTenancy
+@using VinaCent.Blaze.MultiTenancy
+@using VinaCent.Blaze.Web.Models.Common.Modals
+@{
+    Layout = null;
+}
+<div class="modal fade" id="TenantCreateModal" tabindex="-1" role="dialog" aria-labelledby="TenantCreateModalLabel" data-backdrop="static">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            @await Html.PartialAsync("~/Views/Shared/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L(LKConstants.CreateNewTenant)))
+            <form name="tenantCreateForm" role="form" class="form-horizontal">
+                <div class="modal-body">
+                    <div class="required mb-3">
+                        <label class="form-label">@L(LKConstants.TenancyName)</label>
+                        <input type="text" name="TenancyName" class="form-control" required maxlength="@AbpTenantBase.MaxTenancyNameLength" minlength="2">
+                    </div>
+                    <div class="required mb-3">
+                        <label class="form-label">@L(LKConstants.Name)</label>
+                        <input type="text" name="Name" class="form-control" required maxlength="@Tenant.MaxNameLength">
+                    </div>
+                    <div class="required mb-3">
+                        <label class="form-label">@L(LKConstants.AdminEmailAddress)</label>
+                        <input type="email" name="AdminEmailAddress" class="form-control" required maxlength="@AbpUserBase.MaxEmailAddressLength">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">@L(LKConstants.DatabaseConnectionString) (@L(LKConstants.Optional))</label>
+                        <input type="text" name="ConnectionString" class="form-control" maxlength="@AbpTenantBase.MaxConnectionStringLength">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="CreateTenantIsActive">@L(LKConstants.IsActive)</label>
+                        <input id="CreateTenantIsActive" type="checkbox" name="IsActive" value="true" checked />
+                    </div>
+                    <div class="mb-3">
+                        <div class="col-md-3">
+                        </div>
+                        <div class="col-md-9">
+                            <p>@L(LKConstants.DefaultPasswordIs, VinaCent.Blaze.Authorization.Users.User.DefaultPassword)</p>
+                        </div>
+                    </div>
+                </div>
+                @await Html.PartialAsync("~/Views/Shared/Modals/_ModalFooterWithSaveAndCancel.cshtml")
+            </form>
+        </div>
+    </div>
+</div>

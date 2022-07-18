@@ -1,0 +1,51 @@
+﻿@using Abp
+@using VinaCent.Blaze
+@using Abp.Zero
+@using VinaCent.Blaze.AppCore.LanguageTexts.Dto
+@using VinaCent.Blaze.MultiTenancy.Dto
+@using VinaCent.Blaze.Web.Models.Common.Modals
+@model UpdateLanguageTextDto
+@{
+    Layout = null;
+    var languages = LanguageManager.GetLanguages().Select(x => new SelectListItem(x.DisplayName, x.Name));
+}
+@await Html.PartialAsync("~/Views/Shared/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L(LKConstants.EditLanguageText)))
+<form role="form" class="form-horizontal">
+    <input type="hidden" asp-for="TenantId" />
+    <input type="hidden" asp-for="Id" />
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="required mb-3">
+                    <label class="form-label" asp-for="Source"></label>
+                    <select class="form-control" asp-for="Source">
+                        <option value="@BlazeConsts.LocalizationSourceName">@BlazeConsts.LocalizationSourceName</option>
+                        <option value="@AbpZeroConsts.LocalizationSourceName">@AbpZeroConsts.LocalizationSourceName</option>
+                        <option value="@AbpConsts.LocalizationSourceName">@AbpConsts.LocalizationSourceName</option>
+                    </select>
+                    <span asp-validation-for="Source" class="invalid-feedback"></span>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="required mb-3">
+                    <label class="form-label" asp-for="LanguageName"></label>
+                    <select class="form-control" asp-for="LanguageName" asp-items="@languages">
+                    </select>
+                    <span asp-validation-for="LanguageName" class="invalid-feedback"></span>
+                </div>
+            </div>
+        </div>
+        <div class="required mb-3">
+            <label class="form-label" asp-for="Key"></label>
+            <input type="text" asp-for="Key" class="form-control" />
+            <span asp-validation-for="Key" class="invalid-feedback"></span>
+        </div>
+        <div class="required mb-3">
+            <label class="form-label" asp-for="Value"></label>
+            <input type="text" asp-for="Value" class="form-control" />
+            <span asp-validation-for="Value" class="invalid-feedback"></span>
+        </div>
+    </div>
+    @await Html.PartialAsync("~/Views/Shared/Modals/_ModalFooterWithSaveAndCancel.cshtml")
+</form>
+<script src="~/libs/jquery-validate/jquery.validate.unobtrusive.min.js" asp-append-version="true"></script>

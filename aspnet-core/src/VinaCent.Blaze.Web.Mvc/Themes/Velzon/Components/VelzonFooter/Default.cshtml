@@ -1,0 +1,43 @@
+﻿@using VinaCent.Blaze.Configuration
+@using VinaCent.Blaze.Web.Themes.Velzon.Components.VelzonFooter.Enums
+@{
+    var siteName = await SettingManager.GetSettingValueAsync(AppSettingNames.SiteName);
+    var author = await SettingManager.GetSettingValueAsync(AppSettingNames.SiteAuthor);
+    var authorProfileUrl = await SettingManager.GetSettingValueAsync(AppSettingNames.SiteAuthorProfileUrl);
+}
+
+@switch (ViewBag.FooterType)
+{
+    case FooterTypes.SpaceAround:
+        <footer class="footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="text-center">
+                            <p class="mb-0 text-muted">@DateTime.Now.Year © @siteName. Crafted with <i class="mdi mdi-heart text-danger"></i> by <a href="@authorProfileUrl" class="text-danger fw-bold" target="_blank">@author</a>. <b>Version </b> @AppVersionHelper.Version [@AppVersionHelper.ReleaseDate.ToString("yyyyMMdd")]</p>.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        return;
+
+    case FooterTypes.SpaceBetween:
+        <footer class="footer">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <p>@DateTime.Now.Year © @siteName. <b>Version </b> @AppVersionHelper.Version [@AppVersionHelper.ReleaseDate.ToString("yyyyMMdd")]</p>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="text-sm-end d-none d-sm-block">
+                            Design & Develop by <a href="@authorProfileUrl">@author</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        return;
+    default:
+        return;
+}

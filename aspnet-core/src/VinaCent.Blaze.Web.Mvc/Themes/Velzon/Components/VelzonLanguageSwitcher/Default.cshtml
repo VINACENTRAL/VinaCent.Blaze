@@ -1,0 +1,26 @@
+﻿@using System.Linq
+@using Microsoft.AspNetCore.Http.Extensions
+@using VinaCent.Blaze.Web.Themes.Velzon.Components.VelzonLanguageSwitcher
+@model VelzonLanguageSwitcherViewComponentModel
+
+@if (Model.OtherLanguages.Any())
+{
+    <div class="dropdown ms-1 topbar-head-dropdown header-item">
+        <button type="button"
+            class="btn btn-icon btn-topbar btn-ghost-secondary rounded-circle shadow-none"
+            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <img id="header-lang-img" src="/vinacent/flags/1x1/@Model.CurrentLanguage.Icon" alt="@Model.CurrentLanguage.DisplayName"
+             height="20" class="rounded"/>
+        </button>
+        <div class="dropdown-menu dropdown-menu-end">
+            @foreach (var language in Model.OtherLanguages)
+            {
+                var url = Url.Action("ChangeCulture", "AbpLocalization", new { cultureName = language.Name, returnUrl = Context.Request.Path + Context.Request.QueryString });
+                <a href="@url" class="dropdown-item notify-item language py-2" data-lang="@language.Name" title="@language.DisplayName">
+                    <img src="/vinacent/flags/1x1/@language.Icon" alt="user-image" class="me-2 rounded" height="18"/>
+                    <span class="align-middle">@language.DisplayName</span>
+                </a>
+            }
+        </div>
+    </div>
+}

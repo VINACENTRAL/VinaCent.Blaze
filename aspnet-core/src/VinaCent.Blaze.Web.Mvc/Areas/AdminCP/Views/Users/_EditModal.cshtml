@@ -1,0 +1,61 @@
+﻿@using Abp.Authorization.Users
+@using VinaCent.Blaze.Web.Areas.AdminCP.Models.Users
+@using VinaCent.Blaze.Web.Models.Common.Modals
+@model EditUserModalViewModel
+@{
+    Layout = null;
+}
+@await Html.PartialAsync("~/Views/Shared/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L(LKConstants.EditUser)))
+<form name="UserEditForm" role="form" class="form-horizontal">
+    <input type="hidden" name="Id" value="@Model.User.Id" />
+    <div class="modal-body">
+        <ul class="nav nav-tabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button type="button" class="nav-link active" data-bs-toggle="tab" role="tab" data-bs-target="#edit-user-details">@L(LKConstants.UserDetails)</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button type="button" class="nav-link" data-bs-toggle="tab" role="tab" data-bs-target="#edit-user-roles">@L(LKConstants.UserRoles)</button>
+            </li>
+        </ul>
+        <div class="tab-content mt-4">
+            <div role="tabpanel" class="tab-pane container active" id="edit-user-details">
+                <div class="required mb-3">
+                    <label class="form-label" for="username">@L(LKConstants.UserName)</label>
+                    <input id="username" type="text" class="form-control" name="UserName" value="@Model.User.UserName" required maxlength="@AbpUserBase.MaxUserNameLength" minlength="2">
+                </div>
+                <div class="required mb-3">
+                    <label class="form-label" for="name">@L(LKConstants.Name)</label>
+                    <input id="name" type="text" class="form-control" name="Name" value="@Model.User.Name" required maxlength="@AbpUserBase.MaxNameLength">
+                </div>
+                <div class="required mb-3">
+                    <label class="form-label" for="surname">@L(LKConstants.Surname)</label>
+                    <input id="surname" type="text" class="form-control" name="Surname" value="@Model.User.Surname" required maxlength="@AbpUserBase.MaxSurnameLength">
+                </div>
+                <div class="required mb-3">
+                    <label class="form-label" for="email">@L(LKConstants.EmailAddress)</label>
+                    <input id="email" type="email" class="form-control" name="EmailAddress" value="@Model.User.EmailAddress" required maxlength="@AbpUserBase.MaxEmailAddressLength">
+                </div>
+                <div class="form-check form-switch form-switch-success mb-3">
+                    <input class="form-check-input" type="checkbox" role="switch" id="IsActive" name="IsActive" value="true" @(Model.User.IsActive ? "checked" : "")>
+                    <label class="form-check-label" for="IsActive">@L(LKConstants.IsActive)</label>
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane container" id="edit-user-roles">
+                <div class="row">
+                    @foreach (var role in Model.Roles)
+                    {
+                        <div class="col-md-6">
+                            <div class="form-check form-switch form-switch-success mb-3">
+                                <input class="form-check-input" type="checkbox" role="switch" name="role" value="@role.NormalizedName" title="@role.Description" id="@($"role{role.Id}")" @(Model.UserIsInRole(role) ? "checked" : "")>
+                                <label class="form-check-label" for="@($"role{role.Id}")" title="@role.DisplayName">@role.Name</label>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    @await Html.PartialAsync("~/Views/Shared/Modals/_ModalFooterWithSaveAndCancel.cshtml")
+</form>
+
+<script src="~/view-resources/Views/Users/_EditModal.js" asp-append-version="true"></script>

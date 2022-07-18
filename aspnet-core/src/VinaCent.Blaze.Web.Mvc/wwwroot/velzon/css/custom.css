@@ -1,0 +1,146 @@
+:root {
+    --vz-body-font-size: .875rem;
+}
+
+.toast-success {
+    background: var(--vz-success) !important;
+}
+
+.toast-info {
+    background: var(--vz-info) !important;
+}
+
+.toast-warning {
+    background: var(--vz-warning) !important;
+}
+
+.toast-error {
+    background: var(--vz-danger) !important;
+}
+
+.app-day-session-welcome-container {
+    padding: calc(32px / 2) 0;
+}
+
+.app-day-session-welcome-msg {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    font-weight: 500;
+    font-size: 15px;
+}
+
+.navbar-menu .navbar-nav .nav-sm .nav-link:before {
+    content: none;
+}
+
+.dataTables_length .form-select {
+    font-size: var(--vz-body-font-size);
+}
+
+#back-to-top {
+    bottom: 28px;
+}
+
+#page-header-user-dropdown {
+    padding-right: 0;
+}
+
+.app-file .progress-bar:not(:first-child) {
+    margin-left: 2px;
+    color: #FFF !important;
+}
+
+    .app-file .progress-bar:not(:first-child) span {
+        margin-left: 27px;
+    }
+
+.app-file .progress-bar:nth-child(2)::after {
+    border-left-color: #4b38b3;
+}
+
+.app-file.progress-primary .progress-bar {
+    background-color: #4b38b3 !important;
+}
+
+.app-file.progress-step-arrow .progress-bar::after {
+    border: 35px solid transparent;
+    bottom: -9px;
+    right: -62px;
+    border-left-color: #4b38b3 !important;
+}
+
+.app-file.progress-step-arrow .progress-bar:not(:first-child)::before {
+    content: "";
+    position: absolute;
+    border: 27px solid transparent;
+    z-index: 0;
+    border-left-color: var(--vz-card-bg) !important;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.app-file .progress-bar::before, .app-file .progress-bar::after {
+    pointer-events: none;
+}
+
+.swal-footer {
+    display: flex;
+    justify-content: space-between;
+}
+
+    .swal-footer .swal-button-container:last-child {
+        margin-left: auto;
+    }
+
+.profile-wid-bg::before, .profile-wid-img {
+    border-radius: 10px;
+}
+
+.profile-wid-bg::before {
+    opacity: 0.3;
+}
+
+.z-index-0 {
+    z-index: 0 !important;
+}
+
+.social-box-icon .normal {
+    max-width: 100%;
+    max-height: 100%;
+    position: relative;
+    opacity: 1;
+    transition: opacity .5s ease-in-out;
+}
+
+.social-box-icon .removal {
+    max-width: 0;
+    max-height: 0;
+    position: absolute;
+    opacity: 0;
+    transition: opacity .5s ease-in-out;
+}
+
+.social-box-icon:hover .normal {
+    max-width: 0;
+    max-height: 0;
+    position: absolute;
+    opacity: 0;
+    transition: opacity .5s ease-in-out;
+}
+
+.social-box-icon:hover .removal {
+    max-width: 100%;
+    max-height: 100%;
+    position: relative;
+    opacity: 1;
+    transition: opacity .5s ease-in-out;
+    cursor: pointer;
+}
+
+.social-icons.show{
+    display: flex;
+    max-width: 306px;
+}

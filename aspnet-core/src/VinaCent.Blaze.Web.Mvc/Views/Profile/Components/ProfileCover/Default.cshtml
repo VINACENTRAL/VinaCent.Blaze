@@ -1,0 +1,28 @@
+﻿@using VinaCent.Blaze.Profiles.Dto
+@using VinaCent.Blaze.Web.Resources
+@using VinaCent.Blaze.Configuration
+@model UpdateCoverDto
+
+@{
+    var defaultCoverImg = await SettingManager.GetSettingValueAsync(AppSettingNames.SiteUserCoverHolder);
+    var cover = defaultCoverImg;
+    if(!Model.Cover.IsNullOrWhiteSpace())
+    {
+        cover = Model.Cover;
+    }
+}
+
+<div class="profile-wid-bg profile-setting-img">
+    <img src="@cover" class="profile-wid-img" id="user-cover-image"/>
+    <div class="overlay-content">
+        <div class="text-end p-3">
+            <div class="p-0 ms-auto rounded-circle profile-photo-edit">
+                <button class="profile-photo-edit btn btn-light" id="pick-cover">
+                    <i class="ri-image-edit-line align-bottom me-1"></i> @L(LKConstants.ChangeCover)
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Views/Profile/Components/ProfileCover/_UpdateCoverModal.cshtml", Model)

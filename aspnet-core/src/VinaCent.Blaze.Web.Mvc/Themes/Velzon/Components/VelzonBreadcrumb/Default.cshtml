@@ -1,0 +1,56 @@
+﻿@using Abp.Extensions
+@using VinaCent.Blaze.Web.Themes.Velzon.Components.VelzonBreadcrumb
+@model VelzonBreadcrumbOptions
+@{
+    bool isHaveBackUri = !Model.BackUri.IsNullOrWhiteSpace();
+    //var area = ViewContext.ActionDescriptor.RouteValues["Area"];
+}
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+            <h4 class="mb-sm-0 @(isHaveBackUri?"d-flex justify-content-center":"")">
+                @if (isHaveBackUri)
+                {
+                    <a href="@Model.BackUri" data-bs-toggle="tooltip" data-bs-placement="bottom" title="@L(LKConstants.GoBack)">
+                        <i class="ri-arrow-left-line me-2"></i>
+                    </a>
+                }
+                @if (Model != null && !Model.OverrideBreadcumbTitle.IsNullOrWhiteSpace())
+                {
+                    @Model.OverrideBreadcumbTitle
+                }
+                else
+                {
+                    @ViewBag.Title
+                }
+            </h4>
+
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    @*<li class="breadcrumb-item"><a href="/">CMS</a></li>*@
+                    @if (Model != null)
+                    {
+                        for (var i = 0; i < Model.Breadcrumbs?.Count - 1; i++)
+                        {
+                            var item = Model.Breadcrumbs.ElementAt(i);
+                            if (item.Value.IsNullOrWhiteSpace() || item.Value.ToLower().Equals("javascript:void(0);"))
+                            {
+                                <li class="breadcrumb-item text-muted">@item.Key</li>
+                            }
+                            else
+                            {
+                                <li class="breadcrumb-item"><a href="@item.Value">@item.Key</a></li>
+                            }
+                        }
+                        var breadcrumb = Model.Breadcrumbs?.Last();
+                        if (breadcrumb != null)
+                        {
+                            <li class="breadcrumb-item active">@breadcrumb?.Key</li>
+                        }
+                    }
+                </ol>
+            </div>
+
+        </div>
+    </div>
+</div>

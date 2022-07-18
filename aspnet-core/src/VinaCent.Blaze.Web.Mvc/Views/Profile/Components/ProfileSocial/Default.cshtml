@@ -1,0 +1,27 @@
+﻿@using VinaCent.Blaze.Profiles.Dto;
+@using VinaCent.Blaze.Web.Resources
+@inject IWebResourceManager WebResourceManager
+@model UpdateSocialDto
+@{
+    WebResourceManager.AddScript(ApplicationPath + "view-resources/Views/Profiles/_AddSocialNetworkModal.js", false);
+}
+
+<div class="card">
+    <div class="card-body">
+        <div class="d-flex align-items-center mb-4">
+            <div class="flex-grow-1">
+                <h5 class="card-title mb-0">@L(LKConstants.SocialNetworkLinks)</h5>
+            </div>
+            <div class="flex-shrink-0">
+                <label class="badge bg-light text-primary fs-12 mb-0 cursor-pointer" data-bs-toggle="modal" data-bs-target="#AddSocialLinkModal">
+                    <i class="ri-add-fill align-bottom me-1"></i> @L(LKConstants.Add)
+                </label>
+            </div>
+        </div>
+        <input type="hidden" asp-for="ListSocialNetworkRawJson">
+        <div id="social-network-container">
+        </div>
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Views/Profile/Components/ProfileSocial/_AddSocialLinkModal.cshtml", new SocialNetwork())

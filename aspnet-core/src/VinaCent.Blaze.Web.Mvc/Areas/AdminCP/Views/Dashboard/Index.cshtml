@@ -1,0 +1,10 @@
+﻿@using VinaCent.Blaze.Web.Themes.Velzon.ThemeOptions
+@inject IVelzonThemeOptions ThemeOptions
+@using VinaCent.Blaze.Web.Areas.AdminCP.Common
+@using VinaCent.Blaze.Web.Startup
+@{
+    ThemeOptions.AddBreadcrumb(L(LKConstants.AdminCP)).AddBreadcrumb(L(LKConstants.Dashboard)).Commit(this);
+    ViewBag.Title = L(AdminCpPageNames.Dashboard);
+    ViewBag.Description = L(LKConstants.Overview);
+    ViewBag.CurrentPageName = AdminCpPageNames.Dashboard;
+}

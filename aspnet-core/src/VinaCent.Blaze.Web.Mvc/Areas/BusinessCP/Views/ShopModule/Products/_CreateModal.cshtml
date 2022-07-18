@@ -1,0 +1,125 @@
+﻿@using VinaCent.Blaze.Web.Models.Common.Modals
+@model VinaCent.Blaze.BusinessCore.ShopModule.Products.Dto.CreateProductDto
+@{
+    Layout = null;
+    var title = L(LKConstants.ShopModule_CreateTag);
+
+    var titleInputId = $"ref{Guid.NewGuid().ToString("N").ToLower()}";
+}
+<div class="modal fade create-modal" tabindex="-1" role="dialog" data-backdrop="static">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            @await Html.PartialAsync("~/Views/Shared/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(title))
+            <form role="form" class="form-horizontal">
+                <div class="modal-body">
+                    <ul class="nav nav-tabs nav-justified nav-border-top nav-border-top-success mb-3" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-bs-toggle="tab" href="#base-detail" role="tab" aria-selected="false">
+                                Base Detail
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="tab" href="#pricing-and-campaign" role="tab" aria-selected="false">
+                                Pricing & Campaign
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="tab" href="#private-note" role="tab" aria-selected="false">
+                                Private Note
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="base-detail" role="tabpanel">
+                            <div class="required mb-3">
+                                <label class="form-label d-flex" asp-for="Title">
+                                    <span>@L(LKConstants.Title)</span>
+                                    <div class="form-check form-switch p-0 ms-auto">
+                                        <input class="form-check-input code-switcher" type="checkbox" asp-for="IsActive" value="true">
+                                    </div>
+                                </label>
+                                <input type="text" asp-for="Title" class="form-control" id="@titleInputId"/>
+                                <span asp-validation-for="Title" class="invalid-feedback"></span>
+                                <span asp-validation-for="IsActive" class="invalid-feedback d-block"></span>
+                            </div>
+                            <div class="required mb-3">
+                                <label class="form-label" asp-for="MetaTitle"></label>
+                                <input type="text" asp-for="MetaTitle" class="form-control"/>
+                                <span asp-validation-for="MetaTitle" class="invalid-feedback"></span>
+                            </div>
+                            <div class="required mb-3">
+                                <label class="form-label" asp-for="Slug"></label>
+                                <input type="text" asp-for="Slug" class="form-control" slug-of="#@titleInputId"/>
+                                <span asp-validation-for="Slug" class="invalid-feedback"></span>
+                            </div>
+                            <div class="required mb-3">
+                                <label class="form-label" asp-for="Summary"></label>
+                                <textarea asp-for="Summary" class="form-control" rows="3"></textarea>
+                                <span asp-validation-for="Summary" class="invalid-feedback"></span>
+                            </div>
+                            <div class="required mb-3">
+                                <label class="form-label" asp-for="Content"></label>
+                                <textarea asp-for="Content" class="form-control editor" rows="8"></textarea>
+                                <span asp-validation-for="Content" class="invalid-feedback"></span>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="pricing-and-campaign" role="tabpanel">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="required mb-3">
+                                        <label class="form-label" asp-for="Price"></label>
+                                        <input type="text" asp-for="Price" class="form-control"/>
+                                        <span asp-validation-for="Price" class="invalid-feedback"></span>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="required mb-3">
+                                        <label class="form-label" asp-for="Discount"></label>
+                                        <input type="text" asp-for="Discount" class="form-control"/>
+                                        <span asp-validation-for="Discount" class="invalid-feedback"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="required mb-3">
+                                        <label class="form-label" asp-for="Status"></label>
+                                        <input type="text" asp-for="Status" class="form-control"/>
+                                        <span asp-validation-for="Status" class="invalid-feedback"></span>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="required mb-3">
+                                        <label class="form-label" asp-for="StartSellAt"></label>
+                                        <input type="text" asp-for="StartSellAt" class="form-control"/>
+                                        <span asp-validation-for="StartSellAt" class="invalid-feedback"></span>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="required mb-3">
+                                        <label class="form-label" asp-for="EndSellAt"></label>
+                                        <input type="text" asp-for="EndSellAt" class="form-control"/>
+                                        <span asp-validation-for="EndSellAt" class="invalid-feedback"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="private-note" role="tabpanel">
+                            <div class="required mb-3">
+                                <label class="form-label" asp-for="BuyerVisibleContent"></label>
+                                <textarea asp-for="BuyerVisibleContent" class="form-control editor" rows="8"></textarea>
+                                <span asp-validation-for="BuyerVisibleContent" class="invalid-feedback"></span>
+                            </div>
+                            <div class="required mb-3">
+                                <label class="form-label" asp-for="SellerVisibleContent"></label>
+                                <textarea asp-for="SellerVisibleContent" class="form-control editor" rows="8"></textarea>
+                                <span asp-validation-for="SellerVisibleContent" class="invalid-feedback"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @await Html.PartialAsync("~/Views/Shared/Modals/_ModalFooterWithSaveAndCancel.cshtml")
+            </form>
+        </div>
+    </div>
+</div>

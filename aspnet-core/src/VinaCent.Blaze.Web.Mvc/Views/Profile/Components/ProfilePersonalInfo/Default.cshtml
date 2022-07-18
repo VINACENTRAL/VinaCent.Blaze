@@ -1,0 +1,155 @@
+﻿@using VinaCent.Blaze.Configuration
+@using VinaCent.Blaze.Profiles.Dto
+@using VinaCent.Blaze.Web.Resources
+@using System.Drawing
+@using System.Globalization
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using VinaCent.Blaze.Web.Themes.Velzon.Helpers
+@model ProfileDto
+@inject IWebResourceManager WebResourceManager
+@{
+	var isUserNameUpdateEnabled = string.Equals(await SettingManager.GetSettingValueAsync(AppSettingNames.User.IsUserNameUpdateEnabled), "false",
+		StringComparison.OrdinalIgnoreCase);
+	var isEmailUpdateEnabled  = string.Equals(await SettingManager.GetSettingValueAsync(AppSettingNames.User.IsEmailUpdateEnabled), "true",
+		StringComparison.OrdinalIgnoreCase);
+	WebResourceManager.AddScript(ApplicationPath + "view-resources/Views/Profiles/UserInfo.js", false);
+}
+
+<form method="post" id="PersonalInfoForm">
+	<input asp-for="ConcurrencyStamp" type="hidden"/>
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="mb-3">
+				<label asp-for="UserName" class="form-label"></label>
+				<input asp-for="UserName" class="form-control" readonly="@isUserNameUpdateEnabled"/>
+			</div>
+		</div>
+		<div class="col-lg-6">
+			<div class="mb-3">
+				<label asp-for="Surname" class="form-label"></label>
+				<input asp-for="Surname" class="form-control"/>
+			</div>
+		</div>
+		<!--end col-->
+		<div class="col-lg-6">
+			<div class="mb-3">
+				<label asp-for="Name" class="form-label"></label>
+				<input asp-for="Name" class="form-control"/>
+			</div>
+		</div>
+		<!--end col-->
+		<div class="col-lg-6">
+			<div class="mb-3">
+				<label asp-for="PhoneNumber" class="form-label"></label>		
+				<div class="input-group mb-3">
+					<input asp-for="PhoneNumber" class="form-control" readonly disabled/>
+					<button type="button" id="change-phone-btn" class="btn btn-outline-danger z-index-0" data-bs-toggle="modal" data-bs-target="#ChangePhoneModal">
+						@L(LKConstants.Change)
+					</button>
+				</div>
+			</div>
+		</div>
+		<!--end col-->
+		<div class="col-lg-6">
+			<div class="mb-3">
+				<label asp-for="EmailAddress" class="form-label"></label>
+				<div class="input-group mb-3">
+					<input asp-for="MaskedEmailAddress" class="form-control" readonly disabled/>
+					@if(isEmailUpdateEnabled)
+					{
+						<button type="button" id="change-email-btn" class="btn btn-outline-danger z-index-0" data-bs-toggle="modal" data-bs-target="#ConfirmChangeEmailModal">
+							@L(LKConstants.Change)
+						</button>
+					}				
+				</div>		
+			</div>
+		</div>
+		<!--end col-->
+		<div class="col-lg-6">
+			<div class="mb-3">
+				<label asp-for="IdentityCardNumber" class="form-label"></label>
+				<input asp-for="IdentityCardNumber" class="form-control"/>
+			</div>
+		</div>
+		<div class="col-lg-6">
+			<div class="mb-3">
+				<label asp-for="Birthday" class="form-label"></label>
+				<input asp-for="BirthdayStr" class="form-control"
+					   data-datetime-locale="@(new RegionInfo(CultureInfo.CurrentUICulture.Name).TwoLetterISORegionName.ToLower())"
+					   data-provider="flatpickr"
+					   data-date-format="@CultureInfo.CurrentCulture.FlatPickerShortDatePattern()"/>
+			</div>
+		</div>
+		<hr/>
+		<div class="col-lg-12">
+			<div class="mb-3">
+				<label asp-for="AddressLine1" class="form-label"></label>
+				<input asp-for="AddressLine1" class="form-control">
+			</div>
+		</div>
+		<div class="col-lg-12">
+			<div class="mb-3">
+				<label asp-for="AddressLine2" class="form-label"></label>
+				<input asp-for="AddressLine2" class="form-control">
+			</div>
+		</div>
+		<!--end col-->
+		<div class="col-lg-6">
+			<div class="mb-3">
+				<label asp-for="Country" class="form-label"></label>
+				<select asp-for="Country" class="form-select" id="countrySelector"
+						data-default="@Model?.Country"
+						asp-items="ViewBag.Countries">
+					<option value="" disabled selected>@L(LKConstants.PleaseSelectCountry)</option>
+				</select>
+				<span asp-validation-for="Country" class="text-danger"></span>
+			</div>
+		</div>
+		<!--end col-->
+		<div class="col-lg-6">
+			<div class="mb-3">
+				<label asp-for="State" class="form-label"></label>
+				<select asp-for="State" class="form-select" id="stateSelector"
+						data-default="@Model?.State" disabled>
+					<option value="">@L(LKConstants.PleaseSelectState)</option>
+				</select>
+				<span asp-validation-for="State" class="text-danger"></span>
+			</div>
+		</div>
+		<!--end col-->
+		<div class="col-lg-6">
+			<div class="mb-3">
+				<label asp-for="City" class="form-label"></label>
+				<select asp-for="City" class="form-select" id="citySelector"
+						data-default="@Model?.City" disabled>
+					<option value="">@L(LKConstants.PleaseSelectCity)</option>
+				</select>
+				<span asp-validation-for="City" class="text-danger"></span>
+			</div>
+		</div>
+		<!--end col-->
+		<div class="col-lg-6">
+			<div class="mb-3">
+				<label asp-for="ZipCode" class="form-label"></label>
+				<input asp-for="ZipCode" class="form-control">
+				<span asp-validation-for="ZipCode" class="text-danger"></span>
+			</div>
+		</div>
+		<!--end col-->
+		<div class="col-lg-12">
+			<div class="mb-3 pb-2">
+				<label asp-for="Description" class="form-label"></label>
+				<textarea asp-for="Description" class="form-control"></textarea>
+			</div>
+		</div>
+		<!--end col-->
+		<div class="col-lg-12">
+			<div class="hstack gap-2 justify-content-between">
+				<button type="button" class="btn btn-soft-danger cancel-btn">@L(LKConstants.Cancel)</button>
+				<button type="submit" class="btn btn-primary">@L(LKConstants.Save)</button>
+			</div>
+		</div>
+		<!--end col-->
+	</div>
+	<!--end row-->
+</form>

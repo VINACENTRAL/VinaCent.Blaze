@@ -1,0 +1,76 @@
+﻿@using Abp.Json
+@using VinaCent.Blaze.AppCore.Languages.Dto
+@using VinaCent.Blaze.Web.Areas.AdminCP.Common
+@using VinaCent.Blaze.Web.Areas.AdminCP.Models.Languages
+@using VinaCent.Blaze.Web.Themes.Velzon.ThemeOptions
+@inject IVelzonThemeOptions ThemeOptions
+@model LanguageListViewModel
+@{
+    ThemeOptions.AddBreadcrumb(L(LKConstants.AdminCP)).AddBreadcrumb(L(LKConstants.Languages)).Commit(this);
+    ViewBag.Title = L(LKConstants.Languages);
+    ViewBag.CurrentPageName = AdminCpPageNames.LanguageManagement;
+
+    var commonRef = new
+    {
+        ServiceName = "languageManagement",
+        TableAction = "getAll",
+        CreateAction = "create",
+        UpdateAction = "update",
+        DeleteAction = "delete",
+        OnModalCreateShow = "",
+        OnModalCreateHide = "",
+        OnModalUpdateShow = "",
+        OnModalUpdateHide = "",
+        UpdateHtmlInnerAction = Url.Action("EditModal", "Languages", new { Area = "AdminCP" })?.TrimStart('/')
+    }.ToJsonString(true);
+}
+@section scripts
+    {
+    <script src="~/Common/vinacent.db.js" asp-append-version="true"></script>
+    <script src="~/view-resources/Views/Languages/Index.js" asp-append-version="true"></script>
+    }
+
+    <section app-main-section="@commonRef">
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-md-6">
+                        <button type="button" class="btn btn-success waves-effect waves-light mb-3 mb-lg-0 create-btn" data-quick-key="F2">
+                            <i class="fa fa-plus-square"></i>
+                            @L(LKConstants.Create)
+                        </button>
+                    </div>
+                    <div class="col-md-6">
+                        @await Html.PartialAsync("~/Areas/AdminCP/Views/Languages/Index.AdvancedSearch.cshtml")
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table id="LanguagesTable" class="table table-striped table-bordered main-table">
+                        <thead>
+                            <tr>
+                                <th data-ref="@nameof(LanguageDto.DisplayName).ToCamelCase()">@L(LKConstants.DisplayName)</th>
+                                <th data-ref="@nameof(LanguageDto.Name).ToCamelCase()">@L(LKConstants.UiCultureName)</th>
+                                <th data-ref="@nameof(LanguageDto.IsDefault).ToCamelCase()" data-render="RenderIsDefaultColumn">@L(LKConstants.IsDefault)</th>
+                                <th data-ref="@nameof(LanguageDto.IsDisabled).ToCamelCase()" data-render="RenderIsDisabledColumn">@L(LKConstants.IsEnabled)</th>
+                                <th data-ref="@nameof(LanguageDto.Icon).ToCamelCase()" data-render="RenderIconColumn">@L(LKConstants.FlagIcon)</th>
+                                <th data-action="" data-primary="@nameof(LanguageDto.Id).ToCamelCase()" data-name="@nameof(LanguageDto.Name).ToCamelCase()" style="width: 150px">@L(LKConstants.Actions)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        @await Html.PartialAsync("~/Areas/AdminCP/Views/Languages/_CreateModal.cshtml")
+
+        <div class="modal fade update-modal" tabindex="-1" role="dialog" data-backdrop="static">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                </div>
+            </div>
+        </div>
+    </section>

@@ -1,0 +1,15 @@
+@model VinaCent.Blaze.BusinessCore.ShopModule.Products.Dto.CreateOrUpdateProductDto
+<div class="card">
+    <div class="card-body">
+        <div class="mb-3">
+            <label class="form-label" asp-for="Title"></label>
+            <input type="text" class="form-control" asp-for="Title">
+            <span asp-validation-for="Title" class="invalid-feedback"></span>
+        </div>
+        <div>
+            <label asp-for="Content"></label>
+            <textarea asp-for="Content" class="form-control editor" rows="8"></textarea>
+            <span asp-validation-for="Content" class="invalid-feedback"></span>
+        </div>
+    </div>
+</div>

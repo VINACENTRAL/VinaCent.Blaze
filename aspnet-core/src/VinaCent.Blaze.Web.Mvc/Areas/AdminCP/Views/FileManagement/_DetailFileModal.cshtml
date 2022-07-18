@@ -1,0 +1,86 @@
+﻿@using VinaCent.Blaze.Helpers
+@using VinaCent.Blaze.Configuration
+@using VinaCent.Blaze.Web.Models.Common.Modals
+@using VinaCent.Blaze.AppCore.FileUnits.Dto
+@model FileUnitDto
+@{
+    Layout = null;
+
+    var preview = await SettingManager.GetSettingValueAsync(AppSettingNames.NoPreviewImage);
+}
+
+@await Html.PartialAsync("~/Views/Shared/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L(LKConstants.Detail) + $" {Model.Name}"))
+<div class="modal-body">
+    <div class="row">
+        <div class="col-12 col-md-8 text-center border border-2 rounded">
+            <img src="@Model.ResourcePath" alt="" style="max-width:100%" onerror="this.src='@preview'"/>
+        </div>
+        <div class="col-12 col-md-4">
+            <div class="mb-3">
+                <label class="form-label">@L(LKConstants.Name)</label>
+                <div class="w-100 text-break">
+                    <h5>@Model.Name</h5>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">@L(LKConstants.FileSize)</label>
+                <div class="w-100 text-break">
+                    @Model.Length.FromBytes()
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">@L(LKConstants.Description)</label>
+                <div class="w-100 text-break">
+                    @if (Model.Description.IsNullOrWhiteSpace())
+                    {
+                        <span style="color: gray; font-style: italic;">@L(LKConstants.NoDescription)</span>
+                    }
+                    else
+                    {
+                        @Model.Description
+                    }
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">@L(LKConstants.CreationTime)</label>
+                <div class="w-100 text-break"></div>
+                @Model.CreationTimeStr
+            </div>
+            <div class="mb-3">
+                <label class="form-label">@L(LKConstants.Creator)</label>
+                <div class="w-100 text-break">
+                    @if (Model.Creator != null)
+                    {
+                        @Model.Creator.FullName
+                    }
+                    else
+                    {
+                        <span style="color: gray; font-style: italic;">@L(LKConstants.Unknown)</span>
+                    }
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">@L(LKConstants.LastModificationTime)</label>
+                <div class="w-100 text-break">
+                    @if (Model.LastModificationTime == null)
+                    {
+                        <span style="color: gray; font-style: italic;">@L(LKConstants.NotEditedYet)</span>
+                    }
+                    else
+                    {
+                        @Model.LastModificationTimeStr
+                    }
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">@L(LKConstants.ResourcePath)</label>
+                <div class="w-100 text-break">
+                    <a href="@Model.ResourcePath"
+                        data-bs-toggle="tooltip" data-bs-placement="bottom" title="@L(LKConstants.DownloadFile_X, Model.Name)">
+                        @Model.ResourcePath
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

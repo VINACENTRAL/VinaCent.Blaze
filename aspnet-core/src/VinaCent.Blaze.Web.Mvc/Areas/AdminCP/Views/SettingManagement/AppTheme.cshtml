@@ -1,0 +1,8 @@
+﻿@using VinaCent.Blaze.Web.Themes.Velzon.ThemeOptions
+@inject IVelzonThemeOptions ThemeOptions
+@using VinaCent.Blaze.Web.Areas.AdminCP.Common
+@{
+    ThemeOptions.AddBreadcrumb(L(LKConstants.AdminCP)).AddBreadcrumb(L(LKConstants.SettingManagement)).AddBreadcrumb(L(LKConstants.SettingManagement_AppTheme)).Commit(this);
+    ViewBag.Title = L(LKConstants.SettingManagement_AppTheme);
+    ViewBag.CurrentPageName = AdminCpPageNames.SettingManagement_AppTheme;
+}

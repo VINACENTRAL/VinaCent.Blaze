@@ -1,0 +1,46 @@
+﻿@using VinaCent.Blaze.AppCore.Languages.Dto
+@using VinaCent.Blaze.Web.Areas.AdminCP.Models.Languages
+@using VinaCent.Blaze.Web.Models.Common.Modals
+@model CreateLanguageDto
+@{
+    Layout = null;
+}
+<div class="modal fade create-modal" tabindex="-1" role="dialog" aria-labelledby="LanguageCreateModalLabel" data-backdrop="static">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            @await Html.PartialAsync("~/Views/Shared/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L(LKConstants.CreateNewLanguage)))
+            <form role="form" class="form-horizontal">
+                <input type="hidden" asp-for="TenantId" />
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="required mb-3">
+                                <label class="form-label" asp-for="Icon"></label>
+                                <input type="text" asp-for="Icon" class="form-control" />
+                                <span asp-validation-for="Icon" class="invalid-feedback"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="required mb-3">
+                                <label class="form-label" asp-for="Name"></label>
+                                <input type="text" asp-for="Name" class="form-control" />
+                                <span asp-validation-for="Name" class="invalid-feedback"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="required mb-3">
+                        <label class="form-label" asp-for="DisplayName"></label>
+                        <input type="text" asp-for="DisplayName" class="form-control" />
+                        <span asp-validation-for="DisplayName" class="invalid-feedback"></span>
+                    </div>
+                    <div class="form-check form-switch form-switch-success mb-3">
+                        <input class="form-check-input" type="checkbox" role="switch" asp-for="IsDisabled" value="true">
+                        <label class="form-check-label" asp-for="IsDisabled"></label>
+                        <span asp-validation-for="IsDisabled" class="invalid-feedback"></span>
+                    </div>
+                </div>
+                @await Html.PartialAsync("~/Views/Shared/Modals/_ModalFooterWithSaveAndCancel.cshtml")
+            </form>
+        </div>
+    </div>
+</div>

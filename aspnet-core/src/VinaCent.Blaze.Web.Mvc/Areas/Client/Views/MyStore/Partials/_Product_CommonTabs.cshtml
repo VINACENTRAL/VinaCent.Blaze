@@ -1,0 +1,42 @@
+@model VinaCent.Blaze.BusinessCore.ShopModule.Products.Dto.CreateOrUpdateProductDto
+@{
+    var tabs = new Dictionary<string, string>
+    {
+        { "General Info", "~/Areas/Client/Views/MyStore/Partials/ProductCommonTabs/_General_Info.cshtml" },
+        { "Meta Data", "~/Areas/Client/Views/MyStore/Partials/ProductCommonTabs/_Meta_Data.cshtml" },
+    };
+}
+<div class="card">
+    <div class="card-header">
+        <ul class="nav nav-tabs-custom card-header-tabs border-bottom-0" role="tablist">
+            @{
+                var keys = tabs.Select(x => x.Key).ToArray();
+                for (var i = 0; i < keys.Length; i++)
+                {
+                    <li class="nav-item">
+                        <a class="nav-link@(i == 0 ? " active" : "")" data-bs-toggle="tab" href="#product-common-@(i + 1)" role="tab">
+                            @keys[i]
+                        </a>
+                    </li>
+                }
+            }
+        </ul>
+    </div>
+    <!-- end card header -->
+    <div class="card-body">
+        <div class="tab-content">
+            @{
+                var values = tabs.Select(x => x.Value).ToArray();
+                for (var i = 0; i < values.Length; i++)
+                {
+                    <div class="tab-pane@(i == 0 ? " active" : "")" id="product-common-@(i + 1)" role="tabpanel">
+                        <partial name="@values[i]" model="Model"/>
+                    </div>
+                }
+            }
+            <!-- end tab pane -->
+        </div>
+        <!-- end tab content -->
+    </div>
+    <!-- end card body -->
+</div>

@@ -1,0 +1,55 @@
+﻿@using VinaCent.Blaze.AppCore.LanguageTexts.Dto
+@using VinaCent.Blaze.Web.Themes.Velzon.ThemeOptions
+@inject IVelzonThemeOptions ThemeOptions
+@using VinaCent.Blaze.Web.Areas.AdminCP.Common
+@{
+    ThemeOptions.AddBreadcrumb(L(LKConstants.AdminCP)).AddBreadcrumb(L(LKConstants.SettingManagement)).AddBreadcrumb(L(LKConstants.EmailConfiguration)).AddBreadcrumb(L(LKConstants.EmailConfiguration_TextTemplates)).Commit(this);
+    ViewBag.Title = L(LKConstants.EmailConfiguration_TextTemplates);
+    ViewBag.CurrentPageName = AdminCpPageNames.EmailConfiguration_TextTemplates;
+}
+
+@section scripts
+{
+    <script src="~/view-resources/Views/AdminCP/EmailConfiguration/TextTemplates/Index.js" asp-append-version="true"></script>
+}
+
+<div class="card">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-md-6">
+                <button type="button" data-bs-toggle="modal" data-bs-target="#TextTemplateCreateModal" class="btn btn-success waves-effect waves-light mb-3 mb-lg-0">
+                    <i class="fa fa-plus-square"></i>
+                    @L(LKConstants.Create)
+                </button>
+            </div>
+            <div class="col-md-6">
+                @await Html.PartialAsync("~/Areas/AdminCP/Views/EmailConfiguration/TextTemplates/Index.AdvancedSearch.cshtml", new PagedLanguageTextResultRequestDto())
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table id="TextTemplatesTable" class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>@L(LKConstants.Name)</th>
+                        <th>@L(LKConstants.IsDefault)</th>
+                        <th style="width: 210px">@L(LKConstants.Actions)</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/AdminCP/Views/EmailConfiguration/TextTemplates/_CreateModal.cshtml")
+@await Html.PartialAsync("~/Areas/AdminCP/Views/EmailConfiguration/TextTemplates/_TestModal.cshtml")
+
+<div class="modal fade" id="TextTemplateEditModal" tabindex="-1" role="dialog" aria-labelledby="TextTemplateEditModalLabel" data-backdrop="static">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+        </div>
+    </div>
+</div>

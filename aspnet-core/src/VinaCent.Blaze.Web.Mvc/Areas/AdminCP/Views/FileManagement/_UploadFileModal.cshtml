@@ -1,0 +1,28 @@
+﻿@using VinaCent.Blaze.Web.Models.Common.Modals
+@using VinaCent.Blaze.AppCore.FileUnits.Dto
+@using VinaCent.Blaze.Web.Resources
+@model UploadFileUnitDto
+@{
+    Layout = null;
+}
+<div class="modal fade" id="UploadFileModal" tabindex="-1" role="dialog" aria-labelledby="UploadFileModalLabel" data-backdrop="static">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            @await Html.PartialAsync("~/Views/Shared/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L(LKConstants.UploadFile)))
+            <form id="uploadFileForm" role="form" class="form-horizontal" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <input type="hidden" asp-for="ParentId" id="current-directory-2">
+
+                    <input asp-for="File" id="file-uploader" data-type="local" type="file">
+                    <span asp-validation-for="File" class="text-danger"></span>
+
+                    <div class="my-3">
+                        <label class="form-label" asp-for="Description">@L(LKConstants.Description)</label>
+                        <textarea asp-for="Description" class="form-control"></textarea>
+                    </div>
+                </div>
+                @await Html.PartialAsync("~/Views/Shared/Modals/_ModalFooterWithSaveAndCancel.cshtml")
+            </form>
+        </div>
+    </div>
+</div>

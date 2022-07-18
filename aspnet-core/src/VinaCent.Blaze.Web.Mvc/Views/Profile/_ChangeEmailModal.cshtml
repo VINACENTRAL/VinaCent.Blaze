@@ -1,0 +1,34 @@
+﻿@using VinaCent.Blaze.Profiles.Dto
+@model ChangeEmailDto
+@{
+    Layout = null;
+}
+
+<div class="modal fade" id="ChangeEmailModal" tabindex="-1" role="dialog" aria-labelledby="ChangeEmailModalLabel" data-backdrop="static">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+           <form role="form" class="form-horizontal">
+                <div class="modal-body">
+                    <input type="hidden" asp-for="VerifyToken" />
+                    <div class="mb-3">     
+                        <label class="form-label" asp-for="NewEmail"></label>
+					    <input asp-for="NewEmail" class="form-control"/>
+				    </div>
+                    
+                    <label class="form-label" asp-for="ConfirmCode"></label>
+                    <div class="input-group mb-3">
+                        <input asp-for="ConfirmCode" class="form-control" id="ref-@Guid.NewGuid()" autocomplete="off" />
+					    <button type="button" class="btn btn-outline-danger send-code-btn">
+						    @L(LKConstants.SendCode) <span></span>
+					    </button>
+				    </div>
+                </div>
+                <div class="d-grid gap-2 col-6 mx-auto pb-4">
+                    <button class="btn btn-primary next-btn" type="submit">
+                        @L(LKConstants.Confirm)
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

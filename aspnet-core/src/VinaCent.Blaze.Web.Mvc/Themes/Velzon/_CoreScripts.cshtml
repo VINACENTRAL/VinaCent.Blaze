@@ -1,0 +1,87 @@
+﻿@using System.Globalization
+@using Abp.AspNetCore.Mvc.Caching
+@using Abp.CachedUniqueKeys
+@inject VinaCent.Blaze.Timing.AppTimes AppTimes
+@inject ICachedUniqueKeyPerUser CachedUniqueKeyPerUser
+@inject IGetScriptsResponsePerUserConfiguration GetScriptsResponsePerUserConfiguration
+@inject IConfiguration Configuration
+
+<script src="~/Common/BlazeWebConstants.js"></script>
+<script src="~/Common/LKConstants.js" asp-append-version="true"></script>
+
+<script src="~/libs/jquery/jquery.js" asp-append-version="true"></script>
+
+<script src="~/libs/DataTables/DataTables-1.12.1/js/jquery.dataTables.min.js" asp-append-version="true"></script>
+
+<script src="~/Common/helpers.js" asp-append-version="true"></script>
+<script src="~/Common/datatables.ajax.js" asp-append-version="true"></script>
+
+<script src="~/libs/DataTables/DataTables-1.12.1/js/dataTables.bootstrap5.min.js" asp-append-version="true"></script>
+<script src="~/libs/DataTables/Buttons-2.2.3/js/dataTables.buttons.min.js" asp-append-version="true"></script>
+<script src="~/libs/DataTables/Buttons-2.2.3/js/buttons.bootstrap5.min.js" asp-append-version="true"></script>
+<script src="~/libs/DataTables/Responsive-2.3.0/js/dataTables.responsive.min.js" asp-append-version="true"></script>
+<script src="~/libs/DataTables/Responsive-2.3.0/js/responsive.bootstrap5.js" asp-append-version="true"></script>
+
+<script src="~/libs/block-ui/jquery.blockUI.js" asp-append-version="true"></script>
+<script src="~/libs/spin/spin.js" asp-append-version="true"></script>
+<script src="~/libs-ext/spin/jquery.spin.js" asp-append-version="true"></script>
+<script src="~/libs/sweetalert/sweetalert.min.js" asp-append-version="true"></script>
+<script src="~/libs/toastr/toastr.min.js" asp-append-version="true"></script>
+<script src="~/libs/moment/moment-with-locales.js" asp-append-version="true"></script>
+<script src="~/libs/signalr/dist/browser/signalr.js" asp-append-version="true"></script>
+<script src="~/libs/abp-web-resources/Abp/Framework/scripts/abp.js" asp-append-version="true"></script>
+<script src="~/libs/abp-web-resources/Abp/Framework/scripts/libs/abp.jquery.js" asp-append-version="true"></script>
+<script src="~/libs/abp-web-resources/Abp/Framework/scripts/libs/abp.toastr.js" asp-append-version="true"></script>
+<script src="~/libs/abp-web-resources/Abp/Framework/scripts/libs/abp.blockUI.js" asp-append-version="true"></script>
+<script src="~/libs/abp-web-resources/Abp/Framework/scripts/libs/abp.spin.js" asp-append-version="true"></script>
+<script src="~/libs/abp-web-resources/Abp/Framework/scripts/libs/abp.sweet-alert.js" asp-append-version="true"></script>
+<script src="~/libs/abp-web-resources/Abp/Framework/scripts/libs/abp.signalr-client.js" asp-append-version="true"></script>
+
+<script src="~/libs/jquery-validate/jquery.validate.js" asp-append-version="true"></script>
+<script src="~/libs/jquery-validate/jquery.validate.unobtrusive.js" asp-append-version="true"></script>
+<script src="~/libs/push.js/push.js" asp-append-version="true"></script>
+
+<script type="text/javascript">
+    var abp = abp || {};
+    abp.appPath = '@ApplicationPath';
+    var vinacent = vinacent || {};
+</script>
+
+@if (CultureInfo.CurrentUICulture.TwoLetterISOLanguageName != "en")
+{
+    var normalizedCurrentUiCultureName = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
+
+    var sameables = new[] {"bn", "es", "hy", "pt", "sr", "zh"};
+    if (sameables.Contains(normalizedCurrentUiCultureName, StringComparer.OrdinalIgnoreCase))
+    {
+        normalizedCurrentUiCultureName = CultureInfo.CurrentUICulture.Name.Replace("-", "_");
+    }
+
+    var localizationFileNameWithExtension = "messages_";
+    localizationFileNameWithExtension += normalizedCurrentUiCultureName switch
+    {
+        "zh_Hans" => "zh",
+        "es_MX" => "es",
+        _ => normalizedCurrentUiCultureName
+        };
+    localizationFileNameWithExtension += ".min.js";
+    <script src="~/libs/jquery-validate/localization/@localizationFileNameWithExtension" asp-append-version="true"></script>
+}
+
+<script type="text/javascript">
+    moment.locale('@CultureInfo.CurrentUICulture.Name');
+</script>
+
+<script src="~/AbpServiceProxies/GetAll?v=@(AppTimes.StartupTime.Ticks)" type="text/javascript"></script>
+
+@if (GetScriptsResponsePerUserConfiguration.IsEnabled)
+{
+    <script src="@(ApplicationPath)AbpScripts/GetScripts?v=@(await CachedUniqueKeyPerUser.GetKeyAsync(GetScriptsResponsePerUserCache.CacheName))" type="text/javascript"></script>
+}
+else
+{
+    <script src="@(ApplicationPath)AbpScripts/GetScripts?v=@(AppTimes.StartupTime.Ticks)" type="text/javascript"></script>
+}
+
+<script src="~/js/abp.dataTable.js" asp-append-version="true"></script>
+<script src="~/js/main.js" asp-append-version="true"></script>

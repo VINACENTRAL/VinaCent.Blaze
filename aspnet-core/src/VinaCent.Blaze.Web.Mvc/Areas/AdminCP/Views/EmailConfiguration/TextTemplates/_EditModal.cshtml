@@ -1,0 +1,35 @@
+﻿@using VinaCent.Blaze.AppCore.TextTemplates.Dto
+@using VinaCent.Blaze.MultiTenancy.Dto
+@using VinaCent.Blaze.Web.Models.Common.Modals
+@model UpdateTextTemplateDto
+@{
+    Layout = null;
+    var isStatic = ViewBag.IsStatic == true;
+}
+@await Html.PartialAsync("~/Views/Shared/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L(LKConstants.EditTextTemplate) + $": {L(Model.Name)}"))
+<form name="TextTemplateEditForm" role="form" class="form-horizontal">
+    <input type="hidden" asp-for="Id" />
+    <div class="modal-body">
+        <div class="required mb-3">
+            <label class="form-label" asp-for="Name"></label>
+            @if (isStatic)
+            {
+                <input type="hidden" asp-for="Name">
+                <input type="text" class="form-control" value="@L(Model.Name)" disabled>
+            }
+            else
+            {
+                <input type="text" class="form-control" asp-for="Name">
+            }
+            <span asp-validation-for="Name" class="invalid-feedback"></span>
+        </div>
+        <div class="required mb-3">
+            <label class="form-label" asp-for="Content"></label>
+            <textarea class="form-control" asp-for="Content" rows="10"></textarea>
+            <span asp-validation-for="Content" class="invalid-feedback"></span>
+        </div>
+    </div>
+    @await Html.PartialAsync("~/Views/Shared/Modals/_ModalFooterWithSaveAndCancel.cshtml")
+</form>
+
+<script src="~/view-resources/Views/AdminCP/EmailConfiguration/TextTemplates/_EditModal.js" asp-append-version="true"></script>

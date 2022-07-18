@@ -1,0 +1,28 @@
+﻿@using VinaCent.Blaze.Web.Models.Common.Modals
+@using VinaCent.Blaze.AppCore.FileUnits.Dto
+@model CreateDirectoryDto
+@{
+    Layout = null;
+}
+<div class="modal fade" id="DirectoryCreateModal" tabindex="-1" role="dialog" aria-labelledby="DirectoryCreateModalLabel" data-backdrop="static">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            @await Html.PartialAsync("~/Views/Shared/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L(LKConstants.CreateNewDirectory)))
+            <form name="directoryCreateForm" role="form" class="form-horizontal">
+                <div class="modal-body">
+                    <input type="hidden" asp-for="ParentId" id="current-directory-1">
+                    <div class="mb-3">
+                        <label class="form-label" asp-for="Name">@L(LKConstants.Name)</label>
+                        <input asp-for="Name" class="form-control">
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" asp-for="Description">@L(LKConstants.Description)</label>
+                            <textarea asp-for="Description"  class="form-control"></textarea>
+                    </div>
+                </div>
+                @await Html.PartialAsync("~/Views/Shared/Modals/_ModalFooterWithSaveAndCancel.cshtml")
+            </form>
+        </div>
+    </div>
+</div>

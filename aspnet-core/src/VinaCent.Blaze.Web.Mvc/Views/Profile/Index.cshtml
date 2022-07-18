@@ -1,0 +1,82 @@
+﻿@using VinaCent.Blaze.Profiles.Dto
+@using VinaCent.Blaze.Web.Common
+@using VinaCent.Blaze.Web.Models.Profile
+@using VinaCent.Blaze.Web.Themes.Velzon.ThemeOptions
+@using VinaCent.Blaze.Web.Views.Profile.Components.ProfileAvatar
+@using VinaCent.Blaze.Web.Views.Profile.Components.ProfileCover
+@using VinaCent.Blaze.Web.Views.Profile.Components.ProfileSocial
+@inject IVelzonThemeOptions ThemeOptions
+@model ProfilePageModel
+@{
+    ThemeOptions.LayoutHorizontal().AddBreadcrumb(L(LKConstants.HomePage)).AddBreadcrumb(L(LKConstants.ProfileSettings)).Commit(this);
+    ViewBag.Title = L(LKConstants.ProfileSettings);
+    ViewBag.CurrentPageName = CommonPageNames.ProfileSettings;
+}
+
+@section scripts {
+    <script src="~/view-resources/Views/Profiles/Index.js"></script>
+}
+
+<div class="position-relative mx-n4">
+    @(await Component.InvokeAsync<ProfileCoverViewComponent>())
+</div>
+
+<div class="row">
+    <div class="col-lg-3">
+        @(await Component.InvokeAsync<ProfileAvatarViewComponent>())
+        <!--end card-->
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex align-items-center mb-5">
+                    <div class="flex-grow-1">
+                        <h5 class="card-title mb-0">Complete Your Profile</h5>
+                    </div>
+                    <div class="flex-shrink-0">
+                        <a href="javascript:void(0);" class="badge bg-light text-primary fs-12"><i class="ri-edit-box-line align-bottom me-1"></i> Edit</a>
+                    </div>
+                </div>
+                <div class="progress animated-progress custom-progress progress-label">
+                    <div class="progress-bar bg-danger" role="progressbar" style="width: 30%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">
+                        <div class="label">30%</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @(await Component.InvokeAsync<ProfileSocialViewComponent>())
+        <!--end card-->
+    </div>
+    <!--end col-->
+    <div class="col-lg-9">
+        <div class="card mt-xxl-n5">
+            <div class="card-header">
+                <ul class="nav nav-tabs-custom rounded card-header-tabs border-bottom-0" role="tablist">
+                    @for(var i = 0; i < Model.ProfileManagementPageCreationContext.Groups.Count; i++)
+                    {
+                        var group = Model.ProfileManagementPageCreationContext.Groups[i];
+                        <li class="nav-item">
+                            <a class="nav-link @(i == 0 ? "active" : "")" data-bs-toggle="tab" href="#@group.Id" role="tab">
+                                @group.DisplayName
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </div>
+            <div class="card-body p-4">
+                <div class="tab-content">
+                    @for(var i = 0; i < Model.ProfileManagementPageCreationContext.Groups.Count; i++)
+                    {
+                        var group = Model.ProfileManagementPageCreationContext.Groups[i];
+                        <div class="tab-pane @(i == 0 ? "active" : "")" id="@group.Id" role="tabpanel">
+                            @await Component.InvokeAsync(group.ComponentType)
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--end col-->
+</div>
+<!--end row-->
+
+@await Html.PartialAsync("~/Views/Profile/_ConfirmChangeEmailModal.cshtml", new ConfirmCodeDto())
+@await Html.PartialAsync("~/Views/Profile/_ChangeEmailModal.cshtml", new ChangeEmailDto())

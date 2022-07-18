@@ -1,0 +1,35 @@
+﻿@using VinaCent.Blaze.Web.Models.Common.Modals
+@using VinaCent.Blaze.Profiles.Dto
+@model ConfirmCodeDto
+@{
+    Layout = null;
+}
+
+<div class="modal fade" id="ConfirmChangeEmailModal" tabindex="-1" role="dialog" aria-labelledby="ConfirmChangeEmailModalLabel" data-backdrop="static">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            @await Html.PartialAsync("~/Views/Shared/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L(LKConstants.ConfirmChangeEmail)))
+            <form role="form" class="form-horizontal">
+                <div class="modal-body">
+                    <input type="hidden" asp-for="Token" />
+                    <div class="alert alert-info alert-outline show" role="alert" id="confirm-alert">
+                        @L(LKConstants.ClickToReceiveConfirmCode).
+                        @L(LKConstants.ConfirmEmailWillBeSentToYourEmailInbox).
+                    </div>
+                    <label class="form-label" asp-for="ConfirmCode" id="ref-@Guid.NewGuid()">@L(LKConstants.ConfirmCode)</label>
+                    <div class="input-group mb-3">           
+					    <input asp-for="ConfirmCode" class="form-control" autocomplete="off"/>
+					    <button type="button" class="btn btn-outline-danger send-code-btn">
+						    @L(LKConstants.SendCode) <span></span>
+					    </button>
+				    </div>
+                </div>
+                <div class="d-grid gap-2 col-6 mx-auto pb-4">
+                    <button class="btn btn-primary next-btn" type="submit">
+                        @L(LKConstants.NextStep)
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

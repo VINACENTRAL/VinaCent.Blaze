@@ -1,0 +1,50 @@
+﻿@using System.Globalization
+@using VinaCent.Blaze.AppCore.UserLoginAttempts.Dto
+@model PagedUserLoginAttemptResultRequestDto
+
+@{
+    var startTime = DateTime.Now.AddMonths(-1)
+            .ToString(CultureInfo.CurrentUICulture.DateTimeFormat.ShortDatePattern);
+    var endTime = DateTime.Now.ToString(CultureInfo.CurrentUICulture.DateTimeFormat.ShortDatePattern);
+}
+
+<div class="abp-advanced-search">
+    <form id="SecurityLogsSearchForm" class="form-horizontal">
+        <div class="input-group">
+            <button type="button" class="btn btn-primary waves-effect waves-light btn-search">
+                <span class="fas fa-search" aria-hidden="true"></span>
+            </button>
+            <input type="text" asp-for="UserNameOrEmailAddress"  class="form-control txt-search" />
+            <button type="button"
+                    class="btn btn-primary waves-effect waves-light dropdown-toggle"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                <i class="fas fa-filter"></i>
+            </button>
+            <div class="dropdown-menu  dropdown-menu-right dd-menu" role="menu" style="padding: 0">
+                <div class="card" style="margin-bottom: 0">
+                    <div class="card-body">
+                        <div class="form-group row">
+                            <label class="form-label">@L(LKConstants.InRange)</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control text-center" asp-for="StartTime"
+                                        data-provider="flatpickr" 
+                                        data-date-format="d M, Y" 
+                                        data-minDate="@startTime">
+                                <span class="input-group-text">-</span>
+                                <input type="text" class="form-control text-center" asp-for="EndTime"
+                                        data-provider="flatpickr" 
+                                        data-date-format="d M, Y" 
+                                        data-minDate="@endTime">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button type="button" class="btn btn-danger btn-clear"><i class="fas fa-backspace me-2"></i> @L(LKConstants.Clear)</button>
+                        <button type="button" class="btn btn-primary float-end btn-search"><i class="fas fa-search me-2"></i> @L(LKConstants.Search)</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
