@@ -1,0 +1,26 @@
+<style>
+    .loading #iAmLoading, #globalModalContent {
+        max-width: 999999px;
+        overflow: auto;
+    }
+    
+    .loading #globalModalContent, #iAmLoading {
+        max-width: 0;
+        overflow: hidden;
+    }
+</style>
+<div class="modal modal-blur fade" id="globalModal" data-bs-backdrop="static" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content" id="iAmLoading">
+            <div class="progress" style="height: 3px">
+                <div class="progress-bar bg-fb-messenger" style="width: 100%;"></div>
+                <div class="progress-bar progress-bar-indeterminate bg-warning"></div>
+            </div>
+            <spinner/>
+        </div>
+        <div class="modal-content" id="globalModalContent">
+            <!-- RENDER MODAL CONTENT HERE -->
+            <!-- END -->
+        </div>
+    </div>
+</div>

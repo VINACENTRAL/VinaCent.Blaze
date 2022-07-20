@@ -1,0 +1,25 @@
+@using VinaCent.Configuration
+@{
+    var logo = await SettingManager.GetSettingValueAsync(AppSettingNames.SiteLogoHDark);
+    var siteName = await SettingManager.GetSettingValueAsync(AppSettingNames.SiteName);
+}
+<aside class="navbar navbar-vertical navbar-expand-lg navbar-dark">
+    <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-menu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <h1 class="navbar-brand navbar-brand-autodark">
+            <a asp-action="Index" asp-area="AdminCP" asp-controller="Dashboard">
+                <img src="@logo" height="32" alt="@siteName" class="w-100"/>
+            </a>
+        </h1>
+        <div class="navbar-nav flex-row d-lg-none">
+            <partial name="~/Views/Shared/Themes/Tabler/Components/Vertical/Header/_Header.Mobile.cshtml"/>
+        </div>
+        <div class="collapse navbar-collapse" id="navbar-menu">
+            <ul class="navbar-nav pt-lg-3">
+                <vc:tabler-aside/>
+            </ul>
+        </div>
+    </div>
+</aside>
