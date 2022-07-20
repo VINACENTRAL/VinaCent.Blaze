@@ -1,9 +1,5 @@
-﻿@using VinaCent.Blaze.Web.Views.Shared.Components.SideBarMenu
-@using VinaCent.Blaze.Web.Views.Shared.Components.SideBarUserArea
+﻿@using VinaCent.Blaze.Web.Views.Shared.Components.SideBarUserArea
+@using VinaCent.Blaze.Web.Views.Shared.Components.VelzonAside
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
-    @await Html.PartialAsync("_SideBar.Logo.cshtml")
-    <div class="sidebar">
-        @await Component.InvokeAsync(typeof(SideBarUserAreaViewComponent))
-        @await Component.InvokeAsync(typeof(SideBarMenuViewComponent))
-    </div>
+    
 </aside>

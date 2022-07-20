@@ -18,7 +18,7 @@ namespace VinaCent.Blaze.Web.Startup
                         PageNames.About,
                         L("About"),
                         url: "About",
-                        icon: "fas fa-info-circle"
+                        icon: "mdi mdi-information"
                     )
                 )
                 .AddItem(
@@ -26,7 +26,7 @@ namespace VinaCent.Blaze.Web.Startup
                         PageNames.Home,
                         L("HomePage"),
                         url: "",
-                        icon: "fas fa-home",
+                        icon: "mdi mdi-home",
                         requiresAuthentication: true
                     )
                 ).AddItem(
@@ -34,7 +34,7 @@ namespace VinaCent.Blaze.Web.Startup
                         PageNames.Tenants,
                         L("Tenants"),
                         url: "Tenants",
-                        icon: "fas fa-building",
+                        icon: "mdi mdi-office-building",
                         permissionDependency: new SimplePermissionDependency(PermissionNames.Pages_Tenants)
                     )
                 ).AddItem(
@@ -42,7 +42,7 @@ namespace VinaCent.Blaze.Web.Startup
                         PageNames.Users,
                         L("Users"),
                         url: "Users",
-                        icon: "fas fa-users",
+                        icon: "mdi mdi-account-multiple",
                         permissionDependency: new SimplePermissionDependency(PermissionNames.Pages_Users)
                     )
                 ).AddItem(
@@ -50,7 +50,7 @@ namespace VinaCent.Blaze.Web.Startup
                         PageNames.Roles,
                         L("Roles"),
                         url: "Roles",
-                        icon: "fas fa-theater-masks",
+                        icon: "mdi mdi-drama-masks",
                         permissionDependency: new SimplePermissionDependency(PermissionNames.Pages_Roles)
                     )
                 )
@@ -58,7 +58,7 @@ namespace VinaCent.Blaze.Web.Startup
                     new MenuItemDefinition(
                         "MultiLevelMenu",
                         L("MultiLevelMenu"),
-                        icon: "fas fa-circle"
+                        icon: "mdi mdi-circle"
                     ).AddItem(
                         new MenuItemDefinition(
                             "AspNetBoilerplate",

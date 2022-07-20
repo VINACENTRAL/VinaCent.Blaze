@@ -1,25 +1,34 @@
-@using VinaCent.Configuration
-@{
-    var logo = await SettingManager.GetSettingValueAsync(AppSettingNames.SiteLogoHDark);
-    var siteName = await SettingManager.GetSettingValueAsync(AppSettingNames.SiteName);
-}
-<aside class="navbar navbar-vertical navbar-expand-lg navbar-dark">
-    <div class="container-fluid">
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-menu">
-            <span class="navbar-toggler-icon"></span>
+@using VinaCent.Blaze.Web.Views.Shared.Components.VelzonAside
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+
+<div class="app-menu navbar-menu">
+    <div class="navbar-brand-box">
+        <!-- Dark Logo-->
+        <a asp-action="Index" asp-area="AdminCP" asp-controller="Dashboard" class="logo logo-dark">
+            <span class="logo-sm">
+                <img src="./assets/images/logo-sm.png" alt="" height="22">
+            </span>
+            <span class="logo-lg">
+                <img src="./assets/images/logo-dark.png" alt="" height="17">
+            </span>
+        </a>
+        <!-- Light Logo-->
+        <a asp-action="Index" asp-area="AdminCP" asp-controller="Dashboard" class="logo logo-light">
+            <span class="logo-sm">
+                <img src="./assets/images/logo-sm.png" alt="" height="22">
+            </span>
+            <span class="logo-lg">
+                <img src="./assets/images/logo-light.png" alt="" height="17">
+            </span>
+        </a>
+        <button type="button" class="btn btn-sm p-0 fs-20 header-item float-end btn-vertical-sm-hover" id="vertical-hover">
+            <i class="ri-record-circle-line"></i>
         </button>
-        <h1 class="navbar-brand navbar-brand-autodark">
-            <a asp-action="Index" asp-area="AdminCP" asp-controller="Dashboard">
-                <img src="@logo" height="32" alt="@siteName" class="w-100"/>
-            </a>
-        </h1>
-        <div class="navbar-nav flex-row d-lg-none">
-            <partial name="~/Views/Shared/Themes/Tabler/Components/Vertical/Header/_Header.Mobile.cshtml"/>
-        </div>
-        <div class="collapse navbar-collapse" id="navbar-menu">
-            <ul class="navbar-nav pt-lg-3">
-                <vc:tabler-aside/>
-            </ul>
+    </div>
+    <div id="scrollbar">
+        <div class="container-fluid">
+            @(await Component.InvokeAsync<VelzonAsideViewComponent>())
         </div>
     </div>
-</aside>
+    <div class="sidebar-background"></div>
+</div>
