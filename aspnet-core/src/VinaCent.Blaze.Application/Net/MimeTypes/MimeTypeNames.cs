@@ -10,13 +10,19 @@ namespace VinaCent.Blaze.Net.MimeTypes
     /// </summary>
     public static class MimeTypeNames
     {
-        ///<summary>Used to denote the encoding necessary for files containing JavaScript source code. The alternative MIME type for this file type is text/javascript.</summary>
+        /// <summary>
+        /// Used to denote the encoding necessary for files containing JavaScript source code. The alternative MIME type for this file type is text/javascript.
+        /// </summary>
         public const string ApplicationXJavascript = "application/x-javascript";
 
-        ///<summary>24bit Linear PCM audio at 8-48kHz, 1-N channels; Defined in RFC 3190</summary>
+        /// <summary>
+        /// 24bit Linear PCM audio at 8-48kHz, 1-N channels; Defined in RFC 3190
+        /// </summary>
         public const string AudioL24 = "audio/L24";
 
-        ///<summary>Adobe Flash files for example with the extension .swf</summary>
+        /// <summary>
+        /// Adobe Flash files for example with the extension .swf
+        /// </summary>
         public const string ApplicationXShockwaveFlash = "application/x-shockwave-flash";
 
         ///<summary>Arbitrary binary data.[5] Generally speaking this type identifies files that are not associated with a specific application. Contrary to past assumptions by software packages such as Apache this is not a type that should be applied to unknown files. In such a case, a server or application should not indicate a content type, as it may be incorrect, but rather, should omit the type in order to allow the recipient to guess the type.[6]</summary>
@@ -55,8 +61,10 @@ namespace VinaCent.Blaze.Net.MimeTypes
         ///<summary>DTD files; Defined by RFC 3023</summary>
         public const string ApplicationXmlDtd = "application/xml-dtd";
 
-        ///<summary>ECMAScript/JavaScript; Defined in RFC 4329 (equivalent to application/ecmascript but with looser processing rules) It is not accepted in IE 8 or earlier - text/javascript is accepted but it is defined as obsolete in RFC 4329. The "type" attribute of the <script> tag in HTML5 is optional and in practice omitting the media type of JavaScript programs is the most interoperable solution since all browsers have always assumed the correct default even before HTML5.</summary>
-        public const string ApplicationJavascript = "application/javascript";
+        /// <summary>
+        /// ECMAScript/JavaScript; Defined in RFC 4329 (equivalent to application/ecmascript but with looser processing rules) It is not accepted in IE 8 or earlier - text/javascript is accepted but it is defined as obsolete in RFC 4329. The "type" attribute of the <script> tag in HTML5 is optional and in practice omitting the media type of JavaScript programs is the most interoperable solution since all browsers have always assumed the correct default even before HTML5.
+        /// </summary>
+       public const string ApplicationJavascript = "application/javascript";
 
         ///<summary>ECMAScript/JavaScript; Defined in RFC 4329 (equivalent to application/javascript but with stricter processing rules)</summary>
         public const string ApplicationEcmascript = "application/ecmascript";
