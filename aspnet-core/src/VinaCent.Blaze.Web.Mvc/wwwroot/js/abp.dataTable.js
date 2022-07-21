@@ -1,4 +1,5 @@
-﻿var abp = abp || {};
+﻿// https://github.com/DataTables/DataTablesSrc/blob/master/js/ext/ext.classes.js#L7
+var abp = abp || {};
 (function () {
     if (!$.fn.dataTable) {
         return;
@@ -42,11 +43,15 @@
             "<'row'<'col-md-12'f>>",
             "<'row'<'col-md-12't>>",
             "<'row mt-2'",
-            "<'col-lg-1 col-xs-12'<'float-left text-center data-tables-refresh'B>>",
-            "<'col-lg-3 col-xs-12'<'float-left text-center'i>>",
-            "<'col-lg-3 col-xs-12'<'text-center'l>>",
-            "<'col-lg-5 col-xs-12'<'float-right'p>>",
+            "<'col-lg-1 col-xs-12'<'float-start text-center data-tables-refresh'B>>",
+            "<'col-lg-3 col-xs-12'<'d-flex h-100 justify-content-start align-items-center'i>>",
+            "<'col-lg-3 col-xs-12'<'d-flex h-100 justify-content-center align-items-center'l>>",
+            "<'col-lg-5 col-xs-12'<'d-flex h-100 justify-content-end align-items-center'p>>",
             ">"
         ].join('')
     });
+
+    //$.fn.dataTable.ext.classes.sPageButton = '131313';
+    //$.fn.dataTable.ext.classes.sPageButtonActive = '131313';
+    //$.fn.dataTable.ext.classes.sPageButtonDisabled = 'disabled';
 })();
