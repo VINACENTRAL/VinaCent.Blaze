@@ -13,55 +13,41 @@
                 <div class="modal-body">
                     <ul class="nav nav-tabs" role="tablist">
                         <li class="nav-item">
-                            <a class="nav-link active" data-toggle="tab" role="tab" href="#create-user-details">@L("UserDetails")</a>
+                            <button class="nav-link active" type="button" data-bs-toggle="tab" role="tab" data-bs-target="#create-user-details">@L("UserDetails")</button>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" role="tab" href="#create-user-roles">@L("UserRoles")</a>
+                            <button class="nav-link" type="button" data-bs-toggle="tab" role="tab" data-bs-target="#create-user-roles">@L("UserRoles")</button>
                         </li>
                     </ul>
                     <div class="tab-content mt-4">
                         <div role="tabpanel" class="tab-pane container active" id="create-user-details">
-                            <div class="form-group row required">
-                                <label class="col-md-3 col-form-label">@L("UserName")</label>
-                                <div class="col-md-9">
-                                    <input type="text" class="form-control" name="UserName" required maxlength="@AbpUserBase.MaxUserNameLength" minlength="2">
-                                </div>
+                            <div class="required mb-3">
+                                <label class="form-label">@L("UserName")</label>
+                                <input type="text" class="form-control" name="UserName" required maxlength="@AbpUserBase.MaxUserNameLength" minlength="2">
                             </div>
-                            <div class="form-group row required">
-                                <label class="col-md-3 col-form-label">@L("Name")</label>
-                                <div class="col-md-9">
-                                    <input type="text" class="form-control" name="Name" required maxlength="@AbpUserBase.MaxNameLength">
-                                </div>
+                            <div class="required mb-3">
+                                <label class="form-label">@L("Name")</label>
+                                <input type="text" class="form-control" name="Name" required maxlength="@AbpUserBase.MaxNameLength">
                             </div>
-                            <div class="form-group row required">
-                                <label class="col-md-3 col-form-label">@L("Surname")</label>
-                                <div class="col-md-9">
-                                    <input type="text" class="form-control" name="Surname" required maxlength="@AbpUserBase.MaxSurnameLength">
-                                </div>
+                            <div class="required mb-3">
+                                <label class="form-label">@L("Surname")</label>
+                                <input type="text" class="form-control" name="Surname" required maxlength="@AbpUserBase.MaxSurnameLength">
                             </div>
-                            <div class="form-group row required">
-                                <label class="col-md-3 col-form-label">@L("EmailAddress")</label>
-                                <div class="col-md-9">
-                                    <input type="email" class="form-control" name="EmailAddress" required maxlength="@AbpUserBase.MaxEmailAddressLength">
-                                </div>
+                            <div class="required mb-3">
+                                <label class="form-label">@L("EmailAddress")</label>
+                                <input type="email" class="form-control" name="EmailAddress" required maxlength="@AbpUserBase.MaxEmailAddressLength">
                             </div>
-                            <div class="form-group row required">
-                                <label class="col-md-3 col-form-label">@L("Password")</label>
-                                <div class="col-md-9">
-                                    <input type="password" class="form-control" name="Password" id="Password" required maxlength="@AbpUserBase.MaxPlainPasswordLength">
-                                </div>
+                            <div class="required mb-3">
+                                <label class="form-label">@L("Password")</label>
+                                <input type="password" class="form-control" name="Password" id="Password" required maxlength="@AbpUserBase.MaxPlainPasswordLength">
                             </div>
-                            <div class="form-group row required">
-                                <label class="col-md-3 col-form-label">@L("ConfirmPassword")</label>
-                                <div class="col-md-9">
-                                    <input type="password" class="form-control" name="ConfirmPassword" id="ConfirmPassword" required maxlength="@AbpUserBase.MaxPlainPasswordLength">
-                                </div>
+                            <div class="required mb-3">
+                                <label class="form-label">@L("ConfirmPassword")</label>
+                                <input type="password" class="form-control" name="ConfirmPassword" id="ConfirmPassword" required maxlength="@AbpUserBase.MaxPlainPasswordLength">
                             </div>
-                            <div class="form-group row">
-                                <label class="col-md-3 col-form-label" for="CreateUserIsActive">@L("IsActive")</label>
-                                <div class="col-md-9">
-                                    <input type="checkbox" name="IsActive" value="true" id="CreateUserIsActive" checked />
-                                </div>
+                            <div class="form-check form-switch form-switch-success mb-3">
+                                <input class="form-check-input" type="checkbox" role="switch" id="IsActive" name="IsActive" value="true" checked>
+                                <label class="form-check-label" for="IsActive">@L("IsActive")</label>
                             </div>
                         </div>
                         <div role="tabpanel" class="tab-pane container" id="create-user-roles">
@@ -69,8 +55,10 @@
                                 @foreach (var role in Model.Roles)
                                 {
                                     <div class="col-md-6">
-                                        <input type="checkbox" name="role" id="role-@role.Id" value="@role.NormalizedName" title="@role.Description" />
-                                        <label for="role-@role.Id" title="@role.DisplayName">@role.Name</label>
+                                        <div class="form-check form-switch form-switch-success mb-3">
+                                            <input class="form-check-input" type="checkbox" role="switch" name="role" value="@role.NormalizedName" title="@role.Description" id="role-@role.Id">
+                                            <label class="form-check-label" for="role-@role.Id" title="@role.DisplayName">@role.Name</label>
+                                        </div>
                                     </div>
                                 }
                             </div>
