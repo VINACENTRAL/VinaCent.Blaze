@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Abp.AutoMapper;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -7,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace VinaCent.Blaze.AppCore.FileUnits.Dto
 {
+    [AutoMap(typeof(FileUnit))]
     public class CreateDirectoryDto
     {
         /// <summary>

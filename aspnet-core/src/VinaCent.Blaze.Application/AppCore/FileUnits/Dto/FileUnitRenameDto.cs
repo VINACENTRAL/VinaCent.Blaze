@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Abp.Application.Services.Dto;
+using Abp.AutoMapper;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -7,7 +9,8 @@ using System.Threading.Tasks;
 
 namespace VinaCent.Blaze.AppCore.FileUnits.Dto
 {
-    public class UpdateFileUnitDto
+    [AutoMap(typeof(FileUnit))]
+    public class FileUnitRenameDto : EntityDto<Guid>
     {
         /// <summary>
         /// Real file name
