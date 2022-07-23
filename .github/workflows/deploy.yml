@@ -1,7 +1,7 @@
 name: Deploy CI
 on:
-  push:
-    branches: [master]
+  # push:
+  #   branches: [master]
   # Triggers the workflow on push or pull request events but only for the master branch
   pull_request:
     branches: [master]
@@ -12,7 +12,7 @@ on:
 
 jobs:
   release:
-    # if: github.event.pull_request.merged
+    if: github.event.pull_request.merged
     runs-on: self-hosted
     steps:
       - name: Checkout to current repository
