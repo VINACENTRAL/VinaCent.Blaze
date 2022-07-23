@@ -21,6 +21,10 @@ jobs:
       - name: Build to publish
         run: dotnet publish ./aspnet-core/src/VinaCent.Blaze.Web.Mvc/VinaCent.Blaze.Web.Mvc.csproj -c Release # Must be change when clone this CI
 
+      - name: Dir
+        run: |
+          dir
+
       - name: Stop running site
         run: |
           Stop-WebSite -Name "shop.vinacent.com"
