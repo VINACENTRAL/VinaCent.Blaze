@@ -1,4 +1,6 @@
-﻿@using VinaCent.Blaze.Web.Themes.Velzon
+﻿@using VinaCent.Blaze.Themes
+@using VinaCent.Blaze.Web.Themes.Velzon
+@inject ITheme Theme;
 @{
-    Layout = VelzonTheme.Application;//"~/Views/Shared/Layout/_Layout.cshtml";
+    Layout = Theme.GetLayout(StandardLayouts.Application);//VelzonTheme.Application;//"~/Views/Shared/Layout/_Layout.cshtml";
 }

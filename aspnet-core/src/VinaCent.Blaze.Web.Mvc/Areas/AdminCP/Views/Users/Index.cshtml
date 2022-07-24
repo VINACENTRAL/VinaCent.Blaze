@@ -29,7 +29,7 @@
                 </button>
             </div>
             <div class="col-md-6">
-                @await Html.PartialAsync("~/Views/Users/Index.AdvancedSearch.cshtml")
+                @await Html.PartialAsync("~/Areas/AdminCP/Views/Users/Index.AdvancedSearch.cshtml")
             </div>
         </div>
     </div>
@@ -52,7 +52,7 @@
     </div>
 </div>
 
-@await Html.PartialAsync("~/Views/Users/_CreateModal.cshtml", Model)
+@await Html.PartialAsync("~/Areas/AdminCP/Views/Users/_CreateModal.cshtml", Model)
 
 <div class="modal fade" id="UserEditModal" tabindex="-1" role="dialog" aria-labelledby="UserEditModalLabel" data-backdrop="static">
     <div class="modal-dialog modal-lg" role="document">

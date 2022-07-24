@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
     <AssemblyName>VinaCent.Blaze.Web.Mvc</AssemblyName>
     <OutputType>Exe</OutputType>

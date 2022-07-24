@@ -33,7 +33,7 @@ namespace VinaCent.Blaze.Web.Startup
                     new MenuItemDefinition(
                         PageNames.Tenants,
                         L("Tenants"),
-                        url: "Tenants",
+                        url: "admincp/tenants",
                         icon: "mdi mdi-office-building",
                         permissionDependency: new SimplePermissionDependency(PermissionNames.Pages_Tenants)
                     )
@@ -41,7 +41,7 @@ namespace VinaCent.Blaze.Web.Startup
                     new MenuItemDefinition(
                         PageNames.Users,
                         L("Users"),
-                        url: "Users",
+                        url: "admincp/users",
                         icon: "mdi mdi-account-multiple",
                         permissionDependency: new SimplePermissionDependency(PermissionNames.Pages_Users)
                     )
@@ -49,7 +49,7 @@ namespace VinaCent.Blaze.Web.Startup
                     new MenuItemDefinition(
                         PageNames.Roles,
                         L("Roles"),
-                        url: "Roles",
+                        url: "admincp/roles",
                         icon: "mdi mdi-drama-masks",
                         permissionDependency: new SimplePermissionDependency(PermissionNames.Pages_Roles)
                     )

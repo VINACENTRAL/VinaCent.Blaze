@@ -10,6 +10,8 @@ using VinaCent.Blaze.Web.Models.Users;
 namespace VinaCent.Blaze.Web.Controllers
 {
     [AbpMvcAuthorize(PermissionNames.Pages_Users)]
+    [Area("AdminCP")]
+    [Route("admincp/users")]
     public class UsersController : BlazeControllerBase
     {
         private readonly IUserAppService _userAppService;
@@ -19,6 +21,7 @@ namespace VinaCent.Blaze.Web.Controllers
             _userAppService = userAppService;
         }
 
+        [HttpGet("")]
         public async Task<ActionResult> Index()
         {
             var roles = (await _userAppService.GetRoles()).Items;
@@ -29,6 +32,7 @@ namespace VinaCent.Blaze.Web.Controllers
             return View(model);
         }
 
+        [HttpPost("edit-modal")]
         public async Task<ActionResult> EditModal(long userId)
         {
             var user = await _userAppService.GetAsync(new EntityDto<long>(userId));
@@ -41,6 +45,7 @@ namespace VinaCent.Blaze.Web.Controllers
             return PartialView("_EditModal", model);
         }
 
+        [HttpGet("change-password")]
         public ActionResult ChangePassword()
         {
             return View();

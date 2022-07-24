@@ -1,68 +1,84 @@
 ﻿@using Abp.Authorization.Users
+@using Abp.Configuration.Startup
+@using VinaCent.Blaze.Web.Themes.Velzon
+@inject IMultiTenancyConfig MultiTenancyConfig
+
 @model VinaCent.Blaze.Web.Models.Account.LoginFormViewModel
 @{
     ViewBag.Title = L("LogIn");
 }
 @section scripts
 {
-    <environment names="Development">
-        <script src="~/view-resources/Views/Account/Login.js" asp-append-version="true"></script>
-    </environment>
-
-    <environment names="Staging,Production">
-        <script src="~/view-resources/Views/Account/Login.min.js" asp-append-version="true"></script>
-    </environment>
+    @Html.RenderPartialAsync("~/Views/Shared/Components/TenantChange/_ModalContainer.cshtml")
+<script src="~/view-resources/Views/Account/Login.js" asp-append-version="true"></script>
 }
-<h4 class="text-center">@L("LogIn")</h4>
-<form id="LoginForm" asp-action="Login" method="post">
-    <input type="hidden" name="returnUrl" value="@Model.ReturnUrl" />
-    <input type="hidden" name="returnUrlHash" />
-    <div class="input-group mb-3">
-        <input type="text" name="usernameOrEmailAddress" class="form-control" placeholder="@L("UserNameOrEmail")" required autofocus maxlength="@AbpUserBase.MaxEmailAddressLength">
-        <div class="input-group-append">
-            <div class="input-group-text">
-                <span class="fas fa-user"></span>
-            </div>
-        </div>
-    </div>
-    <div class="input-group mb-3">
-        <input type="password" class="form-control" name="Password" autocomplete="password" placeholder="@L("Password")" required maxlength="@AbpUserBase.MaxPlainPasswordLength">
-        <div class="input-group-append">
-            <div class="input-group-text">
-                <span class="fas fa-lock"></span>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-8">
-            <div class="icheck-primary">
-                <input type="checkbox" id="RememberMe" name="RememberMe" value="true">
-                <label for="RememberMe">
-                    @L("RememberMe")
-                </label>
-            </div>
-        </div>
-        <div class="col-4">
-            <button type="submit" id="LoginButton" class="btn btn-primary btn-block btn-flat">@L("LogIn")</button>
-        </div>
-    </div>
-</form>
-@*<div class="social-auth-links text-center mb-3">
-        <p>- OR -</p>
-        <a href="javascript:;" class="btn btn-block btn-primary">
-            <i class="fab fa-facebook mr-2"></i> Sign in using Facebook
-        </a>
-        <a href="javascript:;" class="btn btn-block btn-danger">
-            <i class="fab fa-google-plus mr-2"></i> Sign in using Google+
-        </a>
-    </div>*@
-<p class="mb-0">
-    @if (Model.IsSelfRegistrationAllowed)
+
+<div class="card mt-4">
+    @if (MultiTenancyConfig.IsEnabled)
     {
-        <div class="row">
-            <div class="col-12">
-                <a asp-action="Register" class="text-center"><i class="fa fa-plus-circle"></i> @L("Register")</a>
-            </div>
+        <div class="card-header">
+            <vc:tenant-change></vc:tenant-change>
         </div>
     }
-</p>
+    <div class="card-body p-4">
+        <div class="p-2">
+            <div class="text-center mt-2">
+                <h4 class="text-primary">@L("Login")</h4>
+                <p class="text-muted">Sign in to continue to Velzon.</p>
+            </div>
+
+            <div class="p-2 mt-4">
+                <form id="LoginForm" asp-action="Login" method="post">
+                    <input type="hidden" name="returnUrl" value="@Model.ReturnUrl" />
+                    <input type="hidden" name="returnUrlHash" />
+
+                    <div class="mb-3">
+                        <label for="username" class="form-label">@L("UserNameOrEmail")</label>
+                        <input type="text" name="usernameOrEmailAddress" class="form-control" placeholder="@L("UserNameOrEmail")" required autofocus maxlength="@AbpUserBase.MaxEmailAddressLength">
+                    </div>
+
+                    <div class="mb-3">
+                        <div class="float-end">
+                            <a href="auth-pass-reset-basic.html" class="text-muted">Forgot password?</a>
+                        </div>
+                        <label class="form-label" for="password-input">@L("Password")</label>
+                        <div class="position-relative auth-pass-inputgroup mb-3">
+                            <input type="password" class="form-control pe-5" name="Password" autocomplete="password" placeholder="@L("Password")" required maxlength="@AbpUserBase.MaxPlainPasswordLength" id="password-input">
+                            <button class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted shadow-none" type="button" id="password-addon"><i class="ri-eye-fill align-middle"></i></button>
+                        </div>
+                    </div>
+
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="RememberMe" name="RememberMe" value="true">
+                        <label class="form-check-label" for="RememberMe">@L("RememberMe")</label>
+                    </div>
+
+                    <div class="mt-4">
+                        <button class="btn btn-success w-100" type="submit" id="LoginButton">@L("LogIn")</button>
+                    </div>
+
+
+                    <div class="mt-4 text-center">
+                        <div class="signin-other-title">
+                            <h5 class="fs-13 mb-4 title">Sign In with</h5>
+                        </div>
+                        <div>
+                            <button type="button" class="btn btn-primary btn-icon waves-effect waves-light"><i class="ri-facebook-fill fs-16"></i></button>
+                            <button type="button" class="btn btn-danger btn-icon waves-effect waves-light"><i class="ri-google-fill fs-16"></i></button>
+                            <button type="button" class="btn btn-dark btn-icon waves-effect waves-light"><i class="ri-github-fill fs-16"></i></button>
+                            <button type="button" class="btn btn-info btn-icon waves-effect waves-light"><i class="ri-twitter-fill fs-16"></i></button>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+    <vc:velzon-account-language />
+</div>
+@if (Model.IsSelfRegistrationAllowed)
+{
+    <div class="mt-4 text-center">
+        <p class="mb-0">Don't have an account ? <a asp-action="Register" class="fw-semibold text-primary text-decoration-underline"> @L("Register")</a> </p>
+    </div>
+}

@@ -5,81 +5,82 @@
 }
 @section scripts
 {
-    <environment names="Development">
-        <script src="~/view-resources/Views/Account/Register.js" asp-append-version="true"></script>
-    </environment>
-
-    <environment names="Staging,Production">
-        <script src="~/view-resources/Views/Account/Register.min.js" asp-append-version="true"></script>
-    </environment>
+<script src="~/view-resources/Views/Account/Register.js" asp-append-version="true"></script>
 }
-<h4 class="text-center">@L("Register")</h4>
-<form id="RegisterForm" asp-action="Register" method="post">
-    @if (ViewBag.ErrorMessage != null)
-    {
-        <div class="alert alert-danger">
-            <i class="fas fa-warning"></i> @ViewBag.ErrorMessage
-        </div>
-    }
-    <input type="hidden" name="IsExternalLogin" value="@Model.IsExternalLogin.ToString()" />
-    <input type="hidden" name="ExternalLoginAuthSchema" value="@Model.ExternalLoginAuthSchema" />
-    <div class="input-group mb-3">
-        <input type="text" name="Name" class="form-control" placeholder="@L("Name")" value="@Model.Name" required maxlength="@AbpUserBase.MaxNameLength">
-        <div class="input-group-append">
-            <div class="input-group-text">
-                <span class="fas fa-arrow-left"></span>
+<div class="card mt-4">
+    <div class="card-body p-4">
+        <div class="p-2">
+            <div class="text-center mt-2">
+                <h4 class="text-primary">@L("Register")</h4>
+                <p class="text-muted">Register to continue to Velzon.</p>
+            </div>
+
+            <div class="p-2 mt-4">
+                <form id="RegisterForm" asp-action="Register" method="post">
+                    @if (ViewBag.ErrorMessage != null)
+                    {
+                        <div class="alert alert-danger">
+                            <i class="fas fa-warning"></i> @ViewBag.ErrorMessage
+                        </div>
+                    }
+                    <input type="hidden" name="IsExternalLogin" value="@Model.IsExternalLogin.ToString()" />
+                    <input type="hidden" name="ExternalLoginAuthSchema" value="@Model.ExternalLoginAuthSchema" />
+
+                    <div class="mb-3">
+                        <label for="Name" class="form-label">@L("Name")</label>
+                        <input type="text" id="Name" name="Name" class="form-control" placeholder="@L("Name")" value="@Model.Name" required maxlength="@AbpUserBase.MaxNameLength">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="Surname" class="form-label">@L("Surname")</label>
+                        <input type="text" id="Surname" name="Surname" class="form-control" placeholder="@L("Surname")" value="@Model.Surname" required maxlength="@AbpUserBase.MaxSurnameLength">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="EmailAddress" class="form-label">@L("EmailAddress")</label>
+                        <input type="email" id="EmailAddress" name="EmailAddress" class="form-control" placeholder="@L("EmailAddress")" value="@Model.EmailAddress" required maxlength="@AbpUserBase.MaxEmailAddressLength">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="UserName" class="form-label">@L("UserName")</label>
+                        <input type="text" id="UserName" name="UserName" class="form-control" placeholder="@L("UserName")" value="@Model.UserName" required maxlength="@AbpUserBase.MaxUserNameLength">
+                    </div>
+
+                    <div class="mb-3">
+                        <div class="float-end">
+                            <a href="auth-pass-reset-basic.html" class="text-muted">Forgot password?</a>
+                        </div>
+                        <label class="form-label" for="password-input">Password</label>
+                        <div class="position-relative auth-pass-inputgroup mb-3">
+                            <input type="password" class="form-control pe-5" name="Password" autocomplete="password" placeholder="@L("Password")" required maxlength="@AbpUserBase.MaxPlainPasswordLength" id="password-input">
+                            <button class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted shadow-none" type="button" id="password-addon"><i class="ri-eye-fill align-middle"></i></button>
+                        </div>
+                    </div>
+
+                    <div class="mt-4">
+                        <button class="btn btn-success w-100" type="submit" id="RegisterButton">@L("Register")</button>
+                    </div>
+
+                    <div class="mt-4 text-center">
+                        <div class="signin-other-title">
+                            <h5 class="fs-13 mb-4 title text-muted">Create account with</h5>
+                        </div>
+
+                        <div>
+                            <button type="button" class="btn btn-primary btn-icon waves-effect waves-light"><i class="ri-facebook-fill fs-16"></i></button>
+                            <button type="button" class="btn btn-danger btn-icon waves-effect waves-light"><i class="ri-google-fill fs-16"></i></button>
+                            <button type="button" class="btn btn-dark btn-icon waves-effect waves-light"><i class="ri-github-fill fs-16"></i></button>
+                            <button type="button" class="btn btn-info btn-icon waves-effect waves-light"><i class="ri-twitter-fill fs-16"></i></button>
+                        </div>
+                    </div>
+
+                </form>
             </div>
         </div>
     </div>
-    <div class="input-group mb-3">
-        <input type="text" name="Surname" class="form-control" placeholder="@L("Surname")" value="@Model.Surname" required maxlength="@AbpUserBase.MaxSurnameLength">
-        <div class="input-group-append">
-            <div class="input-group-text">
-                <span class="fas fa-arrow-left"></span>
-            </div>
-        </div>
-    </div>
-    <div class="input-group mb-3">
-        <input type="email" name="EmailAddress" class="form-control" placeholder="@L("EmailAddress")" value="@Model.EmailAddress" required maxlength="@AbpUserBase.MaxEmailAddressLength">
-        <div class="input-group-append">
-            <div class="input-group-text">
-                <span class="fas fa-envelope"></span>
-            </div>
-        </div>
-    </div>
-    <div class="input-group mb-3">
-        <input type="text" name="UserName" class="form-control" placeholder="@L("UserName")" value="@Model.UserName" required maxlength="@AbpUserBase.MaxUserNameLength">
-        <div class="input-group-append">
-            <div class="input-group-text">
-                <span class="fas fa-user"></span>
-            </div>
-        </div>
-    </div>
-    <div class="input-group mb-3">
-        <input type="password" name="Password" class="form-control" placeholder="@L("Password")" required maxlength="@AbpUserBase.MaxPlainPasswordLength">
-        <div class="input-group-append">
-            <div class="input-group-text">
-                <span class="fas fa-lock"></span>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-8">
-            <a asp-action="Login" class="btn btn-default btn-flat"><i class="fa fa-arrow-circle-left"></i> @L("Back")</a>
-        </div>
-        <div class="col-4">
-            <button type="submit" id="RegisterButton" class="btn btn-primary btn-flat float-right">@L("Register")</button>
-        </div>
-    </div>
-</form>
-@*<div class="social-auth-links text-center">
-        <p>- OR -</p>
-        <a href="javascript:;" class="btn btn-block btn-primary">
-            <i class="fab fa-facebook mr-2"></i>
-            Sign up using Facebook
-        </a>
-        <a href="javascript:;" class="btn btn-block btn-danger">
-            <i class="fab fa-google-plus mr-2"></i>
-            Sign up using Google+
-        </a>
-    </div>*@
+    <vc:velzon-account-language />
+</div>
+
+<div class="mt-4 text-center">
+    <p class="mb-0">Already have an account ? <a asp-action="Login" class="fw-semibold text-primary text-decoration-underline">@L("LogIn")</a> </p>
+</div>

@@ -6,9 +6,10 @@ namespace VinaCent.Blaze.Web.Themes.Velzon.Components.VelzonBrand;
 
 public class VelzonBrandViewComponent : AbpViewComponent
 {
-    public virtual IViewComponentResult Invoke(bool isInnerSidebar = false)
+    public virtual IViewComponentResult Invoke(bool isInnerSidebar = false, bool isShowSingleOnly = false)
     {
         ViewBag.IsInnerSidebar = isInnerSidebar;
+        ViewBag.IsShowSingleOnly = isShowSingleOnly;
         return View($"~/Themes/Velzon/Components/{nameof(VelzonBrandViewComponent).Remove("ViewComponent")}/Default.cshtml");
     }
 }

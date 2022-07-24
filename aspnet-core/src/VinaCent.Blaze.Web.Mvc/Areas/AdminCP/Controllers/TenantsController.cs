@@ -9,6 +9,8 @@ using VinaCent.Blaze.MultiTenancy;
 namespace VinaCent.Blaze.Web.Controllers
 {
     [AbpMvcAuthorize(PermissionNames.Pages_Tenants)]
+    [Area("AdminCP")]
+    [Route("admincp/tenants")]
     public class TenantsController : BlazeControllerBase
     {
         private readonly ITenantAppService _tenantAppService;
@@ -18,8 +20,10 @@ namespace VinaCent.Blaze.Web.Controllers
             _tenantAppService = tenantAppService;
         }
 
+        [HttpGet("")]
         public ActionResult Index() => View();
 
+        [HttpPost("edit-modal")]
         public async Task<ActionResult> EditModal(int tenantId)
         {
             var tenantDto = await _tenantAppService.GetAsync(new EntityDto(tenantId));

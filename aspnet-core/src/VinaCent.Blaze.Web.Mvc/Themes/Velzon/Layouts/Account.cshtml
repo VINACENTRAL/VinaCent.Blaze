@@ -1,0 +1,134 @@
+﻿@using Abp.Configuration.Startup
+@using Abp.Web.Mvc.Alerts
+@using Abp.Web.Security.AntiForgery
+@using System.Globalization
+@using VinaCent.Blaze
+@using VinaCent.Blaze.Web.Resources
+@inject IAbpAntiForgeryManager AbpAntiForgeryManager
+@inject IWebResourceManager WebResourceManager
+@inject IAlertManager AlertManager
+@inject ILanguageManager LanguageManager
+
+@using VinaCent.Blaze.Web.Themes.Velzon.ThemeOptions
+@inject IVelzonThemeOptions ThemeOptions
+
+@{
+    Layout = null;
+    var rtl = CultureInfo.CurrentCulture.TextInfo.IsRightToLeft ? "rtl" : "ltr";
+    ThemeOptions.Load(this);
+
+    AbpAntiForgeryManager.SetCookie(Context);
+
+    var pageTitle = !string.IsNullOrWhiteSpace(ViewBag.Title) ? ViewBag.Title + " | " : "";
+    pageTitle += "Blaze";
+
+    var favicon = "/vinacent/brand/favicon.ico";
+}
+
+<!DOCTYPE html>
+<html lang="@LanguageManager.CurrentLanguage.Name" dir="@rtl" data-layout="vertical" data-topbar="light" data-sidebar="dark" data-sidebar-size="lg" data-layout-mode="@ThemeOptions.UiMode">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>@pageTitle</title>
+    <base href="/" />
+
+    @if (ViewBag.Description != null)
+    {
+        <meta name="description" content="@(ViewBag.Description as string)" />
+    }
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="@favicon">
+
+    @await Html.PartialAsync("~/Themes/Velzon/_CoreStyles.cshtml")
+
+    <!-- Layout config Js -->
+    <script src="velzon/js/layout.js"></script>
+    <!-- Bootstrap Css -->
+    <link href="velzon/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <!-- Icons Css -->
+    <link href="velzon/css/icons.min.css" rel="stylesheet" type="text/css" />
+    <!-- App Css-->
+    <link href="velzon/css/app.min.css" rel="stylesheet" type="text/css" />
+    <!-- custom Css-->
+    <link href="velzon/css/custom.css" rel="stylesheet" type="text/css" />
+
+    @await RenderSectionAsync("styles", false)
+</head>
+<body class="@rtl">
+    <div class="auth-page-wrapper pt-5">
+        <!-- auth page bg -->
+        <div class="auth-one-bg-position auth-one-bg" id="auth-particles">
+            <div class="bg-overlay"></div>
+
+            <div class="shape">
+                <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1440 120">
+                    <path d="M 0,36 C 144,53.6 432,123.2 720,124 C 1008,124.8 1296,56.8 1440,40L1440 140L0 140z"></path>
+                </svg>
+            </div>
+        </div>
+
+        <!-- auth page content -->
+        <div class="auth-page-content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <vc:velzon-brand is-show-single-only="true" />
+                    </div>
+                </div>
+                <!-- end row -->
+
+                <div class="row justify-content-center">
+                    <div class="col-md-8 col-lg-6 col-xl-5">
+                        @RenderBody()
+                    </div>
+                    <!-- end row -->
+                </div>
+                <!-- end container -->
+            </div>
+            <!-- end auth page content -->
+            <!-- footer -->
+            <footer class="footer">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="text-center">
+                                <p class="mb-0 text-muted">&copy; @DateTime.Now.Year Blaze. Crafted with <i class="mdi mdi-heart text-danger"></i> by <a href="#" class="text-danger fw-bold" target="_blank">Rogzi</a>. <b>Version </b> @AppVersionHelper.Version [@AppVersionHelper.ReleaseDate.ToString("yyyyMMdd")]</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+            <!-- end Footer -->
+        </div>
+
+        <vc:velzon-back-to-top />
+
+        <script src="~/velzon/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+        @await Html.PartialAsync("~/Themes/Velzon/_CoreScripts.cshtml")
+        @WebResourceManager.RenderScripts()
+
+        <!-- JAVASCRIPT -->
+        <script src="velzon/libs/simplebar/simplebar.min.js"></script>
+        <script src="velzon/libs/node-waves/waves.min.js"></script>
+        <script src="velzon/libs/feather-icons/feather.min.js"></script>
+        <script src="velzon/js/pages/plugins/lord-icon-2.1.0.js"></script>
+        <script src="velzon/js/plugins.js"></script>
+
+        <!-- particles js -->
+        <script src="velzon/libs/particles.js/particles.js"></script>
+        <!-- particles app js -->
+        <script src="velzon/js/pages/particles.app.js"></script>
+        <!-- password-addon init -->
+        <script src="velzon/js/pages/password-addon.init.js"></script>
+
+        @await Html.PartialAsync("~/Views/Shared/Layout/_Alerts.cshtml")
+
+        @await RenderSectionAsync("scripts", false)
+</body>
+</html>
