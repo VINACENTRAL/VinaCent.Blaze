@@ -1,4 +1,6 @@
-﻿@{
-    // Layout = "~/Views/Shared/Layout/_Layout.cshtml";
-    Layout = "~/Views/Shared/Themes/Velzon/_Layout.cshtml";
+﻿@using VinaCent.Blaze.Themes
+@using VinaCent.Blaze.Web.Themes.Velzon
+@inject ITheme Theme;
+@{
+    Layout = Theme.GetLayout(StandardLayouts.Application);
 }

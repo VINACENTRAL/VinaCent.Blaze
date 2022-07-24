@@ -142,7 +142,7 @@
 
         e.preventDefault();
         abp.ajax({
-            url: abp.appPath + 'Users/EditModal?userId=' + userId,
+            url: abp.appPath + 'admincp/users/edit-modal?userId=' + userId,
             type: 'POST',
             dataType: 'html',
             success: function (content) {

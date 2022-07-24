@@ -10,6 +10,8 @@ using VinaCent.Blaze.Web.Models.Roles;
 namespace VinaCent.Blaze.Web.Controllers
 {
     [AbpMvcAuthorize(PermissionNames.Pages_Roles)]
+    [Area("AdminCP")]
+    [Route("admincp/roles")]
     public class RolesController : BlazeControllerBase
     {
         private readonly IRoleAppService _roleAppService;
@@ -19,6 +21,7 @@ namespace VinaCent.Blaze.Web.Controllers
             _roleAppService = roleAppService;
         }
 
+        [HttpGet("")]
         public async Task<IActionResult> Index()
         {
             var permissions = (await _roleAppService.GetAllPermissions()).Items;
@@ -30,6 +33,7 @@ namespace VinaCent.Blaze.Web.Controllers
             return View(model);
         }
 
+        [HttpPost("edit-modal")]
         public async Task<ActionResult> EditModal(int roleId)
         {
             var output = await _roleAppService.GetRoleForEdit(new EntityDto(roleId));

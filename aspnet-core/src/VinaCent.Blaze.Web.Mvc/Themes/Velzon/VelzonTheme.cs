@@ -1,5 +1,4 @@
 ﻿using Abp.Dependency;
-using VinaCent.Blaze.Configuration.Ui;
 using VinaCent.Blaze.Themes;
 
 namespace VinaCent.Blaze.Web.Themes.Velzon
@@ -8,6 +7,7 @@ namespace VinaCent.Blaze.Web.Themes.Velzon
     {
         public const string Name = "Velzon";
         public const string Application = "~/Themes/Velzon/Layouts/Application.cshtml";
+        public const string Account = "~/Themes/Velzon/Layouts/Account.cshtml";
         public const string Empty = "~/Themes/Velzon/Layouts/Empty.cshtml";
         public const string Clearer = "~/Themes/Velzon/Layouts/Clearer.cshtml";
 
@@ -16,7 +16,7 @@ namespace VinaCent.Blaze.Web.Themes.Velzon
             return name switch
             {
                 StandardLayouts.Application => Application,
-                StandardLayouts.Account => null,
+                StandardLayouts.Account => Account,
                 StandardLayouts.Empty => Empty,
                 _ => fallbackToDefault ? Application : null,
             };
