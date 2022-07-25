@@ -9,7 +9,7 @@
 }
 @section scripts
 {
-    @Html.RenderPartialAsync("~/Views/Shared/Components/TenantChange/_ModalContainer.cshtml")
+    @{await Html.RenderPartialAsync("~/Views/Shared/Components/TenantChange/_ModalContainer.cshtml");}
 <script src="~/view-resources/Views/Account/Login.js" asp-append-version="true"></script>
 }
 
