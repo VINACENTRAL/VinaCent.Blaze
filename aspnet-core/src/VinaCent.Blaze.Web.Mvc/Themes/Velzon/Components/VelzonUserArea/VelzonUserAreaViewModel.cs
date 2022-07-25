@@ -1,8 +1,8 @@
 ﻿using VinaCent.Blaze.Sessions.Dto;
 
-namespace VinaCent.Blaze.Web.Views.Shared.Components.RightNavbarUserArea
+namespace VinaCent.Blaze.Web.Themes.Velzon.Components.VelzonUserArea
 {
-    public class RightNavbarUserAreaViewModel
+    public class VelzonUserAreaViewModel
     {
         public GetCurrentLoginInformationsOutput LoginInformations { get; set; }
 
@@ -23,4 +23,3 @@ namespace VinaCent.Blaze.Web.Views.Shared.Components.RightNavbarUserArea
         }
     }
 }
-
