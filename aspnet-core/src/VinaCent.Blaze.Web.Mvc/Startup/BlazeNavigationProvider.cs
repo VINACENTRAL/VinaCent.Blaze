@@ -15,6 +15,15 @@ namespace VinaCent.Blaze.Web.Startup
             context.Manager.MainMenu
                 .AddItem(
                     new MenuItemDefinition(
+                        PageNames.Home,
+                        L("HomePage"),
+                        url: "",
+                        icon: "mdi mdi-home",
+                        requiresAuthentication: true
+                    )
+                )
+                .AddItem(
+                    new MenuItemDefinition(
                         PageNames.About,
                         L("About"),
                         url: "About",
@@ -23,13 +32,14 @@ namespace VinaCent.Blaze.Web.Startup
                 )
                 .AddItem(
                     new MenuItemDefinition(
-                        PageNames.Home,
-                        L("HomePage"),
-                        url: "",
-                        icon: "mdi mdi-home",
+                        PageNames.FileManagement,
+                        L("FileManagement"),
+                        url: "admincp/file-management",
+                        icon: "mdi mdi-folder-multiple",
                         requiresAuthentication: true
                     )
-                ).AddItem(
+                )
+                .AddItem(
                     new MenuItemDefinition(
                         PageNames.Tenants,
                         L("Tenants"),

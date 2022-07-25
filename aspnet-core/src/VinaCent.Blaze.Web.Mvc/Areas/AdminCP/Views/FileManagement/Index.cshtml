@@ -1,0 +1,80 @@
+﻿@using VinaCent.Blaze.Web.Startup
+@using VinaCent.Blaze.Configuration
+@using VinaCent.Blaze.AppCore.FileUnits.Dto
+@{
+    ViewBag.Title = L(PageNames.FileManagement);
+    ViewBag.CurrentPageName = PageNames.FileManagement;
+
+    var uploadFileUri = "/admincp/file-management/upload-file";
+    var createDirectoryUri = "/admincp/file-management/create-directory";
+    var siteName = await SettingManager.GetSettingValueAsync(AppSettingNames.SiteName);
+}
+
+@section styles {
+    <style>
+        .table-card td:first-child, .table-card th:first-child {
+            padding-left: 26px;
+        }
+
+         .table-card td:nth-child(2), .table-card th:nth-child(2):hover {
+            text-decoration: auto;
+        }
+    </style>
+}
+
+@section scripts {
+    <environment names="Development">
+        <script src="~/view-resources/Views/FileManager/Index.js" asp-append-version="true"></script>
+    </environment>
+    <environment names="Staging,Production">
+        <script src="~/view-resources/Views/FileManager/Index.min.js" asp-append-version="true"></script>
+    </environment>
+}
+
+<div class="card">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-md-6">
+                <button type="button" data-bs-toggle="modal" data-bs-target="#DirectoryCreateModal" class="btn btn-primary waves-effect waves-light mb-3 mb-lg-0">
+                    <i class="mdi mdi-folder-plus"></i>
+                    @L("CreateDirectory")
+                </button>
+                <button type="button" data-bs-toggle="modal" data-bs-target="#UploadFileModal" class="btn btn-success waves-effect waves-light mb-3 mb-lg-0">
+                    <i class="mdi mdi-cloud-upload-outline"></i>
+                    @L("UploadFile")
+                </button>
+            </div>
+            <div class="col-md-6">
+                @await Html.PartialAsync("~/Areas/AdminCP/Views/FileManagement/Index.AdvancedSearch.cshtml")
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table id="FileUnitsTable" class="table table-card table-vcenter text-nowrap">
+                <thead>
+                    <tr id="Parents"></tr>
+                    <tr>
+                        <th><input class="form-check-input m-0 align-middle" type="checkbox"></th>
+                        <th>@L("Name")</th>
+                        <th>@L("FileSize")</th>
+                        <th>@L("Description")</th>
+                        <th>@L("CreationTime")</th>
+                        <th>@L("LastModificationTime")</th>
+                        <th style="width: 150px">@L("Actions")</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/AdminCP/Views/FileManagement/_DirectoryCreateModal.cshtml", new CreateDirectoryDto())
+
+<div class="modal fade" id="FileUnitEditModal" tabindex="-1" role="dialog" aria-labelledby="FileUnitEditModalLabel" data-backdrop="static">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+        </div>
+    </div>
+</div>

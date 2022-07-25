@@ -9,6 +9,10 @@ namespace VinaCent.Blaze.Configuration
         {
             return new[]
             {
+                new SettingDefinition(AppSettingNames.SiteName, "VinaCent",
+                    scopes: SettingScopes.Application | SettingScopes.Tenant | SettingScopes.User,
+                    isVisibleToClients: true),
+
                 new SettingDefinition(AppSettingNames.UiTheme, "red",
                 scopes: SettingScopes.Application | SettingScopes.Tenant | SettingScopes.User,
                 clientVisibilityProvider: new VisibleSettingClientVisibilityProvider()),

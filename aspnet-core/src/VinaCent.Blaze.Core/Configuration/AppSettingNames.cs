@@ -2,6 +2,8 @@
 {
     public static class AppSettingNames
     {
+        public const string SiteName = "App.SiteName";
+
         public const string UiTheme = "App.UiTheme";
 
         public const string AllowedMaxFileSize = "App.AllowedMaxFileSize";
