@@ -1,6 +1,6 @@
 [
 	{
-		"id": "201",
+		"id": "1",
 		"name": "Nesta Technologies",
 		"owner": "Tonya Noble",
 		"industry_type": "Computer Industry",
@@ -13,7 +13,7 @@
 		"image_src": "assets/images/brands/dribbble.png"
 	},
 	{
-		"id": "202",
+		"id": "2",
 		"name": "iTest Factory",
 		"owner": "Thomas Taylor",
 		"industry_type": "Chemical Industries",
@@ -26,7 +26,7 @@
 		"image_src": "assets/images/brands/bitbucket.png"
 	},
 	{
-		"id": "203",
+		"id": "3",
 		"name": "Force Medicines",
 		"owner": "Glen Matney",
 		"industry_type": "Health Services",
@@ -39,7 +39,7 @@
 		"image_src": "assets/images/companies/img-8.png"
 	},
 	{
-		"id": "204",
+		"id": "4",
 		"name": "Digitech Galaxy",
 		"owner": "Alexis Clarke",
 		"industry_type": "Telecommunications Services",
@@ -52,7 +52,7 @@
 		"image_src": "assets/images/companies/img-1.png"
 	},
 	{
-		"id": "205",
+		"id": "5",
 		"name": "Zoetic Fashion",
 		"owner": "James Price",
 		"industry_type": "Textiles: Clothing, Footwear",
@@ -65,7 +65,7 @@
 		"image_src": "assets/images/companies/img-6.png"
 	},
 	{
-		"id": "206",
+		"id": "6",
 		"name": "Micro Design",
 		"owner": "Mary Cousar",
 		"industry_type": "Financial Services",
@@ -78,7 +78,7 @@
 		"image_src": "assets/images/brands/dropbox.png"
 	},
 	{
-		"id": "207",
+		"id": "7",
 		"name": "Syntyce Solutions",
 		"owner": "Michael Morris",
 		"industry_type": "Chemical Industries",
@@ -91,7 +91,7 @@
 		"image_src": "assets/images/brands/mail_chimp.png"
 	},
 	{
-		"id": "208",
+		"id": "8",
 		"name": "Meta4Systems",
 		"owner": "Nancy Martino",
 		"industry_type": "Computer Industry",
@@ -104,7 +104,7 @@
 		"image_src": "assets/images/companies/img-3.png"
 	},
 	{
-		"id": "209",
+		"id": "9",
 		"name": "Moetic Fashion",
 		"owner": "Timothy Smith",
 		"industry_type": "Textiles: Clothing, Footwear",
@@ -117,7 +117,7 @@
 		"image_src": "assets/images/companies/img-4.png"
 	},
 	{
-		"id": "210",
+		"id": "10",
 		"name": "Syntyce Solutions",
 		"owner": "Herbert Stokes",
 		"industry_type": "Health Services",
