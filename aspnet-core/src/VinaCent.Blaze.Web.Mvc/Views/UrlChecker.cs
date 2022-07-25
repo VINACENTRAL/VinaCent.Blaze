@@ -2,6 +2,7 @@
 
 namespace VinaCent.Blaze.Web.Views
 {
+    // Just comment code
     public static class UrlChecker
     {
         private static readonly Regex UrlWithProtocolRegex = new Regex("^.{1,10}://.*$");
