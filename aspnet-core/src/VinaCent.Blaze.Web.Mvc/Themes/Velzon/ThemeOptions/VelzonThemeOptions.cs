@@ -1,16 +1,19 @@
-﻿using Microsoft.AspNetCore.Mvc.Localization;
+﻿using Abp.Dependency;
+using Abp.Domain.Repositories;
+using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.AspNetCore.Mvc.Razor;
+using Microsoft.EntityFrameworkCore.Metadata;
+using System;
 using VinaCent.Blaze.Web.Themes.Velzon.Components.VelzonBreadcrumb;
 
 namespace VinaCent.Blaze.Web.Themes.Velzon.ThemeOptions
 {
-    public class VelzonThemeOptions : IVelzonThemeOptions
+    public class VelzonThemeOptions : IVelzonThemeOptions, ITransientDependency
     {
         public bool IsDisplayBreadcrumb { get; set; } = true;
         public string FooterClasses { get; set; }
         public string UiMode { get; set; }
         public VelzonBreadcrumbOptions Breadcrumb { get; set; }
-        public string LayoutDirection { get; set; }
 
         //private readonly IRepository<AppDictionary, Guid> AppDictionaryRepository;
 
@@ -19,7 +22,6 @@ namespace VinaCent.Blaze.Web.Themes.Velzon.ThemeOptions
             IsDisplayBreadcrumb = true;
             FooterClasses = "";
             Breadcrumb = new VelzonBreadcrumbOptions();
-            LayoutVertial();
             //AppDictionaryRepository = appDictionaryRepository;
         }
 
@@ -39,7 +41,6 @@ namespace VinaCent.Blaze.Web.Themes.Velzon.ThemeOptions
                     IsDisplayBreadcrumb = options.IsDisplayBreadcrumb;
                     FooterClasses = options.FooterClasses;
                     Breadcrumb = options.Breadcrumb;
-                    LayoutDirection = options.LayoutDirection;
                 }
             }
 
@@ -88,16 +89,5 @@ namespace VinaCent.Blaze.Web.Themes.Velzon.ThemeOptions
             return AddBreadcrumb(displayName.Value, hyperLink);
         }
 
-        public IVelzonThemeOptions LayoutVertial()
-        {
-            LayoutDirection = "vertical";
-            return this;
-        }
-
-        public IVelzonThemeOptions LayoutHorizontal()
-        {
-            LayoutDirection = "horizontal";
-            return this;
-        }
     }
 }
