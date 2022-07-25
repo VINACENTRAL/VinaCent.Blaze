@@ -1,6 +1,10 @@
-﻿@{
-    var name = "Baal";
-    var fullName = "Raiden Shogun";
+﻿@using VinaCent.Blaze.Web.Themes.Velzon.Components.VelzonUserArea
+@model VelzonUserAreaViewModel
+
+@if (AbpSession.UserId != null)
+{
+    var name = Model.LoginInformations.User.Name;
+    var fullName = Model.LoginInformations.User.FullName;
     var picture = "https://upload-os-bbs.hoyolab.com/upload/2021/09/08/10805287/d6cac34c75cd7ccb346b1133cff2e192_5253703590737420027.jpg?x-oss-process=image/resize,s_600/quality,q_80/auto-orient,0/interlace,1/format,jpg";
 
     var roles = "Member";
@@ -8,40 +12,55 @@
     //{
     //    roles = L("__Roles:DefaultName");
     //}
-}
 
-<div class="dropdown ms-sm-3 header-item topbar-user">
-    <button type="button" class="btn shadow-none" id="page-header-user-dropdown"
+    <div class="dropdown ms-sm-3 header-item topbar-user">
+        <button type="button" class="btn shadow-none" id="page-header-user-dropdown"
             data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <span class="d-flex align-items-center">
-            <img class="rounded-circle header-profile-user"
+            <span class="d-flex align-items-center">
+                <img class="rounded-circle header-profile-user"
                  src="@picture" alt="@fullName">
-            <span class="text-start ms-xl-2">
-                <span class="d-none d-xl-inline-block ms-1 fw-medium user-name-text">
-                    @fullName
+                <span class="text-start ms-xl-2">
+                    <span class="d-none d-xl-inline-block ms-1 fw-medium user-name-text">
+                        @fullName
+                    </span>
+                    <span class="d-none d-xl-block ms-1 fs-12 text-muted user-name-sub-text">@roles</span>
                 </span>
-                <span class="d-none d-xl-block ms-1 fs-12 text-muted user-name-sub-text">@roles</span>
             </span>
-        </span>
-    </button>
-    <div class="dropdown-menu dropdown-menu-end">
-        <!-- item-->
-        <h6 class="dropdown-header">@L("__Info:WelcomeUser", name)</h6>
-        <a class="dropdown-item" asp-page="/Index" asp-area="">
-            <i class="ri-home-smile-fill text-muted fs-16 align-middle me-1"></i> <span class="align-middle">@L("GobackHome")</span>
-        </a>
-        @*        <a class="dropdown-item" href="pages-faqs.html">
-            <i class="mdi mdi-lifebuoy text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Help</span>
-            </a>*@
-        <div class="dropdown-divider"></div>
-        @*        <a class="dropdown-item" href="pages-profile.html">
-            <i class="mdi mdi-wallet text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Balance : <b>$5971.67</b></span>
-            </a>*@
-        @*        <a class="dropdown-item" href="pages-profile-settings.html">
-            <span class="badge bg-soft-success text-success mt-1 float-end">New</span><i class="mdi mdi-cog-outline text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Settings</span>
-            </a>*@
-        <a class="dropdown-item" href="~/Account/Logout">
-            <i class="mdi mdi-logout text-muted fs-16 align-middle me-1"></i> <span class="align-middle" data-key="t-logout">@L("Logout")</span>
+        </button>
+        <div class="dropdown-menu dropdown-menu-end">
+            <!-- item-->
+        <h6 class="dropdown-header">@L("WelcomeUser_%s", name)</h6>
+            <a class="dropdown-item" asp-page="/Index" asp-area="">
+                <i class="ri-home-smile-fill text-muted fs-16 align-middle me-1"></i> <span class="align-middle">@L("GoBackHome")</span>
+            </a>
+            <a class="dropdown-item" asp-controller="Users" asp-action="ChangePassword">
+                <i class="ri-rotate-lock-line text-muted fs-16 align-middle me-1"></i> <span class="align-middle" data-key="t-logout">@L("UpdatePassword")</span>
+            </a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="pages-profile.html">
+                <i class="mdi mdi-wallet text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Balance : <b>$5971.67</b></span>
+            </a>
+            <a class="dropdown-item" href="pages-profile-settings.html">
+                <span class="badge bg-soft-success text-success mt-1 float-end">New</span><i class="mdi mdi-cog-outline text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Settings</span>
+            </a>
+            <a class="dropdown-item" asp-controller="Account" asp-action="Logout">
+                <i class="mdi mdi-logout text-muted fs-16 align-middle me-1"></i> <span class="align-middle" data-key="t-logout">@L("Logout")</span>
+            </a>
+        </div>
+    </div>
+}
+else
+{
+    <div class="mx-3 header-item">
+        <a asp-action="Login" asp-controller="Account" class="btn btn-primary btn-load">
+            <span class="d-flex align-items-center">
+                <span class="spinner-grow flex-shrink-0" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </span>
+                <span class="flex-grow-1 ms-2">
+                    @L("LogIn")
+                </span>
+            </span>
         </a>
     </div>
-</div>
+}
