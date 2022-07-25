@@ -1,7 +1,7 @@
 /*
 Template Name: Velzon - Admin & Dashboard Template
 Author: Themesbrand
-Version: 1.3.0
+Version: 1.6.0
 Website: https://Themesbrand.com/
 Contact: Themesbrand@gmail.com
 File: Common Plugins Js File

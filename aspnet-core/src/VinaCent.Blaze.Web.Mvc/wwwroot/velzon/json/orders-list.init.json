@@ -1,6 +1,6 @@
 [
     {
-        "id": "1001",
+        "id": "1",
         "customer_name": "Frank Hook",
         "product_name": "Puma Tshirt",
         "date": "2022-04-20T16:05",
@@ -8,7 +8,7 @@
         "payment": "Mastercard",
         "status": "Pending"
     }, {
-        "id": "1002",
+        "id": "2",
         "customer_name": "Rickey Teran",
         "product_name": "Adidas Sneakers",
         "date": "2022-04-20T16:05",
@@ -16,7 +16,7 @@
         "payment": "Paypal",
         "status": "Cancelled"
     }, {
-        "id": "1003",
+        "id": "3",
         "customer_name": "James Price",
         "product_name": "350 ml Glass Grocery Container",
         "date": "2022-04-20T16:05",
@@ -24,7 +24,7 @@
         "payment": "Visa",
         "status": "Inprogress"
     }, {
-        "id": "1004",
+        "id": "4",
         "customer_name": "Nettie Deloatch",
         "product_name": "American egale outfitters Shirt",
         "date": "2022-04-20T16:05",
@@ -32,7 +32,7 @@
         "payment": "COD",
         "status": "Pending"
     }, {
-        "id": "1005",
+        "id": "5",
         "customer_name": "Thomas Taylor",
         "product_name": "Galaxy Watch4",
         "date": "2022-04-20T16:05",
@@ -40,7 +40,7 @@
         "payment": "Mastercard",
         "status": "Pickups"
     }, {
-        "id": "1006",
+        "id": "6",
         "customer_name": "James Price",
         "product_name": "Apple iPhone 12",
         "date": "2022-04-20T16:05",
@@ -48,7 +48,7 @@
         "payment": "Visa",
         "status": "Inprogress"
     }, {
-        "id": "1007",
+        "id": "7",
         "customer_name": "Nancy Martino",
         "product_name": "Funky Prints T-shirt",
         "date": "2022-04-20T16:05",
@@ -56,7 +56,7 @@
         "payment": "COD",
         "status": "Returns"
     }, {
-        "id": "1008",
+        "id": "8",
         "customer_name": "Alexis Clarke",
         "product_name": "USB Flash Drive Personalized wi",
         "date": "2022-04-20T16:05",
@@ -64,7 +64,7 @@
         "payment": "Paypal",
         "status": "Delivered"
     }, {
-        "id": "1009",
+        "id": "9",
         "customer_name": "Donald Palmer",
         "product_name": "Oxford Button-Down Shirt",
         "date": "2022-04-20T16:05",
@@ -72,7 +72,7 @@
         "payment": "Visa",
         "status": "Pickups"
     }, {
-        "id": "1010",
+        "id": "10",
         "customer_name": "Henry Baird",
         "product_name": "Classic Short Sleeve Shirt",
         "date": "2022-04-20T16:05",
@@ -80,7 +80,7 @@
         "payment": "Mastercard",
         "status": "Inprogress"
     }, {
-        "id": "1009",
+        "id": "11",
         "customer_name": "Diana Kohler",
         "product_name": "Half Sleeve T-Shirts (Blue)",
         "date": "2022-04-20T16:05",
@@ -88,7 +88,7 @@
         "payment": "Visa",
         "status": "Delivered"
     }, {
-        "id": "1010",
+        "id": "12",
         "customer_name": "Alexis Clarke",
         "product_name": "Noise Evolve Smartwatch",
         "date": "2022-04-20T16:05",
