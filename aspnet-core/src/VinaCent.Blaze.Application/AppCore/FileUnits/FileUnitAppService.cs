@@ -246,7 +246,7 @@ namespace VinaCent.Blaze.AppCore.FileUnits
             return new PagedResultDto<FileUnitDto>(totalCount, items);
         }
 
-        public async Task<FileUnitDto> CreateDirectoryAsync([FromForm][FromBody] CreateDirectoryDto input)
+        public async Task<FileUnitDto> CreateDirectoryAsync(CreateDirectoryDto input)
         {
             var fileUnit = ObjectMapper.Map<FileUnit>(input);
             fileUnit.Id = Guid.NewGuid();
@@ -280,7 +280,7 @@ namespace VinaCent.Blaze.AppCore.FileUnits
             return MapToEntityDto(fileUnit);
         }
 
-        public async Task<FileUnitDto> UploadFileAsync([FromForm][FromBody] UploadFileUnitDto input)
+        public async Task<FileUnitDto> UploadFileAsync(UploadFileUnitDto input)
         {
             var fileUnit = MapToEntity(input);
             fileUnit.Id = Guid.NewGuid();
@@ -337,7 +337,7 @@ namespace VinaCent.Blaze.AppCore.FileUnits
             return MapToEntityDto(fileUnit);
         }
 
-        public async Task<FileUnitDto> RenameAsync([FromForm][FromBody] FileUnitRenameDto input)
+        public async Task<FileUnitDto> RenameAsync(FileUnitRenameDto input)
         {
             if (input.Name.IsNullOrWhiteSpace())
             {

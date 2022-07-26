@@ -95,9 +95,62 @@
         ]
     });
 
-    abp.services.app.fileUnit.getAllParent({}).done(function (result) {
-        console.log(result);
+    _$form.find('.save-button').on('click', (e) => {
+        e.preventDefault();
+
+        if (!_$form.valid()) {
+            return;
+        }
+        if (_$form.find('#current-directory').val == '')
+        {
+            _$form.find('#current-directory').val = null
+        }
+        var fileUnit = _$form.serializeFormToObject();
+        console.log(fileUnit);
+        abp.ui.setBusy(_$modal);
+        _fileUnitService
+            .createDirectory(fileUnit)
+            .done(function () {
+                _$modal.modal('hide');
+                _$form[0].reset();
+                abp.notify.info(l('SavedSuccessfully'));
+                _$fileUnitsTable.ajax.reload();
+            })
+            .always(function () {
+                abp.ui.clearBusy(_$modal);
+            });
     });
+
+    $(document).on('click', '.delete-file-unit', function () {
+        var fileUnitId = $(this).attr('data-file-unit-id');
+        var fileUnitName = $(this).attr('data-file-unit-name');
+        
+        deleteFileUnit(fileUnitId, fileUnitName);
+    });
+
+    function deleteFileUnit(fileUnitId, fileUnitName) {
+        abp.message.confirm(
+            abp.utils.formatString(
+                l('AreYouSureWantToDelete'),
+                fileUnitName
+            ),
+            null,
+            (isConfirmed) => {
+                if (isConfirmed) {
+                    _fileUnitService
+                        .delete(fileUnitId)
+                        .done(() => {
+                            abp.notify.info(l('SuccessfullyDeleted'));
+                            _$fileUnitsTable.ajax.reload();
+                        });
+                }
+            }
+        );
+    }
+
+    //abp.services.app.fileUnit.getAllParent({}).done(function (result) {
+    //    console.log(result);
+    //});
 
     _$table.on('click', '.is-folder', function (e) {
         e.preventDefault();

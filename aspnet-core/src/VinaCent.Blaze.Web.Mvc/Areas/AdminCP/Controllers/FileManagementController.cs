@@ -11,9 +11,9 @@ namespace VinaCent.Blaze.Web.Areas.AdminCP.Controllers
     [Route("admincp/file-management")]
     public class FileManagementController : BlazeControllerBase
     {
-        private readonly FileUnitAppService _fileUnitAppService;
+        private readonly IFileUnitAppService _fileUnitAppService;
 
-        public FileManagementController(FileUnitAppService fileUnitAppService)
+        public FileManagementController(IFileUnitAppService fileUnitAppService)
         {
             _fileUnitAppService = fileUnitAppService;
         }
