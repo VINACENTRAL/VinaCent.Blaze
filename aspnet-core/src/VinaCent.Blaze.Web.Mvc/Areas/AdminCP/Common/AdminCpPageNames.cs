@@ -9,4 +9,8 @@ public class AdminCpPageNames
     public const string Roles = "Roles";
     public const string Dashboard = "Dashboard";
     public const string FileManagement = "FileManagement";
+
+    public const string LocalizationManagement = "LocalizationManagement";
+    public const string LanguageManagement = "LocalizationManagement.LanguageManagement";
+    public const string LanguageTextManagement = "LocalizationManagement.LanguageTextManagement";
 }
