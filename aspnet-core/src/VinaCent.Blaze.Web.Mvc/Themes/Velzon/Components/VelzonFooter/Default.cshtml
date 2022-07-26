@@ -1,12 +1,20 @@
-﻿<footer class="footer">
+﻿@using VinaCent.Blaze
+@using VinaCent.Blaze.Configuration
+@{
+    var siteName = await SettingManager.GetSettingValueAsync(AppSettingNames.SiteName);
+    var author = await SettingManager.GetSettingValueAsync(AppSettingNames.SiteAuthor);
+    var authorProfileUrl = await SettingManager.GetSettingValueAsync(AppSettingNames.SiteAuthorProfileUrl);
+}
+
+<footer class="footer">
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-6">
-                @DateTime.Now.Year © (AppGlobal.CommonProperties.AppName).
+                @DateTime.Now.Year © @siteName. <b>Version </b> @AppVersionHelper.Version [@AppVersionHelper.ReleaseDate.ToString("yyyyMMdd")]</p>
             </div>
             <div class="col-sm-6">
                 <div class="text-sm-end d-none d-sm-block">
-                    Design & Develop by (AppGlobal.CommonProperties.Author)
+                    Design & Develop by <a href="@authorProfileUrl">@author</a>
                 </div>
             </div>
         </div>
