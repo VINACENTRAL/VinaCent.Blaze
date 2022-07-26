@@ -121,6 +121,33 @@
             });
     });
 
+    $(document).on('click', '.delete-file-unit', function () {
+        var fileUnitId = $(this).attr('data-file-unit-id');
+        var fileUnitName = $(this).attr('data-file-unit-name');
+        
+        deleteFileUnit(fileUnitId, fileUnitName);
+    });
+
+    function deleteFileUnit(fileUnitId, fileUnitName) {
+        abp.message.confirm(
+            abp.utils.formatString(
+                l('AreYouSureWantToDelete'),
+                fileUnitName
+            ),
+            null,
+            (isConfirmed) => {
+                if (isConfirmed) {
+                    _fileUnitService
+                        .delete(fileUnitId)
+                        .done(() => {
+                            abp.notify.info(l('SuccessfullyDeleted'));
+                            _$fileUnitsTable.ajax.reload();
+                        });
+                }
+            }
+        );
+    }
+
     //abp.services.app.fileUnit.getAllParent({}).done(function (result) {
     //    console.log(result);
     //});

@@ -3,6 +3,7 @@
 @using Abp.Web.Security.AntiForgery
 @using System.Globalization
 @using VinaCent.Blaze
+@using VinaCent.Blaze.Configuration
 @using VinaCent.Blaze.Web.Resources
 @inject IAbpAntiForgeryManager AbpAntiForgeryManager
 @inject IWebResourceManager WebResourceManager
@@ -23,6 +24,9 @@
     pageTitle += "Blaze";
 
     var favicon = "/vinacent/brand/favicon.ico";
+
+    var author = await SettingManager.GetSettingValueAsync(AppSettingNames.SiteAuthor);
+    var authorProfileUrl = await SettingManager.GetSettingValueAsync(AppSettingNames.SiteAuthorProfileUrl);
 }
 
 <!DOCTYPE html>
@@ -97,7 +101,7 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="text-center">
-                                <p class="mb-0 text-muted">&copy; @DateTime.Now.Year Blaze. Crafted with <i class="mdi mdi-heart text-danger"></i> by <a href="#" class="text-danger fw-bold" target="_blank">Rogzi</a>. <b>Version </b> @AppVersionHelper.Version [@AppVersionHelper.ReleaseDate.ToString("yyyyMMdd")]</p>
+                                <p class="mb-0 text-muted">&copy; @DateTime.Now.Year Blaze. Crafted with <i class="mdi mdi-heart text-danger"></i> by <a href="@authorProfileUrl" class="text-danger fw-bold" target="_blank">@author</a>. <b>Version </b> @AppVersionHelper.Version [@AppVersionHelper.ReleaseDate.ToString("yyyyMMdd")]</p>.
                             </div>
                         </div>
                     </div>
