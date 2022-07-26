@@ -3,6 +3,8 @@ using Microsoft.Extensions.Configuration;
 using Abp.Modules;
 using Abp.Reflection.Extensions;
 using VinaCent.Blaze.Configuration;
+using VinaCent.Blaze.Web.Areas.AdminCP.Common;
+using VinaCent.Blaze.Web.Areas.Client.Common;
 
 namespace VinaCent.Blaze.Web.Startup
 {
@@ -20,7 +22,8 @@ namespace VinaCent.Blaze.Web.Startup
 
         public override void PreInitialize()
         {
-            Configuration.Navigation.Providers.Add<BlazeNavigationProvider>();
+            Configuration.Navigation.Providers.Add<AdminCpNavigationProvider>();
+            Configuration.Navigation.Providers.Add<ClientNavigationProvider>();
         }
 
         public override void Initialize()

@@ -1,12 +1,13 @@
-﻿@using VinaCent.Blaze.Web.Startup
-@using VinaCent.Blaze.Web.Models.Users
+﻿@using VinaCent.Blaze.Web.Areas.AdminCP.Common
+@using VinaCent.Blaze.Web.Areas.AdminCP.Models.Users
+@using VinaCent.Blaze.Web.Startup
 @using VinaCent.Blaze.Web.Themes.Velzon.ThemeOptions
 @inject IVelzonThemeOptions ThemeOptions
 @model UserListViewModel
 @{
     ThemeOptions.AddBreadcrumb(L("Users")).Commit(this);
     ViewBag.Title = L("Users");
-    ViewBag.CurrentPageName = PageNames.Users;
+    ViewBag.CurrentPageName = AdminCpPageNames.Users;
 }
 @section scripts
 {

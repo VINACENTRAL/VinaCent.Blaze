@@ -1,0 +1,30 @@
+﻿@using VinaCent.Blaze.Web.Areas.AdminCP.Models.Languages
+@using VinaCent.Blaze.Web.Models.Common.Modals
+@model LanguageListViewModel
+@{
+    Layout = null;
+}
+<div class="modal fade" id="LanguageCreateModal" tabindex="-1" role="dialog" aria-labelledby="LanguageCreateModalLabel" data-backdrop="static">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            @await Html.PartialAsync("~/Views/Shared/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("CreateNewLanguage")))
+            <form name="roleCreateForm" role="form" class="form-horizontal">
+                <div class="modal-body">
+                    <div class="required mb-3">
+                        <label class="form-label" for="rolename">@L("LanguageName")</label>
+                        <input id="rolename" type="text" name="Name" class="form-control" required maxlength="32" minlength="2">
+                    </div>
+                    <div class="required mb-3">
+                        <label class="form-label" for="displayname">@L("DisplayName")</label>
+                        <input id="displayname" type="text" name="DisplayName" class="form-control" required maxlength="32" minlength="2">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="role-description">@L("LanguageDescription")</label>
+                        <textarea id="role-description" name="Description" class="form-control"></textarea>
+                    </div>
+                </div>
+                @await Html.PartialAsync("~/Views/Shared/Modals/_ModalFooterWithSaveAndCancel.cshtml")
+            </form>
+        </div>
+    </div>
+</div>

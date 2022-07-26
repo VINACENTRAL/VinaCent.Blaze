@@ -12,5 +12,10 @@ namespace VinaCent.Blaze.Configuration
         {
             await SettingManager.ChangeSettingForUserAsync(AbpSession.ToUserIdentifier(), AppSettingNames.UiTheme, input.Theme);
         }
+
+        public async Task ChangeUiThemeMode(ChangeUiThemeModeInput input)
+        {
+            await SettingManager.ChangeSettingForUserAsync(AbpSession.ToUserIdentifier(), AppSettingNames.UiThemeMode, input.ThemeMode);
+        }
     }
 }

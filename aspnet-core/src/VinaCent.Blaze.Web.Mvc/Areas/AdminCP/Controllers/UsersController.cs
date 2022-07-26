@@ -5,7 +5,7 @@ using Abp.AspNetCore.Mvc.Authorization;
 using VinaCent.Blaze.Authorization;
 using VinaCent.Blaze.Controllers;
 using VinaCent.Blaze.Users;
-using VinaCent.Blaze.Web.Models.Users;
+using VinaCent.Blaze.Web.Areas.AdminCP.Models.Users;
 
 namespace VinaCent.Blaze.Web.Controllers
 {

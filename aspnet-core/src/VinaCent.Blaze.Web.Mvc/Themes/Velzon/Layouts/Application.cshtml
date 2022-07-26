@@ -24,7 +24,11 @@
 
     var favicon = "/vinacent/brand/favicon.ico";
 
-    // data-layout-width="fluid" data-layout-position="fixed" data-layout-style="default"
+    var menuName = nameof(VinaCent.Blaze.Web.Areas.Client);
+    if (ThemeOptions.LayoutDirection == VelzonConsts.LayoutDirections.Vertical)
+    {
+        menuName = nameof(VinaCent.Blaze.Web.Areas.AdminCP);
+    }
 }
 
 <!DOCTYPE html>
@@ -64,7 +68,7 @@
 <body class="@rtl">
     <div id="layout-wrapper">
         <vc:velzon-topbar />
-        <vc:velzon-left-sidebar />
+        <vc:velzon-left-sidebar menu-name="@menuName" />
         <!-- Vertical Overlay-->
         <div class="vertical-overlay"></div>
         <div class="main-content">

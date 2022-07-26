@@ -13,6 +13,8 @@ namespace VinaCent.Blaze.Authorization
             context.CreatePermission(PermissionNames.Pages_Roles, L("Roles"));
             context.CreatePermission(PermissionNames.Pages_Tenants, L("Tenants"), multiTenancySides: MultiTenancySides.Host);
             context.CreatePermission(PermissionNames.Pages_FileManagement, L("FileManagement"));
+            context.CreatePermission(PermissionNames.Pages_Languages, L("LanguageManagement"));
+            context.CreatePermission(PermissionNames.Pages_LanguageTexts, L("LanguageTextManagement"));
         }
 
         private static ILocalizableString L(string name)

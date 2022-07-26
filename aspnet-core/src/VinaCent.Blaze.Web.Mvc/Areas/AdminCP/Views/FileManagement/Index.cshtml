@@ -1,9 +1,10 @@
-﻿@using VinaCent.Blaze.Web.Startup
+﻿@using VinaCent.Blaze.Web.Areas.AdminCP.Common
+@using VinaCent.Blaze.Web.Startup
 @using VinaCent.Blaze.Configuration
 @using VinaCent.Blaze.AppCore.FileUnits.Dto
 @{
-    ViewBag.Title = L(PageNames.FileManagement);
-    ViewBag.CurrentPageName = PageNames.FileManagement;
+    ViewBag.Title = L(AdminCpPageNames.FileManagement);
+    ViewBag.CurrentPageName = AdminCpPageNames.FileManagement;
 
     var uploadFileUri = "/admincp/file-management/upload-file";
     var createDirectoryUri = "/admincp/file-management/create-directory";

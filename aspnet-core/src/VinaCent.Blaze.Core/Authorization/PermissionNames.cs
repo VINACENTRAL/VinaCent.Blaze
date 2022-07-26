@@ -8,6 +8,10 @@
         public const string Pages_Users_Activation = "Pages.Users.Activation";
 
         public const string Pages_Roles = "Pages.Roles";
+
         public const string Pages_FileManagement = "Pages.FileManagement";
+
+        public const string Pages_Languages = "Pages.Languages";
+        public const string Pages_LanguageTexts = "Pages.LanguageTexts";
     }
 }
