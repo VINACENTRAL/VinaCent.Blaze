@@ -95,9 +95,35 @@
         ]
     });
 
-    abp.services.app.fileUnit.getAllParent({}).done(function (result) {
-        console.log(result);
+    _$form.find('.save-button').on('click', (e) => {
+        e.preventDefault();
+
+        if (!_$form.valid()) {
+            return;
+        }
+        if (_$form.find('#current-directory').val == '')
+        {
+            _$form.find('#current-directory').val = null
+        }
+        var fileUnit = _$form.serializeFormToObject();
+        console.log(fileUnit);
+        abp.ui.setBusy(_$modal);
+        _fileUnitService
+            .createDirectory(fileUnit)
+            .done(function () {
+                _$modal.modal('hide');
+                _$form[0].reset();
+                abp.notify.info(l('SavedSuccessfully'));
+                _$fileUnitsTable.ajax.reload();
+            })
+            .always(function () {
+                abp.ui.clearBusy(_$modal);
+            });
     });
+
+    //abp.services.app.fileUnit.getAllParent({}).done(function (result) {
+    //    console.log(result);
+    //});
 
     _$table.on('click', '.is-folder', function (e) {
         e.preventDefault();

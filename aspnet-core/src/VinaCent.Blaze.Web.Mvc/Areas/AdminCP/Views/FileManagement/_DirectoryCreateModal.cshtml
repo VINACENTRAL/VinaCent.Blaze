@@ -11,9 +11,9 @@
             <form name="directoryCreateForm" role="form" class="form-horizontal">
                 <div class="modal-body">
                     <input type="hidden" asp-for="ParentId" id="current-directory">
-                    <div class="required mb-3">
+                    <div class="mb-3">
                         <label class="form-label" asp-for="Name">@L("Name")</label>
-                        <input asp-for="Name" class="form-control" minlength="2">
+                        <input asp-for="Name" class="form-control">
                     </div>
                     <div class="mb-3">
                         <label class="form-label" asp-for="Description">@L("Description")</label>

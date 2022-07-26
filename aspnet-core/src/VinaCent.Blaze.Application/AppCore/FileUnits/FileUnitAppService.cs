@@ -246,7 +246,7 @@ namespace VinaCent.Blaze.AppCore.FileUnits
             return new PagedResultDto<FileUnitDto>(totalCount, items);
         }
 
-        public async Task<FileUnitDto> CreateDirectoryAsync([FromForm][FromBody] CreateDirectoryDto input)
+        public async Task<FileUnitDto> CreateDirectoryAsync(CreateDirectoryDto input)
         {
             var fileUnit = ObjectMapper.Map<FileUnit>(input);
             fileUnit.Id = Guid.NewGuid();
