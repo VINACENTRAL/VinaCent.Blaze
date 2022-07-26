@@ -49,6 +49,12 @@ namespace VinaCent.Blaze.Configuration
                     SettingScopes.Tenant |
                     SettingScopes.User,
                     clientVisibilityProvider: new VisibleSettingClientVisibilityProvider()),
+                new SettingDefinition(AppSettingNames.UiThemeMode,
+                    "",
+                    scopes: SettingScopes.Application |
+                    SettingScopes.Tenant |
+                    SettingScopes.User,
+                    clientVisibilityProvider: new VisibleSettingClientVisibilityProvider()),
 #endregion
 
 

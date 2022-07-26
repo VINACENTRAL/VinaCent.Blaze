@@ -1,11 +1,12 @@
-﻿@using VinaCent.Blaze.Web.Startup
+﻿@using VinaCent.Blaze.Web.Areas.AdminCP.Common
+@using VinaCent.Blaze.Web.Startup
 @using VinaCent.Blaze.Web.Themes.Velzon.ThemeOptions
 @inject IVelzonThemeOptions ThemeOptions
 @model VinaCent.Blaze.Web.Models.Roles.RoleListViewModel
 @{
     ThemeOptions.AddBreadcrumb(L("Roles")).Commit(this);
     ViewBag.Title = L("Roles");
-    ViewBag.CurrentPageName = PageNames.Roles;
+    ViewBag.CurrentPageName = AdminCpPageNames.Roles;
 }
 @section scripts
 {

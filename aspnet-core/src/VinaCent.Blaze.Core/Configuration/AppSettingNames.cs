@@ -12,6 +12,7 @@
 
         #region App UI/Theme
         public const string UiTheme = "App.UiTheme";
+        public const string UiThemeMode = "App.UiThemeMode";
         #endregion
 
         #region App File Management

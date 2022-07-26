@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc.Localization;
+﻿using Abp.Configuration;
+using Abp.Runtime.Session;
+using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.AspNetCore.Mvc.Razor;
+using VinaCent.Blaze.Configuration;
 using VinaCent.Blaze.Web.Themes.Velzon.Components.VelzonBreadcrumb;
 
 namespace VinaCent.Blaze.Web.Themes.Velzon.ThemeOptions
@@ -12,15 +15,18 @@ namespace VinaCent.Blaze.Web.Themes.Velzon.ThemeOptions
         public VelzonBreadcrumbOptions Breadcrumb { get; set; }
         public string LayoutDirection { get; set; }
 
-        //private readonly IRepository<AppDictionary, Guid> AppDictionaryRepository;
+        private readonly ISettingManager _settingManager;
+        private readonly IAbpSession _abpSession;
 
-        public VelzonThemeOptions()
+        public VelzonThemeOptions(ISettingManager settingManager, IAbpSession abpSession)
         {
             IsDisplayBreadcrumb = true;
             FooterClasses = "";
             Breadcrumb = new VelzonBreadcrumbOptions();
             LayoutVertial();
-            //AppDictionaryRepository = appDictionaryRepository;
+
+            _settingManager = settingManager;
+            _abpSession = abpSession;
         }
 
         public IVelzonThemeOptions HideBreadcrumb()
@@ -43,20 +49,18 @@ namespace VinaCent.Blaze.Web.Themes.Velzon.ThemeOptions
                 }
             }
 
-            //LoadUiMode();
+            LoadUiMode();
         }
 
-        //private void LoadUiMode()
-        //{
-        //    if (CurrentUser.IsAuthenticated)
-        //    {
-        //        var uiMode = AppDictionaryRepository.FirstOrDefaultAsync(x =>
-        //            x.Owner == CurrentUser.Id && x.Key == AppMacroSettings.UiMode)
-        //                .GetAwaiter().GetResult();
-        //        UiMode = uiMode?.Value?.ToLower();
-        //    }
-        //    UiMode ??= UiModes.Light.ToLower();
-        //}
+        private void LoadUiMode()
+        {
+            if (_abpSession.UserId != null)
+            {
+                var uiMode = _settingManager.GetSettingValue(AppSettingNames.UiThemeMode);
+                UiMode = uiMode?.ToLower();
+            }
+            UiMode ??= VelzonConsts.UiMode.Light;
+        }
 
         public void Commit<TPage>(TPage page) where TPage : RazorPageBase
         {
@@ -90,13 +94,13 @@ namespace VinaCent.Blaze.Web.Themes.Velzon.ThemeOptions
 
         public IVelzonThemeOptions LayoutVertial()
         {
-            LayoutDirection = "vertical";
+            LayoutDirection = VelzonConsts.LayoutDirections.Vertical;
             return this;
         }
 
         public IVelzonThemeOptions LayoutHorizontal()
         {
-            LayoutDirection = "horizontal";
+            LayoutDirection = VelzonConsts.LayoutDirections.Horizontial;
             return this;
         }
     }

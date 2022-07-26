@@ -19,11 +19,11 @@ public class VelzonLeftSidebarViewComponent : AbpViewComponent
         _abpSession = abpSession;
     }
 
-    public async Task<IViewComponentResult> InvokeAsync()
+    public async Task<IViewComponentResult> InvokeAsync(string menuName)
     {
         var model = new SideBarMenuViewModel
         {
-            MainMenu = await _userNavigationManager.GetMenuAsync("MainMenu", _abpSession.ToUserIdentifier())
+            MainMenu = await _userNavigationManager.GetMenuAsync(menuName, _abpSession.ToUserIdentifier())
         };
 
         return View($"~/Themes/Velzon/Components/{nameof(VelzonLeftSidebarViewComponent).Replace("ViewComponent", "")}/Default.cshtml", model);

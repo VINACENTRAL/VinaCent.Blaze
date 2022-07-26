@@ -1,10 +1,11 @@
 ﻿@inject IVelzonThemeOptions ThemeOptions
+@using VinaCent.Blaze.Web.Areas.AdminCP.Common
 @using VinaCent.Blaze.Web.Startup
 @using VinaCent.Blaze.Web.Themes.Velzon.ThemeOptions
 @{
     ThemeOptions.AddBreadcrumb(L("Tenants")).Commit(this);
     ViewBag.Title = L("Tenants");
-    ViewBag.CurrentPageName = PageNames.Tenants;
+    ViewBag.CurrentPageName = AdminCpPageNames.Tenants;
 }
 @section scripts
 {

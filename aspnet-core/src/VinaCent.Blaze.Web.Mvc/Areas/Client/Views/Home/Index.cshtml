@@ -1,4 +1,5 @@
-﻿@using VinaCent.Blaze.Web.Startup
+﻿@using VinaCent.Blaze.Web.Areas.Client.Common
+@using VinaCent.Blaze.Web.Startup
 @using VinaCent.Blaze.Web.Models.Users
 @using VinaCent.Blaze.Web.Themes.Velzon.ThemeOptions
 @inject IVelzonThemeOptions ThemeOptions
@@ -7,7 +8,7 @@
 @{
     ThemeOptions.LayoutHorizontal().AddBreadcrumb(L("Home")).Commit(this);
     ViewBag.Title = L("Home");
-    ViewBag.CurrentPageName = PageNames.Home;
+    ViewBag.CurrentPageName = ClientPageNames.Home;
 }
 
 <div class="row">
