@@ -1,11 +1,12 @@
-﻿using Abp.Domain.Entities;
+﻿using Abp.AutoMapper;
+using Abp.Domain.Entities;
 using Abp.Localization;
 using System.ComponentModel.DataAnnotations;
-using Abp.Application.Services.Dto;
 
 namespace VinaCent.Blaze.AppCore.LanguageTexts.Dto
 {
-    public class CreateOrUpdateLanguageTextDto : EntityDto<long>, IMayHaveTenant
+    [AutoMapTo(typeof(ApplicationLanguageText))]
+    public class CreateLanguageTextDto : IMayHaveTenant
     {
         /// <summary>
         /// TenantId of this entity. Can be null for host.

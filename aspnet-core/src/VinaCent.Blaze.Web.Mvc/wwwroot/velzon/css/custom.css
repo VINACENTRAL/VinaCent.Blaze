@@ -1,3 +1,7 @@
+:root {
+    /*--vz-body-font-size: 1rem;*/
+}
+
 .toast-success {
     background: var(--vz-success) !important;
 }
@@ -32,4 +36,8 @@
 
 .navbar-menu .navbar-nav .nav-sm .nav-link:before {
     content: none;
+}
+
+.dataTables_length .form-select {
+    font-size: var(--vz-body-font-size);
 }

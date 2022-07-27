@@ -11,6 +11,11 @@
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="Controllers\**" />
+    <EmbeddedResource Remove="Controllers\**" />
+    <None Remove="Controllers\**" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\..\src\VinaCent.Blaze.Web.Mvc\VinaCent.Blaze.Web.Mvc.csproj" />
     <ProjectReference Include="..\VinaCent.Blaze.Tests\VinaCent.Blaze.Tests.csproj" />
   </ItemGroup>
@@ -26,8 +31,5 @@
     </PackageReference>
     <PackageReference Include="AngleSharp" Version="0.16.1" />
     <PackageReference Include="Abp.AspNetCore.TestBase" Version="7.3.0" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Controllers\" />
   </ItemGroup>
 </Project>

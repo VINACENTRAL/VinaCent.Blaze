@@ -3,7 +3,7 @@
         .click(function (e) {
             e.preventDefault();
             abp.ajax({
-                url: abp.appPath + 'Account/TenantChangeModal',
+                url: abp.appPath + 'account/tenant-change-modal',
                 type: 'POST',
                 dataType: 'html',
                 success: function (content) {

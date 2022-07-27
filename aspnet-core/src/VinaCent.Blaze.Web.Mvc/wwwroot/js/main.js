@@ -27,7 +27,11 @@
 
         //map to object
         var obj = {};
-        data.map(function (x) { obj[x.name] = x.value; });
+        data.map(function (x) { // Prevent duplicated in checkbox
+            if (obj[x.name] === undefined) {
+                obj[x.name] = x.value;
+            }
+        });
 
         if (camelCased && camelCased === true) {
             return convertToCamelCasedObject(obj);

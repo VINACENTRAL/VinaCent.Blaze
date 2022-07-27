@@ -6,8 +6,6 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Abp;
-using Abp.AspNetCore.Mvc.Authorization;
 using Abp.Authorization;
 using Abp.Authorization.Users;
 using Abp.Configuration;
@@ -17,7 +15,6 @@ using Abp.Extensions;
 using Abp.MultiTenancy;
 using Abp.Notifications;
 using Abp.Threading;
-using Abp.Timing;
 using Abp.UI;
 using Abp.Web.Models;
 using Abp.Zero.Configuration;
@@ -32,6 +29,7 @@ using VinaCent.Blaze.Web.Views.Shared.Components.TenantChange;
 
 namespace VinaCent.Blaze.Web.Controllers
 {
+    [Route("account")]
     public class AccountController : BlazeControllerBase
     {
         private readonly UserManager _userManager;
@@ -74,6 +72,7 @@ namespace VinaCent.Blaze.Web.Controllers
 
         #region Login / Logout
 
+        [HttpGet("login")]
         public ActionResult Login(string userNameOrEmailAddress = "", string returnUrl = "", string successMessage = "")
         {
             if (string.IsNullOrWhiteSpace(returnUrl))
@@ -90,7 +89,7 @@ namespace VinaCent.Blaze.Web.Controllers
             });
         }
 
-        [HttpPost]
+        [HttpPost("login")]
         [UnitOfWork]
         public virtual async Task<JsonResult> Login(LoginViewModel loginModel, string returnUrl = "", string returnUrlHash = "")
         {
@@ -108,6 +107,7 @@ namespace VinaCent.Blaze.Web.Controllers
             return Json(new AjaxResponse { TargetUrl = returnUrl });
         }
 
+        [HttpGet("logout")]
         public async Task<ActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
@@ -131,6 +131,7 @@ namespace VinaCent.Blaze.Web.Controllers
 
         #region Register
 
+        [HttpGet("register")]
         public ActionResult Register()
         {
             return RegisterView(new RegisterViewModel());
@@ -153,7 +154,7 @@ namespace VinaCent.Blaze.Web.Controllers
             return true;
         }
 
-        [HttpPost]
+        [HttpPost("register")]
         [UnitOfWork]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
@@ -258,6 +259,14 @@ namespace VinaCent.Blaze.Web.Controllers
             }
         }
 
+        #endregion
+
+        #region Reset Password
+        [HttpGet("reset-password")]
+        public IActionResult ResetPassword()
+        {
+            return View();
+        }
         #endregion
 
         #region External Login
@@ -382,6 +391,7 @@ namespace VinaCent.Blaze.Web.Controllers
 
         #region Change Tenant
 
+        [HttpPost("tenant-change-modal")]
         public async Task<ActionResult> TenantChangeModal()
         {
             var loginInfo = await _sessionAppService.GetCurrentLoginInformations();
@@ -435,26 +445,27 @@ namespace VinaCent.Blaze.Web.Controllers
         /// </summary>
         /// <param name="message"></param>
         /// <returns></returns>
-        [AbpMvcAuthorize]
-        public async Task<ActionResult> TestNotification(string message = "")
-        {
-            if (message.IsNullOrEmpty())
-            {
-                message = "This is a test notification, created at " + Clock.Now;
-            }
+        //[AbpMvcAuthorize]
+        //[HttpGet("test-notify")]
+        //public async Task<ActionResult> TestNotification(string message = "")
+        //{
+        //    if (message.IsNullOrEmpty())
+        //    {
+        //        message = "This is a test notification, created at " + Clock.Now;
+        //    }
 
-            var defaultTenantAdmin = new UserIdentifier(1, 2);
-            var hostAdmin = new UserIdentifier(null, 1);
+        //    var defaultTenantAdmin = new UserIdentifier(1, 2);
+        //    var hostAdmin = new UserIdentifier(null, 1);
 
-            await _notificationPublisher.PublishAsync(
-                    "App.SimpleMessage",
-                    new MessageNotificationData(message),
-                    severity: NotificationSeverity.Info,
-                    userIds: new[] { defaultTenantAdmin, hostAdmin }
-                 );
+        //    await _notificationPublisher.PublishAsync(
+        //            "App.SimpleMessage",
+        //            new MessageNotificationData(message),
+        //            severity: NotificationSeverity.Info,
+        //            userIds: new[] { defaultTenantAdmin, hostAdmin }
+        //         );
 
-            return Content("Sent notification: " + message);
-        }
+        //    return Content("Sent notification: " + message);
+        //}
 
         #endregion
     }
