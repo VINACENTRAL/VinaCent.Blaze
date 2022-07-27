@@ -10,13 +10,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using VinaCent.Blaze.AppCore.AuditLogs.Dto;
+using VinaCent.Blaze.Authorization;
 using VinaCent.Blaze.Authorization.Users;
 using VinaCent.Blaze.Users.Dto;
 using static System.DateTime;
 
 namespace VinaCent.Blaze.AppCore.AuditLogs
 {
-    [AbpAuthorize]
+    [AbpAuthorize(PermissionNames.Pages_AuditLogs)]
     public class AuditLogAppService : BlazeAppServiceBase, IAuditLogAppService
     {
         private readonly IRepository<AuditLog, long> _repository;
@@ -33,13 +34,13 @@ namespace VinaCent.Blaze.AppCore.AuditLogs
         private IQueryable<AuditLog> CreateFilteredQuery(PagedAuditLogResultRequestDto input)
         {
             var query = _repository.GetAll();
-            if (!input.UserName.IsNullOrWhiteSpace())
-            {
-                input.UserName = input.UserName.ToUpper();
-                var users = _userRepository.GetAllList(x => x.UserName.ToLower().Contains(input.UserName));
-                var userIds = users.Select(x => x.Id).ToArray();
-                query = query.WhereIf(!string.IsNullOrEmpty(input.UserName), x => userIds.Contains(x.UserId.Value));
-            }
+            //if (!input.UserName.IsNullOrWhiteSpace())
+            //{
+            //    input.UserName = input.UserName.ToUpper();
+            //    var users = _userRepository.GetAllList(x => x.UserName.ToLower().Contains(input.UserName));
+            //    var userIds = users.Select(x => x.Id).ToArray();
+            //    query = query.WhereIf(!string.IsNullOrEmpty(input.UserName), x => userIds.Contains(x.UserId.Value));
+            //}
 
             query = query.WhereIf(!input.BrowserInfo.IsNullOrWhiteSpace(),
                 x => x.BrowserInfo.Contains(input.BrowserInfo));

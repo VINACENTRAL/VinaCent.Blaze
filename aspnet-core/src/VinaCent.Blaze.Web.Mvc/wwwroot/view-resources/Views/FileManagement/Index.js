@@ -5,7 +5,7 @@
         _$directoryCreateForm = _$directoryCreateModal.find('form'),
         _$uploadFileModal = $('#UploadFileModal'),
         _$uploadFileForm = _$uploadFileModal.find('form'),
-        _$table = $('#FileUnitsTable');
+        _$table = $('#FileUnitsTable'),
         _$parents = $('#Parents');
 
     var _$fileUnitsTable = _$table.DataTable({
@@ -223,5 +223,16 @@
 
     }).on('hidden.bs.modal', () => {
         _$uploadFileForm.clearForm();
+    });
+
+    $('.btn-search').on('click', (e) => {
+        _$fileUnitsTable.ajax.reload();
+    });
+
+    $('.txt-search').on('keypress', (e) => {
+        if (e.which == 13) {
+            _$fileUnitsTable.ajax.reload();
+            return false;
+        }
     });
 })(jQuery);

@@ -4,6 +4,7 @@ using Abp.AutoMapper;
 using Abp.Domain.Entities;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -42,6 +43,16 @@ namespace VinaCent.Blaze.AppCore.AuditLogs.Dto
         /// Start time of the method execution.
         /// </summary>
         public DateTime ExecutionTime { get; set; }
+
+        public virtual string ExecutionTimeStr
+        {
+            get
+            {
+                var currentCultureDatetimeFormat = CultureInfo.CurrentCulture.DateTimeFormat;
+                var parttern = currentCultureDatetimeFormat.ShortTimePattern + " - " + currentCultureDatetimeFormat.ShortDatePattern;
+                return ExecutionTime.ToString(parttern);
+            }
+        }
 
         /// <summary>
         /// Total duration of the method call as milliseconds.

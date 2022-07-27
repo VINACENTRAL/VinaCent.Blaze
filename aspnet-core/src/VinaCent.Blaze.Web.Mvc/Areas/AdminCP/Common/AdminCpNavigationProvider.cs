@@ -17,6 +17,15 @@ public class AdminCpNavigationProvider : NavigationProvider
         adminCpMenuDefinition
             .AddItem(
                 new MenuItemDefinition(
+                    AdminCpPageNames.Dashboard,
+                    L("Dashboard"),
+                    url: "admincp/dashboard",
+                    icon: "mdi mdi-speedometer",
+                    requiresAuthentication: true
+                )
+            )
+            .AddItem(
+                new MenuItemDefinition(
                     AdminCpPageNames.FileManagement,
                     L("FileManagement"),
                     url: "admincp/file-management",
@@ -71,6 +80,14 @@ public class AdminCpNavigationProvider : NavigationProvider
                     permissionDependency: new SimplePermissionDependency(PermissionNames.Pages_LanguageTexts)
                 )
               )
+            ).AddItem(
+                new MenuItemDefinition(
+                    AdminCpPageNames.AuditLogs,
+                    L("AuditLogs"),
+                    url: "admincp/audit-logs",
+                    icon: "mdi mdi-calendar-check",
+                    permissionDependency: new SimplePermissionDependency(PermissionNames.Pages_AuditLogs)
+                )
             );
 
         context.Manager.Menus.Add(nameof(AdminCP), adminCpMenuDefinition);

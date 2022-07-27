@@ -42,7 +42,4 @@
     <PackageReference Include="Abp.RedisCache" Version="7.3.0" />
     <PackageReference Include="Abp.Castle.Log4Net" Version="7.3.0" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="wwwroot\view-resources\Views\AuditLogs\" />
-  </ItemGroup>
 </Project>
