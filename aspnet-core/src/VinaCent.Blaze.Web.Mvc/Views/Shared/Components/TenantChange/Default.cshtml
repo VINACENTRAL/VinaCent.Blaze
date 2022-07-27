@@ -5,7 +5,7 @@
 }
 <div class="text-center tenant-change-component">
     <span>
-        @L("CurrentTenant"):
+        @L(LKConstants.CurrentTenant):
 
         @if (Model.Tenant != null)
         {
@@ -13,10 +13,10 @@
         }
         else
         {
-            <span>@L("NotSelected")</span>
+            <span>@L(LKConstants.NotSelected)</span>
         }
 
-        (<a href="javascript:;" data-bs-toggle="modal" data-bs-target="#TenantChangeModal">@L("Change")</a>)
+        (<a href="javascript:;" data-bs-toggle="modal" data-bs-target="#TenantChangeModal">@L(LKConstants.Change)</a>)
     </span>
 </div>
 @*<div class="modal fade" id="TenantChangeModal" tabindex="-1" role="dialog" aria-labelledby="UserCreateModalLabel" data-bs-backdrop="static" data-bs-keyboard="false">

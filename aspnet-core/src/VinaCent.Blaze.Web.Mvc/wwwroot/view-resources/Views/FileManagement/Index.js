@@ -86,10 +86,10 @@
                 render: (data, type, row, meta) => {
                     return [
                         `   <button type="button" class="btn btn-sm btn-warning edit-file-unit" data-file-unit-id="${row.id}" data-bs-toggle="modal" data-bs-target="#RenameFileUnitModal">`,
-                        `       <i class="fas fa-pencil-alt"></i> ${l('Rename')}`,
+                        `       <i class="fas fa-pencil-alt"></i> ${l(LKConstants.Rename)}`,
                         '   </button>',
                         `   <button type="button" class="btn btn-sm btn-danger delete-file-unit" data-file-unit-id="${row.id}" data-file-unit-name="${row.name}">`,
-                        `       <i class="fas fa-trash"></i> ${l('Delete')}`,
+                        `       <i class="fas fa-trash"></i> ${l(LKConstants.Delete)}`,
                         '   </button>',
                     ].join('');
                 }
@@ -116,7 +116,7 @@
             .done(function () {
                 _$directoryCreateModal.modal('hide');
                 _$directoryCreateForm[0].reset();
-                abp.notify.info(l('SavedSuccessfully'));
+                abp.notify.info(l(LKConstants.SavedSuccessfully));
                 _$fileUnitsTable.ajax.reload();
             })
             .always(function () {
@@ -143,7 +143,7 @@
         //    .done(function () {
         //        _$uploadFileForm.modal('hide');
         //        _$uploadFileForm[0].reset();
-        //        abp.notify.info(l('SavedSuccessfully'));
+        //        abp.notify.info(l(LKConstants.SavedSuccessfully));
         //        _$fileUnitsTable.ajax.reload();
         //    })
         //    .always(function () {
@@ -180,7 +180,7 @@
     function deleteFileUnit(fileUnitId, fileUnitName) {
         abp.message.confirm(
             abp.utils.formatString(
-                l('AreYouSureWantToDelete'),
+                l(LKConstants.AreYouSureWantToDelete),
                 fileUnitName
             ),
             null,
@@ -189,7 +189,7 @@
                     _fileUnitService
                         .delete(fileUnitId)
                         .done(() => {
-                            abp.notify.info(l('SuccessfullyDeleted'));
+                            abp.notify.info(l(LKConstants.SuccessfullyDeleted));
                             _$fileUnitsTable.ajax.reload();
                         });
                 }

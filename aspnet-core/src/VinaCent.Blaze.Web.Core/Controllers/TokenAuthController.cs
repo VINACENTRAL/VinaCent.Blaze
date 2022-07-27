@@ -117,7 +117,7 @@ namespace VinaCent.Blaze.Controllers
                         }
 
                         var accessToken = CreateAccessToken(CreateJwtClaims(loginResult.Identity));
-                        
+
                         return new ExternalAuthenticateResultModel
                         {
                             AccessToken = accessToken,
@@ -167,7 +167,7 @@ namespace VinaCent.Blaze.Controllers
             var userInfo = await _externalAuthManager.GetUserInfo(model.AuthProvider, model.ProviderAccessCode);
             if (userInfo.ProviderKey != model.ProviderKey)
             {
-                throw new UserFriendlyException(L("CouldNotValidateExternalUser"));
+                throw new UserFriendlyException(L(LKConstants.CouldNotValidateExternalUser));
             }
 
             return userInfo;

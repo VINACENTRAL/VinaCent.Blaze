@@ -63,10 +63,10 @@
                 render: (data, type, row, meta) => {
                     return [
                         `   <button type="button" class="btn btn-sm btn-primary edit-user" data-user-id="${row.id}" data-bs-toggle="modal" data-bs-target="#UserEditModal">`,
-                        `       <i class="fas fa-pencil-alt"></i> ${l('Edit')}`,
+                        `       <i class="fas fa-pencil-alt"></i> ${l(LKConstants.Edit)}`,
                         '   </button>',
                         `   <button type="button" class="btn btn-sm btn-danger delete-user" data-user-id="${row.id}" data-user-name="${row.name}">`,
-                        `       <i class="fas fa-trash"></i> ${l('Delete')}`,
+                        `       <i class="fas fa-trash"></i> ${l(LKConstants.Delete)}`,
                         '   </button>'
                     ].join('');
                 }
@@ -104,7 +104,7 @@
         _userService.create(user).done(function () {
             _$modal.modal('hide');
             _$form[0].reset();
-            abp.notify.info(l('SavedSuccessfully'));
+            abp.notify.info(l(LKConstants.SavedSuccessfully));
             _$usersTable.ajax.reload();
         }).always(function () {
             abp.ui.clearBusy(_$modal);
@@ -121,7 +121,7 @@
     function deleteUser(userId, userName) {
         abp.message.confirm(
             abp.utils.formatString(
-                l('AreYouSureWantToDelete'),
+                l(LKConstants.AreYouSureWantToDelete),
                 userName),
             null,
             (isConfirmed) => {
@@ -129,7 +129,7 @@
                     _userService.delete({
                         id: userId
                     }).done(() => {
-                        abp.notify.info(l('SuccessfullyDeleted'));
+                        abp.notify.info(l(LKConstants.SuccessfullyDeleted));
                         _$usersTable.ajax.reload();
                     });
                 }

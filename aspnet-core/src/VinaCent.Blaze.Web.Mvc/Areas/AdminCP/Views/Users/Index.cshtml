@@ -5,8 +5,8 @@
 @inject IVelzonThemeOptions ThemeOptions
 @model UserListViewModel
 @{
-    ThemeOptions.AddBreadcrumb(L("Users")).Commit(this);
-    ViewBag.Title = L("Users");
+    ThemeOptions.AddBreadcrumb(L(LKConstants.Users)).Commit(this);
+    ViewBag.Title = L(LKConstants.Users);
     ViewBag.CurrentPageName = AdminCpPageNames.Users;
 }
 @section scripts
@@ -26,7 +26,7 @@
             <div class="col-md-6">
                 <button type="button" data-bs-toggle="modal" data-bs-target="#UserCreateModal" class="btn btn-success waves-effect waves-light mb-3 mb-lg-0">
                     <i class="fa fa-plus-square"></i>
-                    @L("Create")
+                    @L(LKConstants.Create)
                 </button>
             </div>
             <div class="col-md-6">
@@ -40,11 +40,11 @@
                 <thead>
                     <tr>
                         <th></th>
-                        <th>@L("UserName")</th>
-                        <th>@L("FullName")</th>
-                        <th>@L("EmailAddress")</th>
-                        <th>@L("IsActive")</th>
-                        <th style="width: 150px">@L("Actions")</th>
+                        <th>@L(LKConstants.UserName)</th>
+                        <th>@L(LKConstants.FullName)</th>
+                        <th>@L(LKConstants.EmailAddress)</th>
+                        <th>@L(LKConstants.IsActive)</th>
+                        <th style="width: 150px">@L(LKConstants.Actions)</th>
                     </tr>
                 </thead>
                 <tbody></tbody>

@@ -52,10 +52,10 @@
                 render: (data, type, row, meta) => {
                     return [
                         `   <button type="button" class="btn btn-sm btn-warning edit-role" data-role-id="${row.id}" data-bs-toggle="modal" data-bs-target="#RoleEditModal">`,
-                        `       <i class="fas fa-pencil-alt"></i> ${l('Edit')}`,
+                        `       <i class="fas fa-pencil-alt"></i> ${l(LKConstants.Edit)}`,
                         '   </button>',
                         `   <button type="button" class="btn btn-sm btn-danger delete-role" data-role-id="${row.id}" data-role-name="${row.name}">`,
-                        `       <i class="fas fa-trash"></i> ${l('Delete')}`,
+                        `       <i class="fas fa-trash"></i> ${l(LKConstants.Delete)}`,
                         '   </button>',
                     ].join('');
                 }
@@ -86,7 +86,7 @@
             .done(function () {
                 _$modal.modal('hide');
                 _$form[0].reset();
-                abp.notify.info(l('SavedSuccessfully'));
+                abp.notify.info(l(LKConstants.SavedSuccessfully));
                 _$rolesTable.ajax.reload();
             })
             .always(function () {
@@ -124,7 +124,7 @@
     function deleteRole(roleId, roleName) {
         abp.message.confirm(
             abp.utils.formatString(
-                l('AreYouSureWantToDelete'),
+                l(LKConstants.AreYouSureWantToDelete),
                 roleName),
             null,
             (isConfirmed) => {
@@ -132,7 +132,7 @@
                     _roleService.delete({
                         id: roleId
                     }).done(() => {
-                        abp.notify.info(l('SuccessfullyDeleted'));
+                        abp.notify.info(l(LKConstants.SuccessfullyDeleted));
                         _$rolesTable.ajax.reload();
                     });
                 }

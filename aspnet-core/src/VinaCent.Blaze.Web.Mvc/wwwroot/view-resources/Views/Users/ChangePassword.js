@@ -5,7 +5,7 @@
 
     $.validator.addMethod("regex", function (value, element, regexpr) {
         return regexpr.test(value);
-    }, l("PasswordsMustBeAtLeast8CharactersContainLowercaseUppercaseNumber"));
+    }, l(LKConstants.PasswordsMustBeAtLeast8CharactersContainLowercaseUppercaseNumber));
 
     _$form.validate({
         rules: {
@@ -18,7 +18,7 @@
         },
         messages: {
             ConfirmNewPassword: {
-                equalTo: l("PasswordsDoNotMatch")
+                equalTo: l(LKConstants.PasswordsDoNotMatch)
             }
         }
     });
@@ -35,7 +35,7 @@
         _userService.changePassword(changePasswordDto).done(success => {
             if (success) {
                 skipClearBusy = true;
-                abp.notify.info(l('SavedSuccessfully'));
+                abp.notify.info(l(LKConstants.SavedSuccessfully));
                 setTimeout(() => {
                     window.location.href = "/";
                 }, 1200);

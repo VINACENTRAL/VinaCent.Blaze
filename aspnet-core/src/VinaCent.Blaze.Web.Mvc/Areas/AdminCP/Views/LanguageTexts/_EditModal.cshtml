@@ -7,7 +7,7 @@
     Layout = null;
     var languages = LanguageManager.GetLanguages().Select(x => new SelectListItem(x.DisplayName, x.Name));
 }
-@await Html.PartialAsync("~/Views/Shared/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("EditLanguageText")))
+@await Html.PartialAsync("~/Views/Shared/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L(LKConstants.EditLanguageText)))
 <form name="LanguageTextEditForm" role="form" class="form-horizontal">
     <input type="hidden" asp-for="TenantId" />
     <input type="hidden" asp-for="Id" />

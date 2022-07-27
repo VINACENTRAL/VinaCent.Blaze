@@ -14,7 +14,7 @@
         abp.ui.setBusy(_$form);
         _languageTextService.update(languageText).done(function () {
             _$modal.modal('hide');
-            abp.notify.info(l('SavedSuccessfully'));
+            abp.notify.info(l(LKConstants.SavedSuccessfully));
             abp.event.trigger('languageText.edited', languageText);
         }).always(function () {
             abp.ui.clearBusy(_$form);

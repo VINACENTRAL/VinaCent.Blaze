@@ -5,8 +5,8 @@
 @inject IVelzonThemeOptions ThemeOptions
 @model RoleListViewModel
 @{
-    ThemeOptions.AddBreadcrumb(L("Roles")).Commit(this);
-    ViewBag.Title = L("Roles");
+    ThemeOptions.AddBreadcrumb(L(LKConstants.Roles)).Commit(this);
+    ViewBag.Title = L(LKConstants.Roles);
     ViewBag.CurrentPageName = AdminCpPageNames.Roles;
 }
 @section scripts
@@ -25,7 +25,7 @@
             <div class="col-md-6">
                 <button type="button" data-bs-toggle="modal" data-bs-target="#RoleCreateModal" class="btn btn-success waves-effect waves-light mb-3 mb-lg-0">
                     <i class="fa fa-plus-square"></i>
-                    @L("Create")
+                    @L(LKConstants.Create)
                 </button>
             </div>
             <div class="col-md-6">
@@ -39,9 +39,9 @@
                 <thead>
                     <tr>
                         <th></th>
-                        <th>@L("RoleName")</th>
-                        <th>@L("DisplayName")</th>
-                        <th style="width: 150px">@L("Actions")</th>
+                        <th>@L(LKConstants.RoleName)</th>
+                        <th>@L(LKConstants.DisplayName)</th>
+                        <th style="width: 150px">@L(LKConstants.Actions)</th>
                     </tr>
                 </thead>
                 <tbody>
