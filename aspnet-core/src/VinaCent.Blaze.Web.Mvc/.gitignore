@@ -252,8 +252,9 @@ paket-files/
 *.sln.iml
 
 # VinaCentral
-**/Logs/logs.txt
-/Logs
+**/App_Data/Logs/Logs.txt
+App_Data/Logs
+App_Data
 
 # Use abp install-libs to restore.
 #**/wwwroot/libs/*

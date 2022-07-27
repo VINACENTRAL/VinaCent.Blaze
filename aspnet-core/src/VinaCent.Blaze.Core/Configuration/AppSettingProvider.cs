@@ -29,13 +29,13 @@ namespace VinaCent.Blaze.Configuration
                     isVisibleToClients: true),
 
                 new SettingDefinition(AppSettingNames.SiteAuthor,
-                    "vinacent.com",
+                    "VINACENT Teams",
                     scopes: SettingScopes.Application |
                     SettingScopes.Tenant,
                     isVisibleToClients: true),
                 
                 new SettingDefinition(AppSettingNames.SiteAuthorProfileUrl,
-                    "https://vinacent.com",
+                    "https://vinacent.com/teams",
                     scopes: SettingScopes.Application |
                     SettingScopes.Tenant,
                     isVisibleToClients: true),
