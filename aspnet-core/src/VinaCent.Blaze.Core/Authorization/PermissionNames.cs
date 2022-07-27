@@ -13,5 +13,7 @@
 
         public const string Pages_Languages = "Pages.Languages";
         public const string Pages_LanguageTexts = "Pages.LanguageTexts";
+
+        public const string Pages_AuditLogs = "Pages.AuditLogs";
     }
 }
