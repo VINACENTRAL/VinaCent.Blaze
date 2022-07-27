@@ -1,19 +1,19 @@
 ﻿using Abp.Application.Services.Dto;
+using Abp.Authorization;
 using Abp.Domain.Repositories;
 using Abp.Extensions;
 using Abp.Linq.Extensions;
 using Abp.UI;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using VinaCent.Blaze.AppCore.FileUnits.Dto;
+using VinaCent.Blaze.Authorization;
 using VinaCent.Blaze.Authorization.Users;
 using VinaCent.Blaze.Configuration;
 using VinaCent.Blaze.Helpers;
@@ -21,6 +21,7 @@ using VinaCent.Blaze.Users.Dto;
 
 namespace VinaCent.Blaze.AppCore.FileUnits
 {
+    [AbpAuthorize(PermissionNames.Pages_FileManagement)]
     public class FileUnitAppService : BlazeAppServiceBase, IFileUnitAppService
     {
         private readonly IRepository<FileUnit, Guid> _repository;
@@ -53,7 +54,7 @@ namespace VinaCent.Blaze.AppCore.FileUnits
         {
             get
             {
-                var path = StringHelper.TrueCombine(_webHostEnvironment.ContentRootPath, ContentPhysicalDirectory);
+                var path = StringHelper.TrueCombine(_webHostEnvironment.WebRootPath, ContentPhysicalDirectory);
                 if (!Directory.Exists(path))
                 {
                     Directory.CreateDirectory(path);
@@ -490,7 +491,7 @@ namespace VinaCent.Blaze.AppCore.FileUnits
             var one = _repository.FirstOrDefault(x =>
                 x.ParentId == input.ParentId &&
                 x.IsFolder == input.IsFolder &&
-                x.Name == input.Name);
+                x.Name == input.Name && x.Id != input.Id);
             if (one == null)
             {
                 if (count > 0)

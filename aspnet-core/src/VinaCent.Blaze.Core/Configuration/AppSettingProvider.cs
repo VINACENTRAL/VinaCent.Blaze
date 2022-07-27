@@ -60,7 +60,7 @@ namespace VinaCent.Blaze.Configuration
 
 #region App File Management
                 new SettingDefinition(AppSettingNames.AllowedMaxFileSize,
-                    "10", //MaxFileSize = 10 KB
+                    "1000", //MaxFileSize = 10 KB
                     scopes: SettingScopes.Application,
                     isVisibleToClients: true),
                 new SettingDefinition(AppSettingNames.AllowedUploadFormats,
