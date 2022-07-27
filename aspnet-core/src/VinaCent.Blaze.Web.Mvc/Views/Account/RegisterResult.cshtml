@@ -1,28 +1,28 @@
 ﻿@model VinaCent.Blaze.Web.Models.Account.RegisterResultViewModel
 @{
-    ViewBag.Title = L("SuccessfullyRegistered");
+    ViewBag.Title = L(LKConstants.SuccessfullyRegistered);
 }
 <div class="card">
     <div class="card-body">
-        <h4>@L("SuccessfullyRegistered")</h4>
+        <h4>@L(LKConstants.SuccessfullyRegistered)</h4>
         <ul>
-            <li><span class="text-muted">@L("NameSurname"):</span> @Model.NameAndSurname</li>
-            <li><span class="text-muted">@L("TenancyName"):</span> @Model.TenancyName</li>
-            <li><span class="text-muted">@L("UserName"):</span> @Model.UserName</li>
-            <li><span class="text-muted">@L("EmailAddress"):</span> @Model.EmailAddress</li>
+            <li><span class="text-muted">@L(LKConstants.NameSurname):</span> @Model.NameAndSurname</li>
+            <li><span class="text-muted">@L(LKConstants.TenancyName):</span> @Model.TenancyName</li>
+            <li><span class="text-muted">@L(LKConstants.UserName):</span> @Model.UserName</li>
+            <li><span class="text-muted">@L(LKConstants.EmailAddress):</span> @Model.EmailAddress</li>
         </ul>
         <div>
             @if (!Model.IsActive)
             {
                 <div class="alert alert-warning" role="alert">
-                    @L("WaitingForActivationMessage")
+                    @L(LKConstants.WaitingForActivationMessage)
                 </div>
             }
 
             @if (Model.IsEmailConfirmationRequiredForLogin && !Model.IsEmailConfirmed)
             {
                 <div class="alert alert-warning" role="alert">
-                    @L("WaitingForEmailActivation")
+                    @L(LKConstants.WaitingForEmailActivation)
                 </div>
             }
         </div>

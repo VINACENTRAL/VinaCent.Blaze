@@ -16,8 +16,8 @@ public class ClientNavigationProvider : NavigationProvider
         clientMenuDefinition
             .AddItem(
                 new MenuItemDefinition(
-                    ClientPageNames.Home,
-                    L("HomePage"),
+                    ClientPageNames.HomePage,
+                    L(LKConstants.HomePage),
                     url: "",
                     icon: "mdi mdi-home",
                     requiresAuthentication: false

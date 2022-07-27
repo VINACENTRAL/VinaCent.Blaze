@@ -6,9 +6,9 @@
 
 @model UserListViewModel
 @{
-    ThemeOptions.LayoutHorizontal().AddBreadcrumb(L("Home")).Commit(this);
-    ViewBag.Title = L("Home");
-    ViewBag.CurrentPageName = ClientPageNames.Home;
+    ThemeOptions.LayoutHorizontal().AddBreadcrumb(L(LKConstants.HomePage)).Commit(this);
+    ViewBag.Title = L(LKConstants.HomePage);
+    ViewBag.CurrentPageName = ClientPageNames.HomePage;
 }
 
 <div class="row">

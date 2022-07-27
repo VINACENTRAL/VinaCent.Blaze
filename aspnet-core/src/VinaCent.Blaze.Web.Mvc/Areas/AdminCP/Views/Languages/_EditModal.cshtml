@@ -5,7 +5,7 @@
 @{
     Layout = null;
 }
-@await Html.PartialAsync("~/Views/Shared/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("EditLanguage")))
+@await Html.PartialAsync("~/Views/Shared/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L(LKConstants.EditLanguage)))
 <form name="LanguageEditForm" role="form" class="form-horizontal">
     <input type="hidden" asp-for="Id" />
     <input type="hidden" asp-for="TenantId" />

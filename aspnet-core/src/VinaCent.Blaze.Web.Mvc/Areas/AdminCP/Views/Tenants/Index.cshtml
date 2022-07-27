@@ -3,8 +3,8 @@
 @using VinaCent.Blaze.Web.Startup
 @using VinaCent.Blaze.Web.Themes.Velzon.ThemeOptions
 @{
-    ThemeOptions.AddBreadcrumb(L("Tenants")).Commit(this);
-    ViewBag.Title = L("Tenants");
+    ThemeOptions.AddBreadcrumb(L(LKConstants.Tenants)).Commit(this);
+    ViewBag.Title = L(LKConstants.Tenants);
     ViewBag.CurrentPageName = AdminCpPageNames.Tenants;
 }
 @section scripts
@@ -24,7 +24,7 @@
             <div class="col-md-6">
                 <button type="button" data-bs-toggle="modal" data-bs-target="#TenantCreateModal" class="btn btn-success waves-effect waves-light mb-3 mb-lg-0">
                     <i class="fa fa-plus-square"></i>
-                    @L("Create")
+                    @L(LKConstants.Create)
                 </button>
             </div>
             <div class="col-md-6">
@@ -38,10 +38,10 @@
                 <thead>
                     <tr>
                         <th></th>
-                        <th>@L("TenancyName")</th>
-                        <th>@L("Name")</th>
-                        <th>@L("IsActive")</th>
-                        <th style="width: 150px">@L("Actions")</th>
+                        <th>@L(LKConstants.TenancyName)</th>
+                        <th>@L(LKConstants.Name)</th>
+                        <th>@L(LKConstants.IsActive)</th>
+                        <th style="width: 150px">@L(LKConstants.Actions)</th>
                     </tr>
                 </thead>
                 <tbody></tbody>

@@ -56,7 +56,7 @@ namespace VinaCent.Blaze.Authorization.Users
             };
 
             user.SetNormalizedNames();
-           
+
             foreach (var defaultRole in await _roleManager.Roles.Where(r => r.IsDefault).ToListAsync())
             {
                 user.Roles.Add(new UserRole(tenant.Id, user.Id, defaultRole.Id));
@@ -93,12 +93,12 @@ namespace VinaCent.Blaze.Authorization.Users
             var tenant = await _tenantManager.FindByIdAsync(tenantId);
             if (tenant == null)
             {
-                throw new UserFriendlyException(L("UnknownTenantId{0}", tenantId));
+                throw new UserFriendlyException(L(LKConstants.UnknownTenantId_X, tenantId));
             }
 
             if (!tenant.IsActive)
             {
-                throw new UserFriendlyException(L("TenantIdIsNotActive{0}", tenantId));
+                throw new UserFriendlyException(L(LKConstants.TenantIdIsNotActive_X, tenantId));
             }
 
             return tenant;

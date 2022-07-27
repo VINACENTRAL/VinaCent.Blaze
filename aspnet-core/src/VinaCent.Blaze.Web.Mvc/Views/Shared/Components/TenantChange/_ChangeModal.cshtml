@@ -5,15 +5,15 @@
 @{
     Layout = null;
 }
-@await Html.PartialAsync("~/Views/Shared/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("ChangeTenant")))
+@await Html.PartialAsync("~/Views/Shared/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L(LKConstants.ChangeTenant)))
 
 <form name="TenantChangeForm" role="form" novalidate class="form-horizontal">
     <div class="modal-body">
         <div class="">
-            <label class="form-label" for="TenancyName">@L("TenancyName")</label>
+            <label class="form-label" for="TenancyName">@L(LKConstants.TenancyName)</label>
             <input id="TenancyName" name="TenancyName" class="form-control" type="text" maxlength="@AbpTenantBase.MaxTenancyNameLength.ToString()" value="@Model.TenancyName">
         </div>
-        <span class="small text-danger"><i class="fa fa-info-circle"></i> @L("LeaveEmptyToSwitchToHost")</span>
+        <span class="small text-danger"><i class="fa fa-info-circle"></i> @L(LKConstants.LeaveEmptyToSwitchToHost)</span>
     </div>
     @await Html.PartialAsync("~/Views/Shared/Modals/_ModalFooterWithSaveAndCancel.cshtml")
 </form>

@@ -62,10 +62,10 @@
                 render: (data, type, row, meta) => {
                     return [
                         `   <button type="button" class="btn btn-sm btn-warning edit-languageText" data-languageText-id="${row.id}" data-bs-toggle="modal" data-bs-target="#LanguageTextEditModal">`,
-                        `       <i class="fas fa-pencil-alt"></i> ${l('Edit')}`,
+                        `       <i class="fas fa-pencil-alt"></i> ${l(LKConstants.Edit)}`,
                         '   </button>',
                         `   <button type="button" class="btn btn-sm btn-danger delete-languageText" data-languageText-id="${row.id}" data-tenancy-name="${row.name}">`,
-                        `       <i class="fas fa-trash"></i> ${l('Delete')}`,
+                        `       <i class="fas fa-trash"></i> ${l(LKConstants.Delete)}`,
                         '   </button>'
                     ].join('');
                 }
@@ -89,7 +89,7 @@
             .done(function () {
                 _$modal.modal('hide');
                 _$form[0].reset();
-                abp.notify.info(l('SavedSuccessfully'));
+                abp.notify.info(l(LKConstants.SavedSuccessfully));
                 _$languageTextsTable.ajax.reload();
             })
             .always(function () {
@@ -126,7 +126,7 @@
     function deleteLanguageText(languageTextId, tenancyName) {
         abp.message.confirm(
             abp.utils.formatString(
-                l('AreYouSureWantToDelete'),
+                l(LKConstants.AreYouSureWantToDelete),
                 tenancyName
             ),
             null,
@@ -137,7 +137,7 @@
                             id: languageTextId
                         })
                         .done(() => {
-                            abp.notify.info(l('SuccessfullyDeleted'));
+                            abp.notify.info(l(LKConstants.SuccessfullyDeleted));
                             _$languageTextsTable.ajax.reload();
                         });
                 }

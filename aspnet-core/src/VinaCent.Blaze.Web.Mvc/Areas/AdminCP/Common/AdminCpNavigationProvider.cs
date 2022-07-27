@@ -18,7 +18,7 @@ public class AdminCpNavigationProvider : NavigationProvider
             .AddItem(
                 new MenuItemDefinition(
                     AdminCpPageNames.FileManagement,
-                    L("FileManagement"),
+                    L(LKConstants.FileManagement),
                     url: "admincp/file-management",
                     icon: "mdi mdi-folder-multiple",
                     requiresAuthentication: true
@@ -27,7 +27,7 @@ public class AdminCpNavigationProvider : NavigationProvider
             .AddItem(
                 new MenuItemDefinition(
                     AdminCpPageNames.Tenants,
-                    L("Tenants"),
+                    L(LKConstants.Tenants),
                     url: "admincp/tenants",
                     icon: "mdi mdi-office-building",
                     permissionDependency: new SimplePermissionDependency(PermissionNames.Pages_Tenants)
@@ -35,7 +35,7 @@ public class AdminCpNavigationProvider : NavigationProvider
             ).AddItem(
                 new MenuItemDefinition(
                     AdminCpPageNames.Users,
-                    L("Users"),
+                    L(LKConstants.Users),
                     url: "admincp/users",
                     icon: "mdi mdi-account-multiple",
                     permissionDependency: new SimplePermissionDependency(PermissionNames.Pages_Users)
@@ -43,7 +43,7 @@ public class AdminCpNavigationProvider : NavigationProvider
             ).AddItem(
                 new MenuItemDefinition(
                     AdminCpPageNames.Roles,
-                    L("Roles"),
+                    L(LKConstants.Roles),
                     url: "admincp/roles",
                     icon: "mdi mdi-drama-masks",
                     permissionDependency: new SimplePermissionDependency(PermissionNames.Pages_Roles)
@@ -51,13 +51,13 @@ public class AdminCpNavigationProvider : NavigationProvider
             ).AddItem(
                 new MenuItemDefinition(
                     AdminCpPageNames.LocalizationManagement,
-                    L("LocalizationManagement"),
+                    L(LKConstants.LocalizationManagement),
                     icon: "mdi mdi-web",
                     permissionDependency: new SimplePermissionDependency(PermissionNames.Pages_Languages, PermissionNames.Pages_LanguageTexts)
                 ).AddItem(
                 new MenuItemDefinition(
                     AdminCpPageNames.LanguageManagement,
-                    L("LanguageManagement"),
+                    L(LKConstants.LanguageManagement),
                     url: "admincp/languages",
                     icon: "mdi mdi-album",
                     permissionDependency: new SimplePermissionDependency(PermissionNames.Pages_Languages)
@@ -65,7 +65,7 @@ public class AdminCpNavigationProvider : NavigationProvider
                 ).AddItem(
                 new MenuItemDefinition(
                     AdminCpPageNames.LanguageTextManagement,
-                    L("LanguageTextManagement"),
+                    L(LKConstants.LanguageTextManagement),
                     url: "admincp/language-texts",
                     icon: "mdi mdi-translate",
                     permissionDependency: new SimplePermissionDependency(PermissionNames.Pages_LanguageTexts)

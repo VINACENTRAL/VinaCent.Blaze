@@ -176,7 +176,7 @@ namespace VinaCent.Blaze.Web.Controllers
                 {
                     if (model.UserName.IsNullOrEmpty() || model.Password.IsNullOrEmpty())
                     {
-                        throw new UserFriendlyException(L("FormIsNotValidMessage"));
+                        throw new UserFriendlyException(L(LKConstants.FormIsNotValidMessage));
                     }
                 }
 
@@ -302,7 +302,7 @@ namespace VinaCent.Blaze.Web.Controllers
             if (remoteError != null)
             {
                 Logger.Error("Remote Error in ExternalLoginCallback: " + remoteError);
-                throw new UserFriendlyException(L("CouldNotCompleteLoginOperation"));
+                throw new UserFriendlyException(L(LKConstants.CouldNotCompleteLoginOperation));
             }
 
             var externalLoginInfo = await _signInManager.GetExternalLoginInfoAsync();

@@ -14,7 +14,7 @@
         abp.ui.setBusy(_$form);
         _fileUnitService.rename(fileUnit).done(function () {
             _$modal.modal('hide');
-            abp.notify.info(l('SavedSuccessfully'));
+            abp.notify.info(l(LKConstants.SavedSuccessfully));
             abp.event.trigger('fileUnit.edited', fileUnit);
         }).always(function () {
             abp.ui.clearBusy(_$form);
