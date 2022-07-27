@@ -1,7 +1,7 @@
 ﻿(function ($) {
-    var _languageService = abp.services.app.languageManagement,
+    var _languageTextService = abp.services.app.languageTextManagement,
         l = abp.localization.getSource('Blaze'),
-        _$modal = $('#LanguageEditModal'),
+        _$modal = $('#LanguageTextEditModal'),
         _$form = _$modal.find('form');
 
     function save() {
@@ -9,13 +9,13 @@
             return;
         }
 
-        var language = _$form.serializeFormToObject();
+        var languageText = _$form.serializeFormToObject();
 
         abp.ui.setBusy(_$form);
-        _languageService.update(language).done(function () {
+        _languageTextService.update(languageText).done(function () {
             _$modal.modal('hide');
             abp.notify.info(l('SavedSuccessfully'));
-            abp.event.trigger('language.edited', language);
+            abp.event.trigger('languageText.edited', languageText);
         }).always(function () {
             abp.ui.clearBusy(_$form);
         });

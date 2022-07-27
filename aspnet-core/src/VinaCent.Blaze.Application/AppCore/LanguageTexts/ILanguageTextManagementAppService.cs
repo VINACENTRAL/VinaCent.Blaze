@@ -3,7 +3,7 @@ using VinaCent.Blaze.AppCore.LanguageTexts.Dto;
 
 namespace VinaCent.Blaze.AppCore.LanguageTexts
 {
-    public interface ILanguageTextManagementAppService : IAsyncCrudAppService<LanguageTextDto, long, PagedLanguageTextResultRequestDto, CreateOrUpdateLanguageTextDto, CreateOrUpdateLanguageTextDto>
+    public interface ILanguageTextManagementAppService : IAsyncCrudAppService<LanguageTextDto, long, PagedLanguageTextResultRequestDto, CreateLanguageTextDto, UpdateLanguageTextDto>
     {
     }
 }

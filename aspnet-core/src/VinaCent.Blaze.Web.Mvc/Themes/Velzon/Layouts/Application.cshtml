@@ -19,7 +19,7 @@
 
     AbpAntiForgeryManager.SetCookie(Context);
 
-    var pageTitle = !string.IsNullOrWhiteSpace(ViewBag.Title) ? ViewBag.Title + " / " : "";
+    var pageTitle = !string.IsNullOrWhiteSpace(ViewBag.Title) ? ViewBag.Title + " | " : "";
     pageTitle += "Blaze";
 
     var favicon = "/vinacent/brand/favicon.ico";
