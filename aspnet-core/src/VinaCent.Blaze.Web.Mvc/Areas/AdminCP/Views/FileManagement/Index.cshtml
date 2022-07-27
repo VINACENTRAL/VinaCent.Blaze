@@ -16,20 +16,11 @@
         .table-card td:first-child, .table-card th:first-child {
             padding-left: 26px;
         }
-
-         .table-card td:nth-child(2), .table-card th:nth-child(2):hover {
-            text-decoration: auto;
-        }
     </style>
 }
 
 @section scripts {
-    <environment names="Development">
-        <script src="~/view-resources/Views/FileManager/Index.js" asp-append-version="true"></script>
-    </environment>
-    <environment names="Staging,Production">
-        <script src="~/view-resources/Views/FileManager/Index.min.js" asp-append-version="true"></script>
-    </environment>
+    <script src="~/view-resources/Views/FileManagement/Index.js" asp-append-version="true"></script>
 }
 
 <div class="card">
@@ -53,8 +44,7 @@
     <div class="card-body">
         <div class="table-responsive">
             <table id="FileUnitsTable" class="table table-card table-vcenter text-nowrap">
-                <thead>
-                    <tr id="Parents"></tr>
+                <thead>                 
                     <tr>
                         <th><input class="form-check-input m-0 align-middle" type="checkbox"></th>
                         <th>@L("Name")</th>
@@ -72,8 +62,9 @@
 </div>
 
 @await Html.PartialAsync("~/Areas/AdminCP/Views/FileManagement/_DirectoryCreateModal.cshtml", new CreateDirectoryDto())
+@await Html.PartialAsync("~/Areas/AdminCP/Views/FileManagement/_UploadFileModal.cshtml", new UploadFileUnitDto())
 
-<div class="modal fade" id="FileUnitEditModal" tabindex="-1" role="dialog" aria-labelledby="FileUnitEditModalLabel" data-backdrop="static">
+<div class="modal fade" id="RenameFileUnitModal" tabindex="-1" role="dialog" aria-labelledby="RenameFileUnitModalLabel" data-backdrop="static">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
         </div>

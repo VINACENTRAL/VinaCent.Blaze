@@ -10,10 +10,11 @@
             @await Html.PartialAsync("~/Views/Shared/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("CreateNewDirectory")))
             <form name="directoryCreateForm" role="form" class="form-horizontal">
                 <div class="modal-body">
-                    <input type="hidden" asp-for="ParentId" id="current-directory">
+                    <input type="hidden" asp-for="ParentId" id="current-directory-1">
                     <div class="mb-3">
                         <label class="form-label" asp-for="Name">@L("Name")</label>
                         <input asp-for="Name" class="form-control">
+                        <span asp-validation-for="Name" class="text-danger"></span>
                     </div>
                     <div class="mb-3">
                         <label class="form-label" asp-for="Description">@L("Description")</label>

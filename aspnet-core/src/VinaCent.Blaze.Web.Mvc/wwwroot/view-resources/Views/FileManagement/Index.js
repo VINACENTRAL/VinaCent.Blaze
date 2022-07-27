@@ -1,8 +1,10 @@
 ﻿(function ($) {
     var _fileUnitService = abp.services.app.fileUnit,
         l = abp.localization.getSource('Blaze'),
-        _$modal = $('#DirectoryCreateModal'),
-        _$form = _$modal.find('form'),
+        _$directoryCreateModal = $('#DirectoryCreateModal'),
+        _$directoryCreateForm = _$directoryCreateModal.find('form'),
+        _$uploadFileModal = $('#UploadFileModal'),
+        _$uploadFileForm = _$uploadFileModal.find('form'),
         _$table = $('#FileUnitsTable');
         _$parents = $('#Parents');
 
@@ -83,8 +85,8 @@
                 defaultContent: '',
                 render: (data, type, row, meta) => {
                     return [
-                        `   <button type="button" class="btn btn-sm btn-warning edit-file-unit" data-file-unit-id="${row.id}" data-bs-toggle="modal" data-bs-target="#FileUnitEditModal">`,
-                        `       <i class="fas fa-pencil-alt"></i> ${l('Edit')}`,
+                        `   <button type="button" class="btn btn-sm btn-warning edit-file-unit" data-file-unit-id="${row.id}" data-bs-toggle="modal" data-bs-target="#RenameFileUnitModal">`,
+                        `       <i class="fas fa-pencil-alt"></i> ${l('Rename')}`,
                         '   </button>',
                         `   <button type="button" class="btn btn-sm btn-danger delete-file-unit" data-file-unit-id="${row.id}" data-file-unit-name="${row.name}">`,
                         `       <i class="fas fa-trash"></i> ${l('Delete')}`,
@@ -95,30 +97,58 @@
         ]
     });
 
-    _$form.find('.save-button').on('click', (e) => {
+    _$directoryCreateForm.find('.save-button').on('click', (e) => {
         e.preventDefault();
 
-        if (!_$form.valid()) {
+        if (!_$directoryCreateForm.valid()) {
             return;
         }
-        if (_$form.find('#current-directory').val == '')
+
+        if (_$directoryCreateForm.find('#current-directory').val == '')
         {
-            _$form.find('#current-directory').val = null
+            _$directoryCreateForm.find('#current-directory').val = null
         }
-        var fileUnit = _$form.serializeFormToObject();
-        console.log(fileUnit);
-        abp.ui.setBusy(_$modal);
+
+        var fileUnit = _$directoryCreateForm.serializeFormToObject();
+        abp.ui.setBusy(_$directoryCreateModal);
         _fileUnitService
             .createDirectory(fileUnit)
             .done(function () {
-                _$modal.modal('hide');
-                _$form[0].reset();
+                _$directoryCreateModal.modal('hide');
+                _$directoryCreateForm[0].reset();
                 abp.notify.info(l('SavedSuccessfully'));
                 _$fileUnitsTable.ajax.reload();
             })
             .always(function () {
-                abp.ui.clearBusy(_$modal);
+                abp.ui.clearBusy(_$directoryCreateModal);
             });
+    });
+
+    _$uploadFileForm.find('.save-button').on('click', (e) => {
+        e.preventDefault();
+
+        if (!_$uploadFileForm.valid()) {
+            return;
+        }
+
+        if (_$uploadFileForm.find('#current-directory').val == '') {
+            _$uploadFileForm.find('#current-directory').val = null
+        }
+
+        var fileUnit = _$uploadFileForm.serializeFormToObject();
+        console.log(fileUnit);
+        //abp.ui.setBusy(_$uploadFileForm);
+        //_fileUnitService
+        //    .uploadFile(fileUnit)
+        //    .done(function () {
+        //        _$uploadFileForm.modal('hide');
+        //        _$uploadFileForm[0].reset();
+        //        abp.notify.info(l('SavedSuccessfully'));
+        //        _$fileUnitsTable.ajax.reload();
+        //    })
+        //    .always(function () {
+        //        abp.ui.clearBusy(_$uploadFileModal);
+        //    });
     });
 
     $(document).on('click', '.delete-file-unit', function () {
@@ -126,6 +156,25 @@
         var fileUnitName = $(this).attr('data-file-unit-name');
         
         deleteFileUnit(fileUnitId, fileUnitName);
+    });
+
+    $(document).on('click', '.edit-file-unit', function (e) {
+        var fileUnitId = $(this).attr('data-file-unit-id');
+
+        abp.ajax({
+            url: abp.appPath + 'admincp/file-management/rename-modal?fileUnitId=' + fileUnitId,
+            type: 'POST',
+            dataType: 'html',
+            success: function (content) {
+                $('#RenameFileUnitModal div.modal-content').html(content);
+            },
+            error: function (e) {
+            }
+        });
+    });
+
+    abp.event.on('fileUnit.edited', (data) => {
+        _$fileUnitsTable.ajax.reload();
     });
 
     function deleteFileUnit(fileUnitId, fileUnitName) {
@@ -157,15 +206,22 @@
         const fullPath = $(this).attr("data-path");
         const dirId = $(this).attr("data-id");
         $('#Directory').val(fullPath);
-        $('#current-directory').val(dirId);
-        console.log(dirId);
+        $('#current-directory-1').val(dirId);
+        $('#current-directory-2').val(dirId);
         _$fileUnitsTable.ajax.reload();
     });
 
-    _$modal.on('shown.bs.modal', () => {
-        _$modal.find('input:not([type=hidden]):first').focus();
+    _$directoryCreateModal.on('shown.bs.modal', () => {
+        _$directoryCreateModal.find('input:not([type=hidden]):first').focus();
 
     }).on('hidden.bs.modal', () => {
-        _$form.clearForm();
+        _$directoryCreateForm.clearForm();
+    });
+
+    _$uploadFileModal.on('shown.bs.modal', () => {
+        _$uploadFileModal.find('input:not([type=hidden]):first').focus();
+
+    }).on('hidden.bs.modal', () => {
+        _$uploadFileForm.clearForm();
     });
 })(jQuery);

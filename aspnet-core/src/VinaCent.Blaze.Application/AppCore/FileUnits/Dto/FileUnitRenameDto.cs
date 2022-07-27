@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 namespace VinaCent.Blaze.AppCore.FileUnits.Dto
 {
     [AutoMap(typeof(FileUnit))]
+    [AutoMapFrom(typeof(FileUnitDto))]
     public class FileUnitRenameDto : EntityDto<Guid>
     {
         /// <summary>
