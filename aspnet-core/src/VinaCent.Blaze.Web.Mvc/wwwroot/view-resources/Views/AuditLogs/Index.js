@@ -53,7 +53,14 @@
                 data: 'serviceName',
                 sortable: false,
                 render: (data, type, row, meta) => {
-                    return `<p>${data}</p>`
+                    let strArr = data.split(".");
+                    const methodName = strArr[strArr.length - 1];
+                    console.log(methodName);
+                    return [
+                        `   <div class="mid-truncate" data-type="${methodName}">`,
+                        `       <p>${data}</p>`,
+                        `   </div>`
+                    ].join('');
                 }
             },
             {
@@ -70,7 +77,7 @@
                 render: (data, type, row, meta) => {
                     return [
                         `   <button type="button" class="btn btn-sm btn-warning detail-audit-log" data-audit-log-id="${row.id}" data-bs-toggle="modal" data-bs-target="#DetailModal">`,
-                        `       <i class="fas fa-pencil-alt"></i> ${l('Detail')}`,
+                        `       <i class="fas fa-pencil-alt"></i> ${l(LKConstants.Detail)}`,
                         '   </button>'
                     ].join('');
                 }

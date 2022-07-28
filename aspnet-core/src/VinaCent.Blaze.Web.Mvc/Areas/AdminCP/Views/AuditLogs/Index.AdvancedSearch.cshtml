@@ -25,18 +25,18 @@
                     <div class="card-body">
                         <div class="row mb-3">
                             <div class="col-12 col-md-7">
-                                <label class="form-label">@L("IpAddress")</label>
+                                <label class="form-label">@L(LKConstants.ClientIpAddress)</label>
                                 <input type="text" class="form-control" asp-for="IpAddress">
                                 <span asp-validation-for="IpAddress" class="text-danger"></span>
                             </div>
                             <div class="col-12 col-md-5">
-                                <label class="form-label">@L("ExecutionDurationRange") (ms)</label>
+                                <label class="form-label">@L(LKConstants.ExecutionDurationRange) (ms)</label>
                                 <div class="input-group">
                                     <input type="text" class="form-control text-center" asp-for="MinExecutionDuration"
-                                           placeholder="@L("MinExecutionDuration")">
+                                           placeholder="@L(LKConstants.MinExecutionDuration)">
                                     <span class="input-group-text">-</span>
                                     <input type="text" class="form-control text-center" asp-for="MaxExecutionDuration"
-                                           placeholder="@L("MaxExecutionDuration")">
+                                           placeholder="@L(LKConstants.MaxExecutionDuration)">
                                 </div>
                                 <span asp-validation-for="MinExecutionDuration" class="text-danger"></span>
                                 <span asp-validation-for="MaxExecutionDuration" class="text-danger"></span>
@@ -44,12 +44,12 @@
                         </div>
                         <div class="row mb-3">
                             <div class="col-12 col-md-6">
-                                <label class="form-label">@L("BrowserInfo")</label>
+                                <label class="form-label">@L(LKConstants.BrowserInfo)</label>
                                 <input type="text" class="form-control" asp-for="BrowserInfo">
                                 <span asp-validation-for="BrowserInfo" class="text-danger"></span>
                             </div>
                             <div class="col-12 col-md-6">
-                                <label class="form-label">@L("InRange")</label>
+                                <label class="form-label">@L(LKConstants.InRange)</label>
                                 <div class="input-group">
                                     <input type="text" class="form-control text-center" asp-for="StartTime"
                                            data-provider="flatpickr" 
@@ -66,20 +66,20 @@
                         <div class="mb-3">
                             <div class="row">
                                 <div class="col-12 col-md-5">
-                                    <label class="form-label">@L("ServiceName")</label>
+                                    <label class="form-label">@L(LKConstants.ServiceName)</label>
                                     <input type="text" class="form-control" asp-for="ServiceName">
                                 </div>
                                 <div class="col-12 col-md-4">
-                                    <label class="form-label">@L("MethodName")</label>
+                                    <label class="form-label">@L(LKConstants.MethodName)</label>
                                     <input type="text" class="form-control" asp-for="MethodName">
                                 </div>
                                 <div class="col-12 col-md-3">
-                                    <label class="form-label">@L("HasException")</label>
+                                    <label class="form-label">@L(LKConstants.HasException)</label>
                                     <select class="form-select"
                                             asp-for="HasException">
-                                        <option value="">@L("All")</option>
-                                        <option value="true">@L("::HasException")</option>
-                                        <option value="false">@L("::NoException")</option>
+                                        <option value="">@L(LKConstants.All)</option>
+                                        <option value="true">@L(LKConstants.HasException)</option>
+                                        <option value="false">@L(LKConstants.NoException)</option>
                                     </select>
                                 </div>
                             </div>
