@@ -15,6 +15,7 @@ namespace VinaCent.Blaze.Authorization
             context.CreatePermission(PermissionNames.Pages_FileManagement, L(LKConstants.FileManagement));
             context.CreatePermission(PermissionNames.Pages_Languages, L(LKConstants.LanguageManagement));
             context.CreatePermission(PermissionNames.Pages_LanguageTexts, L(LKConstants.LanguageTextManagement));
+            context.CreatePermission(PermissionNames.Pages_AuditLogs, L(LKConstants.AuditLogs));
         }
 
         private static ILocalizableString L(string name)

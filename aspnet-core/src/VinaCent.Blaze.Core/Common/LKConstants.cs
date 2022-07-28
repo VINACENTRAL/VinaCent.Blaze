@@ -106,4 +106,5 @@ public static class LKConstants
     public const string CreateNewRole = "CreateNewRole";
     public const string Languages = "Languages";
     public const string Cancel = "Cancel";
+    public const string AuditLogs = "AuditLogs";
 }
