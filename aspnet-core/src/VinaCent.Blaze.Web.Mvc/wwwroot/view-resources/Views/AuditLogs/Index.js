@@ -97,6 +97,11 @@
         _$auditLogsTable.ajax.reload();
     });
 
+    $('.btn-clear').on('click', (e) => {
+        $('input').val('');
+        _$languageTextsTable.ajax.reload();
+    });
+
     $('.txt-search').on('keypress', (e) => {
         if (e.which == 13) {
             _$auditLogsTable.ajax.reload();
