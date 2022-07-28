@@ -25,5 +25,17 @@ namespace VinaCent.Blaze.AppCore.AuditLogs.Dto
         /// </summary>
         [CanBeNull]
         public UserDto ImpersonatorUserDto { get; set; }
+
+        /// <summary>
+        /// Calling parameters.
+        /// </summary>
+        public string Parameters { get; set; }
+
+        /// <summary>
+        /// <see cref="AuditInfo.CustomData"/>.
+        /// </summary>
+        public string CustomData { get; set; }
+
+        public string Exception { get; set; }
     }
 }

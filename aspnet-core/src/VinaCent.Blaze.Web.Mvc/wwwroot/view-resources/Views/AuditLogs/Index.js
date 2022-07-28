@@ -82,7 +82,7 @@
         var auditLogId = $(this).attr('data-audit-log-id');
 
         abp.ajax({
-            url: abp.appPath + 'admincp/audit-logs/detail-modal?auditLogId=' + auditLogId,
+            url: abp.appPath + 'admincp/audit-logs/detail-modal?id=' + auditLogId,
             type: 'POST',
             dataType: 'html',
             success: function (content) {

@@ -44,8 +44,10 @@
 
 <div class="card">
     <div class="card-header">
-        <div class="row">
-            <div class="col-md-6 floa">
+        <div class="row justify-content-end">
+            @*<div class="col-md-6">              
+            </div>*@
+            <div class="col-md-6">
                 @await Html.PartialAsync("~/Areas/AdminCP/Views/AuditLogs/Index.AdvancedSearch.cshtml")
             </div>
         </div>
@@ -70,4 +72,9 @@
     </div>
 </div>
 
-@await Html.PartialAsync("~/Areas/AdminCP/Views/AuditLogs/_DetailModal.cshtml", new AuditLogDto())
+<div class="modal fade" id="DetailModal" tabindex="-1" role="dialog" aria-labelledby="DetailModalLabel" data-backdrop="static">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+        </div>
+    </div>
+</div>

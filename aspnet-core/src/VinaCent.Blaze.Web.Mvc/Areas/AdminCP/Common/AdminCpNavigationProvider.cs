@@ -77,7 +77,8 @@ public class AdminCpNavigationProvider : NavigationProvider
                     L(LKConstants.LanguageTextManagement),
                     url: "admincp/language-texts",
                     icon: "mdi mdi-translate",
-                    permissionDependency: new SimplePermissionDependency(PermissionNames.Pages_LanguageTexts)
+                    permissionDependency: new SimplePermissionDependency(PermissionNames.Pages_LanguageTexts),
+                    order: 1
                 )
               )
             ).AddItem(
