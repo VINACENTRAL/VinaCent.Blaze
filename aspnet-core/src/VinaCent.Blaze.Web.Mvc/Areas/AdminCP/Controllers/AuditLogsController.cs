@@ -26,10 +26,10 @@ namespace VinaCent.Blaze.Web.Areas.AdminCP.Controllers
             return View();
         }
 
-        [HttpPost("detail")]
-        public async Task<ActionResult> DetailModal(long id)
+        [HttpPost("detail-modal")]
+        public async Task<ActionResult> DetailModal(int id)
         {
-            var auditLogDto = await _auditLogAppService.GetAsync(id);
+            var auditLogDto = await _auditLogAppService.GetAsync((long)id);
             return PartialView("_DetailModal", auditLogDto);
         }
     }

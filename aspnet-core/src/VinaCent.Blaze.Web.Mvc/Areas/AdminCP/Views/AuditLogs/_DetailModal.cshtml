@@ -1,4 +1,174 @@
-﻿@using VinaCent.Blaze.AppCore.AuditLogs.Dto
+﻿@using StringExtensions = Abp.Extensions.StringExtensions
+@using Castle.Core.Internal
+@using VinaCent.Blaze.AppCore.AuditLogs.Dto
 @model AuditLogDto
 @{
 }
+
+<div class="modal-header">
+    <h5 class="modal-title">@L("AuditLogDetail")</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+<div class="form-horizontal">
+    <div class="modal-body">
+        <div class="mb-3">
+            <label class="form-label"><strong>@L("ServiceName")</strong></label>
+            <div class="">
+                @Model.ServiceName
+            </div>
+        </div>
+        <div class="mb-3">
+            <label class="form-label"><strong>@L("MethodName")</strong></label>
+            <div class="">
+                @Model.MethodName
+            </div>
+        </div>
+        @if (AbpSession.TenantId == null)
+        {
+            <div class="mb-3">
+                <label class="form-label"><strong>@L("Tenant")</strong></label>
+                <div class="">
+                    @if (Model.TenantId == null)
+                    {
+                        @L("Unknown")
+                    }
+                    else
+                    {
+                        @Model.TenantId
+                    }
+                </div>
+            </div>
+        }
+        @if (AbpSession.TenantId == null)
+        {
+            <div class="mb-3">
+                <label class="form-label"><strong>@L("ImpersonatorTenant")</strong></label>
+                <div class="">
+                    @if (Model.ImpersonatorTenantId == null)
+                    {
+                        @L("Unknown")
+                    }
+                    else
+                    {
+                        @Model.ImpersonatorTenantId
+                    }
+                </div>
+            </div>
+        }
+        <div class="mb-3">
+            <label class="form-label"><strong>@L("ClientIpAddress")</strong></label>
+            <div class="">
+                @Model.ClientIpAddress
+            </div>
+        </div>
+        <div class="mb-3">
+            <label class="form-label"><strong>@L("ClientName")</strong></label>
+            <div class="">
+                @if (Model.ClientName.IsNullOrEmpty())
+                {
+                    @L("Unknown")
+                }
+                else
+                {
+                    @Model.ClientName
+                }
+            </div>
+        </div>
+        <div class="mb-3">
+            <label class="form-label"><strong>@L("ExceptionMessage")</strong></label>
+            <div class="">
+                @if (StringExtensions.IsNullOrEmpty(Model.ExceptionMessage))
+                {
+                    @L("NoException")
+                }
+                else
+                {
+                    @Model.ExceptionMessage
+                }
+            </div>
+        </div>
+        <div class="mb-3">
+            <label class="form-label"><strong>@L("Exception")</strong></label>
+            <div class="" style="overflow-wrap: break-word">
+                @if (Model.Exception.IsNullOrEmpty())
+                {
+                    @L("NoException")
+                }
+                else
+                {
+                    @Model.Exception
+                }
+            </div>
+        </div>
+        <div class="mb-3">
+            <label class="form-label"><strong>@L("UserName")</strong></label>
+            <div class="">
+                @if (Model.UserDto != null)
+                {
+                    @Model.UserDto.UserName
+                }
+                else
+                {
+                    @L("Unknown")
+                }
+            </div>
+        </div>
+        <div class="mb-3">
+            <label class="form-label"><strong>@L("ImpersonatorUserName")</strong></label>
+            <div class="">
+                @if (Model.ImpersonatorUserDto != null)
+                {
+                    @Model.ImpersonatorUserDto.UserName
+                }
+                else
+                {
+                    @L("Unknown")
+                }
+            </div>
+        </div>
+        <div class="mb-3">
+            <label class="form-label"><strong>@L("ExecutionTime")</strong></label>
+            <div class="">
+                @Model.ExecutionTime
+            </div>
+        </div>
+        <div class="mb-3">
+            <label class="form-label"><strong>@L("ExecutionDuration")</strong></label>
+            <div class="">
+                @Model.ExecutionDuration (ms)
+            </div>
+        </div>
+        <div class="mb-3">
+            <label class="form-label"><strong>@L("BrowserInfo")</strong></label>
+            <div class="">
+                @Model.BrowserInfo
+            </div>
+        </div>
+        <div class="mb-3">
+            <label class="form-label"><strong>@L("Parameters")</strong></label>
+            <div class="">
+                <p>
+                    @Model.Parameters
+                </p>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label class="form-label"><strong>@L("CustomData")</strong></label>
+            <div class="">
+                @if (Model.CustomData.IsNullOrEmpty())
+                {
+                    @L("Unknown")
+                }
+                else
+                {
+                    @Model.CustomData
+                }
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-light waves-effect waves-light close-button" data-bs-dismiss="modal">
+            @L("Close")
+        </button>
+    </div>
+</div>
