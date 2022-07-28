@@ -7,4 +7,5 @@
     static Edit = "Edit";
     static PasswordsMustBeAtLeast8CharactersContainLowercaseUppercaseNumber = "PasswordsMustBeAtLeast8CharactersContainLowercaseUppercaseNumber";
     static PasswordsDoNotMatch = "PasswordsDoNotMatch";
+    static Detail = "Detail";
 }

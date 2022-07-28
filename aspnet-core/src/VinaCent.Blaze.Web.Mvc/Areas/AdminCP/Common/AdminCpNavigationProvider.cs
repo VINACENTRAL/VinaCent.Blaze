@@ -18,7 +18,7 @@ public class AdminCpNavigationProvider : NavigationProvider
             .AddItem(
                 new MenuItemDefinition(
                     AdminCpPageNames.Dashboard,
-                    L("Dashboard"),
+                    L(LKConstants.Dashboard),
                     url: "admincp/dashboard",
                     icon: "mdi mdi-speedometer",
                     requiresAuthentication: true

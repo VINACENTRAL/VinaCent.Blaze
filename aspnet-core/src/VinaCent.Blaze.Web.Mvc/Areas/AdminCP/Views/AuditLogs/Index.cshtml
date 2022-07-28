@@ -7,18 +7,18 @@
 
 @section styles {
     <style>
-        td {
+        .mid-truncate {
           position: relative;
           width: 100px;
         }
 
-        td p {
+        .mid-truncate p {
           white-space: nowrap;
           text-overflow: ellipsis;
           overflow: hidden;
         }
 
-        td:after {
+        .mid-truncate:after {
           content: attr(data-type);
           position: absolute;
           left: 100%;
@@ -28,11 +28,11 @@
 
         /*Show on hover*/
 
-        td:hover {
+        .mid-truncate:hover {
           width: auto
         }
 
-        td:hover:after {
+        .mid-truncate:hover:after {
           display: none;
         }
     </style>
@@ -57,13 +57,13 @@
             <table id="AuditLogsTable" class="table table-card table-vcenter text-nowrap">
                 <thead>
                     <tr>
-                        <th>@L("UserName")</th>
-                        <th>@L("ClientIpAddress")</th>
-                        <th>@L("ExcutionTime")</th>
-                        <th>@L("ExecutionDuration")</th>
-                        <th>@L("Service")</th>
-                        <th>@L("Method")</th>
-                        <th style="width: 150px">@L("Actions")</th>
+                        <th>@L(LKConstants.UserName)</th>
+                        <th>@L(LKConstants.ClientIpAddress)</th>
+                        <th>@L(LKConstants.ExecutionTime)</th>
+                        <th>@L(LKConstants.ExecutionDuration)</th>
+                        <th style="width:500px">@L(LKConstants.ServiceName)</th>
+                        <th>@L(LKConstants.MethodName)</th>
+                        <th style="width: 150px">@L(LKConstants.Actions)</th>
                     </tr>
                 </thead>
                 <tbody></tbody>
