@@ -21,20 +21,20 @@ namespace VinaCent.Blaze.Authorization
                     return new Exception("Don't call this method with a success result!");
                 case AbpLoginResultType.InvalidUserNameOrEmailAddress:
                 case AbpLoginResultType.InvalidPassword:
-                    return new UserFriendlyException(L("LoginFailed"), L("InvalidUserNameOrPassword"));
+                    return new UserFriendlyException(L(LKConstants.LoginFailed), L(LKConstants.InvalidUserNameOrPassword));
                 case AbpLoginResultType.InvalidTenancyName:
-                    return new UserFriendlyException(L("LoginFailed"), L("ThereIsNoTenantDefinedWithName{0}", tenancyName));
+                    return new UserFriendlyException(L(LKConstants.LoginFailed), L(LKConstants.ThereIsNoTenantDefinedWithName_X, tenancyName));
                 case AbpLoginResultType.TenantIsNotActive:
-                    return new UserFriendlyException(L("LoginFailed"), L("TenantIsNotActive", tenancyName));
+                    return new UserFriendlyException(L(LKConstants.LoginFailed), L(LKConstants.TenantIsNotActive, tenancyName));
                 case AbpLoginResultType.UserIsNotActive:
-                    return new UserFriendlyException(L("LoginFailed"), L("UserIsNotActiveAndCanNotLogin", usernameOrEmailAddress));
+                    return new UserFriendlyException(L(LKConstants.LoginFailed), L(LKConstants.UserIsNotActiveAndCanNotLogin, usernameOrEmailAddress));
                 case AbpLoginResultType.UserEmailIsNotConfirmed:
-                    return new UserFriendlyException(L("LoginFailed"), L("UserEmailIsNotConfirmedAndCanNotLogin"));
+                    return new UserFriendlyException(L(LKConstants.LoginFailed), L(LKConstants.UserEmailIsNotConfirmedAndCanNotLogin));
                 case AbpLoginResultType.LockedOut:
-                    return new UserFriendlyException(L("LoginFailed"), L("UserLockedOutMessage"));
+                    return new UserFriendlyException(L(LKConstants.LoginFailed), L(LKConstants.UserLockedOutMessage));
                 default: // Can not fall to default actually. But other result types can be added in the future and we may forget to handle it
                     Logger.Warn("Unhandled login fail reason: " + result);
-                    return new UserFriendlyException(L("LoginFailed"));
+                    return new UserFriendlyException(L(LKConstants.LoginFailed));
             }
         }
 
@@ -46,18 +46,18 @@ namespace VinaCent.Blaze.Authorization
                     throw new Exception("Don't call this method with a success result!");
                 case AbpLoginResultType.InvalidUserNameOrEmailAddress:
                 case AbpLoginResultType.InvalidPassword:
-                    return L("InvalidUserNameOrPassword");
+                    return L(LKConstants.InvalidUserNameOrPassword);
                 case AbpLoginResultType.InvalidTenancyName:
-                    return L("ThereIsNoTenantDefinedWithName{0}", tenancyName);
+                    return L(LKConstants.ThereIsNoTenantDefinedWithName_X, tenancyName);
                 case AbpLoginResultType.TenantIsNotActive:
-                    return L("TenantIsNotActive", tenancyName);
+                    return L(LKConstants.TenantIsNotActive, tenancyName);
                 case AbpLoginResultType.UserIsNotActive:
-                    return L("UserIsNotActiveAndCanNotLogin", usernameOrEmailAddress);
+                    return L(LKConstants.UserIsNotActiveAndCanNotLogin, usernameOrEmailAddress);
                 case AbpLoginResultType.UserEmailIsNotConfirmed:
-                    return L("UserEmailIsNotConfirmedAndCanNotLogin");
+                    return L(LKConstants.UserEmailIsNotConfirmedAndCanNotLogin);
                 default: // Can not fall to default actually. But other result types can be added in the future and we may forget to handle it
                     Logger.Warn("Unhandled login fail reason: " + result);
-                    return L("LoginFailed");
+                    return L(LKConstants.LoginFailed);
             }
         }
     }

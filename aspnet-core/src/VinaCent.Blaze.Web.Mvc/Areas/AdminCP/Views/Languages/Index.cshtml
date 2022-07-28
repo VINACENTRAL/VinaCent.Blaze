@@ -5,19 +5,13 @@
 @inject IVelzonThemeOptions ThemeOptions
 @model LanguageListViewModel
 @{
-    ThemeOptions.AddBreadcrumb(L("Languages")).Commit(this);
-    ViewBag.Title = L("Languages");
+    ThemeOptions.AddBreadcrumb(L(LKConstants.Languages)).Commit(this);
+    ViewBag.Title = L(LKConstants.Languages);
     ViewBag.CurrentPageName = AdminCpPageNames.LanguageManagement;
 }
 @section scripts
 {
-<environment names="Development">
-    <script src="~/view-resources/Views/Languages/Index.js" asp-append-version="true"></script>
-</environment>
-
-<environment names="Staging,Production">
-    <script src="~/view-resources/Views/Languages/Index.min.js" asp-append-version="true"></script>
-</environment>
+<script src="~/view-resources/Views/Languages/Index.js" asp-append-version="true"></script>
 }
 <div class="card">
     <div class="card-header">
@@ -25,7 +19,7 @@
             <div class="col-md-6">
                 <button type="button" data-bs-toggle="modal" data-bs-target="#LanguageCreateModal" class="btn btn-success waves-effect waves-light mb-3 mb-lg-0">
                     <i class="fa fa-plus-square"></i>
-                    @L("Create")
+                    @L(LKConstants.Create)
                 </button>
             </div>
             <div class="col-md-6">
@@ -39,9 +33,12 @@
                 <thead>
                     <tr>
                         <th></th>
-                        <th>@L("LanguageName")</th>
-                        <th>@L("DisplayName")</th>
-                        <th style="width: 150px">@L("Actions")</th>
+                        <th>@L(LKConstants.DisplayName)</th>
+                        <th>@L(LKConstants.UiCultureName)</th>
+                        <th>@L(LKConstants.IsDefault)</th>
+                        <th>@L(LKConstants.IsEnabled)</th>
+                        <th>@L(LKConstants.FlagIcon)</th>
+                        <th style="width: 150px">@L(LKConstants.Actions)</th>
                     </tr>
                 </thead>
                 <tbody>

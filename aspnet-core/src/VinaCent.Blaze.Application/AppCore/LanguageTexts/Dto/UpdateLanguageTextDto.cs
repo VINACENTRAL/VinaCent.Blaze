@@ -1,5 +1,4 @@
-﻿using Abp.Domain.Entities.Auditing;
-using Abp.Domain.Entities;
+﻿using Abp.Domain.Entities;
 using Abp.Localization;
 using System.ComponentModel.DataAnnotations;
 using Abp.Application.Services.Dto;
@@ -8,7 +7,8 @@ using Abp.AutoMapper;
 namespace VinaCent.Blaze.AppCore.LanguageTexts.Dto
 {
     [AutoMap(typeof(ApplicationLanguageText))]
-    public class LanguageTextDto : AuditedEntityDto<long>, IMayHaveTenant
+    [AutoMapFrom(typeof(LanguageTextDto))]
+    public class UpdateLanguageTextDto : EntityDto<long>, IMayHaveTenant
     {
         /// <summary>
         /// TenantId of this entity. Can be null for host.
@@ -42,8 +42,5 @@ namespace VinaCent.Blaze.AppCore.LanguageTexts.Dto
         [Required(AllowEmptyStrings = true)]
         [StringLength(ApplicationLanguageText.MaxValueLength)]
         public string Value { get; set; }
-
-        // Addition
-        public virtual string DefaultValue { get; set; }
     }
 }

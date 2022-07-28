@@ -1,17 +1,17 @@
 ﻿(function ($) {
-    var _roleService = abp.services.app.role,
+    var _languageService = abp.services.app.languageManagement,
         l = abp.localization.getSource('Blaze'),
-        _$modal = $('#RoleCreateModal'),
+        _$modal = $('#LanguageCreateModal'),
         _$form = _$modal.find('form'),
-        _$table = $('#RolesTable');
+        _$table = $('#LanguagesTable');
 
-    var _$rolesTable = _$table.DataTable({
+    var _$languagesTable = _$table.DataTable({
         paging: true,
         serverSide: true,
         listAction: {
-            ajaxFunction: _roleService.getAll,
+            ajaxFunction: _languageService.getAll,
             inputFilter: function () {
-                return $('#RolesSearchForm').serializeFormToObject(true);
+                return $('#LanguagesSearchForm').serializeFormToObject(true);
             }
         },
         buttons: [
@@ -19,7 +19,7 @@
                 name: 'refresh',
                 text: '<i class="fas fa-redo-alt"></i>',
                 className: 'waves-effect waves-light',
-                action: () => _$rolesTable.draw(false)
+                action: () => _$languagesTable.draw(false)
             }
         ],
         responsive: {
@@ -35,27 +35,51 @@
             },
             {
                 targets: 1,
-                data: 'name',
-                sortable: false
-            },
-            {
-                targets: 2,
                 data: 'displayName',
                 sortable: false
             },
             {
+                targets: 2,
+                data: 'name',
+                sortable: false
+            },
+            {
                 targets: 3,
+                data: 'isDefault',
+                sortable: false,
+                render: function (data, type, row, meta) {
+                    return `<i class="${data == true ? 'ri-checkbox-circle-fill text-success' : ' ri-close-circle-fill text-danger'}"></i>`;
+                }
+            },
+            {
+                targets: 4,
+                data: 'isDisabled',
+                sortable: false,
+                render: function (data, type, row, meta) {
+                    return `<i class="${data != true ? 'ri-checkbox-circle-fill text-success' : ' ri-close-circle-fill text-danger'}"></i>`;
+                }
+            },
+            {
+                targets: 5,
+                data: 'icon',
+                sortable: false,
+                render: function (data, type, row, meta) {
+                    return `<img src="/vinacent/flags/4x3/${data}" height="18">`;
+                }
+            },
+            {
+                targets: 6,
                 data: null,
                 sortable: false,
                 autoWidth: false,
                 defaultContent: '',
                 render: (data, type, row, meta) => {
                     return [
-                        `   <button type="button" class="btn btn-sm btn-warning edit-role" data-role-id="${row.id}" data-bs-toggle="modal" data-bs-target="#RoleEditModal">`,
-                        `       <i class="fas fa-pencil-alt"></i> ${l('Edit')}`,
+                        `   <button type="button" class="btn btn-sm btn-warning edit-language" data-language-id="${row.id}" data-bs-toggle="modal" data-bs-target="#LanguageEditModal">`,
+                        `       <i class="fas fa-pencil-alt"></i> ${l(LKConstants.Edit)}`,
                         '   </button>',
-                        `   <button type="button" class="btn btn-sm btn-danger delete-role" data-role-id="${row.id}" data-role-name="${row.name}">`,
-                        `       <i class="fas fa-trash"></i> ${l('Delete')}`,
+                        `   <button type="button" class="btn btn-sm btn-danger delete-language" data-language-id="${row.id}" data-language-name="${row.name}">`,
+                        `       <i class="fas fa-trash"></i> ${l(LKConstants.Delete)}`,
                         '   </button>',
                     ].join('');
                 }
@@ -70,70 +94,62 @@
             return;
         }
 
-        var role = _$form.serializeFormToObject();
-        role.grantedPermissions = [];
-        var _$permissionCheckboxes = _$form[0].querySelectorAll("input[name='permission']:checked");
-        if (_$permissionCheckboxes) {
-            for (var permissionIndex = 0; permissionIndex < _$permissionCheckboxes.length; permissionIndex++) {
-                var _$permissionCheckbox = $(_$permissionCheckboxes[permissionIndex]);
-                role.grantedPermissions.push(_$permissionCheckbox.val());
-            }
-        }
+        var language = _$form.serializeFormToObject();
 
         abp.ui.setBusy(_$modal);
-        _roleService
-            .create(role)
+        _languageService
+            .create(language)
             .done(function () {
                 _$modal.modal('hide');
                 _$form[0].reset();
-                abp.notify.info(l('SavedSuccessfully'));
-                _$rolesTable.ajax.reload();
+                abp.notify.info(l(LKConstants.SavedSuccessfully));
+                _$languagesTable.ajax.reload();
             })
             .always(function () {
                 abp.ui.clearBusy(_$modal);
             });
     });
 
-    $(document).on('click', '.delete-role', function () {
-        var roleId = $(this).attr("data-role-id");
-        var roleName = $(this).attr('data-role-name');
+    $(document).on('click', '.delete-language', function () {
+        var languageId = $(this).attr("data-language-id");
+        var languageName = $(this).attr('data-language-name');
 
-        deleteRole(roleId, roleName);
+        deleteLanguage(languageId, languageName);
     });
 
-    $(document).on('click', '.edit-role', function (e) {
-        var roleId = $(this).attr("data-role-id");
+    $(document).on('click', '.edit-language', function (e) {
+        var languageId = $(this).attr("data-language-id");
 
         e.preventDefault();
         abp.ajax({
-            url: abp.appPath + 'admincp/roles/edit-modal?roleId=' + roleId,
+            url: abp.appPath + 'admincp/languages/edit-modal?languageId=' + languageId,
             type: 'POST',
             dataType: 'html',
             success: function (content) {
-                $('#RoleEditModal div.modal-content').html(content);
+                $('#LanguageEditModal div.modal-content').html(content);
             },
             error: function (e) {
             }
         })
     });
 
-    abp.event.on('role.edited', (data) => {
-        _$rolesTable.ajax.reload();
+    abp.event.on('language.edited', (data) => {
+        _$languagesTable.ajax.reload();
     });
 
-    function deleteRole(roleId, roleName) {
+    function deleteLanguage(languageId, languageName) {
         abp.message.confirm(
             abp.utils.formatString(
-                l('AreYouSureWantToDelete'),
-                roleName),
+                l(LKConstants.AreYouSureWantToDelete),
+                languageName),
             null,
             (isConfirmed) => {
                 if (isConfirmed) {
-                    _roleService.delete({
-                        id: roleId
+                    _languageService.delete({
+                        id: languageId
                     }).done(() => {
-                        abp.notify.info(l('SuccessfullyDeleted'));
-                        _$rolesTable.ajax.reload();
+                        abp.notify.info(l(LKConstants.SuccessfullyDeleted));
+                        _$languagesTable.ajax.reload();
                     });
                 }
             }
@@ -147,12 +163,12 @@
     });
 
     $('.btn-search').on('click', (e) => {
-        _$rolesTable.ajax.reload();
+        _$languagesTable.ajax.reload();
     });
 
     $('.txt-search').on('keypress', (e) => {
         if (e.which == 13) {
-            _$rolesTable.ajax.reload();
+            _$languagesTable.ajax.reload();
             return false;
         }
     });

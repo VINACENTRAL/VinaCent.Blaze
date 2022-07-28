@@ -2,5 +2,5 @@
 
 public class ClientPageNames
 {
-    public const string Home = "Home";
+    public const string HomePage = "Home";
 }

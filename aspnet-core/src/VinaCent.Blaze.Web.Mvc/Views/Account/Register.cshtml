@@ -1,7 +1,7 @@
 ﻿@using Abp.Authorization.Users
 @model VinaCent.Blaze.Web.Models.Account.RegisterViewModel
 @{
-    ViewBag.Title = L("Register");
+    ViewBag.Title = L(LKConstants.Register);
 }
 @section scripts
 {
@@ -11,7 +11,7 @@
     <div class="card-body p-4">
         <div class="p-2">
             <div class="text-center mt-2">
-                <h4 class="text-primary">@L("Register")</h4>
+                <h4 class="text-primary">@L(LKConstants.Register)</h4>
                 <p class="text-muted">Register to continue to Velzon.</p>
             </div>
 
@@ -27,23 +27,23 @@
                     <input type="hidden" name="ExternalLoginAuthSchema" value="@Model.ExternalLoginAuthSchema" />
 
                     <div class="mb-3">
-                        <label for="Name" class="form-label">@L("Name")</label>
-                        <input type="text" id="Name" name="Name" class="form-control" placeholder="@L("Name")" value="@Model.Name" required maxlength="@AbpUserBase.MaxNameLength">
+                        <label for="Name" class="form-label">@L(LKConstants.Name)</label>
+                        <input type="text" id="Name" name="Name" class="form-control" placeholder="@L(LKConstants.Name)" value="@Model.Name" required maxlength="@AbpUserBase.MaxNameLength">
                     </div>
 
                     <div class="mb-3">
-                        <label for="Surname" class="form-label">@L("Surname")</label>
-                        <input type="text" id="Surname" name="Surname" class="form-control" placeholder="@L("Surname")" value="@Model.Surname" required maxlength="@AbpUserBase.MaxSurnameLength">
+                        <label for="Surname" class="form-label">@L(LKConstants.Surname)</label>
+                        <input type="text" id="Surname" name="Surname" class="form-control" placeholder="@L(LKConstants.Surname)" value="@Model.Surname" required maxlength="@AbpUserBase.MaxSurnameLength">
                     </div>
 
                     <div class="mb-3">
-                        <label for="EmailAddress" class="form-label">@L("EmailAddress")</label>
-                        <input type="email" id="EmailAddress" name="EmailAddress" class="form-control" placeholder="@L("EmailAddress")" value="@Model.EmailAddress" required maxlength="@AbpUserBase.MaxEmailAddressLength">
+                        <label for="EmailAddress" class="form-label">@L(LKConstants.EmailAddress)</label>
+                        <input type="email" id="EmailAddress" name="EmailAddress" class="form-control" placeholder="@L(LKConstants.EmailAddress)" value="@Model.EmailAddress" required maxlength="@AbpUserBase.MaxEmailAddressLength">
                     </div>
 
                     <div class="mb-3">
-                        <label for="UserName" class="form-label">@L("UserName")</label>
-                        <input type="text" id="UserName" name="UserName" class="form-control" placeholder="@L("UserName")" value="@Model.UserName" required maxlength="@AbpUserBase.MaxUserNameLength">
+                        <label for="UserName" class="form-label">@L(LKConstants.UserName)</label>
+                        <input type="text" id="UserName" name="UserName" class="form-control" placeholder="@L(LKConstants.UserName)" value="@Model.UserName" required maxlength="@AbpUserBase.MaxUserNameLength">
                     </div>
 
                     <div class="mb-3">
@@ -52,13 +52,13 @@
                         </div>
                         <label class="form-label" for="password-input">Password</label>
                         <div class="position-relative auth-pass-inputgroup mb-3">
-                            <input type="password" class="form-control pe-5" name="Password" autocomplete="password" placeholder="@L("Password")" required maxlength="@AbpUserBase.MaxPlainPasswordLength" id="password-input">
+                            <input type="password" class="form-control pe-5" name="Password" autocomplete="password" placeholder="@L(LKConstants.Password)" required maxlength="@AbpUserBase.MaxPlainPasswordLength" id="password-input">
                             <button class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted shadow-none" type="button" id="password-addon"><i class="ri-eye-fill align-middle"></i></button>
                         </div>
                     </div>
 
                     <div class="mt-4">
-                        <button class="btn btn-success w-100" type="submit" id="RegisterButton">@L("Register")</button>
+                        <button class="btn btn-success w-100" type="submit" id="RegisterButton">@L(LKConstants.Register)</button>
                     </div>
 
                     <div class="mt-4 text-center">
@@ -82,5 +82,5 @@
 </div>
 
 <div class="mt-4 text-center">
-    <p class="mb-0">Already have an account ? <a asp-action="Login" class="fw-semibold text-primary text-decoration-underline">@L("LogIn")</a> </p>
+    <p class="mb-0">Already have an account ? <a asp-action="Login" class="fw-semibold text-primary text-decoration-underline">@L(LKConstants.LogIn)</a> </p>
 </div>

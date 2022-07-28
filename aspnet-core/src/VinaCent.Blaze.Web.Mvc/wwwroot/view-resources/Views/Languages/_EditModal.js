@@ -1,7 +1,7 @@
 ﻿(function ($) {
-    var _roleService = abp.services.app.role,
+    var _languageService = abp.services.app.languageManagement,
         l = abp.localization.getSource('Blaze'),
-        _$modal = $('#RoleEditModal'),
+        _$modal = $('#LanguageEditModal'),
         _$form = _$modal.find('form');
 
     function save() {
@@ -9,21 +9,13 @@
             return;
         }
 
-        var role = _$form.serializeFormToObject();
-        role.grantedPermissions = [];
-        var _$permissionCheckboxes = _$form[0].querySelectorAll("input[name='permission']:checked");
-        if (_$permissionCheckboxes) {
-            for (var permissionIndex = 0; permissionIndex < _$permissionCheckboxes.length; permissionIndex++) {
-                var _$permissionCheckbox = $(_$permissionCheckboxes[permissionIndex]);
-                role.grantedPermissions.push(_$permissionCheckbox.val());
-            }
-        }
+        var language = _$form.serializeFormToObject();
 
         abp.ui.setBusy(_$form);
-        _roleService.update(role).done(function () {
+        _languageService.update(language).done(function () {
             _$modal.modal('hide');
-            abp.notify.info(l('SavedSuccessfully'));
-            abp.event.trigger('role.edited', role);
+            abp.notify.info(l(LKConstants.SavedSuccessfully));
+            abp.event.trigger('language.edited', language);
         }).always(function () {
             abp.ui.clearBusy(_$form);
         });

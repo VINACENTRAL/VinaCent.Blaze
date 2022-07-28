@@ -87,7 +87,7 @@ namespace VinaCent.Blaze.AppCore.FileUnits
         /// <summary>
         /// Get content folder of current User
         /// </summary>
-        public string GetCurrentUserContentPath 
+        public string GetCurrentUserContentPath
         {
             get
             {
@@ -106,7 +106,7 @@ namespace VinaCent.Blaze.AppCore.FileUnits
         /// <summary>
         /// Get today content folder
         /// </summary>
-        public string GetTodayContentPath 
+        public string GetTodayContentPath
         {
             get
             {
@@ -213,14 +213,14 @@ namespace VinaCent.Blaze.AppCore.FileUnits
         {
             if (directory.IsNullOrEmpty())
             {
-                throw new UserFriendlyException(L("YourParentDirectoryPathNotCorrect"));
+                throw new UserFriendlyException(L(LKConstants.YourParentDirectoryPathNotCorrect));
             }
 
             var currentDirectory = await _repository.FirstOrDefaultAsync(x =>
                 x.FullName == directory);
             if (currentDirectory == null)
             {
-                throw new UserFriendlyException(L("ParentDirectoryWasNotExists"));
+                throw new UserFriendlyException(L(LKConstants.ParentDirectoryWasNotExists));
             }
 
             return MapToEntityDto(currentDirectory);
@@ -288,12 +288,12 @@ namespace VinaCent.Blaze.AppCore.FileUnits
 
             if (input.File is not { Length: > 0 })
             {
-                throw new UserFriendlyException(L("YouMustChooseAFileToUpload"));
+                throw new UserFriendlyException(L(LKConstants.YouMustChooseAFileToUpload));
             }
 
             var allowedMaxFileSize = Convert.ToInt16(await SettingManager.GetSettingValueAsync(AppSettingNames.AllowedMaxFileSize));//kb
             var allowedUploadFormats = (await SettingManager.GetSettingValueAsync(AppSettingNames.AllowedUploadFormats))
-                ?.Split(",", StringSplitOptions.RemoveEmptyEntries).Select(x=>x.Trim());
+                ?.Split(",", StringSplitOptions.RemoveEmptyEntries).Select(x => x.Trim());
 
             fileUnit.TenantId = AbpSession.TenantId;
             fileUnit.IsFolder = false;
@@ -313,7 +313,7 @@ namespace VinaCent.Blaze.AppCore.FileUnits
 
             if (allowedUploadFormats == null || !allowedUploadFormats.Contains(fileUnit.Extension))
             {
-                throw new UserFriendlyException(L("NotValidFormat"));
+                throw new UserFriendlyException(L(LKConstants.NotValidFormat));
             }
 
             fileUnit.NameWithoutExtension = Path.GetFileNameWithoutExtension(input.File.FileName);
@@ -322,7 +322,7 @@ namespace VinaCent.Blaze.AppCore.FileUnits
 
             if (fileUnit.Length > allowedMaxFileSize * 1024 * 1024)
             {
-                throw new UserFriendlyException(L("ExceedsTheMaximumSize", allowedMaxFileSize));
+                throw new UserFriendlyException(L(LKConstants.ExceedsTheMaximumSize, allowedMaxFileSize));
             }
 
             fileUnit = RollUniqueName(fileUnit);
@@ -342,7 +342,7 @@ namespace VinaCent.Blaze.AppCore.FileUnits
         {
             if (input.Name.IsNullOrWhiteSpace())
             {
-                throw new UserFriendlyException(L("YourDataIsInvalid"));
+                throw new UserFriendlyException(L(LKConstants.YourDataIsInvalid));
             }
 
             NameValidation(input.Name);
@@ -470,13 +470,13 @@ namespace VinaCent.Blaze.AppCore.FileUnits
         {
             if (id == Guid.Empty)
             {
-                throw new UserFriendlyException(L("YourDataIsInvalid"));
+                throw new UserFriendlyException(L(LKConstants.YourDataIsInvalid));
             }
 
             var entity = await _repository.GetAsync(id);
             if (entity == null)
             {
-                throw new UserFriendlyException(L("NotFoundYourData"));
+                throw new UserFriendlyException(L(LKConstants.NotFoundYourData));
             }
 
             return entity;
@@ -511,7 +511,7 @@ namespace VinaCent.Blaze.AppCore.FileUnits
         {
             if (name.IndexOfAny(Path.GetInvalidFileNameChars()) != -1)
             {
-                throw new UserFriendlyException(L("NameOfFileOrFolderIsInvalid"));
+                throw new UserFriendlyException(L(LKConstants.NameOfFileOrFolderIsInvalid));
             }
         }
 

@@ -16,19 +16,13 @@ public class ClientNavigationProvider : NavigationProvider
         clientMenuDefinition
             .AddItem(
                 new MenuItemDefinition(
-                    ClientPageNames.Home,
-                    L("HomePage"),
+                    ClientPageNames.HomePage,
+                    L(LKConstants.HomePage),
                     url: "",
                     icon: "mdi mdi-home",
                     requiresAuthentication: false
                 )
-            )
-            .AddItem( // Menu items below is just for demonstration!
-                new MenuItemDefinition(
-                    "MultiLevelMenu",
-                    L("MultiLevelMenu"),
-                    icon: "mdi mdi-circle"
-                ));
+            );
 
         context.Manager.Menus.Add(nameof(Client), clientMenuDefinition);
     }

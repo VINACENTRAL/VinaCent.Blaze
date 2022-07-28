@@ -22,7 +22,7 @@
         abp.ui.setBusy(_$form);
         _roleService.update(role).done(function () {
             _$modal.modal('hide');
-            abp.notify.info(l('SavedSuccessfully'));
+            abp.notify.info(l(LKConstants.SavedSuccessfully));
             abp.event.trigger('role.edited', role);
         }).always(function () {
             abp.ui.clearBusy(_$form);
