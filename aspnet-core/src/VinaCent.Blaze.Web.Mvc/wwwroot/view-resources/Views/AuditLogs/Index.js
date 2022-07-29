@@ -105,7 +105,7 @@
 
     $('.btn-clear').on('click', (e) => {
         $('input').val('');
-        _$languageTextsTable.ajax.reload();
+        _$auditLogsTable.ajax.reload();
     });
 
     $('.txt-search').on('keypress', (e) => {

@@ -67,7 +67,6 @@ namespace VinaCent.Blaze.AppCore.AuditLogs
 
             query = query.WhereIf(input.TenantId is > 0, x => x.TenantId == input.TenantId);
 
-
             if (!input.StartTime.IsNullOrWhiteSpace())
             {
                 TryParse(input.StartTime, out DateTime startDate);
