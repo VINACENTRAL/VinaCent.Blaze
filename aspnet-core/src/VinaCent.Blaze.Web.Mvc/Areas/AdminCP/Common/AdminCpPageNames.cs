@@ -15,4 +15,5 @@ public class AdminCpPageNames
     public const string LanguageTextManagement = "LocalizationManagement.LanguageTextManagement";
 
     public const string AuditLogs = "AuditLogs";
+    public const string SecurityLogs = "SecurityLogs";    
 }

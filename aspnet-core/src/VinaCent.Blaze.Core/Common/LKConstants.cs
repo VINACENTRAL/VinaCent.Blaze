@@ -135,4 +135,5 @@ public static class LKConstants
     public const string Dashboard = "Dashboard";
     public const string StartTime = "StartTime";
     public const string EndTime = "EndTime";
+    public const string Result = "Result";
 }

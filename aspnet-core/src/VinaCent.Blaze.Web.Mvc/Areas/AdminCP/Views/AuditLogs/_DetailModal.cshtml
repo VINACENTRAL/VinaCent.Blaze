@@ -94,7 +94,7 @@
 				}
 				else
 				{
-					<textarea asp-for="Exception" class="form-control"/>
+					<textarea asp-for="Exception" class="form-control" readonly></textarea>
 				}
 			</div>
 		</div>
@@ -144,7 +144,7 @@
 		</div>
 		<div class="mb-3">
 			<label class="form-label fw-bold" asp-for="Parameters"></label>
-			<textarea class="form-control" asp-for="Parameters"></textarea>
+			<textarea class="form-control" asp-for="Parameters" readonly></textarea>
 		</div>
 		<div class="mb-3">
 			<label class="form-label fw-bold" asp-for="CustomData"></label>

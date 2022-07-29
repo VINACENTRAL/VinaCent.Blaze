@@ -4,11 +4,7 @@ using Abp.AutoMapper;
 using Abp.Domain.Entities;
 using Abp.Localization;
 using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace VinaCent.Blaze.AppCore.AuditLogs.Dto
 {
