@@ -55,7 +55,6 @@
                 render: (data, type, row, meta) => {
                     let strArr = data.split(".");
                     const methodName = strArr[strArr.length - 1];
-                    console.log(methodName);
                     return [
                         `   <div class="mid-truncate" data-type="${methodName}">`,
                         `       <p>${data}</p>`,

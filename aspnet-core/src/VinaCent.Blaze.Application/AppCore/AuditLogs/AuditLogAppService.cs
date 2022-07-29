@@ -63,7 +63,7 @@ namespace VinaCent.Blaze.AppCore.AuditLogs
             query = query.WhereIf(input.HasException != null,
                 x => (x.Exception != null) == input.HasException.Value);
 
-            query = query.WhereIf(!string.IsNullOrEmpty(input.IpAddress), x => x.ClientIpAddress == input.IpAddress);
+            query = query.WhereIf(!string.IsNullOrEmpty(input.ClientIpAddress), x => x.ClientIpAddress == input.ClientIpAddress);
 
             query = query.WhereIf(input.TenantId is > 0, x => x.TenantId == input.TenantId);
 

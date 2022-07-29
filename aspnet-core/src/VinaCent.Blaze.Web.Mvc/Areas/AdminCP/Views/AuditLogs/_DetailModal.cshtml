@@ -6,171 +6,165 @@
 }
 
 <div class="modal-header">
-    <h5 class="modal-title">@L(LKConstants.Detail)</h5>
-    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	<h5 class="modal-title">@L(LKConstants.Detail)</h5>
+	<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 </div>
 <div class="form-horizontal">
-    <div class="modal-body">
-        <div class="mb-3">
-            <label class="form-label"><strong>@L(LKConstants.ServiceName)</strong></label>
-            <div class="">
-                @Model.ServiceName
-            </div>
-        </div>
-        <div class="mb-3">
-            <label class="form-label"><strong>@L(LKConstants.MethodName)</strong></label>
-            <div class="">
-                @Model.MethodName
-            </div>
-        </div>
-        @if (AbpSession.TenantId == null)
-        {
-            <div class="mb-3">
-                <label class="form-label"><strong>@L(LKConstants.Tenant)</strong></label>
-                <div class="">
-                    @if (Model.TenantId == null)
-                    {
-                        @L(LKConstants.Unknown)
-                    }
-                    else
-                    {
-                        @Model.TenantId
-                    }
-                </div>
-            </div>
-        }
-        @if (AbpSession.TenantId == null)
-        {
-            <div class="mb-3">
-                <label class="form-label"><strong>@L(LKConstants.ImpersonatorTenant)</strong></label>
-                <div class="">
-                    @if (Model.ImpersonatorTenantId == null)
-                    {
-                        @L(LKConstants.Unknown)
-                    }
-                    else
-                    {
-                        @Model.ImpersonatorTenantId
-                    }
-                </div>
-            </div>
-        }
-        <div class="mb-3">
-            <label class="form-label"><strong>@L(LKConstants.ClientIpAddress)</strong></label>
-            <div class="">
-                @Model.ClientIpAddress
-            </div>
-        </div>
-        <div class="mb-3">
-            <label class="form-label"><strong>@L(LKConstants.ClientName)</strong></label>
-            <div class="">
-                @if (Model.ClientName.IsNullOrEmpty())
-                {
-                    @L(LKConstants.Unknown)
-                }
-                else
-                {
-                    @Model.ClientName
-                }
-            </div>
-        </div>
-        <div class="mb-3">
-            <label class="form-label"><strong>@L(LKConstants.ExceptionMessage)</strong></label>
-            <div class="">
-                @if (StringExtensions.IsNullOrEmpty(Model.ExceptionMessage))
-                {
-                    @L(LKConstants.NoException)
-                }
-                else
-                {
-                    @Model.ExceptionMessage
-                }
-            </div>
-        </div>
-        <div class="mb-3">
-            <label class="form-label"><strong>@L(LKConstants.Exception)</strong></label>
-            <div class="" style="overflow-wrap: break-word">
-                @if (Model.Exception.IsNullOrEmpty())
-                {
-                    @L(LKConstants.NoException)
-                }
-                else
-                {
-                    <pre lang="cs">
-                        @Model.Exception
-                    </pre>
-                }
-            </div>
-        </div>
-        <div class="mb-3">
-            <label class="form-label"><strong>@L(LKConstants.UserName)</strong></label>
-            <div class="">
-                @if (Model.UserDto != null)
-                {
-                    @Model.UserDto.UserName
-                }
-                else
-                {
-                    @L(LKConstants.Unknown)
-                }
-            </div>
-        </div>
-        <div class="mb-3">
-            <label class="form-label"><strong>@L(LKConstants.ImpersonatorUserName)</strong></label>
-            <div class="">
-                @if (Model.ImpersonatorUserDto != null)
-                {
-                    @Model.ImpersonatorUserDto.UserName
-                }
-                else
-                {
-                    @L(LKConstants.Unknown)
-                }
-            </div>
-        </div>
-        <div class="mb-3">
-            <label class="form-label"><strong>@L(LKConstants.ExecutionTime)</strong></label>
-            <div class="">
-                @Model.ExecutionTime
-            </div>
-        </div>
-        <div class="mb-3">
-            <label class="form-label"><strong>@L(LKConstants.ExecutionDuration)</strong></label>
-            <div class="">
-                @Model.ExecutionDuration (ms)
-            </div>
-        </div>
-        <div class="mb-3">
-            <label class="form-label"><strong>@L(LKConstants.BrowserInfo)</strong></label>
-            <div class="">
-                @Model.BrowserInfo
-            </div>
-        </div>
-        <div class="mb-3">
-            <label class="form-label"><strong>@L(LKConstants.Parameters)</strong></label>
-            <div class="">
-                <pre lang="cs">
-                    @Model.Parameters
-                </pre>
-            </div>
-        </div>
-        <div class="mb-3">
-            <label class="form-label"><strong>@L(LKConstants.CustomData)</strong></label>
-            <div class="">
-                @if (Model.CustomData.IsNullOrEmpty())
-                {
-                    @L(LKConstants.Unknown)
-                }
-                else
-                {
-                    @Model.CustomData
-                }
-            </div>
-        </div>
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-light waves-effect waves-light close-button" data-bs-dismiss="modal">
-            @L(LKConstants.Close)
-        </button>
-    </div>
+	<div class="modal-body">
+		<div class="mb-3">
+			<label class="form-label fw-bold" asp-for="ServiceName"></label>
+			<div class="">
+				@Model.ServiceName
+			</div>
+		</div>
+		<div class="mb-3">
+			<label class="form-label fw-bold"asp-for="MethodName"></label>
+			<div class="">
+				@Model.MethodName
+			</div>
+		</div>
+		@if (AbpSession.TenantId == null)
+		{
+			<div class="mb-3">
+				<label class="form-label fw-bold" asp-for="TenantId"></label>
+				<div class="">
+				@if (Model.TenantId == null)
+				{
+					@L(LKConstants.Unknown)
+				}
+				else
+				{
+					@Model.TenantId
+				}
+				</div>
+			</div>
+		}
+		@if (AbpSession.TenantId == null)
+		{
+			<div class="mb-3">
+				<label class="form-label fw-bold" asp-for="ImpersonatorTenantId"></label>
+				<div class="">
+				@if (Model.ImpersonatorTenantId == null)
+				{
+					@L(LKConstants.Unknown)
+				}
+				else
+				{
+					@Model.ImpersonatorTenantId
+				}
+				</div>
+			</div>
+		}
+		<div class="mb-3">
+			<label class="form-label fw-bold" asp-for="ClientIpAddress"></label>
+			<div class="">
+				@Model.ClientIpAddress
+			</div>
+		</div>
+		<div class="mb-3">
+			<label class="form-label fw-bold" asp-for="ClientName"></label>
+			<div class="">
+				@if (Model.ClientName.IsNullOrEmpty())
+				{
+					@L(LKConstants.Unknown)
+				}
+				else
+				{
+					@Model.ClientName
+				}
+			</div>
+		</div>
+		<div class="mb-3">
+			<label class="form-label fw-bold" asp-for="ExceptionMessage"></label>
+			<div class="">
+				@if (StringExtensions.IsNullOrEmpty(Model.ExceptionMessage))
+				{
+					@L(LKConstants.NoException)
+				}
+				else
+				{
+					@Model.ExceptionMessage
+				}
+			</div>
+		</div>
+		<div class="mb-3">
+			<label class="form-label fw-bold" asp-for="Exception"></label>
+			<div class="" style="overflow-wrap: break-word">
+				@if (Model.Exception.IsNullOrEmpty())
+				{
+					@L(LKConstants.NoException)
+				}
+				else
+				{
+					<textarea asp-for="Exception" class="form-control"/>
+				}
+			</div>
+		</div>
+		<div class="mb-3">
+			<label class="form-label fw-bold" asp-for="UserName"></label>
+			<div class="">
+				@if (Model.UserDto != null)
+				{
+					@Model.UserDto.UserName
+				}
+				else
+				{
+					@L(LKConstants.Unknown)
+				}
+			</div>
+		</div>
+		<div class="mb-3">
+			<label class="form-label fw-bold" asp-for="ImpersonatorUserName"></label>
+			<div class="">
+				@if (Model.ImpersonatorUserDto != null)
+				{
+					@Model.ImpersonatorUserDto.UserName
+				}
+				else
+				{
+					@L(LKConstants.Unknown)
+				}
+			</div>
+		</div>
+		<div class="mb-3">
+			<label class="form-label fw-bold" asp-for="ExecutionTime"></label>
+			<div class="">
+				@Model.ExecutionTime
+			</div>
+		</div>
+		<div class="mb-3">
+			<label class="form-label fw-bold" asp-for="ExecutionDuration"></label>
+			<div class="">
+				@Model.ExecutionDuration (ms)
+			</div>
+		</div>
+		<div class="mb-3">
+			<label class="form-label fw-bold" asp-for="BrowserInfo"></label>
+			<div class="">
+				@Model.BrowserInfo
+			</div>
+		</div>
+		<div class="mb-3">
+			<label class="form-label fw-bold" asp-for="Parameters"></label>
+			<textarea class="form-control" asp-for="Parameters"></textarea>
+		</div>
+		<div class="mb-3">
+			<label class="form-label fw-bold" asp-for="CustomData"></label>
+			<div class="">
+				@if (Model.CustomData.IsNullOrEmpty())
+				{
+					@L(LKConstants.Unknown)
+				}
+				else
+				{
+					@Model.CustomData
+				}
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-light waves-effect waves-light close-button" data-bs-dismiss="modal">
+			@L(LKConstants.Close)
+		</button>
+	</div>
 </div>
