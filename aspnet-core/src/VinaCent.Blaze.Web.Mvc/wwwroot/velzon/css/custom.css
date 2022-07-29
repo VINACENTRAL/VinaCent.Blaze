@@ -41,3 +41,7 @@
 .dataTables_length .form-select {
     font-size: var(--vz-body-font-size);
 }
+
+#back-to-top {
+    bottom: 28px;
+}
