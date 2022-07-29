@@ -123,6 +123,7 @@ public static class LKConstants
     public const string NoException = "NoException";
     public const string Close = "Close";
     public const string Tenant = "Tenant";
+    public const string TenantId = "TenantId";
     public const string Unknown = "Unknown";
     public const string ImpersonatorTenant = "ImpersonatorTenant";
     public const string ClientName = "ClientName";
@@ -132,4 +133,6 @@ public static class LKConstants
     public const string Parameters = "Parameters";
     public const string CustomData = "CustomData";
     public const string Dashboard = "Dashboard";
+    public const string StartTime = "StartTime";
+    public const string EndTime = "EndTime";
 }
