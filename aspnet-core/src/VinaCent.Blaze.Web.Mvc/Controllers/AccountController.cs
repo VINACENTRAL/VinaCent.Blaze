@@ -30,7 +30,7 @@ using VinaCent.Blaze.Web.Views.Shared.Components.TenantChange;
 namespace VinaCent.Blaze.Web.Controllers
 {
     [Route("account")]
-    public class AccountController : BlazeControllerBase
+    public partial class AccountController : BlazeControllerBase
     {
         private readonly UserManager _userManager;
         private readonly TenantManager _tenantManager;
