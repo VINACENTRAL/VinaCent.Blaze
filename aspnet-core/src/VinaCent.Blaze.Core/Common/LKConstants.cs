@@ -147,4 +147,13 @@ public static class LKConstants
     public const string GotoLockScreen = "GotoLockScreen";
     public const string YouAreaLoggedOut = "YouAreaLoggedOut";
     public const string ThankYouForUsingOurService = "ThankYouForUsingOurService";
+    public const string SettingManagement = "SettingManagement";
+    public const string SettingManagement_AppMeta = "SettingManagement.AppMeta";
+    public const string SettingManagement_AppTheme = "SettingManagement.AppTheme";
+    public const string SettingManagement_AppSystem = "SettingManagement.AppSystem";
+    public const string EmailConfiguration = "EmailConfiguration";
+    public const string EmailConfiguration_SetUpMailServer = "EmailConfiguration.SetUpMailServer";
+    public const string EmailConfiguration_TextTemplates = "EmailConfiguration.TextTemplates";
+    public const string Settings = "Settings";
+    public const string ProfileSettings = "ProfileSettings";
 }
