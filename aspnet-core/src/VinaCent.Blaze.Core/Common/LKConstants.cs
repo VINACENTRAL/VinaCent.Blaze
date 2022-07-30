@@ -137,4 +137,7 @@ public static class LKConstants
     public const string EndTime = "EndTime";
     public const string Result = "Result";
     public const string GoToAdminCP = "GoToAdminCP";
+    public const string NotYou = "NotYou";
+    public const string LockScreen = "LockScreen";
+    public const string Unlock = "Unlock";
 }
