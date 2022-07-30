@@ -7,6 +7,8 @@
     var fullName = Model.LoginInformations.User.FullName;
     var picture = "https://upload-os-bbs.hoyolab.com/upload/2021/09/08/10805287/d6cac34c75cd7ccb346b1133cff2e192_5253703590737420027.jpg?x-oss-process=image/resize,s_600/quality,q_80/auto-orient,0/interlace,1/format,jpg";
 
+    var area = ViewContext.ActionDescriptor.RouteValues["Area"];
+
     var roles = "Member";
     //if (roles.IsNullOrWhiteSpace())
     //{
@@ -30,9 +32,20 @@
         <div class="dropdown-menu dropdown-menu-end">
             <!-- item-->
         <h6 class="dropdown-header">@L(LKConstants.WelcomeUserMsg, name)</h6>
-            <a class="dropdown-item" asp-page="/Index" asp-area="">
-                <i class="ri-home-smile-fill text-muted fs-16 align-middle me-1"></i> <span class="align-middle">@L(LKConstants.GoBackHome)</span>
-            </a>
+            @if (!area.Equals(nameof(VinaCent.Blaze.Web.Areas.Client)))
+            {
+                <a class="dropdown-item" asp-action="Index" asp-controller="Home" asp-area="Client">
+                    <i class="ri-home-smile-fill text-muted fs-16 align-middle me-1"></i> <span class="align-middle">@L(LKConstants.GoBackHome)</span>
+                </a>
+            }
+
+            @if (!area.Equals(nameof(VinaCent.Blaze.Web.Areas.AdminCP)))
+            {
+                <a class="dropdown-item" asp-action="Index" asp-controller="Dashboard" asp-area="AdminCP">
+                    <i class="ri-home-smile-fill text-muted fs-16 align-middle me-1"></i> <span class="align-middle">@L(LKConstants.GoToAdminCP)</span>
+                </a>
+            }
+
             <a class="dropdown-item" asp-controller="Users" asp-action="ChangePassword">
                 <i class="ri-rotate-lock-line text-muted fs-16 align-middle me-1"></i> <span class="align-middle" data-key="t-logout">@L(LKConstants.UpdatePassword)</span>
             </a>

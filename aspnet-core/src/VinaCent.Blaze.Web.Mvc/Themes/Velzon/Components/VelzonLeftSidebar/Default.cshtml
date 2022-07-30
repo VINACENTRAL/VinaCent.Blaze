@@ -3,7 +3,6 @@
 @model SideBarMenuViewModel
 @{ 
     var orderedMenuItems = Model.MainMenu.Items.Where(x => x.IsVisible).ToList();
-    var area = ViewContext.ActionDescriptor.RouteValues["Area"];
 }
 
 <div class="app-menu navbar-menu">
