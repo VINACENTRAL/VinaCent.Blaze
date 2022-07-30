@@ -17,8 +17,11 @@
 
         #region App File Management
         public const string AllowedMaxFileSize = "App.AllowedMaxFileSize";
-
         public const string AllowedUploadFormats = "App.AllowedUploadFormats";
+        #endregion
+
+        #region App System settings
+        public const string AppSys_DoNotShowLogoutScreen = "AppSys.DoNotShowLogoutScreen";
         #endregion
     }
 }

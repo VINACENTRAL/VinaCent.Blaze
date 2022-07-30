@@ -145,4 +145,6 @@ public static class LKConstants
     public const string LoginScreenMessage = "LoginScreenMessage";
     public const string SignInWith = "SignInWith";
     public const string GotoLockScreen = "GotoLockScreen";
+    public const string YouAreaLoggedOut = "YouAreaLoggedOut";
+    public const string ThankYouForUsingOurService = "ThankYouForUsingOurService";
 }

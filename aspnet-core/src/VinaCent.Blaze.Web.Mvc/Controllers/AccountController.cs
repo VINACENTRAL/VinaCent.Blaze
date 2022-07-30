@@ -30,6 +30,7 @@ using Microsoft.AspNetCore.Http;
 using VinaCent.Blaze.Web.Common;
 using VinaCent.Blaze.Sessions.Dto;
 using VinaCent.Blaze.Helpers.Encryptions;
+using VinaCent.Blaze.Configuration;
 
 namespace VinaCent.Blaze.Web.Controllers
 {
@@ -160,7 +161,13 @@ namespace VinaCent.Blaze.Web.Controllers
         {
             await _signInManager.SignOutAsync();
             SetOrRemoveLoggedInUserName();
-            return RedirectToAction("Login");
+            if (await SettingManager.GetSettingValueAsync<bool>(AppSettingNames.AppSys_DoNotShowLogoutScreen))
+            {
+                return RedirectToAction("Login");
+            } else
+            {
+                return View();
+            }
         }
 
         [HttpGet("lockout")]

@@ -21,7 +21,7 @@ namespace VinaCent.Blaze.Configuration
                     scopes: SettingScopes.Application |
                     SettingScopes.Tenant,
                     isVisibleToClients: true),
-                
+
                 new SettingDefinition(AppSettingNames.SiteDescription,
                     "Grow your business",
                     scopes: SettingScopes.Application |
@@ -33,7 +33,7 @@ namespace VinaCent.Blaze.Configuration
                     scopes: SettingScopes.Application |
                     SettingScopes.Tenant,
                     isVisibleToClients: true),
-                
+
                 new SettingDefinition(AppSettingNames.SiteAuthorProfileUrl,
                     "https://vinacent.com/teams",
                     scopes: SettingScopes.Application |
@@ -66,8 +66,14 @@ namespace VinaCent.Blaze.Configuration
                 new SettingDefinition(AppSettingNames.AllowedUploadFormats,
                     ".jpeg, .jpg, .png",
                     scopes: SettingScopes.Application,
-                    isVisibleToClients: true)
-#endregion
+                    isVisibleToClients: true),
+                #endregion
+
+#region App System settings
+                new SettingDefinition(AppSettingNames.AppSys_DoNotShowLogoutScreen,
+                    false.ToString(),
+                    scopes: SettingScopes.Application | SettingScopes.Tenant),
+	#endregion
             };
         }
     }
