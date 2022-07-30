@@ -1,17 +1,43 @@
-﻿using Newtonsoft.Json;
+﻿using Abp.Extensions;
+using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 using System;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
+using VinaCent.Blaze.Helpers.Encryptions;
 
 namespace VinaCent.Blaze.Encryptions
 {
-    public static class AesHelper
+    public class AESHelper : IAESHelper
     {
-        private static readonly byte[] _salt = new byte[] { 0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76 };
+        private readonly byte[] _salt;
 
-        public static string Encrypt(string clearText, string password)
+        private readonly string defaultPassword;
+
+        private readonly IConfiguration _configuration;
+
+        public AESHelper(IConfiguration configuration)
         {
+            _configuration = configuration;
+            defaultPassword = _configuration.GetValue("StringEncryption:DefaultPassword", "hCsQMM6uDDxVsBnKpcFzLYh2");
+            var passPhrase = _configuration.GetValue("StringEncryption:DefaultPassPhrase", "I_Love_Raiden_Shogun");
+            _salt = Encoding.ASCII.GetBytes(passPhrase);
+        }
+
+        /// <summary>
+        /// Top level method, another method using encrypt must be start from this method or its children
+        /// </summary>
+        /// <param name="clearText"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
+        public string Encrypt(string clearText, string password = "")
+        {
+            if (password.IsNullOrEmpty())
+            {
+                password = defaultPassword;
+            }
+
             var clearBytes = Encoding.Unicode.GetBytes(clearText);
             using (var encryptor = Aes.Create())
             {
@@ -29,8 +55,19 @@ namespace VinaCent.Blaze.Encryptions
             return clearText;
         }
 
-        public static string Decrypt(string cipherText, string password)
+        /// <summary>
+        /// Top level method, another method using decrypt must be start from this method or its children
+        /// </summary>
+        /// <param name="cipherText"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
+        public string Decrypt(string cipherText, string password = "")
         {
+            if (password.IsNullOrEmpty())
+            {
+                password = defaultPassword;
+            }
+
             var cipherBytes = Convert.FromBase64String(cipherText);
             using (var encryptor = Aes.Create())
             {
@@ -48,13 +85,13 @@ namespace VinaCent.Blaze.Encryptions
             return cipherText;
         }
 
-        public static string Encrypt<T>(T clearObject, string password)
+        public string Encrypt<T>(T clearObject, string password = "")
         {
             var jsonString = JsonConvert.SerializeObject(clearObject);
             return Encrypt(jsonString, password);
         }
 
-        public static T Decrypt<T>(string cipherText, string password)
+        public T Decrypt<T>(string cipherText, string password = "")
         {
             var jsonString = Decrypt(cipherText, password);
             return JsonConvert.DeserializeObject<T>(jsonString);

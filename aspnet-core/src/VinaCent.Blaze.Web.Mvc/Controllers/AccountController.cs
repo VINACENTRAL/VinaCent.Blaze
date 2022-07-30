@@ -28,6 +28,8 @@ using VinaCent.Blaze.Web.Models.Account;
 using VinaCent.Blaze.Web.Views.Shared.Components.TenantChange;
 using Microsoft.AspNetCore.Http;
 using VinaCent.Blaze.Web.Common;
+using VinaCent.Blaze.Sessions.Dto;
+using VinaCent.Blaze.Helpers.Encryptions;
 
 namespace VinaCent.Blaze.Web.Controllers
 {
@@ -56,6 +58,8 @@ namespace VinaCent.Blaze.Web.Controllers
 
         private readonly INotificationPublisher _notificationPublisher;
 
+        private readonly IAESHelper _aesHelper;
+
         public AccountController(
             UserManager userManager,
             IMultiTenancyConfig multiTenancyConfig,
@@ -67,8 +71,8 @@ namespace VinaCent.Blaze.Web.Controllers
             UserRegistrationManager userRegistrationManager,
             ISessionAppService sessionAppService,
             ITenantCache tenantCache,
-            INotificationPublisher notificationPublisher
-        )
+            INotificationPublisher notificationPublisher,
+            IAESHelper aesHelper)
         {
             _userManager = userManager;
             _multiTenancyConfig = multiTenancyConfig;
@@ -81,6 +85,7 @@ namespace VinaCent.Blaze.Web.Controllers
             _sessionAppService = sessionAppService;
             _tenantCache = tenantCache;
             _notificationPublisher = notificationPublisher;
+            _aesHelper = aesHelper;
         }
 
 
@@ -101,7 +106,7 @@ namespace VinaCent.Blaze.Web.Controllers
 
             var model = new LoginFormViewModel
             {
-                UsernameOrEmailAddress = GetCookieValue($"{BlazeWebConstants.PreviousAccount}_T{AbpSession.TenantId}"),
+                UsernameOrEmailAddress = GetLoggedInUserName(),
                 ReturnUrl = returnUrl,
                 IsMultiTenancyEnabled = _multiTenancyConfig.IsEnabled,
                 IsSelfRegistrationAllowed = IsSelfRegistrationEnabled(),
@@ -111,6 +116,7 @@ namespace VinaCent.Blaze.Web.Controllers
             if (!string.IsNullOrWhiteSpace(model.UsernameOrEmailAddress))
             {
                 var previousLoggedUser = await _userManager.FindByNameOrEmailAsync(model.UsernameOrEmailAddress);
+                ViewBag.UserLoginInfo = ObjectMapper.Map<UserLoginInfoDto>(previousLoggedUser);
             }
 
             return View(model);
@@ -118,7 +124,7 @@ namespace VinaCent.Blaze.Web.Controllers
 
         [HttpPost("login")]
         [UnitOfWork]
-        public virtual async Task<JsonResult>
+        public async Task<JsonResult>
         Login(
             LoginViewModel loginModel,
             string returnUrl = "",
@@ -128,7 +134,7 @@ namespace VinaCent.Blaze.Web.Controllers
             returnUrl = NormalizeReturnUrl(returnUrl);
             if (!string.IsNullOrWhiteSpace(returnUrlHash))
             {
-                returnUrl = returnUrl + returnUrlHash;
+                returnUrl += returnUrlHash;
             }
 
             var loginResult =
@@ -143,7 +149,7 @@ namespace VinaCent.Blaze.Web.Controllers
             // Only user select remember me can store their user name
             if (loginModel.RememberMe)
             {
-                UpdateCookieValue($"{BlazeWebConstants.PreviousAccount}_T{AbpSession.TenantId}", loginModel.UsernameOrEmailAddress);
+                SetOrRemoveLoggedInUserName(loginModel.UsernameOrEmailAddress);
             }
 
             return Json(new AjaxResponse { TargetUrl = returnUrl });
@@ -153,8 +159,30 @@ namespace VinaCent.Blaze.Web.Controllers
         public async Task<ActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
-            UpdateCookieValue($"{BlazeWebConstants.PreviousAccount}_T{AbpSession.TenantId}");
+            SetOrRemoveLoggedInUserName();
             return RedirectToAction("Login");
+        }
+
+        [HttpGet("lockout")]
+        public async Task<ActionResult> Lockout()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Login");
+        }
+
+        [HttpGet("lockout/change")]
+        public ActionResult LockoutChangeAccount(
+            string userNameOrEmailAddress = "",
+            string returnUrl = "",
+            string successMessage = "")
+        {
+            SetOrRemoveLoggedInUserName();
+            return RedirectToAction("Login", new
+            {
+                userNameOrEmailAddress,
+                returnUrl,
+                successMessage
+            });
         }
 
         private async Task<AbpLoginResult<Tenant, User>>
@@ -387,7 +415,7 @@ namespace VinaCent.Blaze.Web.Controllers
         }
 
         [UnitOfWork]
-        public virtual async Task<ActionResult>
+        public async Task<ActionResult>
         ExternalLoginCallback(string returnUrl, string remoteError = null)
         {
             returnUrl = NormalizeReturnUrl(returnUrl);
@@ -471,7 +499,7 @@ namespace VinaCent.Blaze.Web.Controllers
         }
 
         [UnitOfWork]
-        protected virtual async Task<List<Tenant>>
+        protected async Task<List<Tenant>>
         FindPossibleTenantsOfUserAsync(UserLoginInfo login)
         {
             List<User> allUsers;
@@ -605,29 +633,45 @@ namespace VinaCent.Blaze.Web.Controllers
         //    return Content("Sent notifßication: " + message);
         //}
 
-        private void UpdateCookieValue(string key, string value = "", int expireDay = 5 * 365) // Default is 5 years
+        private void SetOrRemoveLoggedInUserName(string value = "", int expireDay = 5 * 365) // Default is 5 years
         {
+            var key = $"{BlazeWebConstants.PreviousAccount}${AbpSession.TenantId ?? 0}";
             // Remove old
             Response.Cookies.Delete(key);
 
             // Add/Update newer
-            CookieOptions option = new CookieOptions();
-            option.Expires = DateTime.Now.AddDays(expireDay);
+            var option = new CookieOptions
+            {
+                Expires = DateTime.Now.AddDays(expireDay),
+                Secure = true,
+                SameSite = SameSiteMode.Strict
+            };
+
+            value = _aesHelper.Encrypt(value);
+
             Response.Cookies.Append(key, value, option);
         }
 
-        private string GetCookieValue(string key)
+        private string GetLoggedInUserName()
         {
-            return Request.Cookies[key] ?? "";
+            var key = $"{BlazeWebConstants.PreviousAccount}${AbpSession.TenantId ?? 0}";
+            var value = Request.Cookies[key] ?? "";
+
+            if (!value.IsNullOrEmpty())
+            {
+                try
+                {
+                    value = _aesHelper.Decrypt(value);
+                }
+                catch (Exception)
+                {
+                    return string.Empty;
+                }
+            }
+
+            return value;
         }
 
         #endregion
-
-
-        [HttpGet("lockout")]
-        public IActionResult Lockout()
-        {
-            return View();
-        }
     }
 }

@@ -1,13 +1,15 @@
 ﻿@using Abp.Authorization.Users
 @using Abp.Configuration.Startup
+@using Newtonsoft.Json
+@using VinaCent.Blaze.Sessions.Dto
 @inject IMultiTenancyConfig MultiTenancyConfig
 
 @model VinaCent.Blaze.Web.Models.Account.LoginFormViewModel
 @{
     ViewBag.Title = L(LKConstants.LogIn);
-    var picture =
-    "https://upload-os-bbs.hoyolab.com/upload/2021/09/08/10805287/d6cac34c75cd7ccb346b1133cff2e192_5253703590737420027.jpg?x-oss-process=image/resize,s_600/quality,q_80/auto-orient,0/interlace,1/format,jpg";
+
     var isLockout = !string.IsNullOrEmpty(Model.UsernameOrEmailAddress);
+    var userLoginInfo = (UserLoginInfoDto)ViewBag.UserLoginInfo;
 }
 
 @section scripts
@@ -28,14 +30,7 @@
             <div class="text-center mt-2">
                 <h4 class="text-primary">@L(isLockout?LKConstants.LockScreen: LKConstants.LogIn)</h4>
                 <p class="text-muted">
-                    @if (isLockout)
-                    {
-                        @("Enter your password to unlock the screen!")
-                    }
-                    else
-                    {
-                        @("Sign in to continue to Velzon.")
-                    }
+                    @L(isLockout?LKConstants.LockScreenMessage:LKConstants.LoginScreenMessage)
                 </p>
             </div>
 
@@ -49,8 +44,8 @@
                         <div class="mb-3">
                             <label for="username" class="form-label">@L(LKConstants.UserNameOrEmail)</label>
                             <input type="text" name="usernameOrEmailAddress" class="form-control"
-                            placeholder="@L(LKConstants.UserNameOrEmail)" required autofocus
-                            maxlength="@AbpUserBase.MaxEmailAddressLength">
+                               placeholder="@L(LKConstants.UserNameOrEmail)" required autofocus
+                               maxlength="@AbpUserBase.MaxEmailAddressLength">
                         </div>
 
                         <div class="mb-3">
@@ -60,39 +55,46 @@
                             <label class="form-label" for="password-input">@L(LKConstants.Password)</label>
                             <div class="position-relative auth-pass-inputgroup mb-3">
                                 <input type="password" class="form-control pe-5" name="Password" autocomplete="password"
-                                placeholder="@L(LKConstants.Password)" required
-                                maxlength="@AbpUserBase.MaxPlainPasswordLength" id="password-input">
-                                <button
-                                class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted shadow-none"
-                                type="button" id="password-addon"><i class="ri-eye-fill align-middle"></i></button>
+                                   placeholder="@L(LKConstants.Password)" required
+                                   maxlength="@AbpUserBase.MaxPlainPasswordLength" id="password-input">
+                                <button class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted shadow-none"
+                                    type="button" id="password-addon">
+                                    <i class="ri-eye-fill align-middle"></i>
+                                </button>
                             </div>
                         </div>
 
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" id="RememberMe" name="RememberMe" value="true"
-                            checked>
+                               checked>
                             <label class="form-check-label" for="RememberMe">@L(LKConstants.RememberMe)</label>
                         </div>
 
                         <div class="mt-4">
                             <button class="btn btn-success w-100" type="submit"
-                            id="LoginButton">@L(LKConstants.LogIn)</button>
+                                id="LoginButton">
+                                @L(LKConstants.LogIn)
+                            </button>
                         </div>
 
 
                         <div class="mt-4 text-center">
                             <div class="signin-other-title">
-                                <h5 class="fs-13 mb-4 title">Sign In with</h5>
+                                <h5 class="fs-13 mb-4 title">@L(LKConstants.SignInWith)</h5>
                             </div>
                             <div>
-                                <button type="button" class="btn btn-primary btn-icon waves-effect waves-light"><i
-                                    class="ri-facebook-fill fs-16"></i></button>
-                                <button type="button" class="btn btn-danger btn-icon waves-effect waves-light"><i
-                                    class="ri-google-fill fs-16"></i></button>
-                                <button type="button" class="btn btn-dark btn-icon waves-effect waves-light"><i
-                                    class="ri-github-fill fs-16"></i></button>
-                                <button type="button" class="btn btn-info btn-icon waves-effect waves-light"><i
-                                    class="ri-twitter-fill fs-16"></i></button>
+                                <button type="button" class="btn btn-primary btn-icon waves-effect waves-light">
+                                    <i class="ri-facebook-fill fs-16"></i>
+                                </button>
+                                <button type="button" class="btn btn-danger btn-icon waves-effect waves-light">
+                                    <i class="ri-google-fill fs-16"></i>
+                                </button>
+                                <button type="button" class="btn btn-dark btn-icon waves-effect waves-light">
+                                    <i class="ri-github-fill fs-16"></i>
+                                </button>
+                                <button type="button" class="btn btn-info btn-icon waves-effect waves-light">
+                                    <i class="ri-twitter-fill fs-16"></i>
+                                </button>
                             </div>
                         </div>
 
@@ -102,18 +104,33 @@
             else
             {
                 <div class="user-thumb text-center">
-                    <img src="@picture" class="rounded-circle img-thumbnail avatar-lg shadow" alt="thumbnail">
-                    <h5 class="font-size-15 mt-3">Ei</h5>
+                    <img src="@userLoginInfo.Picture" class="rounded-circle img-thumbnail avatar-lg shadow" alt="thumbnail">
+                    <h5 class="font-size-15 mt-3">@userLoginInfo.FullName</h5>
                 </div>
                 <div class="p-2 mt-4">
-                    <form>
+                    <form id="LoginForm" asp-action="Login" method="post">
+                        <input type="hidden" name="returnUrl" value="@Model.ReturnUrl" />
+                        <input type="hidden" name="returnUrlHash" />
+                        <input type="hidden" name="usernameOrEmailAddress" value="@Model.UsernameOrEmailAddress" />
+
                         <div class="mb-3">
-                            <label class="form-label" for="userpassword">@L(LKConstants.Password)</label>
-                            <input type="password" class="form-control" id="userpassword" placeholder="Enter password"
-                            required>
+                            <div class="float-end">
+                                <a asp-action="ResetPassword" class="text-muted">@L(LKConstants.ForgotPassword)</a>
+                            </div>
+                            <label class="form-label" for="password-input">@L(LKConstants.Password)</label>
+                            <div class="position-relative auth-pass-inputgroup mb-3">
+                                <input type="password" class="form-control pe-5" name="Password" autocomplete="password"
+                                   placeholder="@L(LKConstants.Password)" required
+                                   maxlength="@AbpUserBase.MaxPlainPasswordLength" id="password-input">
+                                <button class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted shadow-none"
+                                    type="button" id="password-addon">
+                                    <i class="ri-eye-fill align-middle"></i>
+                                </button>
+                            </div>
                         </div>
+
                         <div class="mb-2 mt-4">
-                            <button class="btn btn-success w-100" type="submit">@L(LKConstants.Unlock)</button>
+                            <button class="btn btn-success w-100" type="submit" id="LoginButton">@L(LKConstants.Unlock)</button>
                         </div>
                     </form>
                 </div>
@@ -127,15 +144,22 @@
     if (Model.IsSelfRegistrationAllowed)
     {
         <div class="mt-4 text-center">
-    <p class="mb-0">Don't have an account ? <a asp-action="Register"
-            class="fw-semibold text-primary text-decoration-underline"> @L(LKConstants.Register)</a> </p>
-</div>
+            <p class="mb-0">
+                @L(LKConstants.DontHaveAnAccount) <a asp-action="Register" class="fw-semibold text-primary text-decoration-underline"> @L(LKConstants.Register)</a>
+            </p>
+        </div>
     }
 }
 else
 {
+    var url = Url.Action("LockoutChangeAccount", "Account");
+    if (Context.Request.QueryString.HasValue)
+    {
+        url += Context.Request.QueryString.Value;
+    }
     <div class="mt-4 text-center">
-    <p class="mb-0">@L(LKConstants.NotYou) <a href="auth-signin-basic.html"
-            class="fw-semibold text-primary text-decoration-underline"> @L(LKConstants.LogIn) </a> </p>
-</div>
+        <p class="mb-0">
+            @L(LKConstants.NotYou) <a href="@url" class="fw-semibold text-primary text-decoration-underline"> @L(LKConstants.LogIn) </a>
+        </p>
+    </div>
 }

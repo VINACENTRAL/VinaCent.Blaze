@@ -140,4 +140,9 @@ public static class LKConstants
     public const string NotYou = "NotYou";
     public const string LockScreen = "LockScreen";
     public const string Unlock = "Unlock";
+    public const string DontHaveAnAccount = "DontHaveAnAccount";
+    public const string LockScreenMessage = "LockScreenMessage";
+    public const string LoginScreenMessage = "LoginScreenMessage";
+    public const string SignInWith = "SignInWith";
+    public const string GotoLockScreen = "GotoLockScreen";
 }
