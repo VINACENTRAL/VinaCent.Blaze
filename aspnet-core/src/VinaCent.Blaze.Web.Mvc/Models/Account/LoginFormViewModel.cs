@@ -4,6 +4,7 @@ namespace VinaCent.Blaze.Web.Models.Account
 {
     public class LoginFormViewModel
     {
+        public string UsernameOrEmailAddress { get; set; }
         public string ReturnUrl { get; set; }
 
         public bool IsMultiTenancyEnabled { get; set; }

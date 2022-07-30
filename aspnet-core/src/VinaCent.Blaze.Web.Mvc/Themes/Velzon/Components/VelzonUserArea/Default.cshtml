@@ -5,9 +5,9 @@
 {
     var name = Model.LoginInformations.User.Name;
     var fullName = Model.LoginInformations.User.FullName;
-    var picture = "https://upload-os-bbs.hoyolab.com/upload/2021/09/08/10805287/d6cac34c75cd7ccb346b1133cff2e192_5253703590737420027.jpg?x-oss-process=image/resize,s_600/quality,q_80/auto-orient,0/interlace,1/format,jpg";
+    var picture = Model.LoginInformations.User.Picture;
 
-    var area = ViewContext.ActionDescriptor.RouteValues["Area"];
+    var area = ViewContext.ActionDescriptor.RouteValues["Area"] ?? "";
 
     var roles = "Member";
     //if (roles.IsNullOrWhiteSpace())
@@ -32,6 +32,9 @@
         <div class="dropdown-menu dropdown-menu-end">
             <!-- item-->
         <h6 class="dropdown-header">@L(LKConstants.WelcomeUserMsg, name)</h6>
+            <a class="dropdown-item" asp-action="Lockout" asp-controller="Account" asp-area="">
+                <i class="ri-lock-fill text-muted fs-16 align-middle me-1"></i> <span class="align-middle">@L(LKConstants.GotoLockScreen)</span>
+            </a>
             @if (!area.Equals(nameof(VinaCent.Blaze.Web.Areas.Client)))
             {
                 <a class="dropdown-item" asp-action="Index" asp-controller="Home" asp-area="Client">
@@ -50,11 +53,11 @@
                 <i class="ri-rotate-lock-line text-muted fs-16 align-middle me-1"></i> <span class="align-middle" data-key="t-logout">@L(LKConstants.UpdatePassword)</span>
             </a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="pages-profile.html">
+            <a class="dropdown-item" asp-controller="Profile" asp-action="Index">
                 <i class="mdi mdi-wallet text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Balance : <b>$5971.67</b></span>
             </a>
-            <a class="dropdown-item" href="pages-profile-settings.html">
-                <span class="badge bg-soft-success text-success mt-1 float-end">New</span><i class="mdi mdi-cog-outline text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Settings</span>
+            <a class="dropdown-item" asp-controller="Profile" asp-action="Settings">
+                <i class="mdi mdi-cog-outline text-muted fs-16 align-middle me-1"></i> <span class="align-middle">@L(LKConstants.Settings)</span>
             </a>
             <a class="dropdown-item" asp-controller="Account" asp-action="Logout">
                 <i class="mdi mdi-logout text-muted fs-16 align-middle me-1"></i> <span class="align-middle" data-key="t-logout">@L(LKConstants.Logout)</span>

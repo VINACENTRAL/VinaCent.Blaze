@@ -4,7 +4,7 @@
 @model Abp.Application.Navigation.UserMenuItem
 @inject ILanguageManager LanguageManager
 @{
-    var isActive = IsActiveMenuItem(Model, ViewBag.CurrentPageName);
+    var isActive = IsActiveMenuItem(Model, ViewBag.CurrentPageName) == true;
     var subMenus = Model.Items.Where(x => x.IsVisible).OrderByCustom().ToList();
     var hasSubMenus = subMenus.Any();
     var level = (int)(ViewBag.MenuItemLevel ?? 0);
@@ -65,18 +65,18 @@ else
             <span data-key="t-@Model.Name.ToLower()">
                 @Model.DisplayName
             </span>
-@*            @if (LanguageManager.CurrentLanguage.IsRightToLeft)
-            {
+            @*            @if (LanguageManager.CurrentLanguage.IsRightToLeft)
+                {
                 <i class="fas fa-angle-right right"></i>
-            }
-            else
-            {
+                }
+                else
+                {
                 <i class="fas fa-angle-left right"></i>
-            }*@
+                }*@
         </a>
         @if (hasSubMenus)
         {
-            <div class="collapse menu-dropdown" id="ref-@tempId">
+            <div class="collapse menu-dropdown@(isActive?" show":"")" id="ref-@tempId">
                 <ul class="nav nav-sm flex-column">
                     @foreach (var subMenu in subMenus)
                     {

@@ -8,7 +8,7 @@ namespace VinaCent.Blaze.Web.Areas.AdminCP.Common;
 /// <summary>
 /// This class defines menus for the application.
 /// </summary>
-/// Ref Icons: https://pictogrammers.github.io/@mdi/font/2.0.46/
+/// Ref Icons: https://themesbrand.com/velzon/html/material/icons-materialdesign.html
 public class AdminCpNavigationProvider : NavigationProvider
 {
     public override void SetNavigation(INavigationProviderContext context)
@@ -84,10 +84,67 @@ public class AdminCpNavigationProvider : NavigationProvider
             ).AddItem(
                 new MenuItemDefinition(
                     AdminCpPageNames.AuditLogs,
-                    L("AuditLogs"),
+                    L(LKConstants.AuditLogs),
                     url: "admincp/audit-logs",
                     icon: "mdi mdi-calendar-check",
                     permissionDependency: new SimplePermissionDependency(PermissionNames.Pages_AuditLogs)
+                )
+            ).AddItem(
+                new MenuItemDefinition(
+                    AdminCpPageNames.SettingManagement,
+                    L(LKConstants.SettingManagement),
+                    icon: "mdi mdi-cog-outline",
+                    permissionDependency: new SimplePermissionDependency(PermissionNames.Pages_Languages)
+                ).AddItem(
+                new MenuItemDefinition(
+                    AdminCpPageNames.SettingManagement_AppMeta,
+                    L(LKConstants.SettingManagement_AppMeta),
+                    url: "admincp/settings/meta",
+                    icon: "mdi mdi-cloud-tags",
+                    permissionDependency: new SimplePermissionDependency(PermissionNames.Pages_Languages),
+                    order: 1
+                    )
+                ).AddItem(
+                new MenuItemDefinition(
+                    AdminCpPageNames.SettingManagement_AppTheme,
+                    L(LKConstants.SettingManagement_AppTheme),
+                    url: "admincp/settings/theme",
+                    icon: "mdi mdi-television-guide",
+                    permissionDependency: new SimplePermissionDependency(PermissionNames.Pages_Languages),
+                    order: 2
+                    )
+                ).AddItem(
+                new MenuItemDefinition(
+                    AdminCpPageNames.SettingManagement_AppSystem,
+                    L(LKConstants.SettingManagement_AppSystem),
+                    url: "admincp/settings/system",
+                    icon: "mdi mdi-store-cog",
+                    permissionDependency: new SimplePermissionDependency(PermissionNames.Pages_Languages),
+                    order: 3
+                    )
+                ).AddItem(
+                new MenuItemDefinition(
+                    AdminCpPageNames.EmailConfiguration,
+                    L(LKConstants.EmailConfiguration),
+                    icon: "mdi mdi-cog-transfer-outline",
+                    permissionDependency: new SimplePermissionDependency(PermissionNames.Pages_Languages)
+                    ).AddItem(
+                    new MenuItemDefinition(
+                        AdminCpPageNames.EmailConfiguration_SetUpMailServer,
+                        L(LKConstants.EmailConfiguration_SetUpMailServer),
+                        url: "admincp/email-configuration/mail-server",
+                        icon: "mdi mdi-server-network",
+                        permissionDependency: new SimplePermissionDependency(PermissionNames.Pages_Languages)
+                        )
+                    ).AddItem(
+                    new MenuItemDefinition(
+                        AdminCpPageNames.EmailConfiguration_TextTemplates,
+                        L(LKConstants.EmailConfiguration_TextTemplates),
+                        url: "admincp/email-configuration/text-templates",
+                        icon: "mdi mdi-text-box-check-outline",
+                        permissionDependency: new SimplePermissionDependency(PermissionNames.Pages_Languages)
+                        )
+                    )
                 )
             );
 

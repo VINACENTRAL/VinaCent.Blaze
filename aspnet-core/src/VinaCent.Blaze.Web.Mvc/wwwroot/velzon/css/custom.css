@@ -18,10 +18,6 @@
     background: var(--vz-danger) !important;
 }
 
-.navbar-header {
-    padding-right: 0px;
-}
-
 .app-day-session-welcome-container {
     padding: calc(32px / 2) 0;
 }
@@ -44,4 +40,8 @@
 
 #back-to-top {
     bottom: 28px;
+}
+
+#page-header-user-dropdown {
+    padding-right: 0;
 }

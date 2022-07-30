@@ -1,7 +1,7 @@
 {
   "iisSettings": {
-    "windowsAuthentication": false,
-    "anonymousAuthentication": true,
+    "windowsAuthentication": true,
+    "anonymousAuthentication": false,
     "iisExpress": {
       "applicationUrl": "https://localhost:44312/",
       "sslPort": 44312
@@ -10,6 +10,7 @@
   "profiles": {
     "IIS Express": {
       "commandName": "IISExpress",
+      "commandLineArgs": "watch run",
       "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
@@ -17,11 +18,15 @@
     },
     "VinaCent.Blaze.Web": {
       "commandName": "Project",
+      "commandLineArgs": "watch run",
       "launchBrowser": true,
       "launchUrl": "https://localhost:44312",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
-      }
+      },
+      "hotReloadEnabled": true,
+      "applicationUrl": "https://localhost:44312",
+      "nativeDebugging": true
     }
   }
 }

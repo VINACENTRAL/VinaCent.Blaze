@@ -15,5 +15,14 @@ public class AdminCpPageNames
     public const string LanguageTextManagement = "LocalizationManagement.LanguageTextManagement";
 
     public const string AuditLogs = "AuditLogs";
-    public const string SecurityLogs = "SecurityLogs";    
+    public const string SecurityLogs = "SecurityLogs";
+
+    public const string SettingManagement = "SettingManagement";
+    public const string SettingManagement_AppMeta = "SettingManagement.AppMeta";
+    public const string SettingManagement_AppTheme = "SettingManagement.AppTheme";
+    public const string SettingManagement_AppSystem = "SettingManagement.AppSystem";
+
+    public const string EmailConfiguration = "EmailConfiguration";
+    public const string EmailConfiguration_SetUpMailServer = "EmailConfiguration.SetUpMailServer";
+    public const string EmailConfiguration_TextTemplates = "EmailConfiguration.TextTemplates";
 }

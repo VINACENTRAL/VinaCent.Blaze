@@ -9,6 +9,12 @@ namespace VinaCent.Blaze.Web.Areas.AdminCP.Controllers;
 [Route("admincp/dashboard")]
 public class DashboardController : BlazeControllerBase
 {
+    [HttpGet("/admincp")]
+    public IActionResult AdminCPRedirector()
+    {
+        return RedirectToAction(nameof(Index));
+    }
+
     // GET
     [HttpGet("")]
     public IActionResult Index()

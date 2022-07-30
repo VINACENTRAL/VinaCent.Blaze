@@ -1,2 +1,4 @@
 .github
 .github/*
+.DS_Store
+aspnet-core/.vscode

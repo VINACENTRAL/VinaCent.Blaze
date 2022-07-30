@@ -62,7 +62,7 @@ namespace VinaCent.Blaze.Web.Startup
             {
                 options.TextEncoderSettings = new TextEncoderSettings(UnicodeRanges.All);
             });
-            
+
             services.AddScoped<IWebResourceManager, WebResourceManager>();
 
             services.AddSignalR();

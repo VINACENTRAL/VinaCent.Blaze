@@ -5,6 +5,7 @@ using Abp.Reflection.Extensions;
 using VinaCent.Blaze.Configuration;
 using VinaCent.Blaze.Web.Areas.AdminCP.Common;
 using VinaCent.Blaze.Web.Areas.Client.Common;
+using VinaCent.Blaze.Web.Common;
 
 namespace VinaCent.Blaze.Web.Startup
 {
