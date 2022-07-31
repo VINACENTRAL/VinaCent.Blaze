@@ -2,23 +2,25 @@
 @using VinaCent.Blaze.Web.Startup
 @using VinaCent.Blaze.Configuration
 @using VinaCent.Blaze.AppCore.FileUnits.Dto
+@using VinaCent.Blaze.Web.Themes.Velzon.ThemeOptions
+@inject IVelzonThemeOptions ThemeOptions
+
 @{
+    ThemeOptions.AddBreadcrumb(L(LKConstants.FileManagement)).Commit(this);
     ViewBag.Title = L(AdminCpPageNames.FileManagement);
     ViewBag.CurrentPageName = AdminCpPageNames.FileManagement;
-
-    var siteName = await SettingManager.GetSettingValueAsync(AppSettingNames.SiteName);
 }
 
 @section styles {
-    <style>
-        .table-card td:first-child, .table-card th:first-child {
-            padding-left: 26px;
-        }
-    </style>
+<style>
+    .table-card td:first-child, .table-card th:first-child {
+        padding-left: 26px;
+    }
+</style>
 }
 
 @section scripts {
-    <script src="~/view-resources/Views/FileManagement/Index.js" asp-append-version="true"></script>
+<script src="~/view-resources/Views/FileManagement/Index.js" asp-append-version="true"></script>
 }
 
 <div class="card">
@@ -40,11 +42,16 @@
         </div>
     </div>
     <div class="card-body">
+        <div class="mb-3">
+            <div class="progress progress-step-arrow progress-primary app-file" id="appfilebreadcrumbs">
+                <div class="progress-bar"><span class="px-3"><i class="mdi mdi-folder-home"></i> Thư mục gốc</span></div>
+            </div>
+        </div>
         <div class="table-responsive">
-            <table id="FileUnitsTable" class="table table-card table-vcenter text-nowrap">
-                <thead>                 
+            <table id="FileUnitsTable" class="table table-striped table-bordered">
+                <thead>
                     <tr>
-                        <th><input class="form-check-input m-0 align-middle" type="checkbox"></th>
+                        <th></th>
                         <th>@L(LKConstants.Name)</th>
                         <th>@L(LKConstants.FileSize)</th>
                         <th>@L(LKConstants.Description)</th>

@@ -1,5 +1,5 @@
 :root {
-    /*--vz-body-font-size: 1rem;*/
+    --vz-body-font-size: .875rem;
 }
 
 .toast-success {
@@ -44,4 +44,40 @@
 
 #page-header-user-dropdown {
     padding-right: 0;
+}
+
+.app-file .progress-bar:not(:first-child) {
+    margin-left: 2px;
+    color: #FFF !important;
+}
+
+    .app-file .progress-bar:not(:first-child) span {
+        margin-left: 27px;
+    }
+
+.app-file .progress-bar:nth-child(2)::after {
+    border-left-color: #4b38b3;
+}
+
+.app-file.progress-primary .progress-bar {
+    background-color: #4b38b3 !important;
+}
+
+.app-file.progress-step-arrow .progress-bar::after {
+    border: 35px solid transparent;
+    bottom: -9px;
+    right: -62px;
+    border-left-color: #4b38b3 !important;
+}
+
+.app-file.progress-step-arrow .progress-bar:not(:first-child)::before {
+    content: "";
+    position: absolute;
+    border: 27px solid transparent;
+    z-index: 0;
+    border-left-color: var(--vz-card-bg) !important;
+}
+
+.pointer {
+    cursor: pointer;
 }

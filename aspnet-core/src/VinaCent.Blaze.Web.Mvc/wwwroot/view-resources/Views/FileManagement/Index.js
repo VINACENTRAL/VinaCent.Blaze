@@ -38,7 +38,9 @@
                     return [
                         `<input class="form-check-input m-0 align-middle" type="checkbox">`
                     ]
-                }
+                },
+                visible: false,
+                searchable: false,
             },
             {
                 targets: 1,
@@ -47,12 +49,12 @@
                 render: (data, type, row, meta) => {
                     if (row.isFolder == true) {
                         return [
-                            `<a href="" class="is-folder" data-path="${row.fullName}" data-id="${row.id}"><i class="mdi mdi-folder-outline"></i>${data}</a>`
+                            `<a href="" class="is-folder" data-path="${row.fullName}" data-id="${row.id}"><span class="fw-bold d-flex"><i class="ri-folder-fill me-1"></i> ${data}</span></a>`
                         ]
                     }
                     else {
                         return [
-                            `<i class="mdi mdi-file-outline"></i>${data}`
+                            `<span class="fw-bold d-flex"><i class="ri-file-3-fill me-1"></i> ${data}</span>`
                         ]
                     }
                 }
@@ -104,8 +106,7 @@
             return;
         }
 
-        if (_$directoryCreateForm.find('#current-directory').val == '')
-        {
+        if (_$directoryCreateForm.find('#current-directory').val == '') {
             _$directoryCreateForm.find('#current-directory').val = null
         }
 
@@ -136,7 +137,6 @@
         }
 
         var fileUnit = _$uploadFileForm.serializeFormToObject();
-        console.log(fileUnit);
         //abp.ui.setBusy(_$uploadFileForm);
         //_fileUnitService
         //    .uploadFile(fileUnit)
@@ -154,7 +154,7 @@
     $(document).on('click', '.delete-file-unit', function () {
         var fileUnitId = $(this).attr('data-file-unit-id');
         var fileUnitName = $(this).attr('data-file-unit-name');
-        
+
         deleteFileUnit(fileUnitId, fileUnitName);
     });
 
@@ -201,15 +201,61 @@
     //    console.log(result);
     //});
 
+    let breadcrumbStorage = [];
+
     _$table.on('click', '.is-folder', function (e) {
         e.preventDefault();
         const fullPath = $(this).attr("data-path");
         const dirId = $(this).attr("data-id");
-        $('#Directory').val(fullPath);
-        $('#current-directory-1').val(dirId);
-        $('#current-directory-2').val(dirId);
-        _$fileUnitsTable.ajax.reload();
+
+        updateStickData(dirId, fullPath);
+        breadcrumbStorage.push({
+            id: dirId ?? '',
+            path: fullPath,
+            name: [...fullPath.split('/')].pop()
+        });
+
+        renderBreadcrumb();
     });
+
+    function updateStickData(id, fullPath) {
+        $('#Directory').val(fullPath);
+        $('#current-directory-1').val(id);
+        $('#current-directory-2').val(id);
+    }
+
+    function renderBreadcrumb() {
+        const breadcumbs = [];
+        breadcumbs.push('<div class="progress-bar"><span class="px-3 pointer" data-change-dir=""><i class="mdi mdi-folder-home"></i> Thư mục gốc</span></div>');
+        breadcrumbStorage.forEach((item) => {
+            breadcumbs.push(`<div class="progress-bar"><span class="px-3 pointer" data-change-dir="${item.id}">${item.name}</span></div>`);
+        });
+        document.getElementById('appfilebreadcrumbs').innerHTML = breadcumbs.join('');
+        _$fileUnitsTable.ajax.reload();
+        processBreadcrumb();
+    }
+
+    function processBreadcrumb() {
+        $('[data-change-dir]').click((event) => {
+            event.preventDefault();
+            event.stopPropagation();
+
+            const item = $(event.currentTarget);
+            const id = item.data('change-dir') ?? '';
+            const index = breadcrumbStorage.findIndex((item) => item.id == id);
+
+            if (index >= 0) {
+                const crrDir = breadcrumbStorage[index];
+                if (crrDir.path == $('#Directory').val()) return;
+                updateStickData(crrDir.id, crrDir.path);
+            } else {
+                updateStickData(null, null);
+            }
+
+            breadcrumbStorage = breadcrumbStorage.slice(0, index + 1);
+            renderBreadcrumb();
+        });
+    }
 
     _$directoryCreateModal.on('shown.bs.modal', () => {
         _$directoryCreateModal.find('input:not([type=hidden]):first').focus();
