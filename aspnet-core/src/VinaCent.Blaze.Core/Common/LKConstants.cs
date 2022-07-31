@@ -156,4 +156,11 @@ public static class LKConstants
     public const string EmailConfiguration_TextTemplates = "EmailConfiguration.TextTemplates";
     public const string Settings = "Settings";
     public const string ProfileSettings = "ProfileSettings";
+    public const string Error400Title = "Error400Title";
+    public const string Error404Title = "Error404Title";
+    public const string Error500Title = "Error500Title";
+    public const string Error404Message = "Error404Message";
+    public const string Error404Description = "Error404Description";
+    public const string Error500Message = "Error500Message";
+    public const string Error500Description = "Error500Description";
 }

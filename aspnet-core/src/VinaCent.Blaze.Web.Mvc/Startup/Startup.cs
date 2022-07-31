@@ -84,16 +84,20 @@ namespace VinaCent.Blaze.Web.Startup
         {
             app.UseAbp(); // Initializes ABP framework.
 
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                app.UseExceptionHandler("/Error");
-            }
-
             app.UseHttpsRedirection();
+
+            //if (env.IsDevelopment())
+            //{
+            //    app.UseDeveloperExceptionPage();
+            //}
+            //else
+            //{
+            //    app.UseExceptionHandler("/Error");
+            //}
+
+            app.UseExceptionHandler("/Error");
+            app.UseStatusCodePagesWithReExecute("/Error", "?statusCode={0}");
+            app.UseHsts();
 
             app.UseStaticFiles();
 
