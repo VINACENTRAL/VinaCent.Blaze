@@ -16,13 +16,15 @@ namespace VinaCent.Blaze.Web.Controllers
             _errorInfoBuilder = errorInfoBuilder;
         }
 
-        public ActionResult Index()
+        public ActionResult Index([FromQuery] int statusCode = 0)
         {
             var exHandlerFeature = HttpContext.Features.Get<IExceptionHandlerFeature>();
 
             var exception = exHandlerFeature != null
                                 ? exHandlerFeature.Error
                                 : new Exception("Unhandled exception!");
+
+            ViewBag.StatusCode = statusCode;
 
             return View(
                 "Error",
