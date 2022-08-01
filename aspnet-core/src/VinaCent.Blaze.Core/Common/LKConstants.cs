@@ -183,4 +183,7 @@ public static class LKConstants
     public const string SmtpPassword = "SmtpPassword";
     public const string SmtpDomain = "SmtpDomain";
     public const string SmtpUseDefaultCredentials = "SmtpUseDefaultCredentials";
+    public const string Send = "Send";
+    public const string ConfigInformation = "ConfigInformation";
+    public const string TestEmailSender = "TestEmailSender";
 }

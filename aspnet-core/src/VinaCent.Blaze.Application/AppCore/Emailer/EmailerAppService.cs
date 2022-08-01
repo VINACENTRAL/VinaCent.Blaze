@@ -1,12 +1,23 @@
 ﻿using Abp.Configuration;
 using Abp.Net.Mail;
+using System;
+using System.Net.Mail;
 using System.Threading.Tasks;
+using VinaCent.Blaze.Authorization.Users;
+using VinaCent.Blaze.Configuration;
+using VinaCent.Blaze.Users.Dto;
 using VinaCent.Blaze.Web.Areas.AdminCP.Models.EmailConfiguration.SetUpMailServer;
 
 namespace VinaCent.Blaze.AppCore.Emailer
 {
     public class EmailerAppService : BlazeAppServiceBase, IEmailerAppService
     {
+        private readonly IEmailSender _emailSender;
+
+        public EmailerAppService(IEmailSender emailSender)
+        {
+            _emailSender = emailSender;
+        }
 
         public async Task<SetupEmailerDto> GetSetupAsync()
         {
@@ -51,6 +62,37 @@ namespace VinaCent.Blaze.AppCore.Emailer
                 await SettingManager.ChangeSettingForTenantAsync(AbpSession.TenantId.Value, EmailSettingNames.Smtp.Domain, input.SmtpDomain);
                 await SettingManager.ChangeSettingForTenantAsync(AbpSession.TenantId.Value, EmailSettingNames.Smtp.EnableSsl, input.SmtpEnableSsl.ToString().ToLower());
                 await SettingManager.ChangeSettingForTenantAsync(AbpSession.TenantId.Value, EmailSettingNames.Smtp.UseDefaultCredentials, input.SmtpUseDefaultCredentials.ToString().ToLower());
+            }
+        }
+
+        public async Task TestEmailSenderAsync(TestEmailSenderDto input)
+        {
+            var systemName = await SettingManager.GetSettingValueAsync(AppSettingNames.SiteName);
+
+            var preProcessReceivers = input.Receivers.Split(",", StringSplitOptions.RemoveEmptyEntries);
+
+            var currentUser = await UserManager.GetUserByIdAsync(AbpSession.UserId.Value);
+            var currentUserDto = ObjectMapper.Map<UserDto>(currentUser);
+
+            var subject = $"[{systemName}] Test Email Sender by [";
+            if (AbpSession.TenantId != null)
+            {
+                var currentTenant = await GetCurrentTenantAsync();
+                subject += $"{currentTenant.TenancyName}/";
+            }
+            else
+            {
+                subject += $"{currentUserDto.FullName}]";
+            }
+
+            foreach (var addr in preProcessReceivers)
+            {
+                //Send a notification email
+                await _emailSender.SendAsync(
+                    to: addr,
+                    subject: subject,
+                    body: input.Content
+                );
             }
         }
     }

@@ -8,5 +8,6 @@ namespace VinaCent.Blaze.AppCore.Emailer
     {
         Task<SetupEmailerDto> GetSetupAsync();
         Task SaveSetupAsync(SetupEmailerDto input);
+        Task TestEmailSenderAsync(TestEmailSenderDto input);
     }
 }

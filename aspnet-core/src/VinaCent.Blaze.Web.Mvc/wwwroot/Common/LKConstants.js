@@ -9,4 +9,7 @@
     static PasswordsDoNotMatch = 'PasswordsDoNotMatch';
     static Detail = 'Detail';
     static Test = 'Test';
+    static DoYouReallyWantToSaveTheseChanges = 'DoYouReallyWantToSaveTheseChanges';
+    static SendTestEmailSenderMessage = 'SendTestEmailSenderMessage';
+    static EmailHasBeenSentSuccessfully = 'EmailHasBeenSentSuccessfully';
 }
