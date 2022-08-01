@@ -10,10 +10,12 @@
             <div class="mb-3">
                 <label class="form-label" asp-for="Receivers"></label>
                 <input type="text" class="form-control" asp-for="Receivers">
+                <span asp-validation-for="Receivers" class="invalid-feedback"></span>
             </div>
             <div class="mb-3">
                 <label class="form-label" asp-for="Content"></label>
-                <textarea class="form-control" rows="10" asp-for="Content"></textarea>
+                <textarea class="form-control" rows="11" asp-for="Content"></textarea>
+                <span asp-validation-for="Content" class="invalid-feedback"></span>
             </div>
         </div>
         <div class="modal-footer justify-content-end">

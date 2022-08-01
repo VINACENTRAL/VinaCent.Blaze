@@ -1,13 +1,13 @@
 ﻿@using VinaCent.Blaze.AppCore.TextTemplates.Dto
 @using VinaCent.Blaze.MultiTenancy.Dto
+@using VinaCent.Blaze.Web.Areas.AdminCP.Models.EmailConfiguration.SetUpMailServer
 @using VinaCent.Blaze.Web.Areas.AdminCP.Models.EmailConfiguration.TextTemplates
 @using VinaCent.Blaze.Web.Models.Common.Modals
-@model TestTextTemplateModel
+@model TestTextTemplateDto
 @{
     Layout = null;
 }
 
-<script src="~/view-resources/Views/AdminCP/EmailConfiguration/TextTemplates/_TestModal.js" asp-append-version="true"></script>
 <div class="modal fade" id="TextTemplateTestModal" tabindex="-1" role="dialog" aria-labelledby="TextTemplateTestModalLabel" data-backdrop="static">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
@@ -18,9 +18,9 @@
                     <div class="required mb-3" id="test-text-template-title">
                     </div>
                     <div class="required mb-3">
-                        <label class="form-label" asp-for="Receivers"></label>
-                        <input type="text" class="form-control" asp-for="Receivers">
-                        <span asp-validation-for="Receivers" class="invalid-feedback"></span>
+                        <label class="form-label" asp-for="Receiver"></label>
+                        <input type="text" class="form-control" asp-for="Receiver">
+                        <span asp-validation-for="Receiver" class="invalid-feedback"></span>
                     </div>
                     <div class="required mb-3">
                         <label class="form-label" asp-for="Parameters"></label>

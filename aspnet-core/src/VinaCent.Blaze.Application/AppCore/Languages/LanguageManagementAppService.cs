@@ -25,6 +25,7 @@ namespace VinaCent.Blaze.AppCore.Languages
 
         public LanguageManagementAppService(IRepository<ApplicationLanguage> repository, IApplicationLanguageManager applicationLanguageManager) : base(repository)
         {
+            LocalizationSourceName = BlazeConsts.LocalizationSourceName;
             _applicationLanguageManager = applicationLanguageManager;
         }
 
