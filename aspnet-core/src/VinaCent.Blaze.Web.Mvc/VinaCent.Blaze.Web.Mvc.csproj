@@ -52,4 +52,7 @@
     <PackageReference Include="Abp.RedisCache" Version="7.3.0" />
     <PackageReference Include="Abp.Castle.Log4Net" Version="7.3.0" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Areas\AdminCP\Views\EmailConfiguration\SetUpMailServer\" />
+  </ItemGroup>
 </Project>

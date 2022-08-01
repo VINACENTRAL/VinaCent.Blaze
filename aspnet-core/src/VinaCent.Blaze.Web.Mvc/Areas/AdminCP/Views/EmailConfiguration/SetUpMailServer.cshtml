@@ -1,8 +1,89 @@
-﻿@using VinaCent.Blaze.Web.Themes.Velzon.ThemeOptions
+﻿@using VinaCent.Blaze.Web.Areas.AdminCP.Models.EmailConfiguration.SetUpMailServer
+@using VinaCent.Blaze.Web.Themes.Velzon.ThemeOptions
 @inject IVelzonThemeOptions ThemeOptions
 @using VinaCent.Blaze.Web.Areas.AdminCP.Common
+@model SetupEmailerDto
+
 @{
     ThemeOptions.AddBreadcrumb(L(LKConstants.SettingManagement)).AddBreadcrumb(L(LKConstants.EmailConfiguration)).AddBreadcrumb(L(LKConstants.EmailConfiguration_SetUpMailServer)).Commit(this);
     ViewBag.Title = L(LKConstants.EmailConfiguration_SetUpMailServer);
     ViewBag.CurrentPageName = AdminCpPageNames.EmailConfiguration_SetUpMailServer;
 }
+
+<div class="card">
+    <div class="card-body">
+        <div class="">
+            <div class="row">
+                <div class="col-12 col-md-6 mb-3">
+                    <label class="form-label" asp-for="DefaultFromAddress"></label>
+                    <input type="text" class="form-control" asp-for="DefaultFromAddress">
+                    <span asp-validation-for="DefaultFromAddress" class="invalid-feedback"></span>
+                </div>
+                <div class="col-12 col-md-6 mb-3">
+                    <label class="form-label" asp-for="DefaultFromDisplayName"></label>
+                    <input type="text" class="form-control" asp-for="DefaultFromDisplayName">
+                    <span asp-validation-for="DefaultFromDisplayName" class="invalid-feedback"></span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="row">
+                        <div class="col-12 col-md-6 mb-3">
+                            <label class="form-label" asp-for="SmtpHost"></label>
+                            <input type="text" class="form-control" asp-for="SmtpHost">
+                            <span asp-validation-for="SmtpHost" class="invalid-feedback"></span>
+                        </div>
+                        <div class="col-12 col-md-6 mb-3">
+                            <div class="form-check form-switch form-check-right mb-2 d-flex justify-content-between flex-row-reverse">
+                                <input class="form-check-input m-0" type="checkbox" role="switch" asp-for="SmtpUseDefaultCredentials" value="true">
+                                <label class="form-check-label" asp-for="SmtpUseDefaultCredentials"></label>
+                            </div>
+                            <span asp-validation-for="SmtpHost" class="invalid-feedback"></span>
+
+                            <div class="form-check form-switch form-check-right mb-2 d-flex justify-content-between flex-row-reverse">
+                                <input class="form-check-input m-0" type="checkbox" role="switch" asp-for="SmtpUseDefaultCredentials" value="true">
+                                <label class="form-check-label" asp-for="SmtpEnableSsl"></label>
+                            </div>
+                            <span asp-validation-for="SmtpHost" class="invalid-feedback"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-md-6">
+                    <div class="row">
+                        <div class="col-12 col-md-6 mb-3">
+                            <label class="form-label" asp-for="SmtpDomain"></label>
+                            <input type="text" class="form-control" asp-for="SmtpDomain">
+                            <span asp-validation-for="SmtpDomain" class="invalid-feedback"></span>
+                        </div>
+                        <div class="col-12 col-md-6 mb-3">
+                            <label class="form-label" asp-for="SmtpPort"></label>
+                            <input type="number" class="form-control" asp-for="SmtpPort">
+                            <span asp-validation-for="SmtpPort" class="invalid-feedback"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6">
+                    <div class="row">
+                        <div class="col-12 col-md-6 mb-3">
+                            <label class="form-label" asp-for="SmtpUserName"></label>
+                            <input type="text" class="form-control" asp-for="SmtpUserName">
+                            <span asp-validation-for="SmtpUserName" class="invalid-feedback"></span>
+                        </div>
+                        <div class="col-12 col-md-6 mb-3">
+                            <label class="form-label" asp-for="SmtpPassword"></label>
+                            <input type="text" class="form-control" asp-for="SmtpPassword">
+                            <span asp-validation-for="SmtpPassword" class="invalid-feedback"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer justify-content-between">
+        <button type="button" class="btn btn-success waves-effect waves-light close-button" data-bs-dismiss="modal"><i class="mdi mdi-send me-2"></i> @L(LKConstants.TestTextTemplate)</button>
+        <button type="button" class="btn btn-primary waves-effect waves-light save-button">@L(LKConstants.Save)</button>
+    </div>
+</div>
