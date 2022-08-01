@@ -53,10 +53,10 @@
                 data: 'serviceName',
                 sortable: false,
                 render: (data, type, row, meta) => {
-                    let strArr = data.split(".");
-                    const methodName = strArr[strArr.length - 1];
+                    const length = data.length;
+                    const methodName = data.substring(length - 20, length);
                     return [
-                        `   <div class="mid-truncate" data-type="${methodName}">`,
+                        `   <div class="mid-truncate" data-type="${methodName}" title="${data}">`,
                         `       <p>${data}</p>`,
                         `   </div>`
                     ].join('');

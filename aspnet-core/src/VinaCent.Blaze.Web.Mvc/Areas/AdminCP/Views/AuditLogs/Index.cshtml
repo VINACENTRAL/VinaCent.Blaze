@@ -1,6 +1,9 @@
 ﻿@using VinaCent.Blaze.AppCore.AuditLogs.Dto
 @using VinaCent.Blaze.Web.Areas.AdminCP.Common
+@using VinaCent.Blaze.Web.Themes.Velzon.ThemeOptions
+@inject IVelzonThemeOptions ThemeOptions
 @{
+    ThemeOptions.AddBreadcrumb(L(LKConstants.AuditLogs)).Commit(this);
     ViewBag.Title = L(AdminCpPageNames.AuditLogs);
     ViewBag.CurrentPageName = AdminCpPageNames.AuditLogs;
 }
@@ -23,16 +26,7 @@
           position: absolute;
           left: 100%;
           top: 0;
-        }
-
-        /*Show on hover*/
-
-        .mid-truncate:hover {
-          width: auto
-        }
-
-        .mid-truncate:hover:after {
-          display: none;
+          cursor: text;
         }
     </style>
 }
