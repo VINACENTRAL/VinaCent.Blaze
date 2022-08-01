@@ -41,23 +41,39 @@ public class AdminCpNavigationProvider : NavigationProvider
                     icon: "mdi mdi-office-building",
                     permissionDependency: new SimplePermissionDependency(PermissionNames.Pages_Tenants)
                 )
-            ).AddItem(
+            )
+            .AddItem(
                 new MenuItemDefinition(
-                    AdminCpPageNames.Users,
-                    L(LKConstants.Users),
-                    url: "admincp/users",
-                    icon: "mdi mdi-account-multiple",
-                    permissionDependency: new SimplePermissionDependency(PermissionNames.Pages_Users)
+                    AdminCpPageNames.IdentityManagement,
+                    L(LKConstants.IdentityManagement),
+                    icon: "mdi mdi-wrench",
+                    permissionDependency: new SimplePermissionDependency(PermissionNames.Pages_Users, PermissionNames.Pages_Roles)
+                ).AddItem(
+                    new MenuItemDefinition(
+                        AdminCpPageNames.Users,
+                        L(LKConstants.Users),
+                        url: "admincp/users",
+                        icon: "mdi mdi-account-multiple",
+                        permissionDependency: new SimplePermissionDependency(PermissionNames.Pages_Users)
+                    )
+                ).AddItem(
+                    new MenuItemDefinition(
+                        AdminCpPageNames.Roles,
+                        L(LKConstants.Roles),
+                        url: "admincp/roles",
+                        icon: "mdi mdi-drama-masks",
+                        permissionDependency: new SimplePermissionDependency(PermissionNames.Pages_Roles)
+                    )
+                ).AddItem(
+                    new MenuItemDefinition(
+                        AdminCpPageNames.SecurityLogs,
+                        L(LKConstants.SecurityLogs),
+                        url: "admincp/security-logs",
+                        icon: "mdi mdi-security"
+                    )
                 )
-            ).AddItem(
-                new MenuItemDefinition(
-                    AdminCpPageNames.Roles,
-                    L(LKConstants.Roles),
-                    url: "admincp/roles",
-                    icon: "mdi mdi-drama-masks",
-                    permissionDependency: new SimplePermissionDependency(PermissionNames.Pages_Roles)
-                )
-            ).AddItem(
+            )
+            .AddItem(
                 new MenuItemDefinition(
                     AdminCpPageNames.LocalizationManagement,
                     L(LKConstants.LocalizationManagement),

@@ -1,5 +1,8 @@
 ﻿@using VinaCent.Blaze.Web.Areas.AdminCP.Common
+@using VinaCent.Blaze.Web.Themes.Velzon.ThemeOptions
+@inject IVelzonThemeOptions ThemeOptions
 @{
+    ThemeOptions.AddBreadcrumb(L(LKConstants.SecurityLogs)).Commit(this);
     ViewBag.Title = L(AdminCpPageNames.SecurityLogs);
     ViewBag.CurrentPageName = AdminCpPageNames.SecurityLogs;
 }
