@@ -3,6 +3,7 @@ using Abp.Localization;
 using Abp.Runtime.Session;
 using Microsoft.Extensions.DependencyInjection;
 using System.Threading.Tasks;
+using VinaCent.Blaze.Authorization.CurrentUser;
 using VinaCent.Blaze.Authorization.Users;
 using VinaCent.Blaze.Web.Common;
 using VinaCent.Blaze.Web.Views.Profile.Components.ProfilePassword;
