@@ -165,4 +165,25 @@ public static class LKConstants
     public const string Error500Description = "Error500Description";
     public const string SecurityLogs = "SecurityLogs";
     public const string IdentityManagement = "IdentityManagement";
+    public const string Content = "Content";
+    public const string EditTextTemplate = "EditTextTemplate";
+    public const string CreateNewTextTemplate = "CreateNewTextTemplate";
+    public const string Email_SecurityCode = "Email::SecurityCode";
+    public const string Email_EmailConfirmation = "Email::EmailConfirmation";
+    public const string Email_PasswordReset = "Email::PasswordReset";
+    public const string Email_GithubReleaseBuildCompleted = "Email::GithubReleaseBuildCompleted";
+    public const string TestTextTemplate = "TestTextTemplate";
+    public const string Receivers = "Receivers";
+    public const string DefaultFromAddress = "DefaultFromAddress";
+    public const string DefaultFromDisplayName = "DefaultFromDisplayName";
+    public const string SmtpHost = "SmtpHost";
+    public const string SmtpEnableSsl = "SmtpEnableSsl";
+    public const string SmtpPort = "SmtpPort";
+    public const string SmtpUserName = "SmtpUserName";
+    public const string SmtpPassword = "SmtpPassword";
+    public const string SmtpDomain = "SmtpDomain";
+    public const string SmtpUseDefaultCredentials = "SmtpUseDefaultCredentials";
+    public const string Send = "Send";
+    public const string ConfigInformation = "ConfigInformation";
+    public const string TestEmailSender = "TestEmailSender";
 }
