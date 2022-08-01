@@ -163,4 +163,6 @@ public static class LKConstants
     public const string Error404Description = "Error404Description";
     public const string Error500Message = "Error500Message";
     public const string Error500Description = "Error500Description";
+    public const string SecurityLogs = "SecurityLogs";
+    public const string IdentityManagement = "IdentityManagement";
 }
