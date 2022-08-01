@@ -86,7 +86,7 @@
             .done(function () {
                 _$modal.modal('hide');
                 _$form[0].reset();
-                abp.notify.info(l('SavedSuccessfully'));
+                abp.notify.info(l(LKConstants.SavedSuccessfully));
                 _$textTemplatesTable.ajax.reload();
             })
             .always(function () {
@@ -134,7 +134,7 @@
                             id: textTemplateId
                         })
                         .done(() => {
-                            abp.notify.info(l('SuccessfullyDeleted'));
+                            abp.notify.info(l(LKConstants.SuccessfullyDeleted));
                             _$textTemplatesTable.ajax.reload();
                         });
                 }
@@ -192,22 +192,28 @@
             return;
         }
 
-        var textTemplate = _$formTest.serializeFormToObject();
+        abp.message.confirm(
+            l(LKConstants.SendTestEmailSenderMessage),
+            null,
+            (isConfirmed) => {
+                if (isConfirmed) {
+                    var data = _$formTest.serializeFormToObject();
 
-        abp.ui.setBusy(_$modalTest);
+                    abp.ui.setBusy(_$modalTest);
 
-        // TODO: Create update for this field. Action in controller for process it
-        _textTemplateService
-            .create(textTemplate)
-            .done(function () {
-                _$modalTest.modal('hide');
-                _$formTest[0].reset();
-                abp.notify.info(l('SavedSuccessfully'));
-                _$textTemplatesTable.ajax.reload();
-            })
-            .always(function () {
-                abp.ui.clearBusy(_$modalTest);
-            });
+                    _textTemplateService
+                        .testTextTemplate(data)
+                        .done(function () {
+                            _$modalTest.modal('hide');
+                            _$formTest[0].reset();
+                            abp.notify.success(l(LKConstants.EmailHasBeenSentSuccessfully));
+                        })
+                        .always(function () {
+                            abp.ui.clearBusy(_$modalTest);
+                        });
+                }
+            }
+        );
     });
     // End extend
 })(jQuery);

@@ -78,7 +78,7 @@
                     _emailerService
                         .testEmailSender(data)
                         .done(function () {
-                            abp.notify.info(l(LKConstants.EmailHasBeenSentSuccessfully));
+                            abp.notify.success(l(LKConstants.EmailHasBeenSentSuccessfully));
                         })
                         .always(function () {
                             abp.ui.clearBusy(_$formTest);

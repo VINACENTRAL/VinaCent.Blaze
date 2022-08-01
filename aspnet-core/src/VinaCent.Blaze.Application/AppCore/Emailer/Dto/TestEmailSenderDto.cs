@@ -1,4 +1,5 @@
 ﻿using Abp.Localization;
+using System;
 using System.ComponentModel.DataAnnotations;
 using VinaCent.Blaze.Common;
 

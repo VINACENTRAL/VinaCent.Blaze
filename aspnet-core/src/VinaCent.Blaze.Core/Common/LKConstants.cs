@@ -174,6 +174,7 @@ public static class LKConstants
     public const string Email_GithubReleaseBuildCompleted = "Email::GithubReleaseBuildCompleted";
     public const string TestTextTemplate = "TestTextTemplate";
     public const string Receivers = "Receivers";
+    public const string Receiver = "Receiver";
     public const string DefaultFromAddress = "DefaultFromAddress";
     public const string DefaultFromDisplayName = "DefaultFromDisplayName";
     public const string SmtpHost = "SmtpHost";

@@ -71,7 +71,7 @@ namespace VinaCent.Blaze.AppCore.Emailer
 
             var preProcessReceivers = input.Receivers.Split(",", StringSplitOptions.RemoveEmptyEntries);
 
-            var currentUser = await UserManager.GetUserByIdAsync(AbpSession.UserId.Value);
+            var currentUser = await GetCurrentUserAsync();
             var currentUserDto = ObjectMapper.Map<UserDto>(currentUser);
 
             var subject = $"[{systemName}] Test Email Sender by [";
@@ -82,18 +82,23 @@ namespace VinaCent.Blaze.AppCore.Emailer
             }
             else
             {
-                subject += $"{currentUserDto.FullName}]";
+                subject += $"{currentUserDto.UserName}]";
             }
+
+            var mailMsg = new MailMessage
+            {
+                Subject = subject,
+                Body = input.Content,
+                IsBodyHtml = true
+            };
 
             foreach (var addr in preProcessReceivers)
             {
-                //Send a notification email
-                await _emailSender.SendAsync(
-                    to: addr,
-                    subject: subject,
-                    body: input.Content
-                );
+                mailMsg.To.Add(addr);
             }
+
+            //Send a notification email
+            await _emailSender.SendAsync(mailMsg);
         }
     }
 }

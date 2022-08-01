@@ -18,6 +18,9 @@
     <NoWarn>1701;1702;1591</NoWarn>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="Abp.MailKit" Version="7.3.0" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\VinaCent.Blaze.Core\VinaCent.Blaze.Core.csproj" />
   </ItemGroup>
 </Project>

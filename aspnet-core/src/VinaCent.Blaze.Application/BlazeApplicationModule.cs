@@ -1,4 +1,5 @@
 ﻿using Abp.AutoMapper;
+using Abp.MailKit;
 using Abp.Modules;
 using Abp.Reflection.Extensions;
 using VinaCent.Blaze.Authorization;
@@ -6,8 +7,9 @@ using VinaCent.Blaze.Authorization;
 namespace VinaCent.Blaze
 {
     [DependsOn(
-        typeof(BlazeCoreModule), 
-        typeof(AbpAutoMapperModule))]
+        typeof(BlazeCoreModule),
+        typeof(AbpAutoMapperModule),
+        typeof(AbpMailKitModule))]
     public class BlazeApplicationModule : AbpModule
     {
         public override void PreInitialize()
