@@ -7,6 +7,7 @@ using Abp.UI;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Mail;
 using System.Threading.Tasks;
 using VinaCent.Blaze.AppCore.TextTemplates.Dto;
@@ -97,6 +98,35 @@ namespace VinaCent.Blaze.AppCore.TextTemplates
         protected Task<Tenant> GetCurrentTenantAsync()
         {
             return _tenantManager.GetByIdAsync(AbpSession.GetTenantId());
+        }
+
+        public Task<TextTemplateDto> GetPasswordResetTemplateAsync()
+        {
+            return GetByNameAsync(TextTemplate.PasswordReset.Name);
+        }
+
+        public Task<TextTemplateDto> GetEmailConfirmationAsync()
+        {
+            return GetByNameAsync(TextTemplate.EmailConfirmation.Name);
+        }
+
+        public Task<TextTemplateDto> GetSecurityCodeAsync()
+        {
+            return GetByNameAsync(TextTemplate.SecurityCode.Name);
+        }
+
+        public Task<TextTemplateDto> GetWelcomeAfterJoinSystemAsync()
+        {
+            return GetByNameAsync(TextTemplate.WelcomeAfterJoinSystem.Name);
+        }
+
+        public async Task<TextTemplateDto> GetByNameAsync(string name)
+        {
+            var template = await Repository.FirstOrDefaultAsync(x => x.Name == name);
+            if (template == null && TextTemplate.Defaults.Any(x => x.Name == name))
+                template = TextTemplate.Defaults.FirstOrDefault(x => x.Name == name);
+
+            return MapToEntityDto(template);
         }
     }
 }

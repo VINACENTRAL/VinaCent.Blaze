@@ -10,5 +10,11 @@ namespace VinaCent.Blaze.AppCore.TextTemplates
     {
         Task<PagedResultDto<TextTemplateListDto>> GetAllListAsync(PagedTextTemplateResultRequestDto input);
         Task TestTextTemplateAsync(TestTextTemplateDto input);
+
+        Task<TextTemplateDto> GetByNameAsync(string name);
+        Task<TextTemplateDto> GetPasswordResetTemplateAsync();
+        Task<TextTemplateDto> GetEmailConfirmationAsync();
+        Task<TextTemplateDto> GetSecurityCodeAsync();
+        Task<TextTemplateDto> GetWelcomeAfterJoinSystemAsync();
     }
 }

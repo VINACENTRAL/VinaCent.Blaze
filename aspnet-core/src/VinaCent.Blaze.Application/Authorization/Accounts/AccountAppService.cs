@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using Abp.Configuration;
+using Abp.UI;
 using Abp.Zero.Configuration;
 using VinaCent.Blaze.Authorization.Accounts.Dto;
 using VinaCent.Blaze.Authorization.Users;
@@ -8,9 +9,6 @@ namespace VinaCent.Blaze.Authorization.Accounts
 {
     public class AccountAppService : BlazeAppServiceBase, IAccountAppService
     {
-        // from: http://regexlib.com/REDetails.aspx?regexp_id=1923
-        public const string PasswordRegex = "(?=^.{8,}$)(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\\s)[0-9a-zA-Z!@#$%^&*()]*$";
-
         private readonly UserRegistrationManager _userRegistrationManager;
 
         public AccountAppService(
@@ -52,6 +50,17 @@ namespace VinaCent.Blaze.Authorization.Accounts
             {
                 CanLogin = user.IsActive && (user.IsEmailConfirmed || !isEmailConfirmationRequiredForLogin)
             };
+        }
+
+        public async Task ResetPassword(ResetPasswordInput input)
+        {
+            var user = await UserManager.FindByEmailAsync(input.EmailAddress);
+            if (user == null)
+            {
+                throw new UserFriendlyException(LKConstants.NoAccountsHaveBeenRegisteredWithThisEmailYet);
+            }
+
+            await UserManager.ResetPasswordAsync(user, input.Token, input.NewPassword);
         }
     }
 }

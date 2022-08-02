@@ -40,6 +40,7 @@ namespace VinaCent.Blaze
             
             Configuration.Settings.SettingEncryptionConfiguration.DefaultPassPhrase = BlazeConsts.DefaultPassPhrase;
             SimpleStringCipher.DefaultPassPhrase = BlazeConsts.DefaultPassPhrase;
+
         }
 
         public override void Initialize()
