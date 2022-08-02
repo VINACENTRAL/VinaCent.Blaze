@@ -33,11 +33,9 @@ using VinaCent.Blaze.Helpers.Encryptions;
 using VinaCent.Blaze.Configuration;
 using Abp.Net.Mail;
 using VinaCent.Blaze.AppCore.TextTemplates;
-using Microsoft.EntityFrameworkCore;
-using VinaCent.Blaze.Encryptions;
 using VinaCent.Blaze.Utilities;
-using System.Collections;
 using VinaCent.Blaze.Authorization.Accounts.Dto;
+using System.Web;
 
 namespace VinaCent.Blaze.Web.Controllers
 {
@@ -413,9 +411,44 @@ namespace VinaCent.Blaze.Web.Controllers
             return View();
         }
 
-        [HttpGet("reset-password/verify/{verify}")]
+        [HttpPost("reset-password")]
         [UnitOfWork]
-        public async Task<IActionResult> VerifyAndChangePassword([FromRoute] string verify, [FromQuery] string key, [FromQuery] string email)
+        public async Task<JsonResult> RequestResetPassword(ResetPasswordRequestInput input)
+        {
+            var user = await _userManager.FindByEmailAsync(input.EmailAddress);
+            if (user == null)
+            {
+                throw new UserFriendlyException(LKConstants.NoAccountsHaveBeenRegisteredWithThisEmailYet);
+            }
+
+            var template = await _textTemplateAppService.GetPasswordResetTemplateAsync();
+
+            var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+
+            // Random keycode
+            var key = Guid.NewGuid().ToString("N")[..4].ToUpper();
+
+            // For security double
+            var verify = _aesHelper.Encrypt($"{user.UserName}|{token}", key);
+
+            verify = HttpUtility.UrlEncode(verify);
+
+            var path = HttpContext.Request.GetCurrentHost() + Url.Action(nameof(VerifyAndChangePassword), "Account", new { verify, key, email = user.EmailAddress });
+
+            var pathWithoutKey = HttpContext.Request.GetCurrentHost() + Url.Action(nameof(VerifyAndChangePassword), "Account", new { verify, email = user.EmailAddress });
+
+            var systemName = await SettingManager.GetSettingValueAsync(AppSettingNames.SiteName);
+
+            var subject = $"[{systemName.ToUpper()}] {L(template.Name)}";
+
+            await _emailSender.SendAsync(user.EmailAddress, subject, template.Apply(path, key));
+
+            return Json(new AjaxResponse { TargetUrl = pathWithoutKey });
+        }
+
+        [HttpGet("reset-password/verify")]
+        [UnitOfWork]
+        public async Task<IActionResult> VerifyAndChangePassword([FromQuery] string verify, [FromQuery] string key, [FromQuery] string email)
         {
             ViewBag.Email = email;
             ViewBag.Verify = verify;
@@ -433,6 +466,7 @@ namespace VinaCent.Blaze.Web.Controllers
             string userName, token;
             try
             {
+                verify = HttpUtility.UrlDecode(verify);
                 verify = _aesHelper.Decrypt(verify, key);
                 var raw = verify.Split("|");
                 userName = raw[0];
@@ -456,43 +490,12 @@ namespace VinaCent.Blaze.Web.Controllers
             var model = new ResetPasswordInput
             {
                 EmailAddress = user.EmailAddress,
-                Token = token,
-                NewPassword = "123456"
+                Token = token
             };
 
             return View(model);
         }
 
-        [HttpPost("reset-password/{email}")]
-        [UnitOfWork]
-        public async Task<JsonResult> RequestResetPassword(string email)
-        {
-            var user = await _userManager.FindByEmailAsync(email);
-            if (user == null)
-            {
-                throw new UserFriendlyException(LKConstants.NoAccountsHaveBeenRegisteredWithThisEmailYet);
-            }
-
-            var template = await _textTemplateAppService.GetPasswordResetTemplateAsync();
-
-            var token = await _userManager.GeneratePasswordResetTokenAsync(user);
-
-            // Random keycode
-            var key = Guid.NewGuid().ToString("N")[..4].ToUpper();
-
-            // For security double
-            var verify = _aesHelper.Encrypt($"{user.UserName}|{token}", key);
-
-            var path = HttpContext.Request.GetCurrentUri() + Url.Action(nameof(VerifyAndChangePassword), "Account", new { verify, key, email = user.EmailAddress });
-
-            var systemName = await SettingManager.GetSettingValueAsync(AppSettingNames.SiteName);
-
-            var subject = $"[{systemName}] {L(template.Name)}";
-
-            await _emailSender.SendAsync(user.EmailAddress, subject, template.Apply(path));
-
-            return Json(new AjaxResponse());
-        }
         #endregion
 
 

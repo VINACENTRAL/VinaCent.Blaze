@@ -12,4 +12,5 @@
     static DoYouReallyWantToSaveTheseChanges = 'DoYouReallyWantToSaveTheseChanges';
     static SendTestEmailSenderMessage = 'SendTestEmailSenderMessage';
     static EmailHasBeenSentSuccessfully = 'EmailHasBeenSentSuccessfully';
+    static PasswordResetSuccessful = 'PasswordResetSuccessful';
 }

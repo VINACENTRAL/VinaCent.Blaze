@@ -200,4 +200,11 @@ public static class LKConstants
     public const string Unsuccessful = "Unsuccessful";
     public const string WaitIRememberMyPassword = "WaitIRememberMyPassword";
     public const string ChangePassword = "ChangePassword";
+    public const string ResetPasswordDescription = "ResetPasswordDescription";
+    public const string SendResetLink = "SendResetLink";
+    public const string ForgotPasswordTitle = "ForgotPasswordTitle";
+    public const string ForgotPasswordDescription = "ForgotPasswordDescription";
+    public const string PasswordResetSuccessful = "PasswordResetSuccessful";
+    public const string Token = "Token";
+    public const string NewPassword = "NewPassword";
 }
