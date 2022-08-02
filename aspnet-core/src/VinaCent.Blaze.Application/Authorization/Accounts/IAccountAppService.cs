@@ -9,5 +9,6 @@ namespace VinaCent.Blaze.Authorization.Accounts
         Task<IsTenantAvailableOutput> IsTenantAvailable(IsTenantAvailableInput input);
 
         Task<RegisterOutput> Register(RegisterInput input);
+        Task ResetPassword(ResetPasswordInput input);
     }
 }

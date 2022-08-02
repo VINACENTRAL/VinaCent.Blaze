@@ -31,6 +31,11 @@ using VinaCent.Blaze.Web.Common;
 using VinaCent.Blaze.Sessions.Dto;
 using VinaCent.Blaze.Helpers.Encryptions;
 using VinaCent.Blaze.Configuration;
+using Abp.Net.Mail;
+using VinaCent.Blaze.AppCore.TextTemplates;
+using VinaCent.Blaze.Utilities;
+using VinaCent.Blaze.Authorization.Accounts.Dto;
+using System.Web;
 
 namespace VinaCent.Blaze.Web.Controllers
 {
@@ -61,6 +66,10 @@ namespace VinaCent.Blaze.Web.Controllers
 
         private readonly IAESHelper _aesHelper;
 
+        private readonly ITextTemplateAppService _textTemplateAppService;
+
+        private readonly IEmailSender _emailSender;
+
         public AccountController(
             UserManager userManager,
             IMultiTenancyConfig multiTenancyConfig,
@@ -73,7 +82,9 @@ namespace VinaCent.Blaze.Web.Controllers
             ISessionAppService sessionAppService,
             ITenantCache tenantCache,
             INotificationPublisher notificationPublisher,
-            IAESHelper aesHelper)
+            IAESHelper aesHelper,
+            ITextTemplateAppService textTemplateAppService,
+            IEmailSender emailSender)
         {
             _userManager = userManager;
             _multiTenancyConfig = multiTenancyConfig;
@@ -87,6 +98,8 @@ namespace VinaCent.Blaze.Web.Controllers
             _tenantCache = tenantCache;
             _notificationPublisher = notificationPublisher;
             _aesHelper = aesHelper;
+            _textTemplateAppService = textTemplateAppService;
+            _emailSender = emailSender;
         }
 
 
@@ -164,7 +177,8 @@ namespace VinaCent.Blaze.Web.Controllers
             if (await SettingManager.GetSettingValueAsync<bool>(AppSettingNames.AppSys_DoNotShowLogoutScreen))
             {
                 return RedirectToAction("Login");
-            } else
+            }
+            else
             {
                 return View();
             }
@@ -396,6 +410,92 @@ namespace VinaCent.Blaze.Web.Controllers
         {
             return View();
         }
+
+        [HttpPost("reset-password")]
+        [UnitOfWork]
+        public async Task<JsonResult> RequestResetPassword(ResetPasswordRequestInput input)
+        {
+            var user = await _userManager.FindByEmailAsync(input.EmailAddress);
+            if (user == null)
+            {
+                throw new UserFriendlyException(LKConstants.NoAccountsHaveBeenRegisteredWithThisEmailYet);
+            }
+
+            var template = await _textTemplateAppService.GetPasswordResetTemplateAsync();
+
+            var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+
+            // Random keycode
+            var key = Guid.NewGuid().ToString("N")[..4].ToUpper();
+
+            // For security double
+            var verify = _aesHelper.Encrypt($"{user.UserName}|{token}", key);
+
+            verify = HttpUtility.UrlEncode(verify);
+
+            var path = HttpContext.Request.GetCurrentHost() + Url.Action(nameof(VerifyAndChangePassword), "Account", new { verify, key, email = user.EmailAddress });
+
+            var pathWithoutKey = HttpContext.Request.GetCurrentHost() + Url.Action(nameof(VerifyAndChangePassword), "Account", new { verify, email = user.EmailAddress });
+
+            var systemName = await SettingManager.GetSettingValueAsync(AppSettingNames.SiteName);
+
+            var subject = $"[{systemName.ToUpper()}] {L(template.Name)}";
+
+            await _emailSender.SendAsync(user.EmailAddress, subject, template.Apply(path, key));
+
+            return Json(new AjaxResponse { TargetUrl = pathWithoutKey });
+        }
+
+        [HttpGet("reset-password/verify")]
+        [UnitOfWork]
+        public async Task<IActionResult> VerifyAndChangePassword([FromQuery] string verify, [FromQuery] string key, [FromQuery] string email)
+        {
+            ViewBag.Email = email;
+            ViewBag.Verify = verify;
+
+            if (string.IsNullOrEmpty(key))
+            {
+                if (email.IsNullOrEmpty())
+                {
+                    return NotFound();
+                }
+
+                return View("~/Views/Account/ResetPassword/VerifyKeyCode.cshtml");
+            }
+
+            string userName, token;
+            try
+            {
+                verify = HttpUtility.UrlDecode(verify);
+                verify = _aesHelper.Decrypt(verify, key);
+                var raw = verify.Split("|");
+                userName = raw[0];
+                token = raw[1];
+            }
+            catch (Exception)
+            {
+                ViewBag.Status = false;
+                ViewBag.Message = L(LKConstants.VerificationFailed);
+                return View("~/Views/Account/ResetPassword/VerifyStatus.cshtml");
+            }
+
+            var user = await _userManager.FindByNameAsync(userName);
+            if (user == null)
+            {
+                ViewBag.Status = false;
+                ViewBag.Message = L(LKConstants.UserDoesNotExistOnTheSystem);
+                return View("~/Views/Account/ResetPassword/VerifyStatus.cshtml");
+            }
+
+            var model = new ResetPasswordInput
+            {
+                EmailAddress = user.EmailAddress,
+                Token = token
+            };
+
+            return View(model);
+        }
+
         #endregion
 
 

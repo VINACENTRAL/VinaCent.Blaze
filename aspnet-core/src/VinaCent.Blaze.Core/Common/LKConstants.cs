@@ -187,4 +187,24 @@ public static class LKConstants
     public const string Send = "Send";
     public const string ConfigInformation = "ConfigInformation";
     public const string TestEmailSender = "TestEmailSender";
+    public const string NoAccountsHaveBeenRegisteredWithThisEmailYet = "NoAccountsHaveBeenRegisteredWithThisEmailYet";
+    public const string VerificationFailed = "VerificationFailed";
+    public const string UserDoesNotExistOnTheSystem = "UserDoesNotExistOnTheSystem";
+    public const string EnterSecurityCode = "EnterSecurityCode";
+    public const string PleaseEnterThe_X_CharacterCodeSentTo = "PleaseEnterThe_X_CharacterCodeSentTo";
+    public const string Confirm = "Confirm";
+    public const string Resend = "Resend";
+    public const string DidntReceiveACode = "DidntReceiveACode";
+    public const string TryAgain = "TryAgain";
+    public const string Successful = "Successful";
+    public const string Unsuccessful = "Unsuccessful";
+    public const string WaitIRememberMyPassword = "WaitIRememberMyPassword";
+    public const string ChangePassword = "ChangePassword";
+    public const string ResetPasswordDescription = "ResetPasswordDescription";
+    public const string SendResetLink = "SendResetLink";
+    public const string ForgotPasswordTitle = "ForgotPasswordTitle";
+    public const string ForgotPasswordDescription = "ForgotPasswordDescription";
+    public const string PasswordResetSuccessful = "PasswordResetSuccessful";
+    public const string Token = "Token";
+    public const string NewPassword = "NewPassword";
 }

@@ -8,5 +8,10 @@ namespace VinaCent.Blaze.Utilities
         {
             return currentRequest.Scheme + "://" + currentRequest.Host + currentRequest.Path;
         }
+
+        public static string GetCurrentHost(this HttpRequest currentRequest)
+        {
+            return currentRequest.Scheme + "://" + currentRequest.Host;
+        }
     }
 }

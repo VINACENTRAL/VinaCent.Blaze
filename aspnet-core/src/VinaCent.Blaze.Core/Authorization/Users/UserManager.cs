@@ -11,10 +11,11 @@ using Abp.Domain.Uow;
 using Abp.Organizations;
 using Abp.Runtime.Caching;
 using VinaCent.Blaze.Authorization.Roles;
-using Abp.Authorization.Roles;
+using VinaCent.Blaze.Common;
 
 namespace VinaCent.Blaze.Authorization.Users
 {
+    //https://github.com/aspnetboilerplate/aspnetboilerplate/blob/7647670db2a42b25be864094a42afe03ff118c2d/src/Abp.ZeroCore/Authorization/Users/AbpUserManager.cs 
     public class UserManager : AbpUserManager<Role, User>
     {
         public UserManager(
@@ -34,7 +35,7 @@ namespace VinaCent.Blaze.Authorization.Users
           IRepository<OrganizationUnit, long> organizationUnitRepository,
           IRepository<UserOrganizationUnit, long> userOrganizationUnitRepository,
           IOrganizationUnitSettings organizationUnitSettings,
-          ISettingManager settingManager, 
+          ISettingManager settingManager,
           IRepository<UserLogin, long> userLoginRepository)
           : base(
               roleManager,
@@ -56,6 +57,14 @@ namespace VinaCent.Blaze.Authorization.Users
               settingManager,
               userLoginRepository)
         {
+            // Sign Options
+            Options.SignIn.RequireConfirmedEmail = GlobalConstants.SignInOptions.RequireConfirmedEmail;
+            Options.SignIn.RequireConfirmedPhoneNumber = GlobalConstants.SignInOptions.RequireConfirmedPhoneNumber;
+            Options.SignIn.RequireConfirmedAccount = GlobalConstants.SignInOptions.RequireConfirmedAccount;
+
+            // UserOptions
+            Options.User.AllowedUserNameCharacters = GlobalConstants.UserOptions.AllowedUserNameCharacters;
+            Options.User.RequireUniqueEmail = GlobalConstants.UserOptions.RequireUniqueEmail;
         }
     }
 }
