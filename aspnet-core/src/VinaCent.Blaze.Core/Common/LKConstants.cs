@@ -207,4 +207,9 @@ public static class LKConstants
     public const string PasswordResetSuccessful = "PasswordResetSuccessful";
     public const string Token = "Token";
     public const string NewPassword = "NewPassword";
+    public const string SiteTitle = "SiteTitle";
+    public const string SiteName = "SiteName";
+    public const string SiteDescription = "SiteDescription";
+    public const string SiteAuthor = "SiteAuthor";
+    public const string SiteAuthorProfileUrl = "SiteAuthorProfileUrl";
 }
