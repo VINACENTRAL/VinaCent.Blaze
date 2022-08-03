@@ -81,3 +81,7 @@
 .pointer {
     cursor: pointer;
 }
+
+.app-file .progress-bar::before, .app-file .progress-bar::after {
+    pointer-events: none;
+}
