@@ -1,0 +1,150 @@
+﻿@using VinaCent.Blaze.Web.Areas.Client.Common
+@using VinaCent.Blaze.Web.Common
+@using VinaCent.Blaze.Web.Models.Profile
+@using VinaCent.Blaze.Web.Themes.Velzon.ThemeOptions
+@using VinaCent.Blaze.Web.Views.Profile.Components.ProfilePersonalInfo
+@using VinaCent.Blaze.Web.Views.Profile.Components.ProfilePassword
+@inject IVelzonThemeOptions ThemeOptions
+@model ProfilePageModel
+@{
+    ThemeOptions.LayoutHorizontal().HideBreadcrumb().Commit(this);
+    ViewBag.Title = L(LKConstants.ProfileSettings);
+    ViewBag.CurrentPageName = CommonPageNames.ProfileSettings;
+}
+
+@section scripts {
+    <script src="~/view-resources/Views/Profiles/Index.js" asp-append-version="true"></script>
+}
+
+<div class="position-relative mx-n4 mt-n4">
+    <div class="profile-wid-bg profile-setting-img">
+        <img src="velzon/images/profile-bg.jpg" class="profile-wid-img" alt="">
+        <div class="overlay-content">
+            <div class="text-end p-3">
+                <div class="p-0 ms-auto rounded-circle profile-photo-edit">
+                    <input id="profile-foreground-img-file-input" type="file" class="profile-foreground-img-file-input">
+                    <label for="profile-foreground-img-file-input" class="profile-photo-edit btn btn-light">
+                        <i class="ri-image-edit-line align-bottom me-1"></i> Change Cover
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xxl-3">
+        <div class="card mt-n5">
+            <div class="card-body p-4">
+                <div class="text-center">
+                    <div class="profile-user position-relative d-inline-block mx-auto  mb-4">
+                        <img src="velzon/images/users/avatar-1.jpg" class="rounded-circle avatar-xl img-thumbnail user-profile-image  shadow" alt="user-profile-image">
+                        <div class="avatar-xs p-0 rounded-circle profile-photo-edit">
+                            <input id="profile-img-file-input" type="file" class="profile-img-file-input">
+                            <label for="profile-img-file-input" class="profile-photo-edit avatar-xs">
+                                <span class="avatar-title rounded-circle bg-light text-body shadow">
+                                    <i class="ri-camera-fill"></i>
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+                    <h5 class="fs-16 mb-1">Anna Adame</h5>
+                </div>
+            </div>
+        </div>
+        <!--end card-->
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex align-items-center mb-5">
+                    <div class="flex-grow-1">
+                        <h5 class="card-title mb-0">Complete Your Profile</h5>
+                    </div>
+                    <div class="flex-shrink-0">
+                        <a href="javascript:void(0);" class="badge bg-light text-primary fs-12"><i class="ri-edit-box-line align-bottom me-1"></i> Edit</a>
+                    </div>
+                </div>
+                <div class="progress animated-progress custom-progress progress-label">
+                    <div class="progress-bar bg-danger" role="progressbar" style="width: 30%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">
+                        <div class="label">30%</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex align-items-center mb-4">
+                    <div class="flex-grow-1">
+                        <h5 class="card-title mb-0">Portfolio</h5>
+                    </div>
+                    <div class="flex-shrink-0">
+                        <a href="javascript:void(0);" class="badge bg-light text-primary fs-12"><i class="ri-add-fill align-bottom me-1"></i> Add</a>
+                    </div>
+                </div>
+                <div class="mb-3 d-flex">
+                    <div class="avatar-xs d-block flex-shrink-0 me-3">
+                        <span class="avatar-title rounded-circle fs-16 bg-dark text-light shadow">
+                            <i class="ri-github-fill"></i>
+                        </span>
+                    </div>
+                    <input type="email" class="form-control" id="gitUsername" placeholder="Username" value="@@daveadame">
+                </div>
+                <div class="mb-3 d-flex">
+                    <div class="avatar-xs d-block flex-shrink-0 me-3">
+                        <span class="avatar-title rounded-circle fs-16 bg-primary shadow">
+                            <i class="ri-global-fill"></i>
+                        </span>
+                    </div>
+                    <input type="text" class="form-control" id="websiteInput" placeholder="www.example.com" value="www.velzon.com">
+                </div>
+                <div class="mb-3 d-flex">
+                    <div class="avatar-xs d-block flex-shrink-0 me-3">
+                        <span class="avatar-title rounded-circle fs-16 bg-success shadow">
+                            <i class="ri-dribbble-fill"></i>
+                        </span>
+                    </div>
+                    <input type="text" class="form-control" id="dribbleName" placeholder="Username" value="@@dave_adame">
+                </div>
+                <div class="d-flex">
+                    <div class="avatar-xs d-block flex-shrink-0 me-3">
+                        <span class="avatar-title rounded-circle fs-16 bg-danger shadow">
+                            <i class="ri-pinterest-fill"></i>
+                        </span>
+                    </div>
+                    <input type="text" class="form-control" id="pinterestName" placeholder="Username" value="Advance Dave">
+                </div>
+            </div>
+        </div>
+        <!--end card-->
+    </div>
+    <!--end col-->
+    <div class="col-xxl-9">
+        <div class="card mt-xxl-n5">
+            <div class="card-header">
+                <ul class="nav nav-tabs-custom rounded card-header-tabs border-bottom-0" role="tablist">
+                    @for(var i = 0; i < Model.ProfileManagementPageCreationContext.Groups.Count; i++)
+                    {
+                        var group = Model.ProfileManagementPageCreationContext.Groups[i];
+                        <li class="nav-item">
+                            <a class="nav-link @(i == 0 ? "active" : "")" data-bs-toggle="tab" href="#@group.Id" role="tab">
+                                @group.DisplayName
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </div>
+            <div class="card-body p-4">
+                <div class="tab-content">
+                    @for(var i = 0; i < Model.ProfileManagementPageCreationContext.Groups.Count; i++)
+                    {
+                        var group = Model.ProfileManagementPageCreationContext.Groups[i];
+                        <div class="tab-pane @(i == 0 ? "active" : "")" id="@group.Id" role="tabpanel">
+                            @await Component.InvokeAsync(group.ComponentType)
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--end col-->
+</div>
+<!--end row-->
