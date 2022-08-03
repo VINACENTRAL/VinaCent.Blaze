@@ -20,6 +20,7 @@ using VinaCent.Blaze.Roles.Dto;
 using VinaCent.Blaze.Users.Dto;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using VinaCent.Blaze.Profiles.Dto;
 
 namespace VinaCent.Blaze.Users
 {
@@ -183,31 +184,6 @@ namespace VinaCent.Blaze.Users
         protected virtual void CheckErrors(IdentityResult identityResult)
         {
             identityResult.CheckErrors(LocalizationManager);
-        }
-
-        public async Task<bool> ChangePassword(ChangePasswordDto input)
-        {
-            await _userManager.InitializeOptionsAsync(AbpSession.TenantId);
-
-            var user = await _userManager.FindByIdAsync(AbpSession.GetUserId().ToString());
-            if (user == null)
-            {
-                throw new Exception("There is no current user!");
-            }
-            
-            if (await _userManager.CheckPasswordAsync(user, input.CurrentPassword))
-            {
-                CheckErrors(await _userManager.ChangePasswordAsync(user, input.NewPassword));
-            }
-            else
-            {
-                CheckErrors(IdentityResult.Failed(new IdentityError
-                {
-                    Description = "Incorrect password."
-                }));
-            }
-
-            return true;
         }
 
         public async Task<bool> ResetPassword(ResetPasswordDto input)

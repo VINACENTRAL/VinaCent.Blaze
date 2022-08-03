@@ -21,7 +21,7 @@ using Abp.Json;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.WebEncoders;
 using Newtonsoft.Json.Serialization;
-
+using VinaCent.Blaze.Web.Contributors.ProfileManagement;
 
 namespace VinaCent.Blaze.Web.Startup
 {
@@ -78,6 +78,11 @@ namespace VinaCent.Blaze.Web.Startup
                         )
                 )
             );
+
+            services.Configure<ProfileManagementPageOptions>(options =>
+            {
+                options.Contributors.Add(new ProfileManagementPageContributor());
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)

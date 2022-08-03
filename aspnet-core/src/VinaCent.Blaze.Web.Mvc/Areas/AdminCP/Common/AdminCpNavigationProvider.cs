@@ -62,14 +62,16 @@ public class AdminCpNavigationProvider : NavigationProvider
                         L(LKConstants.Roles),
                         url: "admincp/roles",
                         icon: "mdi mdi-drama-masks",
-                        permissionDependency: new SimplePermissionDependency(PermissionNames.Pages_Roles)
+                        permissionDependency: new SimplePermissionDependency(PermissionNames.Pages_Roles),
+                        order: 1
                     )
                 ).AddItem(
                     new MenuItemDefinition(
                         AdminCpPageNames.SecurityLogs,
                         L(LKConstants.SecurityLogs),
                         url: "admincp/security-logs",
-                        icon: "mdi mdi-security"
+                        icon: "mdi mdi-security",
+                        order: 2
                     )
                 )
             )

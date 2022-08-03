@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using Abp.Application.Services;
 using Abp.Application.Services.Dto;
+using VinaCent.Blaze.Profiles.Dto;
 using VinaCent.Blaze.Roles.Dto;
 using VinaCent.Blaze.Users.Dto;
 
@@ -12,7 +13,5 @@ namespace VinaCent.Blaze.Users
         Task Activate(EntityDto<long> user);
         Task<ListResultDto<RoleDto>> GetRoles();
         Task ChangeLanguage(ChangeUserLanguageDto input);
-
-        Task<bool> ChangePassword(ChangePasswordDto input);
     }
 }
