@@ -30,6 +30,8 @@ public static class LKConstants
     public const string DatabaseConnectionString = "DatabaseConnectionString";
     public const string DefaultPasswordIs = "DefaultPasswordIs";
     public const string CurrentPassword = "CurrentPassword";
+    public const string NewPassword = "NewPassword";
+    public const string NewPasswordConfirm = "NewPasswordConfirm";
     public const string Password = "Password";
     public const string ConfirmPassword = "ConfirmPassword";
     public const string UserName = "UserName";
@@ -165,6 +167,12 @@ public static class LKConstants
     public const string Error500Description = "Error500Description";
     public const string SecurityLogs = "SecurityLogs";
     public const string IdentityManagement = "IdentityManagement";
+    public const string PersonalInfo = "PersonalInfo";
+    public const string PrivacyPolicy = "PrivacyPolicy";
+    public const string PhoneNumber = "PhoneNumber";
+    public const string City = "City";
+    public const string Country = "Country";
+    public const string ZipCode = "ZipCode";
     public const string Content = "Content";
     public const string EditTextTemplate = "EditTextTemplate";
     public const string CreateNewTextTemplate = "CreateNewTextTemplate";

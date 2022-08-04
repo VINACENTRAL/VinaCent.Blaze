@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace VinaCent.Blaze.Users.Dto
+namespace VinaCent.Blaze.Profiles.Dto
 {
     public class ChangePasswordDto
     {

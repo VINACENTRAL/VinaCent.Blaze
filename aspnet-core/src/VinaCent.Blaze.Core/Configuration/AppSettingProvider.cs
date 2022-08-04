@@ -41,7 +41,6 @@ namespace VinaCent.Blaze.Configuration
                     isVisibleToClients: true),
 #endregion
 
-
 #region App UI/Theme
                 new SettingDefinition(AppSettingNames.UiTheme,
                     "red",
@@ -56,7 +55,6 @@ namespace VinaCent.Blaze.Configuration
                     SettingScopes.User,
                     clientVisibilityProvider: new VisibleSettingClientVisibilityProvider()),
 #endregion
-
 
 #region App File Management
                 new SettingDefinition(AppSettingNames.AllowedMaxFileSize,
@@ -74,6 +72,15 @@ namespace VinaCent.Blaze.Configuration
                     false.ToString(),
                     scopes: SettingScopes.Application | SettingScopes.Tenant),
 	#endregion
+
+#region User settings
+                new SettingDefinition(AppSettingNames.User.IsUserNameUpdateEnabled,
+                    false.ToString(),
+                    scopes: SettingScopes.Application | SettingScopes.Tenant),
+                new SettingDefinition(AppSettingNames.User.IsEmailUpdateEnabled,
+                    true.ToString(),
+                    scopes: SettingScopes.Application | SettingScopes.Tenant),
+    #endregion
             };
         }
     }

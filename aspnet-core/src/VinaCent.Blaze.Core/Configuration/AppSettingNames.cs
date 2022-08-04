@@ -2,6 +2,8 @@
 {
     public static class AppSettingNames
     {
+        private const string Prefix = "App";
+
         #region App meta
         public const string SiteTitle = "App.SiteTitle";
         public const string SiteName = "App.SiteName";
@@ -22,6 +24,16 @@
 
         #region App System settings
         public const string AppSys_DoNotShowLogoutScreen = "AppSys.DoNotShowLogoutScreen";
+        #endregion
+
+        #region User
+        public static class User
+        {
+            private const string UserPrefix = Prefix + ".User";
+
+            public const string IsUserNameUpdateEnabled = UserPrefix + ".IsUserNameUpdateEnabled";
+            public const string IsEmailUpdateEnabled = UserPrefix + ".IsEmailUpdateEnabled";
+        }
         #endregion
     }
 }

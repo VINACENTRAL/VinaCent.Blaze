@@ -1,0 +1,92 @@
+﻿@using VinaCent.Blaze.Configuration
+@using VinaCent.Blaze.Profiles.Dto
+@model ProfileDto
+@{
+	var isUserNameUpdateEnabled  = string.Equals(await SettingManager.GetSettingValueAsync(AppSettingNames.User.IsUserNameUpdateEnabled), "false",
+        StringComparison.OrdinalIgnoreCase);
+	var isEmailUpdateEnabled  = string.Equals(await SettingManager.GetSettingValueAsync(AppSettingNames.User.IsEmailUpdateEnabled), "false",
+        StringComparison.OrdinalIgnoreCase);
+}
+
+<form method="post" id="PersonalInfoForm">
+	<input asp-for="ConcurrencyStamp" type="hidden"/>
+	<div class="row">
+		<div class="col-lg-12">
+		<div class="mb-3">
+			<label asp-for="UserName" class="form-label"></label>
+			<input asp-for="UserName" class="form-control" readonly="@isUserNameUpdateEnabled"/>
+		</div>
+		</div>
+		<div class="col-lg-6">
+			<div class="mb-3">
+				<label asp-for="Surname" class="form-label"></label>
+				<input asp-for="Surname" class="form-control"/>
+			</div>
+		</div>
+		<!--end col-->
+		<div class="col-lg-6">
+			<div class="mb-3">
+				<label asp-for="Name" class="form-label"></label>
+				<input asp-for="Name" class="form-control" />
+			</div>
+		</div>
+		<!--end col-->
+		<div class="col-lg-6">
+			<div class="mb-3">
+				<label asp-for="PhoneNumber" class="form-label"></label>
+				<input asp-for="PhoneNumber" class="form-control" />
+			</div>
+		</div>
+		<!--end col-->
+		<div class="col-lg-6">
+			<div class="mb-3">
+				<label asp-for="EmailAddress" class="form-label"></label>
+				<input asp-for="EmailAddress" class="form-control" readonly="@isEmailUpdateEnabled"/>
+			</div>
+		</div>
+		<!--end col-->
+		<div class="col-lg-12">
+			<div class="mb-3">
+				<label asp-for="CreationTime" class="form-label"></label>
+				<input asp-for="CreationTime" class="form-control" readonly/>
+			</div>
+		</div>
+		<!--end col-->
+		<div class="col-lg-4">
+			<div class="mb-3">
+				<label asp-for="City" class="form-label"></label>
+				<input asp-for="City" class="form-control" />
+			</div>
+		</div>
+		<!--end col-->
+		<div class="col-lg-4">
+			<div class="mb-3">
+				<label asp-for="Country" class="form-label"></label>
+				<input asp-for="Country" class="form-control" />
+			</div>
+		</div>
+		<!--end col-->
+		<div class="col-lg-4">
+			<div class="mb-3">
+				<label asp-for="ZipCode" class="form-label"></label>
+				<input asp-for="ZipCode" class="form-control">
+			</div>
+		</div>
+		<!--end col-->
+		<div class="col-lg-12">
+			<div class="mb-3 pb-2">
+				<label asp-for="Description" class="form-label"></label>
+				<textarea asp-for="Description" class="form-control"></textarea>
+			</div>
+		</div>
+		<!--end col-->
+		<div class="col-lg-12">
+			<div class="hstack gap-2 justify-content-end">
+				<button type="submit" class="btn btn-primary">@L(LKConstants.Save)</button>
+				<button type="button" class="btn btn-soft-success">@L(LKConstants.Cancel)</button>
+			</div>
+		</div>
+		<!--end col-->
+	</div>
+	<!--end row-->
+</form>

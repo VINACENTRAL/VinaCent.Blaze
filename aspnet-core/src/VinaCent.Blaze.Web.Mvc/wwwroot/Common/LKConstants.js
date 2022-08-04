@@ -13,4 +13,6 @@
     static SendTestEmailSenderMessage = 'SendTestEmailSenderMessage';
     static EmailHasBeenSentSuccessfully = 'EmailHasBeenSentSuccessfully';
     static PasswordResetSuccessful = 'PasswordResetSuccessful';
+    static NewPasswordConfirmFailed = 'NewPasswordConfirmFailed';
+    static PasswordChanged = 'PasswordChanged';
 }
