@@ -5,6 +5,7 @@ using Abp.Extensions;
 using Abp.Linq.Extensions;
 using Abp.UI;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
 using System;
@@ -281,7 +282,8 @@ namespace VinaCent.Blaze.AppCore.FileUnits
             return MapToEntityDto(fileUnit);
         }
 
-        public async Task<FileUnitDto> UploadFileAsync(UploadFileUnitDto input)
+        [AbpAuthorize]
+        public async Task<FileUnitDto> UploadFileAsync([FromForm] UploadFileUnitDto input)
         {
             var fileUnit = MapToEntity(input);
             fileUnit.Id = Guid.NewGuid();
