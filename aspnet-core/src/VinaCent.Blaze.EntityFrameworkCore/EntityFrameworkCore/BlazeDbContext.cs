@@ -5,6 +5,7 @@ using VinaCent.Blaze.Authorization.Users;
 using VinaCent.Blaze.MultiTenancy;
 using VinaCent.Blaze.AppCore.FileUnits;
 using VinaCent.Blaze.AppCore.TextTemplates;
+using VinaCent.Blaze.AppCore.CommonDatas;
 
 namespace VinaCent.Blaze.EntityFrameworkCore
 {
@@ -17,6 +18,8 @@ namespace VinaCent.Blaze.EntityFrameworkCore
         public DbSet<FileUnit> FileUnits { get; set; }
 
         public DbSet<TextTemplate> TextTemplates { get; set; }
+
+        public DbSet<CommonData> CommonDatas { get; set; }
 
         public BlazeDbContext(DbContextOptions<BlazeDbContext> options)
             : base(options)

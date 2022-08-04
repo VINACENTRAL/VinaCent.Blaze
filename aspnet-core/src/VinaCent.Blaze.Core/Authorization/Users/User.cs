@@ -11,10 +11,13 @@ namespace VinaCent.Blaze.Authorization.Users
         public const string DefaultPassword = "123qwe";
 
         [StringLength(50)]
-        public string City { get; set; }
+        public string Country { get; set; }
 
         [StringLength(50)]
-        public string Country { get; set; }
+        public string State { get; set; }
+
+        [StringLength(50)]
+        public string City { get; set; }
 
         [StringLength(10)]
         public string ZipCode { get; set; }
@@ -26,6 +29,14 @@ namespace VinaCent.Blaze.Authorization.Users
 
         [StringLength(255)]
         public string Background { get; set; }
+
+        public DateTime? Birthday { get; set; }
+
+        [StringLength(14)]
+        public string IdentityCardNumber { get; set; }
+
+        public string AddressLine1 { get; set; }
+        public string AddressLine2 { get; set; }
 
         public static string CreateRandomPassword()
         {
