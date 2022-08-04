@@ -136,19 +136,30 @@
             _$uploadFileForm.find('#current-directory').val = null
         }
 
-        var fileUnit = _$uploadFileForm.serializeFormToObject();
-        //abp.ui.setBusy(_$uploadFileForm);
-        //_fileUnitService
-        //    .uploadFile(fileUnit)
-        //    .done(function () {
-        //        _$uploadFileForm.modal('hide');
-        //        _$uploadFileForm[0].reset();
-        //        abp.notify.info(l(LKConstants.SavedSuccessfully));
-        //        _$fileUnitsTable.ajax.reload();
-        //    })
-        //    .always(function () {
-        //        abp.ui.clearBusy(_$uploadFileModal);
-        //    });
+        abp.ui.setBusy(_$uploadFileForm);
+        const crrForm = document.getElementById('uploadFileForm');
+        var input = crrForm.querySelector('input[type="file"]');
+        var files = input.files;
+        var formData = new FormData(crrForm);
+
+        for (var i = 0; i != files.length; i++) {
+            formData.append("File", files[i]);
+        }
+
+        abp.ajax({
+            url: abp.appPath + 'api/services/app/FileUnit/UploadFile',
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+        }).done(function () {
+            _$uploadFileForm.modal('hide');
+            _$uploadFileForm[0].reset();
+            abp.notify.info(l(LKConstants.SavedSuccessfully));
+            _$fileUnitsTable.ajax.reload();
+        }).always(function () {
+            abp.ui.clearBusy(_$uploadFileForm);
+        });
     });
 
     $(document).on('click', '.delete-file-unit', function () {
