@@ -153,7 +153,7 @@
             processData: false,
             contentType: false,
         }).done(function () {
-            _$uploadFileForm.modal('hide');
+            _$uploadFileModal.modal('hide');
             _$uploadFileForm[0].reset();
             abp.notify.info(l(LKConstants.SavedSuccessfully));
             _$fileUnitsTable.ajax.reload();
