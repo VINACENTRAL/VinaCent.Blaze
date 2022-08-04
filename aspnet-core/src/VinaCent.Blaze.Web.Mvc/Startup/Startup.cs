@@ -97,9 +97,9 @@ namespace VinaCent.Blaze.Web.Startup
             }
             else
             {
-                app.UseExceptionHandler("/Error");
+                //app.UseExceptionHandler("/Error");
                 app.UseStatusCodePagesWithReExecute("/Error", "?statusCode={0}");
-                app.UseHsts();
+                //app.UseHsts();
             }
 
             app.UseStaticFiles();
