@@ -2,6 +2,7 @@
 @using Abp.Web.Mvc.Alerts
 @using Abp.Web.Security.AntiForgery
 @using System.Globalization
+@using VinaCent.Blaze.Configuration
 @using VinaCent.Blaze.Web.Resources
 @inject IAbpAntiForgeryManager AbpAntiForgeryManager
 @inject IMultiTenancyConfig MultiTenancyConfig
@@ -20,9 +21,9 @@
     AbpAntiForgeryManager.SetCookie(Context);
 
     var pageTitle = !string.IsNullOrWhiteSpace(ViewBag.Title) ? ViewBag.Title + " | " : "";
-    pageTitle += "Blaze";
+    pageTitle += await SettingManager.GetSettingValueAsync(AppSettingNames.SiteTitle);
 
-    var favicon = "/vinacent/brand/favicon.ico";
+    var favicon = await SettingManager.GetSettingValueAsync(AppSettingNames.SiteFavicon);
 }
 
 <!DOCTYPE html>
@@ -39,6 +40,11 @@
     @if (ViewBag.Description != null)
     {
         <meta name="description" content="@(ViewBag.Description as string)" />
+    }
+    else
+    {
+        var defaultDescription = await SettingManager.GetSettingValueAsync(AppSettingNames.SiteDescription);
+        <meta name="description" content="defaultDescription" />
     }
 
     <!-- Favicon -->
@@ -58,7 +64,7 @@
     @await RenderSectionAsync("styles", false)
 </head>
 <body class="@rtl">
-    
+
     @RenderBody()
 
     <script src="~/velzon/libs/bootstrap/js/bootstrap.bundle.min.js"></script>

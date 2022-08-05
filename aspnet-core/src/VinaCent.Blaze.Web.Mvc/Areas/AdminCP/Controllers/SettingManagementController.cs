@@ -47,7 +47,20 @@ namespace VinaCent.Blaze.Web.Areas.AdminCP.Controllers
         [HttpGet("system")]
         public IActionResult AppSystem()
         {
-            return View();
+            var model = new AppSystemSettingModel(SettingManager);
+            return View(model);
+        }
+
+        [HttpPost("system")]
+        public async Task<JsonResult> AppSystem(AppSystemSettingModel input)
+        {
+            if (!ModelState.IsValid)
+            {
+                throw new UserFriendlyException(L(LKConstants.YourDataIsInvalid));
+            }
+            await input.Save(SettingManager, AbpSession.TenantId);
+            //var path = HttpContext.Request.GetCurrentHost() + Url.Action(nameof(AppMeta), "SettingManagement");
+            return Json(new AjaxResponse(input));
         }
     }
 }

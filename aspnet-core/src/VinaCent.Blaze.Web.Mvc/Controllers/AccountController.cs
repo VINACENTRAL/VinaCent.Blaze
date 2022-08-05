@@ -245,6 +245,7 @@ namespace VinaCent.Blaze.Web.Controllers
 
         private ActionResult RegisterView(RegisterViewModel model)
         {
+            if (!IsSelfRegistrationEnabled()) return NotFound();
             ViewBag.IsMultiTenancyEnabled = _multiTenancyConfig.IsEnabled;
 
             return View("Register", model);
@@ -257,13 +258,15 @@ namespace VinaCent.Blaze.Web.Controllers
                 return false; // No registration enabled for host users!
             }
 
-            return true;
+            return SettingManager.GetSettingValue<bool>(AppSettingNames.AppSys_IsRegisterEnabled);
         }
 
         [HttpPost("register")]
         [UnitOfWork]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
+            if (!IsSelfRegistrationEnabled()) return NotFound();
+
             try
             {
                 ExternalLoginInfo externalLoginInfo = null;

@@ -35,17 +35,16 @@
             <a class="dropdown-item" asp-action="Lockout" asp-controller="Account" asp-area="">
                 <i class="ri-lock-fill text-muted fs-16 align-middle me-1"></i> <span class="align-middle">@L(LKConstants.GotoLockScreen)</span>
             </a>
-            @if (!area.Equals(nameof(VinaCent.Blaze.Web.Areas.Client)))
-            {
-                <a class="dropdown-item" asp-action="Index" asp-controller="Home" asp-area="Client">
-                    <i class="ri-home-smile-fill text-muted fs-16 align-middle me-1"></i> <span class="align-middle">@L(LKConstants.GoBackHome)</span>
-                </a>
-            }
-
             @if (!area.Equals(nameof(VinaCent.Blaze.Web.Areas.AdminCP)))
             {
                 <a class="dropdown-item" asp-action="Index" asp-controller="Dashboard" asp-area="AdminCP">
                     <i class="ri-shield-fill text-muted fs-16 align-middle me-1"></i> <span class="align-middle">@L(LKConstants.GoToAdminCP)</span>
+                </a>
+            }
+            else
+            {
+                <a class="dropdown-item" asp-action="Index" asp-controller="Home" asp-area="Client">
+                    <i class="ri-home-smile-fill text-muted fs-16 align-middle me-1"></i> <span class="align-middle">@L(LKConstants.GoBackHome)</span>
                 </a>
             }
 

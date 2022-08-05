@@ -21,9 +21,9 @@
     AbpAntiForgeryManager.SetCookie(Context);
 
     var pageTitle = !string.IsNullOrWhiteSpace(ViewBag.Title) ? ViewBag.Title + " | " : "";
-    pageTitle += "Blaze";
+    pageTitle += await SettingManager.GetSettingValueAsync(AppSettingNames.SiteTitle);
 
-    var favicon = "/vinacent/brand/favicon.ico";
+    var favicon = await SettingManager.GetSettingValueAsync(AppSettingNames.SiteFavicon);
 
     var author = await SettingManager.GetSettingValueAsync(AppSettingNames.SiteAuthor);
     var authorProfileUrl = await SettingManager.GetSettingValueAsync(AppSettingNames.SiteAuthorProfileUrl);
@@ -43,6 +43,11 @@
     @if (ViewBag.Description != null)
     {
         <meta name="description" content="@(ViewBag.Description as string)" />
+    }
+    else
+    {
+        var defaultDescription = await SettingManager.GetSettingValueAsync(AppSettingNames.SiteDescription);
+        <meta name="description" content="defaultDescription" />
     }
 
     <!-- Favicon -->

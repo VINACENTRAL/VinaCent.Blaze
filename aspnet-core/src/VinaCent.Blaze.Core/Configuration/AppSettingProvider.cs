@@ -16,12 +16,16 @@ namespace VinaCent.Blaze.Configuration
                     scopes: SettingScopes.Application |
                     SettingScopes.Tenant,
                     isVisibleToClients: true),
+                new SettingDefinition(AppSettingNames.SiteFavicon,
+                    "/vinacent/brand/favicon.ico",
+                    scopes: SettingScopes.Application |
+                    SettingScopes.Tenant,
+                    isVisibleToClients: true),
                 new SettingDefinition(AppSettingNames.SiteName,
                     "VinaCent",
                     scopes: SettingScopes.Application |
                     SettingScopes.Tenant,
                     isVisibleToClients: true),
-
                 new SettingDefinition(AppSettingNames.SiteDescription,
                     "Grow your business",
                     scopes: SettingScopes.Application |
@@ -70,6 +74,9 @@ namespace VinaCent.Blaze.Configuration
 #region App System settings
                 new SettingDefinition(AppSettingNames.AppSys_DoNotShowLogoutScreen,
                     false.ToString(),
+                    scopes: SettingScopes.Application | SettingScopes.Tenant),
+                new SettingDefinition(AppSettingNames.AppSys_IsRegisterEnabled,
+                    true.ToString(),
                     scopes: SettingScopes.Application | SettingScopes.Tenant),
 	#endregion
 
