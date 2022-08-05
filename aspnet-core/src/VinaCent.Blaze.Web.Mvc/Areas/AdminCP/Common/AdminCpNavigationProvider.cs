@@ -37,9 +37,12 @@ public class AdminCpNavigationProvider : NavigationProvider
                 new MenuItemDefinition(
                     AdminCpPageNames.Tenants,
                     L(LKConstants.Tenants),
+                    isEnabled: BlazeConsts.MultiTenancyEnabled,
+                    isVisible: BlazeConsts.MultiTenancyEnabled,
                     url: "admincp/tenants",
                     icon: "mdi mdi-office-building",
-                    permissionDependency: new SimplePermissionDependency(PermissionNames.Pages_Tenants)
+                    permissionDependency: new SimplePermissionDependency(PermissionNames.Pages_Tenants
+                    )
                 )
             )
             .AddItem(

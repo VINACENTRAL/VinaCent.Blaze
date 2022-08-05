@@ -21,6 +21,10 @@ namespace VinaCent.Blaze.Web.Areas.AdminCP.Models.SettingManagement
         public string SiteDescription { get; set; }
 
         [Required]
+        [AbpDisplayName(BlazeConsts.LocalizationSourceName, LKConstants.SiteFavicon)]
+        public string SiteFavicon { get; set; }
+
+        [Required]
         [AbpDisplayName(BlazeConsts.LocalizationSourceName, LKConstants.SiteAuthor)]
         public string SiteAuthor { get; set; }
 
@@ -38,6 +42,7 @@ namespace VinaCent.Blaze.Web.Areas.AdminCP.Models.SettingManagement
             SiteTitle = settingManager.GetSettingValue(AppSettingNames.SiteTitle);
             SiteName = settingManager.GetSettingValue(AppSettingNames.SiteName);
             SiteDescription = settingManager.GetSettingValue(AppSettingNames.SiteDescription);
+            SiteFavicon = settingManager.GetSettingValue(AppSettingNames.SiteFavicon);
             SiteAuthor = settingManager.GetSettingValue(AppSettingNames.SiteAuthor);
             SiteAuthorProfileUrl = settingManager.GetSettingValue(AppSettingNames.SiteAuthorProfileUrl);
         }
@@ -49,6 +54,7 @@ namespace VinaCent.Blaze.Web.Areas.AdminCP.Models.SettingManagement
                 await settingManager.ChangeSettingForTenantAsync(tenantId.Value, AppSettingNames.SiteTitle, SiteTitle);
                 await settingManager.ChangeSettingForTenantAsync(tenantId.Value, AppSettingNames.SiteName, SiteName);
                 await settingManager.ChangeSettingForTenantAsync(tenantId.Value, AppSettingNames.SiteDescription, SiteDescription);
+                await settingManager.ChangeSettingForTenantAsync(tenantId.Value, AppSettingNames.SiteFavicon, SiteFavicon);
                 await settingManager.ChangeSettingForTenantAsync(tenantId.Value, AppSettingNames.SiteAuthor, SiteAuthor);
                 await settingManager.ChangeSettingForTenantAsync(tenantId.Value, AppSettingNames.SiteAuthorProfileUrl, SiteAuthorProfileUrl);
             }
@@ -57,6 +63,7 @@ namespace VinaCent.Blaze.Web.Areas.AdminCP.Models.SettingManagement
                 await settingManager.ChangeSettingForApplicationAsync(AppSettingNames.SiteTitle, SiteTitle);
                 await settingManager.ChangeSettingForApplicationAsync(AppSettingNames.SiteName, SiteName);
                 await settingManager.ChangeSettingForApplicationAsync(AppSettingNames.SiteDescription, SiteDescription);
+                await settingManager.ChangeSettingForApplicationAsync(AppSettingNames.SiteFavicon, SiteFavicon);
                 await settingManager.ChangeSettingForApplicationAsync(AppSettingNames.SiteAuthor, SiteAuthor);
                 await settingManager.ChangeSettingForApplicationAsync(AppSettingNames.SiteAuthorProfileUrl, SiteAuthorProfileUrl);
             }
