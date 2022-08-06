@@ -51,8 +51,8 @@ namespace VinaCent.Blaze.AppCore.AuditLogs.Dto
             get
             {
                 var currentCultureDatetimeFormat = CultureInfo.CurrentCulture.DateTimeFormat;
-                var parttern = currentCultureDatetimeFormat.ShortTimePattern + " - " + currentCultureDatetimeFormat.ShortDatePattern;
-                return ExecutionTime.ToString(parttern);
+                var pattern = currentCultureDatetimeFormat.ShortTimePattern + " - " + currentCultureDatetimeFormat.ShortDatePattern;
+                return ExecutionTime.ToString(pattern);
             }
         }
 
