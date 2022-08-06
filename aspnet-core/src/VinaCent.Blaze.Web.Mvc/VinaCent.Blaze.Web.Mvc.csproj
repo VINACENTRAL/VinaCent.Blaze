@@ -51,4 +51,8 @@
     <PackageReference Include="Abp.RedisCache" Version="7.3.0" />
     <PackageReference Include="Abp.Castle.Log4Net" Version="7.3.0" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Areas\BusinessCP\Controllers\" />
+    <Folder Include="Areas\BusinessCP\Models\" />
+  </ItemGroup>
 </Project>

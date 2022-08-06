@@ -243,4 +243,6 @@ public static class LKConstants
     public const string UserManagement_PasswordComplexity_RequireDigit = "UserManagement_PasswordComplexity_RequireDigit";
     public const string OrganizationUnits = "OrganizationUnits";
     public const string UserManagement_OrganizationUnits_MaxUserMembershipCount = "UserManagement_OrganizationUnits_MaxUserMembershipCount";
+    public const string AdminCP = "AdminCP";
+    public const string CurrencyUnitManagement = "CurrencyUnitManagement";
 }
