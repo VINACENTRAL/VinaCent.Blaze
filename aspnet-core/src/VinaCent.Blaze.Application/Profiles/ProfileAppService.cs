@@ -1,13 +1,16 @@
 ﻿using Abp.Configuration;
+using Abp.Domain.Repositories;
 using Abp.Extensions;
 using Abp.IdentityFramework;
 using Abp.Runtime.Session;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using VinaCent.Blaze.AppCore.CommonDatas;
 using VinaCent.Blaze.Authorization.Users;
 using VinaCent.Blaze.Configuration;
 using VinaCent.Blaze.Profiles.Dto;
@@ -17,10 +20,13 @@ namespace VinaCent.Blaze.Profiles
     public class ProfileAppService : BlazeAppServiceBase, IProfileAppService
     {
         private readonly UserManager _userManager;
+        private readonly IRepository<CommonData, Guid> _repository;
 
-        public ProfileAppService(UserManager userManager)
+        public ProfileAppService(UserManager userManager, 
+            IRepository<CommonData, Guid> repository)
         {
             _userManager = userManager;
+            _repository = repository;
         }
 
         public async Task<bool> ChangePasswordAsync(ChangePasswordDto input)
@@ -57,6 +63,20 @@ namespace VinaCent.Blaze.Profiles
         public async Task<ProfileDto> UpdateAsync(UpdateProfileDto input)
         {
             var user = await _userManager.FindByIdAsync(AbpSession.GetUserId().ToString());
+            var commonDataQuery = _repository.GetAll();
+            if(!await commonDataQuery.AnyAsync(x=>x.Type == "COUNTRY" && x.Key == input.Country)){
+                input.Country = input.State = input.City = null;
+            }
+            else if(!await commonDataQuery.AnyAsync(x => x.Type == "STATE" && x.Key == input.State))
+            {
+                input.State = input.City = null;
+            }
+            else if(!await commonDataQuery.AnyAsync(x => x.Type == "CITY" && x.Key == input.City))
+            {
+                input.City = null;
+            }
+
+            user = ObjectMapper.Map(input,user);
             if (!input.ConcurrencyStamp.IsNullOrEmpty())
             {
                 user.ConcurrencyStamp = input.ConcurrencyStamp;
@@ -83,12 +103,7 @@ namespace VinaCent.Blaze.Profiles
                 (await UserManager.SetPhoneNumberAsync(user, input.PhoneNumber)).CheckErrors();
             }
 
-            user.Name = input.Name;
-            user.Surname = input.Surname;
-            user.City = input.City;
-            user.Country = input.Country;
-            user.ZipCode = input.ZipCode;
-            user.Description = input.Description;
+            
 
             (await UserManager.UpdateAsync(user)).CheckErrors();
 

@@ -2,13 +2,16 @@
 @using VinaCent.Blaze.Profiles.Dto
 @using System.Globalization
 @using Abp.Application.Services.Dto
+@using VinaCent.Blaze.Web.Resources
 @using VinaCent.Blaze.AppCore.CommonDatas.Dto
 @model ProfileDto
+@inject IWebResourceManager WebResourceManager
 @{
 	var isUserNameUpdateEnabled  = string.Equals(await SettingManager.GetSettingValueAsync(AppSettingNames.User.IsUserNameUpdateEnabled), "false",
         StringComparison.OrdinalIgnoreCase);
 	var isEmailUpdateEnabled  = string.Equals(await SettingManager.GetSettingValueAsync(AppSettingNames.User.IsEmailUpdateEnabled), "false",
         StringComparison.OrdinalIgnoreCase);
+	WebResourceManager.AddScript(ApplicationPath + "view-resources/Views/Profiles/UserInfo.js");
 }
 
 <form method="post" id="PersonalInfoForm">
@@ -57,7 +60,22 @@
 		<div class="col-lg-6">
 			<div class="mb-3">
 				<label asp-for="Birthday" class="form-label"></label>
-				<input asp-for="Birthday" class="form-control" />
+				<input asp-for="Birthday" class="form-control" 
+					data-provider="flatpickr" 
+                    data-date-format="d M, Y" />
+			</div>
+		</div>
+		<hr />
+		<div class="col-lg-12">
+			<div class="mb-3">
+				<label asp-for="AddressLine1" class="form-label"></label>
+				<input asp-for="AddressLine1" class="form-control">
+			</div>
+		</div>
+		<div class="col-lg-12">
+			<div class="mb-3">
+				<label asp-for="AddressLine2" class="form-label"></label>
+				<input asp-for="AddressLine2" class="form-control">
 			</div>
 		</div>
 		<!--end col-->
@@ -101,18 +119,6 @@
 				<input asp-for="ZipCode" class="form-control">
 			</div>
 		</div>
-		<div class="col-lg-12">
-			<div class="mb-3">
-				<label asp-for="AddressLine1" class="form-label"></label>
-				<input asp-for="AddressLine1" class="form-control">
-			</div>
-		</div>
-		<div class="col-lg-12">
-			<div class="mb-3">
-				<label asp-for="AddressLine2" class="form-label"></label>
-				<input asp-for="AddressLine2" class="form-control">
-			</div>
-		</div>
 		<!--end col-->
 		<div class="col-lg-12">
 			<div class="mb-3 pb-2">
@@ -122,13 +128,12 @@
 		</div>
 		<!--end col-->
 		<div class="col-lg-12">
-			<div class="hstack gap-2 justify-content-end">
+			<div class="hstack gap-2 justify-content-between">
+				<button type="button" class="btn btn-soft-danger" ononclick="location.reload();">@L(LKConstants.Cancel)</button>
 				<button type="submit" class="btn btn-primary">@L(LKConstants.Save)</button>
-				<button type="button" class="btn btn-soft-success">@L(LKConstants.Cancel)</button>
 			</div>
 		</div>
 		<!--end col-->
 	</div>
 	<!--end row-->
 </form>
-<script src="~/view-resources/Views/Profiles/UserInfo.js"></script>

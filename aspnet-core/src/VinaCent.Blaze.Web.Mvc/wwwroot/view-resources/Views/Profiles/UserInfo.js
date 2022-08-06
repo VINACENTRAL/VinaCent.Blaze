@@ -1,36 +1,36 @@
 ﻿(function ($) {
-    const countrySelector = $("#countrySelector");
+    l = abp.localization.getSource('Blaze');
 
-    const stateSelector = $("#stateSelector");
-    const stateSelectorParent = stateSelector.parent();
+    const countrySelector = document.getElementById('countrySelector');
 
-    const citySelector = $("#citySelector");
-    const citySelectorParent = citySelector.parent();
+    const stateSelector = document.getElementById('stateSelector');
 
-    let defaultCountry = countrySelector.data('default');
-    let defaultState = stateSelector.data('default');
-    let defaultCity = citySelector.data('default');
+    const citySelector = document.getElementById('citySelector');
+    let defaultCountry = countrySelector.dataset.default;
+
+    let defaultState = stateSelector.dataset.default;
+    let defaultCity = citySelector.dataset.default;
 
     if (defaultCountry) {
         loadStates(defaultCountry, () => {
-            stateSelector.val(defaultState).change();
+            stateSelector.value = defaultState;
+
+            if (defaultState) {
+                loadCities(defaultState, () => {
+                    citySelector.value = defaultCity;
+                });
+            }
         });
     }
 
-    if (defaultState) {
-        loadCities(defaultState, () => {
-            citySelector.val(defaultCity).change();
-        });
-    }
-
-    countrySelector.on('change', function () {
-        var country = this.value;
+    countrySelector.addEventListener('change', function () {
+        var country = this.value; 
         clearStates();
         clearCities();
-        loadStates(country);
+        loadStates(country);  
     });
 
-    stateSelector.on('change', function () {
+    stateSelector.addEventListener('change', function () {
         var state = this.value;
         clearCities();
         loadCities(state);
@@ -38,36 +38,64 @@
 
     function clearStates() {
         // Clear all old state
-        stateSelector.find('option').remove().end();
-        stateSelector.append($(`<option>`, {
-            value: null,
-            text: l('PleaseSelectState')
-        }));
-        stateSelector.setAttribute('disabled', '');
+        stateSelector.innerHTML = `<option value="">${l('PleaseSelectState')}</option>`;
+        stateSelector.disabled = true;
     }
 
     function loadStates(countryCode, onDone) {
         clearStates();
-        stateSelectorParent.addClass("loading");
+
+        if (!countryCode || countryCode.length === 0) {
+            return;
+        }
+
         abp.services.app.commonData.getAllList({
             keyword: '',
             type: 'STATE',
             parentKey: countryCode
-        }).then((result) => {
-            result.items.forEach((item) => {
-                stateSelector.append($(`<option>`, {
-                    value: `${item.key}`,
-                    text: item.value
-                }));
-            });
-            stateSelectorParent.removeClass("loading");
+        }).done(function (result) {
+            const runAble = result && result.items.length > 0;
+            stateSelector.disabled = !runAble;
+            if (runAble) {
+                result.items.forEach((item) => {
+                    stateSelector.innerHTML += `<option value=${item.key}>${item.value}</option>`;
+                })       
+            }
             if (typeof onDone === 'function') {
                 onDone();
             }
-        }).catch(() => {
-            setTimeout(() => {
-                loadStates(countryCode);
-            }, 1500);
+        });
+    }
+
+    function clearCities() {
+        // Clear all old state
+        citySelector.innerHTML = `<option value="">${l('PleaseSelectCity')}</option>`;
+        citySelector.disabled = true;
+    }
+
+    function loadCities(stateCode, onDone) {
+        clearCities();
+
+        if (!stateCode || stateCode.length === 0) {
+            return;
+        }
+
+        abp.services.app.commonData.getAllList({
+            keyword: '',
+            type: 'CITY',
+            parentKey: stateCode
+        }).done(function (result) {
+            const runAble = result && result.items.length > 0;
+            citySelector.disabled = !runAble;
+            if (runAble) {
+                result.items.forEach((item) => {
+                    citySelector.innerHTML += `<option value=${item.key}>${item.value}</option>`;
+                })
+            }
+            
+            if (typeof onDone === 'function') {
+                onDone();
+            }
         });
     }
 })(jQuery);
