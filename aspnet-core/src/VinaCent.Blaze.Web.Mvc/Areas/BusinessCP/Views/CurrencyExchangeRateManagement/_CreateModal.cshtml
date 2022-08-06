@@ -1,0 +1,29 @@
+﻿@using VinaCent.Blaze.BusinessCore
+@using VinaCent.Blaze.BusinessCore.CurrencyExchangeRates.Dto
+@using VinaCent.Blaze.BusinessCore.CurrencyUnits.Dto
+@using VinaCent.Blaze.Web.Models.Common.Modals
+@model UpdateExchangeRateDto
+@{
+    Layout = null;
+    var defaultCurrency = (CurrencyUnitDto)ViewBag.DefaultCurrency;
+}
+<div class="modal fade" id="CurrencyExchangeRateUpdateModal" tabindex="-1" role="dialog" data-backdrop="static">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            @await Html.PartialAsync("~/Views/Shared/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L(LKConstants.UpdateExchangeRateBaseOn, $"{defaultCurrency.GetMoneyFormat(1)} - {defaultCurrency.CurrencyEnglishName}")))
+            <form name="CurrencyUnitManagementCreateForm" role="form" class="form-horizontal">
+                <input type="hidden" asp-for="CurrencyUnitId" />
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="input-group">
+                            <span class="input-group-text">@defaultCurrency.GetMoneyFormat(1) = </span>
+                            <input type="text" class="form-control text-end" asp-for="ConvertedValue">
+                            <span class="input-group-text" id="CurrencyUnitSymbol">(đ)</span>
+                        </div>
+                    </div>
+                </div>
+                @await Html.PartialAsync("~/Views/Shared/Modals/_ModalFooterWithSaveAndCancel.cshtml")
+            </form>
+        </div>
+    </div>
+</div>

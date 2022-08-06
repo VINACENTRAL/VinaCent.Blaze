@@ -245,4 +245,23 @@ public static class LKConstants
     public const string UserManagement_OrganizationUnits_MaxUserMembershipCount = "UserManagement_OrganizationUnits_MaxUserMembershipCount";
     public const string AdminCP = "AdminCP";
     public const string CurrencyUnitManagement = "CurrencyUnitManagement";
+    public const string CurrencyExchangeRateManagement = "CurrencyExchangeRateManagement";
+    public const string BusinessCP = "BusinessCP";
+    public const string CurrencyManagement = "CurrencyManagement";
+    public const string CurrencyNativeName = "CurrencyNativeName";
+    public const string CurrencyDecimalSeparator = "CurrencyDecimalSeparator";
+    public const string CurrencyGroupSeparator = "CurrencyGroupSeparator";
+    public const string CurrencySymbol = "CurrencySymbol";
+    public const string ISOCurrencySymbol = "ISOCurrencySymbol";
+    public const string CultureName = "CultureName";
+    public const string CurrencyEnglishName = "CurrencyEnglishName";
+    public const string CurrencyDecimalDigits = "CurrencyDecimalDigits";
+    public const string CurrencyNegativePattern = "CurrencyNegativePattern";
+    public const string CurrencyPositivePattern = "CurrencyPositivePattern";
+    public const string CreateNewCurrencyUnit = "CreateNewCurrencyUnit";
+    public const string EditCurrencyUnit = "EditCurrencyUnit";
+    public const string CurrencyExchangeRatePairISOSymbolFrom = "CurrencyExchangeRatePairISOSymbolFrom";
+    public const string CurrencyExchangeRatePairISOSymbolTo = "CurrencyExchangeRatePairISOSymbolTo";
+    public const string CurrencyExchangeRateLastModificationTime = "CurrencyExchangeRateLastModificationTime";
+    public const string UpdateExchangeRateBaseOn = "UpdateExchangeRateBaseOn";
 }

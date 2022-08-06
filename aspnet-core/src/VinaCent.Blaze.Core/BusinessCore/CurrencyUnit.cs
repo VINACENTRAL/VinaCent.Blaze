@@ -48,10 +48,14 @@ namespace VinaCent.Blaze.BusinessCore
                         ISOCurrencySymbol = tulple.ri.ISOCurrencySymbol,
                         CurrencyNegativePattern = tulple.ci.NumberFormat.CurrencyNegativePattern,
                         CurrencyPositivePattern = tulple.ci.NumberFormat.CurrencyPositivePattern,
-                        IsActive = false
+                        IsActive = tulple.ri.ISOCurrencySymbol.Equals("VND", StringComparison.OrdinalIgnoreCase) || tulple.ri.ISOCurrencySymbol.Equals("USD", StringComparison.OrdinalIgnoreCase),
+                        IsDefault = tulple.ri.ISOCurrencySymbol.Equals("USD", StringComparison.OrdinalIgnoreCase),
                     };
                 });
             return cultures.ToList();
         }
+
+        public static string[] CurrencyNegativePatterns = new string[] { "($n)", "-$n", "$-n", "$n-", "(n$)", "-n$", "n-$", "n$-", "-n $", "-$ n", "n $-", "$ n-", "$ -n", "n- $", "($ n)", "(n $)" };
+        public static string[] CurrencyPositivePatterns = new string[] { "$n", "n$", "$ n", "n $" };
     }
 }

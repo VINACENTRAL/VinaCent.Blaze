@@ -7,21 +7,31 @@ namespace VinaCent.Blaze.Web.Areas.BusinessCP.Common
     {
         public override void SetNavigation(INavigationProviderContext context)
         {
-            context.Manager.Menus.TryGetValue(nameof(AdminCP), out var businessCpMenuDefinition);
-            if (businessCpMenuDefinition == null)
-            {
-                businessCpMenuDefinition = new MenuDefinition(nameof(AdminCP), L(nameof(AdminCP)));
-            }
+            var businessCpMenuDefinition = new MenuDefinition(nameof(BusinessCP), L(nameof(BusinessCP)));
             businessCpMenuDefinition
                 .AddItem(
-                    new MenuItemDefinition(
-                        BusinessCpPageNames.CurrencyUnitManagement,
-                        L(LKConstants.CurrencyUnitManagement),
-                        url: "businesscp/currency-unit-management",
-                        icon: "mdi mdi-speedometer",
-                        requiresAuthentication: true
-                    )
-                );
+                new MenuItemDefinition(
+                    BusinessCpPageNames.CurrencyManagement,
+                    L(LKConstants.CurrencyManagement),
+                    icon: "ri-coins-line"
+                //permissionDependency: new SimplePermissionDependency(PermissionNames.Pages_Users, PermissionNames.Pages_Roles)
+                ).AddItem(
+                new MenuItemDefinition(
+                    BusinessCpPageNames.CurrencyUnitManagement,
+                    L(LKConstants.CurrencyUnitManagement),
+                    url: "businesscp/currency-units",
+                    icon: "ri-copper-coin-line",
+                    requiresAuthentication: true
+                )).AddItem(
+                new MenuItemDefinition(
+                    BusinessCpPageNames.CurrencyExchangeRateManagement,
+                    L(LKConstants.CurrencyExchangeRateManagement),
+                    url: "businesscp/currency-exchange-rates",
+                    icon: "ri-exchange-funds-fill",
+                    requiresAuthentication: true,
+                    order: 1
+                ))
+              );
 
             context.Manager.Menus.Add(nameof(BusinessCP), businessCpMenuDefinition);
         }

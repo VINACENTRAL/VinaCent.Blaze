@@ -13,11 +13,7 @@ public class AdminCpNavigationProvider : NavigationProvider
 {
     public override void SetNavigation(INavigationProviderContext context)
     {
-        context.Manager.Menus.TryGetValue(nameof(AdminCP), out var adminCpMenuDefinition);
-        if (adminCpMenuDefinition == null)
-        {
-            adminCpMenuDefinition = new MenuDefinition(nameof(AdminCP), L(nameof(AdminCP)));
-        }
+        var adminCpMenuDefinition = new MenuDefinition(nameof(AdminCP), L(nameof(AdminCP)));
 
         adminCpMenuDefinition
             .AddItem(
