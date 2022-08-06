@@ -1,14 +1,14 @@
-﻿using Abp.Domain.Entities;
+﻿using Abp.Application.Services.Dto;
+using Abp.AutoMapper;
 using System;
-using System.ComponentModel.DataAnnotations.Schema;
 
-namespace VinaCent.Blaze.AppCore.CommonDatas
+namespace VinaCent.Blaze.AppCore.CommonDatas.Dto
 {
-    [Table(nameof(AppCore) + "." + nameof(CommonData))]
-    public class CommonData : Entity<Guid>
+    [AutoMap(typeof(CommonData))]
+    public class CommonDataDto : EntityDto<Guid>
     {
         /// <summary>
-        /// Từ khóa
+        /// Khóa giá trị
         /// </summary>
         public string Key { get; set; }
 

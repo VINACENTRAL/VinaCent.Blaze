@@ -219,6 +219,16 @@ public static class LKConstants
     public const string SiteDescription = "SiteDescription";
     public const string SiteAuthor = "SiteAuthor";
     public const string SiteAuthorProfileUrl = "SiteAuthorProfileUrl";
+    public const string Bio = "Bio";
+    public const string State = "State";
+    public const string Birthday = "Birthday";
+    public const string IdentityCardNumber = "IdentityCardNumber";
+    public const string AddressLine1 = "AddressLine1";
+    public const string AddressLine2 = "AddressLine2";
+    public const string PleaseSelectCountry = "PleaseSelectCountry";
+    public const string PleaseSelectState = "PleaseSelectState";
+    public const string PleaseSelectCity = "PleaseSelectCity";
+    
     public const string SiteFavicon = "SiteFavicon";
     public const string AppCommonSettings = "AppCommonSettings";
     public const string AppSys_DoNotShowLogoutScreen = "AppSys_DoNotShowLogoutScreen";
