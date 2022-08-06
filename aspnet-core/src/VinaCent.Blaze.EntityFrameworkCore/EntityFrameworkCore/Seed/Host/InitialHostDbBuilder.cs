@@ -16,6 +16,7 @@
             new HostRoleAndUserCreator(_context).Create();
             new DefaultSettingsCreator(_context).Create();
             new DefaultTextTemplatesCreator(_context).Create();
+            new DefaultCurrencyUnitCreator(_context).Create();
 
             _context.SaveChanges();
         }
