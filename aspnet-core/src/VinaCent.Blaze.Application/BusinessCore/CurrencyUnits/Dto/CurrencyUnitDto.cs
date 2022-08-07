@@ -29,40 +29,54 @@ namespace VinaCent.Blaze.BusinessCore.CurrencyUnits.Dto
 
         public string GetMoneyFormat(decimal input)
         {
-            var culture = CultureInfo.GetCultureInfo(CultureName).Clone() as CultureInfo;
-            culture.NumberFormat.CurrencyDecimalDigits = CurrencyDecimalDigits;
-            culture.NumberFormat.CurrencyDecimalSeparator = CurrencyDecimalSeparator;
-            culture.NumberFormat.CurrencyGroupSeparator = CurrencyGroupSeparator;
-            culture.NumberFormat.CurrencySymbol = CurrencySymbol;
-            culture.NumberFormat.CurrencyNegativePattern = CurrencyNegativePattern;
-            culture.NumberFormat.CurrencyPositivePattern = CurrencyPositivePattern;
+            try
+            {
+                var culture = CultureInfo.GetCultureInfo(CultureName).Clone() as CultureInfo;
+                culture.NumberFormat.CurrencyDecimalDigits = CurrencyDecimalDigits;
+                culture.NumberFormat.CurrencyDecimalSeparator = CurrencyDecimalSeparator;
+                culture.NumberFormat.CurrencyGroupSeparator = CurrencyGroupSeparator;
+                culture.NumberFormat.CurrencySymbol = CurrencySymbol;
+                culture.NumberFormat.CurrencyNegativePattern = CurrencyNegativePattern;
+                culture.NumberFormat.CurrencyPositivePattern = CurrencyPositivePattern;
 
-            return input.ToString("C", culture);
+                return input.ToString("C", culture);
+            }
+            catch
+            {
+                return CultureName;
+            }
         }
 
         public string GetValableMoneyFormat(decimal input)
         {
-            var culture = CultureInfo.GetCultureInfo(CultureName).Clone() as CultureInfo;
-            culture.NumberFormat.CurrencyDecimalDigits = CurrencyDecimalDigits;
-            culture.NumberFormat.CurrencyDecimalSeparator = CurrencyDecimalSeparator;
-            culture.NumberFormat.CurrencyGroupSeparator = CurrencyGroupSeparator;
-            culture.NumberFormat.CurrencySymbol = CurrencySymbol;
-            culture.NumberFormat.CurrencyNegativePattern = CurrencyNegativePattern;
-            culture.NumberFormat.CurrencyPositivePattern = CurrencyPositivePattern;
-
-            var inps = input.ToString(CultureInfo.InvariantCulture).Split('.');
-            if (inps.Length > 1)
+            try
             {
-                inps[1] = inps[1].TrimEnd('0');
-                if (!inps[1].IsNullOrEmpty())
-                {
-                    inps[1] = inps[1][..Math.Min(inps[1].Length, 150)];
-                    var shouldLength = inps[1].Length - inps[1].TrimStart('0').Length + culture.NumberFormat.CurrencyDecimalDigits;
-                    culture.NumberFormat.CurrencyDecimalDigits = Math.Min(inps[1].Length, shouldLength);
-                }
-            }
+                var culture = CultureInfo.GetCultureInfo(CultureName).Clone() as CultureInfo;
+                culture.NumberFormat.CurrencyDecimalDigits = CurrencyDecimalDigits;
+                culture.NumberFormat.CurrencyDecimalSeparator = CurrencyDecimalSeparator;
+                culture.NumberFormat.CurrencyGroupSeparator = CurrencyGroupSeparator;
+                culture.NumberFormat.CurrencySymbol = CurrencySymbol;
+                culture.NumberFormat.CurrencyNegativePattern = CurrencyNegativePattern;
+                culture.NumberFormat.CurrencyPositivePattern = CurrencyPositivePattern;
 
-            return input.ToString("C", culture);
+                var inps = input.ToString(CultureInfo.InvariantCulture).Split('.');
+                if (inps.Length > 1)
+                {
+                    inps[1] = inps[1].TrimEnd('0');
+                    if (!inps[1].IsNullOrEmpty())
+                    {
+                        inps[1] = inps[1][..Math.Min(inps[1].Length, 150)];
+                        var shouldLength = inps[1].Length - inps[1].TrimStart('0').Length + culture.NumberFormat.CurrencyDecimalDigits;
+                        culture.NumberFormat.CurrencyDecimalDigits = Math.Min(inps[1].Length, shouldLength);
+                    }
+                }
+
+                return input.ToString("C", culture);
+            }
+            catch
+            {
+                return CultureName;
+            }
         }
     }
 }

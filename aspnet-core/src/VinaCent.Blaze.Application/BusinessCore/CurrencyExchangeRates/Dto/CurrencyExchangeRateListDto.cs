@@ -61,30 +61,37 @@ namespace VinaCent.Blaze.BusinessCore.CurrencyExchangeRates.Dto
 
         private string GetMoneyFormat(decimal? input)
         {
-            var culture = CultureInfo.GetCultureInfo(CultureName).Clone() as CultureInfo;
-            culture.NumberFormat.CurrencyDecimalDigits = CurrencyDecimalDigits;
-            culture.NumberFormat.CurrencyDecimalSeparator = CurrencyDecimalSeparator;
-            culture.NumberFormat.CurrencyGroupSeparator = CurrencyGroupSeparator;
-            culture.NumberFormat.CurrencySymbol = CurrencySymbol;
-            culture.NumberFormat.CurrencyNegativePattern = CurrencyNegativePattern;
-            culture.NumberFormat.CurrencyPositivePattern = CurrencyPositivePattern;
-
-            if (input != null)
+            try
             {
-                var inps = input.Value.ToString(CultureInfo.InvariantCulture).Split('.');
-                if (inps.Length > 1)
+                var culture = CultureInfo.GetCultureInfo(CultureName).Clone() as CultureInfo;
+                culture.NumberFormat.CurrencyDecimalDigits = CurrencyDecimalDigits;
+                culture.NumberFormat.CurrencyDecimalSeparator = CurrencyDecimalSeparator;
+                culture.NumberFormat.CurrencyGroupSeparator = CurrencyGroupSeparator;
+                culture.NumberFormat.CurrencySymbol = CurrencySymbol;
+                culture.NumberFormat.CurrencyNegativePattern = CurrencyNegativePattern;
+                culture.NumberFormat.CurrencyPositivePattern = CurrencyPositivePattern;
+
+                if (input != null)
                 {
-                    inps[1] = inps[1].TrimEnd('0');
-                    if (!inps[1].IsNullOrEmpty())
+                    var inps = input.Value.ToString(CultureInfo.InvariantCulture).Split('.');
+                    if (inps.Length > 1)
                     {
-                        inps[1] = inps[1][..Math.Min(inps[1].Length, 150)];
-                        var shouldLength = inps[1].Length - inps[1].TrimStart('0').Length + culture.NumberFormat.CurrencyDecimalDigits;
-                        culture.NumberFormat.CurrencyDecimalDigits = Math.Min(inps[1].Length, shouldLength);
+                        inps[1] = inps[1].TrimEnd('0');
+                        if (!inps[1].IsNullOrEmpty())
+                        {
+                            inps[1] = inps[1][..Math.Min(inps[1].Length, 150)];
+                            var shouldLength = inps[1].Length - inps[1].TrimStart('0').Length + culture.NumberFormat.CurrencyDecimalDigits;
+                            culture.NumberFormat.CurrencyDecimalDigits = Math.Min(inps[1].Length, shouldLength);
+                        }
                     }
                 }
-            }
 
-            return input?.ToString("C", culture) ?? string.Empty;
+                return input?.ToString("C", culture) ?? string.Empty;
+            }
+            catch
+            {
+                return CultureName;
+            }
         }
 
         #region Standalized data

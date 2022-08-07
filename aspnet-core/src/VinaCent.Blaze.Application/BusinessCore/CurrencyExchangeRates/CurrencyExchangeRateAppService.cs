@@ -90,7 +90,7 @@ namespace VinaCent.Blaze.BusinessCore.CurrencyExchangeRates
         {
             var query = _currencyUnitRepository.GetAll();
             // Get default currency unit
-            var defaultCurrencyUnit = await _currencyUnitRepository.FirstOrDefaultAsync(x => x.IsDefault);
+            var defaultCurrencyUnit = await query.FirstOrDefaultAsync(x => x.IsDefault);
             // Filter process
             query = query.Where(x => x.Id != defaultCurrencyUnit.Id).WhereIf(!input.Keyword.IsNullOrEmpty(), x => x.CurrencyNativeName.Contains(input.Keyword) || x.CurrencyEnglishName.Contains(input.Keyword));
             // Apply Sorting process
@@ -134,6 +134,7 @@ namespace VinaCent.Blaze.BusinessCore.CurrencyExchangeRates
                         data.ValueBaseOnOneDefault = crrExchangeRate.ConvertedValue == 0 ? 0 : (1 / crrExchangeRate.ConvertedValue);
                     }
                 }
+
                 data.CreationTime = crrExchangeRate?.CreationTime ?? null;
                 dataset.Add(data);
             }
