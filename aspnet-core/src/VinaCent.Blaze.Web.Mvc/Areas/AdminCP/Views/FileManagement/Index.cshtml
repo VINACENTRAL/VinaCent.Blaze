@@ -6,7 +6,7 @@
 @inject IVelzonThemeOptions ThemeOptions
 
 @{
-    ThemeOptions.AddBreadcrumb(L(LKConstants.FileManagement)).Commit(this);
+    ThemeOptions.AddBreadcrumb(L(LKConstants.AdminCP)).AddBreadcrumb(L(LKConstants.FileManagement)).Commit(this);
     ViewBag.Title = L(AdminCpPageNames.FileManagement);
     ViewBag.CurrentPageName = AdminCpPageNames.FileManagement;
 }

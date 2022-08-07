@@ -5,7 +5,7 @@
 @inject IVelzonThemeOptions ThemeOptions
 @model RoleListViewModel
 @{
-    ThemeOptions.AddBreadcrumb(L(LKConstants.Roles)).Commit(this);
+    ThemeOptions.AddBreadcrumb(L(LKConstants.AdminCP)).AddBreadcrumb(L(LKConstants.Roles)).Commit(this);
     ViewBag.Title = L(LKConstants.Roles);
     ViewBag.CurrentPageName = AdminCpPageNames.Roles;
 }

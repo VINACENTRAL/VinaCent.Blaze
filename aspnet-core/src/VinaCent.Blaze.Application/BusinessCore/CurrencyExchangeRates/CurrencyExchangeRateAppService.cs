@@ -1,12 +1,9 @@
-﻿using Abp.Application.Services;
-using Abp.Application.Services.Dto;
+﻿using Abp.Application.Services.Dto;
 using Abp.Authorization;
 using Abp.Domain.Repositories;
 using Abp.Extensions;
 using Abp.Linq.Extensions;
-using Abp.Runtime.Session;
 using Abp.UI;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -24,7 +21,6 @@ namespace VinaCent.Blaze.BusinessCore.CurrencyExchangeRates
     {
         private readonly IRepository<CurrencyUnit, Guid> _currencyUnitRepository;
         private readonly IRepository<CurrencyExchangeRate, Guid> _repository;
-        private readonly UserManager _userManager;
 
 
         public CurrencyExchangeRateAppService(IRepository<CurrencyExchangeRate, Guid> repository, IRepository<CurrencyUnit, Guid> currencyUnitRepository)
@@ -33,7 +29,7 @@ namespace VinaCent.Blaze.BusinessCore.CurrencyExchangeRates
             _currencyUnitRepository = currencyUnitRepository;
         }
 
-        private async Task<UserLoginInfoDto> GetCurrentUserAsync(long userId)
+        private async Task<UserLoginInfoDto> GetUserLoginInfoAsync(long userId)
         {
             var user = await UserManager.FindByIdAsync(userId.ToString());
             return ObjectMapper.Map<UserLoginInfoDto>(user);
@@ -81,7 +77,7 @@ namespace VinaCent.Blaze.BusinessCore.CurrencyExchangeRates
                 }
                 if (data.CreatorUserId != null)
                 {
-                    data.Creator = await GetCurrentUserAsync(data.CreatorUserId.Value);
+                    data.Creator = await GetUserLoginInfoAsync(data.CreatorUserId.Value);
                 }
 
                 dataset.Add(data);

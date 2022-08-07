@@ -5,7 +5,7 @@
 @inject IVelzonThemeOptions ThemeOptions
 @model UserListViewModel
 @{
-    ThemeOptions.AddBreadcrumb(L(LKConstants.Users)).Commit(this);
+    ThemeOptions.AddBreadcrumb(L(LKConstants.AdminCP)).AddBreadcrumb(L(LKConstants.Users)).Commit(this);
     ViewBag.Title = L(LKConstants.Users);
     ViewBag.CurrentPageName = AdminCpPageNames.Users;
 }

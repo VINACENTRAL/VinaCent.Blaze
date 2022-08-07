@@ -4,7 +4,7 @@
 @using VinaCent.Blaze.Web.Startup
 @using VinaCent.Blaze.Web.Themes.Velzon.ThemeOptions
 @{
-    ThemeOptions.AddBreadcrumb(L(LKConstants.LanguageTextManagement)).Commit(this);
+    ThemeOptions.AddBreadcrumb(L(LKConstants.AdminCP)).AddBreadcrumb(L(LKConstants.LanguageTextManagement)).Commit(this);
     ViewBag.Title = L(LKConstants.LanguageTextManagement);
     ViewBag.CurrentPageName = AdminCpPageNames.LanguageTextManagement;
 }

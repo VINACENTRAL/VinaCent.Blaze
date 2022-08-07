@@ -5,7 +5,7 @@
 @inject IVelzonThemeOptions ThemeOptions
 @model LanguageListViewModel
 @{
-    ThemeOptions.AddBreadcrumb(L(LKConstants.Languages)).Commit(this);
+    ThemeOptions.AddBreadcrumb(L(LKConstants.AdminCP)).AddBreadcrumb(L(LKConstants.Languages)).Commit(this);
     ViewBag.Title = L(LKConstants.Languages);
     ViewBag.CurrentPageName = AdminCpPageNames.LanguageManagement;
 }

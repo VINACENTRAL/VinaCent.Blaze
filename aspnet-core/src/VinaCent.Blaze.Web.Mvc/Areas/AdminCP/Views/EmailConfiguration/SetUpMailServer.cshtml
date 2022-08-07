@@ -5,7 +5,7 @@
 @model SetupEmailerDto
 
 @{
-    ThemeOptions.AddBreadcrumb(L(LKConstants.SettingManagement)).AddBreadcrumb(L(LKConstants.EmailConfiguration)).AddBreadcrumb(L(LKConstants.EmailConfiguration_SetUpMailServer)).Commit(this);
+    ThemeOptions.AddBreadcrumb(L(LKConstants.AdminCP)).AddBreadcrumb(L(LKConstants.SettingManagement)).AddBreadcrumb(L(LKConstants.EmailConfiguration)).AddBreadcrumb(L(LKConstants.EmailConfiguration_SetUpMailServer)).Commit(this);
     ViewBag.Title = L(LKConstants.EmailConfiguration_SetUpMailServer);
     ViewBag.CurrentPageName = AdminCpPageNames.EmailConfiguration_SetUpMailServer;
 }
