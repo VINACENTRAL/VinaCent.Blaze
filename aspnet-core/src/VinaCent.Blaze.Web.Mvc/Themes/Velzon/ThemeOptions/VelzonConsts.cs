@@ -2,6 +2,8 @@
 {
     public static class VelzonConsts
     {
+        public static string[] CPAreas = new[] { nameof(Areas.AdminCP), nameof(Areas.BusinessCP) };
+
         public static class LayoutDirections
         {
             public const string Vertical = "vertical";

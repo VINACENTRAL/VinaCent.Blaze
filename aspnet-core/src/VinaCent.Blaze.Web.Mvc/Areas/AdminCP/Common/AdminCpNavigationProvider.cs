@@ -14,6 +14,7 @@ public class AdminCpNavigationProvider : NavigationProvider
     public override void SetNavigation(INavigationProviderContext context)
     {
         var adminCpMenuDefinition = new MenuDefinition(nameof(AdminCP), L(nameof(AdminCP)));
+
         adminCpMenuDefinition
             .AddItem(
                 new MenuItemDefinition(

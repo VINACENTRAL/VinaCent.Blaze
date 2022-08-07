@@ -15,4 +15,10 @@
     static PasswordResetSuccessful = 'PasswordResetSuccessful';
     static NewPasswordConfirmFailed = 'NewPasswordConfirmFailed';
     static PasswordChanged = 'PasswordChanged';
+
+    // ============================== START BUSINESS CORE ============================== //
+    static UpdateExchangeRate = 'UpdateExchangeRate';
+    static ExchangeRateHistory = 'ExchangeRateHistory';
+    static ExchangeRateWasSettedThat = 'ExchangeRateWasSettedThat';
+    // ==============================  END BUSINESS CORE  ============================== //
 }

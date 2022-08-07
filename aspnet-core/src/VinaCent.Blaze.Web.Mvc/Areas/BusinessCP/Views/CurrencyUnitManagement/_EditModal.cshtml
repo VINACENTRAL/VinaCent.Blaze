@@ -1,0 +1,109 @@
+﻿@using VinaCent.Blaze.BusinessCore
+@using VinaCent.Blaze.BusinessCore.CurrencyUnits.Dto
+@using VinaCent.Blaze.Web.Models.Common.Modals
+@model UpdateCurrencyUnitDto
+@{
+    Layout = null;
+
+    var poss = CurrencyUnit.CurrencyPositivePatterns.Select((item, index) => new SelectListItem(item, index.ToString()));
+    var negs = CurrencyUnit.CurrencyNegativePatterns.Select((item, index) => new SelectListItem(item, index.ToString()));
+}
+@await Html.PartialAsync("~/Views/Shared/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L(LKConstants.EditCurrencyUnit)))
+<form role="form" class="form-horizontal">
+    <input type="hidden" asp-for="Id" />
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="required mb-3">
+                    <label class="form-label" asp-for="CultureName"></label>
+                    <input type="text" asp-for="CultureName" class="form-control" />
+                    <span asp-validation-for="CultureName" class="invalid-feedback"></span>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="required mb-3">
+                    <label class="form-label" asp-for="CurrencyEnglishName"></label>
+                    <input type="text" asp-for="CurrencyEnglishName" class="form-control" />
+                    <span asp-validation-for="CurrencyEnglishName" class="invalid-feedback"></span>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="required mb-3">
+                    <label class="form-label" asp-for="CurrencyNativeName"></label>
+                    <input type="text" asp-for="CurrencyNativeName" class="form-control" />
+                    <span asp-validation-for="CurrencyNativeName" class="invalid-feedback"></span>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="required mb-3">
+                    <label class="form-label" asp-for="CurrencyDecimalDigits"></label>
+                    <input type="text" asp-for="CurrencyDecimalDigits" class="form-control" />
+                    <span asp-validation-for="CurrencyDecimalDigits" class="invalid-feedback"></span>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="required mb-3">
+                    <label class="form-label" asp-for="CurrencyDecimalSeparator"></label>
+                    <input type="text" asp-for="CurrencyDecimalSeparator" class="form-control" />
+                    <span asp-validation-for="CurrencyDecimalSeparator" class="invalid-feedback"></span>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="required mb-3">
+                    <label class="form-label" asp-for="CurrencyGroupSeparator"></label>
+                    <input type="text" asp-for="CurrencyGroupSeparator" class="form-control" />
+                    <span asp-validation-for="CurrencyGroupSeparator" class="invalid-feedback"></span>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="required mb-3">
+                    <label class="form-label" asp-for="CurrencySymbol"></label>
+                    <input type="text" asp-for="CurrencySymbol" class="form-control" />
+                    <span asp-validation-for="CurrencySymbol" class="invalid-feedback"></span>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="required mb-3">
+                    <label class="form-label" asp-for="ISOCurrencySymbol"></label>
+                    <input type="text" asp-for="ISOCurrencySymbol" class="form-control" />
+                    <span asp-validation-for="ISOCurrencySymbol" class="invalid-feedback"></span>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="required mb-3">
+                    <label class="form-label" asp-for="CurrencyNegativePattern"></label>
+                    <select class="form-control" asp-for="CurrencyNegativePattern" asp-items="@negs">
+                    </select>
+                    <span asp-validation-for="CurrencyNegativePattern" class="invalid-feedback"></span>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="required mb-3">
+                    <label class="form-label" asp-for="CurrencyPositivePattern"></label>
+                    <select class="form-control" asp-for="CurrencyPositivePattern" asp-items="@poss">
+                    </select>
+                    <span asp-validation-for="CurrencyPositivePattern" class="invalid-feedback"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-check form-switch form-switch-success mb-3">
+                    <input class="form-check-input" type="checkbox" role="switch" asp-for="IsActive" value="true">
+                    <label class="form-check-label" asp-for=IsActive></label>
+                    <span asp-validation-for="IsActive" class="invalid-feedback"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-check form-switch form-switch-success mb-3">
+                    <input class="form-check-input" type="checkbox" role="switch" asp-for="IsDefault" value="true">
+                    <label class="form-check-label" asp-for=IsDefault></label>
+                    <span asp-validation-for="IsDefault" class="invalid-feedback"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    @await Html.PartialAsync("~/Views/Shared/Modals/_ModalFooterWithSaveAndCancel.cshtml")
+</form>
+
+<script src="~/view-resources/Views/BusinessCP/CurrencyUnitManagement/_EditModal.js" asp-append-version="true"></script>

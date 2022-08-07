@@ -6,6 +6,7 @@ using VinaCent.Blaze.Configuration;
 using VinaCent.Blaze.Web.Areas.AdminCP.Common;
 using VinaCent.Blaze.Web.Areas.Client.Common;
 using VinaCent.Blaze.Web.Common;
+using VinaCent.Blaze.Web.Areas.BusinessCP.Common;
 
 namespace VinaCent.Blaze.Web.Startup
 {
@@ -24,6 +25,7 @@ namespace VinaCent.Blaze.Web.Startup
         public override void PreInitialize()
         {
             Configuration.Navigation.Providers.Add<AdminCpNavigationProvider>();
+            Configuration.Navigation.Providers.Add<BusinessCpNavigationProvider>();
             Configuration.Navigation.Providers.Add<ClientNavigationProvider>();
         }
 

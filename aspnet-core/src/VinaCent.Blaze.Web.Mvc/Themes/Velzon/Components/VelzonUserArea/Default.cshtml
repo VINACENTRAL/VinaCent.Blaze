@@ -1,4 +1,5 @@
 ﻿@using VinaCent.Blaze.Web.Themes.Velzon.Components.VelzonUserArea
+@using VinaCent.Blaze.Web.Themes.Velzon.ThemeOptions
 @model VelzonUserAreaViewModel
 
 @if (AbpSession.UserId != null)
@@ -35,7 +36,7 @@
             <a class="dropdown-item" asp-action="Lockout" asp-controller="Account" asp-area="">
                 <i class="ri-lock-fill text-muted fs-16 align-middle me-1"></i> <span class="align-middle">@L(LKConstants.GotoLockScreen)</span>
             </a>
-            @if (!area.Equals(nameof(VinaCent.Blaze.Web.Areas.AdminCP)))
+            @if (!VelzonConsts.CPAreas.Contains(area))
             {
                 <a class="dropdown-item" asp-action="Index" asp-controller="Dashboard" asp-area="AdminCP">
                     <i class="ri-shield-fill text-muted fs-16 align-middle me-1"></i> <span class="align-middle">@L(LKConstants.GoToAdminCP)</span>
