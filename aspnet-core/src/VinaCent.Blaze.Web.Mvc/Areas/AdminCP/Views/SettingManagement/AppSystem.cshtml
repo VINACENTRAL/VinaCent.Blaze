@@ -4,7 +4,7 @@
 @using VinaCent.Blaze.Web.Areas.AdminCP.Common
 @model AppSystemSettingModel
 @{
-    ThemeOptions.AddBreadcrumb(L(LKConstants.SettingManagement)).AddBreadcrumb(L(LKConstants.SettingManagement_AppSystem)).Commit(this);
+    ThemeOptions.AddBreadcrumb(L(LKConstants.AdminCP)).AddBreadcrumb(L(LKConstants.SettingManagement)).AddBreadcrumb(L(LKConstants.SettingManagement_AppSystem)).Commit(this);
     ViewBag.Title = L(LKConstants.SettingManagement_AppSystem);
     ViewBag.CurrentPageName = AdminCpPageNames.SettingManagement_AppSystem;
 }

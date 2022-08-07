@@ -3,7 +3,7 @@
 @using VinaCent.Blaze.Web.Themes.Velzon.ThemeOptions
 @inject IVelzonThemeOptions ThemeOptions
 @{
-    ThemeOptions.AddBreadcrumb(L(LKConstants.AuditLogs)).Commit(this);
+    ThemeOptions.AddBreadcrumb(L(LKConstants.AdminCP)).AddBreadcrumb(L(LKConstants.AuditLogs)).Commit(this);
     ViewBag.Title = L(AdminCpPageNames.AuditLogs);
     ViewBag.CurrentPageName = AdminCpPageNames.AuditLogs;
 }

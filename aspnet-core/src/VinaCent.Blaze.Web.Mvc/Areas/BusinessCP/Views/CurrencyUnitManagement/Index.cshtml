@@ -5,7 +5,7 @@
 @inject IVelzonThemeOptions ThemeOptions
 
 @{
-    ThemeOptions.AddBreadcrumb(L(LKConstants.BusinessCP)).AddBreadcrumb(L(LKConstants.CurrencyUnitManagement)).Commit(this);
+    ThemeOptions.AddBreadcrumb(L(LKConstants.BusinessCP)).AddBreadcrumb(L(LKConstants.CurrencyManagement)).AddBreadcrumb(L(LKConstants.CurrencyUnitManagement)).Commit(this);
     ViewBag.Title = L(LKConstants.CurrencyUnitManagement);
     ViewBag.CurrentPageName = BusinessCpPageNames.CurrencyUnitManagement;
 }

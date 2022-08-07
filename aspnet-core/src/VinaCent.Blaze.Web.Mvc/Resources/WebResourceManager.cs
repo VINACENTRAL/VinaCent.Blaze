@@ -22,7 +22,7 @@ namespace VinaCent.Blaze.Web.Resources
 
         public void AddScript(string url, bool addMinifiedOnProd = true)
         {
-            _scriptUrls.AddIfNotContains(NormalizeUrl(url, "js"));
+            _scriptUrls.AddIfNotContains(NormalizeUrl(url, "js", addMinifiedOnProd));
         }
 
         public IReadOnlyList<string> GetScripts()
@@ -41,14 +41,14 @@ namespace VinaCent.Blaze.Web.Resources
             });
         }
 
-        private string NormalizeUrl(string url, string ext)
+        private string NormalizeUrl(string url, string ext, bool addMinifiedOnProd)
         {
             if (_environment.IsDevelopment())
             {
                 return url;
             }
 
-            if (url.EndsWith(".min." + ext))
+            if (url.EndsWith(".min." + ext) || !addMinifiedOnProd)
             {
                 return url;
             }
