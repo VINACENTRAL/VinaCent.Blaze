@@ -11,7 +11,7 @@
         StringComparison.OrdinalIgnoreCase);
 	var isEmailUpdateEnabled  = string.Equals(await SettingManager.GetSettingValueAsync(AppSettingNames.User.IsEmailUpdateEnabled), "false",
         StringComparison.OrdinalIgnoreCase);
-	WebResourceManager.AddScript(ApplicationPath + "view-resources/Views/Profiles/UserInfo.js");
+	WebResourceManager.AddScript(ApplicationPath + "view-resources/Views/Profiles/UserInfo.js", false);
 }
 
 <form method="post" id="PersonalInfoForm">

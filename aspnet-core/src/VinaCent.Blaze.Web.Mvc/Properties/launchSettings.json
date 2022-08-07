@@ -8,20 +8,39 @@
     }
   },
   "profiles": {
-    "IIS Express": {
+    "IIS Express - PROD": {
+      "commandName": "IISExpress",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Production"
+      }
+    },
+    "IIS Express - DEV": {
       "commandName": "IISExpress",
       "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "VinaCent.Blaze.Web": {
+    "VinaCent.Blaze.Web - DEV": {
       "commandName": "Project",
       "commandLineArgs": "watch run",
       "launchBrowser": true,
       "launchUrl": "https://localhost:44312",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "hotReloadEnabled": true,
+      "applicationUrl": "https://localhost:44312",
+      "nativeDebugging": true
+    },
+    "VinaCent.Blaze.Web - PROD": {
+      "commandName": "Project",
+      "commandLineArgs": "watch run",
+      "launchBrowser": true,
+      "launchUrl": "https://localhost:44312",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Production"
       },
       "hotReloadEnabled": true,
       "applicationUrl": "https://localhost:44312",
