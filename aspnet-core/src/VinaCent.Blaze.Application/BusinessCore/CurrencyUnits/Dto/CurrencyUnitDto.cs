@@ -31,7 +31,7 @@ namespace VinaCent.Blaze.BusinessCore.CurrencyUnits.Dto
         {
             try
             {
-                var culture = CultureInfo.GetCultureInfo(CultureName).Clone() as CultureInfo;
+                var culture = new CultureInfo(CultureName);
                 culture.NumberFormat.CurrencyDecimalDigits = CurrencyDecimalDigits;
                 culture.NumberFormat.CurrencyDecimalSeparator = CurrencyDecimalSeparator;
                 culture.NumberFormat.CurrencyGroupSeparator = CurrencyGroupSeparator;
@@ -51,7 +51,7 @@ namespace VinaCent.Blaze.BusinessCore.CurrencyUnits.Dto
         {
             try
             {
-                var culture = CultureInfo.GetCultureInfo(CultureName).Clone() as CultureInfo;
+                var culture = new CultureInfo(CultureName);
                 culture.NumberFormat.CurrencyDecimalDigits = CurrencyDecimalDigits;
                 culture.NumberFormat.CurrencyDecimalSeparator = CurrencyDecimalSeparator;
                 culture.NumberFormat.CurrencyGroupSeparator = CurrencyGroupSeparator;
