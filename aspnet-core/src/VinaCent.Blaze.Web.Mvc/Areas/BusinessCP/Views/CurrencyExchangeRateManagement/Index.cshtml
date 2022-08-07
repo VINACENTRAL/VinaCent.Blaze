@@ -37,7 +37,7 @@
                         <th>@L(LKConstants.CurrencyExchangeRatePairISOSymbolFrom, Model.Default.CurrencyNativeName)</th>
                         <th>@L(LKConstants.CurrencyExchangeRatePairISOSymbolTo, Model.Default.CurrencyNativeName)</th>
                         <th>@L(LKConstants.CurrencyExchangeRateLastModificationTime)</th>
-                        <th style="width: 150px">@L(LKConstants.Actions)</th>
+                        <th style="width: 250px">@L(LKConstants.Actions)</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -48,3 +48,4 @@
 </div>
 
 @await Html.PartialAsync("~/Areas/BusinessCP/Views/CurrencyExchangeRateManagement/_CreateModal.cshtml", new UpdateExchangeRateDto())
+@await Html.PartialAsync("~/Areas/BusinessCP/Views/CurrencyExchangeRateManagement/_HistoryModal.cshtml", new PagedExchangeRateHistoryResultRequestDto())

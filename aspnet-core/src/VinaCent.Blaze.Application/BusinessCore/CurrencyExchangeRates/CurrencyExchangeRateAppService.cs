@@ -4,14 +4,18 @@ using Abp.Authorization;
 using Abp.Domain.Repositories;
 using Abp.Extensions;
 using Abp.Linq.Extensions;
+using Abp.Runtime.Session;
 using Abp.UI;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using VinaCent.Blaze.Authorization.Users;
 using VinaCent.Blaze.BusinessCore.CurrencyExchangeRates.Dto;
 using VinaCent.Blaze.BusinessCore.CurrencyUnits.Dto;
+using VinaCent.Blaze.Sessions.Dto;
 
 namespace VinaCent.Blaze.BusinessCore.CurrencyExchangeRates
 {
@@ -20,11 +24,70 @@ namespace VinaCent.Blaze.BusinessCore.CurrencyExchangeRates
     {
         private readonly IRepository<CurrencyUnit, Guid> _currencyUnitRepository;
         private readonly IRepository<CurrencyExchangeRate, Guid> _repository;
+        private readonly UserManager _userManager;
+
 
         public CurrencyExchangeRateAppService(IRepository<CurrencyExchangeRate, Guid> repository, IRepository<CurrencyUnit, Guid> currencyUnitRepository)
         {
             _repository = repository;
             _currencyUnitRepository = currencyUnitRepository;
+        }
+
+        private async Task<UserLoginInfoDto> GetCurrentUserAsync(long userId)
+        {
+            var user = await UserManager.FindByIdAsync(userId.ToString());
+            return ObjectMapper.Map<UserLoginInfoDto>(user);
+        }
+
+        public async Task<PagedResultDto<CurrencyExchangeRateDto>> GetAllHistoryAsync(PagedExchangeRateHistoryResultRequestDto input)
+        {
+            // Get default currency unit
+            var defaultCurrencyUnit = ObjectMapper.Map<CurrencyUnitDto>(await _currencyUnitRepository.FirstOrDefaultAsync(x => x.IsDefault));
+
+            // Current currency unit
+            var currentCurrencyUnit = ObjectMapper.Map<CurrencyUnitDto>(await _currencyUnitRepository.GetAsync(input.CurrentCurrencyUnitId));
+
+            // Get query base on default currency
+            var exchangeRateQuery = _repository.GetAll().Where(x => x.ISOCurrencySymbolFrom == defaultCurrencyUnit.ISOCurrencySymbol || x.ISOCurrencySymbolTo == defaultCurrencyUnit.ISOCurrencySymbol);
+            
+            // Get query base on current currency
+            exchangeRateQuery = _repository.GetAll().Where(x => x.ISOCurrencySymbolFrom == currentCurrencyUnit.ISOCurrencySymbol || x.ISOCurrencySymbolTo == currentCurrencyUnit.ISOCurrencySymbol);
+            
+            //
+            // Apply Sorting process - Order change rate query by creation time
+            exchangeRateQuery = exchangeRateQuery.OrderByDescending(x => x.CreationTime);
+            var total = exchangeRateQuery.Count();
+            //
+            // Apply paging process
+            exchangeRateQuery = exchangeRateQuery.PageBy(input);
+            //
+            // Process return result
+            var rawResult = await exchangeRateQuery.ToListAsync();
+
+            var dataset = new List<CurrencyExchangeRateDto>();
+
+            foreach (var item in rawResult)
+            {
+                var data = ObjectMapper.Map<CurrencyExchangeRateDto>(item);
+                if (data.ISOCurrencySymbolFrom.Equals(defaultCurrencyUnit.ISOCurrencySymbol, StringComparison.OrdinalIgnoreCase))
+                {
+                    data.From = defaultCurrencyUnit;
+                    data.To = currentCurrencyUnit;
+                }
+                else
+                {
+                    data.From = currentCurrencyUnit;
+                    data.To = defaultCurrencyUnit;
+                }
+                if (data.CreatorUserId != null)
+                {
+                    data.Creator = await GetCurrentUserAsync(data.CreatorUserId.Value);
+                }
+
+                dataset.Add(data);
+            }
+
+            return new PagedResultDto<CurrencyExchangeRateDto>(total, dataset);
         }
 
         public async Task<PagedResultDto<CurrencyExchangeRateListDto>> GetAllListAsync(PagedCurrencyExchangeRateResultRequestDto input)
@@ -63,7 +126,7 @@ namespace VinaCent.Blaze.BusinessCore.CurrencyExchangeRates
                         // Current was not Default currency.
                         // Now value will be calculate by: 1 USD = 23.000 VND 
                         data.ValueBaseOnOneDefault = crrExchangeRate.ConvertedValue;
-                        data.ValueBaseOnOneCurrent = 1 / crrExchangeRate.ConvertedValue;
+                        data.ValueBaseOnOneCurrent = crrExchangeRate.ConvertedValue == 0 ? 0 : (1 / crrExchangeRate.ConvertedValue);
                     }
                     else
                     {
@@ -72,7 +135,7 @@ namespace VinaCent.Blaze.BusinessCore.CurrencyExchangeRates
                         // Current was not Default currency.
                         // Now value will be calculate by: 1 VND = 0.000043 USD 
                         data.ValueBaseOnOneCurrent = crrExchangeRate.ConvertedValue;
-                        data.ValueBaseOnOneDefault = 1 / crrExchangeRate.ConvertedValue;
+                        data.ValueBaseOnOneDefault = crrExchangeRate.ConvertedValue == 0 ? 0 : (1 / crrExchangeRate.ConvertedValue);
                     }
                 }
                 data.CreationTime = crrExchangeRate?.CreationTime ?? null;
@@ -82,7 +145,7 @@ namespace VinaCent.Blaze.BusinessCore.CurrencyExchangeRates
             return new PagedResultDto<CurrencyExchangeRateListDto>(total, dataset);
         }
 
-        public async Task<CurrencyExchangeRate> UpdateExchangeRate(UpdateExchangeRateDto input)
+        public async Task<CurrencyExchangeRate> UpdateExchangeRateAsync(UpdateExchangeRateDto input)
         {
             var query = _currencyUnitRepository.GetAll();
             // Get default currency unit

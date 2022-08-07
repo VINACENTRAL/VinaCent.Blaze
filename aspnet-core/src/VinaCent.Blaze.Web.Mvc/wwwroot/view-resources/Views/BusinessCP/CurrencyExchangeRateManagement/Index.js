@@ -1,9 +1,14 @@
 ﻿(function ($) {
     var _currencyExchangeRateService = abp.services.app.currencyExchangeRate,
         l = abp.localization.getSource('Blaze'),
+        // Create
         _$modal = $('#CurrencyExchangeRateUpdateModal'),
         _$form = _$modal.find('form'),
-        _$table = $('#CurrencyExchangeRatesTable');
+        // Index
+        _$table = $('#CurrencyExchangeRatesTable'),
+        // History
+        _$historyModal = $('#CurrencyExchangeRateHistoryModal'),
+        _$historyTable = _$historyModal.find('table');
 
     var _$currencyExchangeRatesTable = _$table.DataTable({
         paging: true,
@@ -65,8 +70,11 @@
                 render: (data, type, row, meta) => {
                     return [
                         `   <button type="button" class="btn btn-sm btn-warning" data-cruid="${row.id}" data-symbol="${encodeURIComponent(row.currencySymbol)}" data-bs-toggle="modal" data-bs-target="#CurrencyExchangeRateUpdateModal">`,
-                        `       <i class="fas fa-pencil-alt"></i> ${l(LKConstants.Edit)}`,
-                        '   </button>'
+                        `       <i class="fas fa-pencil-alt"></i> ${l(LKConstants.UpdateExchangeRate)}`,
+                        '   </button>',
+                        `   <button type="button" class="btn btn-sm btn-primary" data-cruid="${row.id}" data-bs-toggle="modal" data-bs-target="#CurrencyExchangeRateHistoryModal">`,
+                        `       <i class="mdi mdi-history"></i> ${l(LKConstants.ExchangeRateHistory)}`,
+                        '   </button>',
                     ].join('');
                 }
             }
@@ -101,7 +109,7 @@
         const currencyUnitSymbol = $(evt.relatedTarget).attr("data-symbol");
 
         _$form.find('#CurrencyUnitId').val(currencyUnitId);
-        _$form.find('#CurrencyUnitSymbol').html(decodeURIComponent(currencyUnitSymbol));
+        _$form.find('#CurrencyUnitSymbol').html(`(${decodeURIComponent(currencyUnitSymbol)})`);
 
         _$modal.find('input:not([type=hidden]):first').focus();
     }).on('hidden.bs.modal', () => {
@@ -118,4 +126,65 @@
             return false;
         }
     });
+
+    // =============================== START HISTORY =============================== //
+    let _$currencyExchangeRatesHistoryTable;
+    _$historyModal.on('shown.bs.modal', (evt) => {
+        const currencyUnitId = $(evt.relatedTarget).attr("data-cruid");
+
+        _$historyModal.find('#CurrentCurrencyUnitId').val(currencyUnitId);
+
+        _$currencyExchangeRatesHistoryTable = _$historyTable.DataTable({
+            paging: true,
+            serverSide: true,
+            listAction: {
+                ajaxFunction: _currencyExchangeRateService.getAllHistory,
+                inputFilter: function () {
+                    return _$historyModal.find('#SearchForm').serializeFormToObject(true);
+                }
+            },
+            buttons: [
+                {
+                    name: 'refresh',
+                    text: '<i class="fas fa-redo-alt"></i>',
+                    className: 'waves-effect waves-light',
+                    action: () => _$currencyExchangeRatesHistoryTable.draw(false)
+                }
+            ],
+            responsive: {
+                details: {
+                    type: 'column'
+                }
+            },
+            columnDefs: [
+                {
+                    targets: 0,
+                    data: 'creator',
+                    sortable: false,
+                    render: function (data, type, row, meta) {
+                        return [
+                            `<div class="mini-stats-wid d-flex align-items-center">` +
+                            `    <div class="flex-shrink-0 avatar-sm">` +
+                            `        <span class="mini-stat-icon avatar-title rounded-circle text-success bg-soft-success fs-4">` +
+                            `           <img class="w-100 h-100" src="${data.picture}" alt="${data.fullName}">` +
+                            `        </span>` +
+                            `    </div>` +
+                            `    <div class="flex-grow-1 ms-3">` +
+                            `        <h6 class="mb-1">${data.fullName}</h6>` +
+                            `        <p class="text-muted mb-0">${l(LKConstants.ExchangeRateWasSettedThat, `<span class="fw-bold text-danger">${row.currencyFromStr}</span> ➤ <span class="fw-bold text-success">${row.currencyToStr}</span>`)}</p>` +
+                            `    </div >` +
+                            `    <div class="flex-shrink-0">` +
+                            `        <p class="text-muted mb-0">${moment(new Date(row.creationTime)).fromNow()}</p>` +
+                            `    </div>` +
+                            `</div>` +
+                            ``,
+                        ].join('');
+                    }
+                }
+            ]
+        });
+    }).on('hidden.bs.modal', () => {
+        _$currencyExchangeRatesHistoryTable.destroy();
+    });
+    // ===============================  END HISTORY  =============================== //
 })(jQuery);
