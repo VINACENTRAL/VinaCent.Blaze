@@ -1,6 +1,7 @@
 ﻿using Abp.AutoMapper;
 using Abp.Localization;
 using System;
+using System.Globalization;
 using VinaCent.Blaze.Authorization.Users;
 
 namespace VinaCent.Blaze.Profiles.Dto
@@ -46,6 +47,16 @@ namespace VinaCent.Blaze.Profiles.Dto
         [AbpDisplayName(BlazeConsts.LocalizationSourceName, LKConstants.Birthday)]
         public DateTime? Birthday { get; set; }
 
+        public virtual string BirthdayStr
+        {
+            get
+            {
+                var currentCultureDatetimeFormat = CultureInfo.CurrentCulture.DateTimeFormat;
+                var pattern = currentCultureDatetimeFormat.ShortDatePattern;
+                return Birthday?.ToString(pattern);
+            }
+        }
+
         [AbpDisplayName(BlazeConsts.LocalizationSourceName, LKConstants.IdentityCardNumber)]
         public string IdentityCardNumber { get; set; }
 
@@ -55,6 +66,10 @@ namespace VinaCent.Blaze.Profiles.Dto
         [AbpDisplayName(BlazeConsts.LocalizationSourceName, LKConstants.AddressLine2)]
         public string AddressLine2 { get; set; }
 
+        public string Avatar { get; set; }
+        
+        public string Background { get; set; }
+        
         public bool HasPassword { get; set; }
     }
 }

@@ -1,0 +1,38 @@
+﻿@using VinaCent.Blaze.Profiles.Dto
+@using VinaCent.Blaze.Web.Models.Common.Modals
+@model UpdateAvatarDto
+
+@{
+    Layout = null;
+}
+<div class="modal fade" id="UpdateAvatarModal" tabindex="-1" role="dialog" aria-labelledby="UpdateAvatarModalLabel" data-backdrop="static">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            @await Html.PartialAsync("~/Views/Shared/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L(LKConstants.UpdateAvatar)))
+            <form id="uploadFileForm" role="form" class="form-horizontal" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <input type="file" asp-for="Avatar" style="display: none;" id="image-picker">
+                        <img id="crr-user-avt" vnc-src="@Model.Avatar" style="display: none;" alt="avatar" src=""/>
+                    </div>
+                    <div class="row">
+                        <div class="col-8 mx-auto">
+                            <div class="action-container" style="display: none;">
+                                <div class="row">
+                                    <div class="col-12 col-lg-6 d-grid">
+                                        <button class="btn btn-danger mb-3 px-1" onclick="$('#image-picker').click();">@L("ClickToChangePhoto")</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="action-no-image text-center">
+                        <div class="mb-3">@L("NoAvatarImageNotification::Message")</div>
+                        <button class="btn btn-danger" id="selectImage">@L("SelectImageAndEdit")</button>
+                    </div>
+                </div>
+                @await Html.PartialAsync("~/Views/Shared/Modals/_ModalFooterWithSaveAndCancel.cshtml")
+            </form>
+        </div>
+    </div>
+</div>

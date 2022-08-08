@@ -6,7 +6,6 @@
         _$uploadFileModal = $('#UploadFileModal'),
         _$uploadFileForm = _$uploadFileModal.find('form'),
         _$table = $('#FileUnitsTable'),
-        _$parents = $('#Parents');
 
     var _$fileUnitsTable = _$table.DataTable({
         paging: true,
@@ -207,10 +206,6 @@
             }
         );
     }
-
-    //abp.services.app.fileUnit.getAllParent({}).done(function (result) {
-    //    console.log(result);
-    //});
 
     let breadcrumbStorage = [];
 
