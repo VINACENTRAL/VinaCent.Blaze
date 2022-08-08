@@ -55,6 +55,10 @@ namespace VinaCent.Blaze.Profiles.Dto
         [AbpDisplayName(BlazeConsts.LocalizationSourceName, LKConstants.AddressLine2)]
         public string AddressLine2 { get; set; }
 
+        public string Avatar { get; set; }
+        
+        public string Background { get; set; }
+        
         public bool HasPassword { get; set; }
     }
 }

@@ -11,24 +11,23 @@ namespace VinaCent.Blaze.Web.Views.Profile.Components.ProfilePersonalInfo
 {
     public class ProfilePersonalInfoViewComponent : BlazeViewComponent
     {
-        private readonly IProfileAppService ProfileAppService;
+        private readonly IProfileAppService _profileAppService;
         private readonly ICommonDataAppService _commonDataAppService;
         private readonly IUnitOfWorkManager _unitOfWorkManager;
-
 
         public ProfilePersonalInfoViewComponent(
             IProfileAppService profileAppService,
             ICommonDataAppService commonDataAppService,
             IUnitOfWorkManager unitOfWorkManager)
         {
-            ProfileAppService = profileAppService;
+            _profileAppService = profileAppService;
             _commonDataAppService = commonDataAppService;
             _unitOfWorkManager = unitOfWorkManager;
         }
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var user = await ProfileAppService.GetAsync();
+            var user = await _profileAppService.GetAsync();
             using var uow = _unitOfWorkManager.Begin();
             var countries = await _commonDataAppService.GetAllList(new PagedCommonDataResultRequestDto
             {

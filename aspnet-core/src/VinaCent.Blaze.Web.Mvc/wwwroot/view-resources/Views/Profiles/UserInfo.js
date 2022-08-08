@@ -1,5 +1,5 @@
 ﻿(function ($) {
-    l = abp.localization.getSource('Blaze');
+    const l = abp.localization.getSource('Blaze');
 
     const countrySelector = document.getElementById('countrySelector');
 
