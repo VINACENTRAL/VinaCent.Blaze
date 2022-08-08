@@ -275,4 +275,5 @@ public static class LKConstants
     public const string CurrencyExchangeRateLastModificationTime = "CurrencyExchangeRateLastModificationTime";
     public const string UpdateExchangeRateBaseOn = "UpdateExchangeRateBaseOn";
     public const string ExchangeRateHistory = "ExchangeRateHistory";
+    public const string UpdateAvatar = "UpdateAvatar";
 }
