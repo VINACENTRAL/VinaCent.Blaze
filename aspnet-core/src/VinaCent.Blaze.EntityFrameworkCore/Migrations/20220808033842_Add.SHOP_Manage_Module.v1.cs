@@ -23,7 +23,7 @@ namespace VinaCent.Blaze.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ParentId = table.Column<int>(type: "int", nullable: false),
+                    ParentId = table.Column<int>(type: "int", nullable: true),
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     MetaTitle = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Slug = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -41,8 +41,7 @@ namespace VinaCent.Blaze.Migrations
                         name: "FK_BusinessCore.Shop.Categories_BusinessCore.Shop.Categories_ParentId",
                         column: x => x.ParentId,
                         principalTable: "BusinessCore.Shop.Categories",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
