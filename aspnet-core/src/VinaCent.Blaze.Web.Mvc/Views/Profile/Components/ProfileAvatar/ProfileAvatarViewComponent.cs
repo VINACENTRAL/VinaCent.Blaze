@@ -21,6 +21,9 @@ public class ProfileAvatarViewComponent : BlazeViewComponent
         {
             Avatar = user.Avatar
         };
+
+        var fullName = user.Surname + " " + user.Name;
+        ViewData["FullName"] = fullName;
         return View("~/Views/Profile/Components/ProfileAvatar/Default.cshtml", model);
     }
 }
