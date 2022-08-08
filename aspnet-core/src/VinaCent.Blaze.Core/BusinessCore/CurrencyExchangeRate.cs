@@ -9,8 +9,12 @@ namespace VinaCent.Blaze.BusinessCore
     public class CurrencyExchangeRate : FullAuditedEntity<Guid>, IPassivable
     {
         public string ISOCurrencySymbolFrom { get; set; }
+
         public string ISOCurrencySymbolTo { get; set; }
+
+        [Column(TypeName = "decimal(25,25)")]
         public decimal ConvertedValue { get; set; }
+
         public bool IsActive { get; set; }
     }
 }
