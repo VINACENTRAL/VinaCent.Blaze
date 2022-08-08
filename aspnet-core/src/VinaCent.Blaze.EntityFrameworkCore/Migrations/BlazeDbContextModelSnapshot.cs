@@ -1874,7 +1874,7 @@ namespace VinaCent.Blaze.Migrations
                     b.Property<string>("MetaTitle")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ParentId")
+                    b.Property<int?>("ParentId")
                         .HasColumnType("int");
 
                     b.Property<string>("Slug")
@@ -2386,9 +2386,7 @@ namespace VinaCent.Blaze.Migrations
                 {
                     b.HasOne("VinaCent.Blaze.BusinessCore.Shop.Category", "ParentCategory")
                         .WithMany()
-                        .HasForeignKey("ParentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ParentId");
 
                     b.Navigation("ParentCategory");
                 });

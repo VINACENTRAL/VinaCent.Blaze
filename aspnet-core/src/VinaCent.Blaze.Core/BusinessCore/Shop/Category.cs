@@ -11,7 +11,7 @@ namespace VinaCent.Blaze.BusinessCore.Shop
         /// <summary>
         /// The parent id to identify the parent category.
         /// </summary>
-        public int ParentId { get; set; }
+        public int? ParentId { get; set; }
 
         /// <summary>
         /// The category title.
