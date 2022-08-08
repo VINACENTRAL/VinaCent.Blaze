@@ -7,10 +7,11 @@ using VinaCent.Blaze.AppCore.FileUnits;
 using VinaCent.Blaze.AppCore.TextTemplates;
 using VinaCent.Blaze.AppCore.CommonDatas;
 using VinaCent.Blaze.BusinessCore;
+using VinaCent.Blaze.BusinessCore.Shop;
 
 namespace VinaCent.Blaze.EntityFrameworkCore
 {
-    // dotnet ef migrations add "Add.CurrencyUnits_CurrencyExchangeRates" -p ./src/VinaCent.Blaze.EntityFrameworkCore -s ./src/VinaCent.Blaze.Web.Mvc --context BlazeDbContext
+    // dotnet ef migrations add "Add.SHOP_Manage_Module.v1" -p ./src/VinaCent.Blaze.EntityFrameworkCore -s ./src/VinaCent.Blaze.Web.Mvc --context BlazeDbContext
     // dotnet ef database update -p ./src/VinaCent.Blaze.EntityFrameworkCore -s ./src/VinaCent.Blaze.Web.Mvc --context BlazeDbContext
     // dotnet ef migrations remove -p ./src/VinaCent.Blaze.EntityFrameworkCore -s ./src/VinaCent.Blaze.Web.Mvc --context BlazeDbContext
     public class BlazeDbContext : AbpZeroDbContext<Tenant, Role, User, BlazeDbContext>
@@ -25,6 +26,18 @@ namespace VinaCent.Blaze.EntityFrameworkCore
         #region Business Core
         public DbSet<CurrencyUnit> CurrencyUnits { get; set; }
         public DbSet<CurrencyExchangeRate> CurrencyExchangeRates { get; set; }
+
+        // ======================== START SHOP ======================== //
+        public DbSet<CartItem> CartItems { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Product> Products { get; set; }
+        public DbSet<ProductCategory> ProductCategories { get; set; }
+        public DbSet<ProductMeta> ProductMetas { get; set; }
+        public DbSet<ProductReview> ProductReviews { get; set; }
+        public DbSet<ProductTag> ProductTags { get; set; }
+        public DbSet<Tag> Tags { get; set; }
+        // ========================  END SHOP  ======================== //
+
         #endregion
 
         public BlazeDbContext(DbContextOptions<BlazeDbContext> options)
