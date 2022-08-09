@@ -22,15 +22,15 @@
                             <div class="action-container" style="display: none;">
                                 <div class="row justify-content-center text-center">
                                     <div class="col-6">
-                                        <button class="btn btn-danger mb-3 px-1" onclick="$('#image-picker').click();">@L("ClickToChangePhoto")</button>
+                                        <button class="btn btn-danger mb-3 px-1" onclick="$('#image-picker').click();">@L(LKConstants.ClickToChangePhoto)</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="action-no-image text-center">
-                        <div class="mb-3">@L("NoAvatarImageNotification::Message")</div>
-                        <button class="btn btn-danger" id="select-image">@L("SelectImageAndEdit")</button>
+                        <div class="mb-3">@L(LKConstants.NoAvatarImageNotification)</div>
+                        <button class="btn btn-danger" id="select-image">@L(LKConstants.SelectImageAndEdit)</button>
                     </div>
                 </div>
                 @await Html.PartialAsync("~/Views/Shared/Modals/_ModalFooterWithSaveAndCancel.cshtml")

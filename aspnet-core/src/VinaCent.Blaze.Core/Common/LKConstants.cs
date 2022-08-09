@@ -277,5 +277,10 @@ public static class LKConstants
     public const string ExchangeRateHistory = "ExchangeRateHistory";
     public const string UpdateAvatar = "UpdateAvatar";
     public const string CanNotGetOrCreateDirectory_X = "CanNotGetOrCreateDirectory_X";
-    public const string PleaseLogInBeforeDoThisAction = "PleaseLogInBeforeDoThisAction"; 
+    public const string PleaseLogInBeforeDoThisAction = "PleaseLogInBeforeDoThisAction";
+    public const string DefaultLanguageName = "DefaultLanguageName";
+    public const string CurrentLanguageName = "CurrentLanguageName";
+    public const string NoAvatarImageNotification = "NoAvatarImageNotification";
+    public const string SelectImageAndEdit = "SelectImageAndEdit";
+    public const string ClickToChangePhoto = "ClickToChangePhoto";    
 }
