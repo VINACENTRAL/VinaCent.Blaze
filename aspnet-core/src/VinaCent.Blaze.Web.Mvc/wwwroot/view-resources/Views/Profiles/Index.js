@@ -47,6 +47,15 @@
         });
 
         abp.event.on('passwordChanged', updateConcurrencyStamp);
+
+        const modal = $('UpdateAvatarModal');
+        const src = document.getElementById('crr-user-avt').getAttribute('vnc-src');
+
+        modal.on('shown.bs.modal', () => {
+            console.log(src);
+        }).on('hidden.bs.modal', () => {
+            modal.clearForm();
+        });
     });
 
     function updateConcurrencyStamp() {
@@ -54,5 +63,5 @@
             $("#ConcurrencyStamp").val(profile.concurrencyStamp);
         });
     }
-    
+
 })(jQuery);

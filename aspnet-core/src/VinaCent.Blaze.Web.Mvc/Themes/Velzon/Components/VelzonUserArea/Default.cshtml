@@ -1,12 +1,39 @@
-﻿@using VinaCent.Blaze.Web.Themes.Velzon.Components.VelzonUserArea
+﻿@using Abp.Extensions
+@using VinaCent.Blaze.Helpers
+@using VinaCent.Blaze.Web.Themes.Velzon.Components.VelzonUserArea
 @using VinaCent.Blaze.Web.Themes.Velzon.ThemeOptions
 @model VelzonUserAreaViewModel
+
+@{
+    string HostNameCorrector(string path)
+    {
+        if (path.IsNullOrWhiteSpace())
+            return path;
+        // ReSharper disable once InvertIf
+        if (Environment.IsDevelopment() &&
+            !path.StartsWith("http://") &&
+            !path.StartsWith("https://"))
+        {
+            var host = Configuration.GetValue<string>("HostUrls");
+            if (!host.IsNullOrWhiteSpace() && host.Contains(";"))
+            {
+                var hostList = host.Split(";");
+                host = hostList.FirstOrDefault(x => !Url.IsLocalUrl(x)) ?? hostList.FirstOrDefault() ?? "";
+            }
+            if (!Url.IsLocalUrl(host))
+            {
+                path = StringHelper.TrueCombine(host, path);
+            }
+        }
+        return path;
+    }
+}
 
 @if (AbpSession.UserId != null)
 {
     var name = Model.LoginInformations.User.Name;
     var fullName = Model.LoginInformations.User.FullName;
-    var picture = Model.LoginInformations.User.Picture;
+    var picture = Model.LoginInformations.User.Avatar;
 
     var area = ViewContext.ActionDescriptor.RouteValues["Area"] ?? "";
 
@@ -21,7 +48,7 @@
             data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <span class="d-flex align-items-center">
                 <img class="rounded-circle header-profile-user"
-                 src="@picture" alt="@fullName">
+                 src="@HostNameCorrector(picture)" alt="@fullName">
                 <span class="text-start ms-xl-2">
                     <span class="d-none d-xl-inline-block ms-1 fw-medium user-name-text">
                         @fullName

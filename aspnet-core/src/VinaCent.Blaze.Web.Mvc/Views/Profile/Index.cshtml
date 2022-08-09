@@ -13,8 +13,13 @@
     ViewBag.CurrentPageName = CommonPageNames.ProfileSettings;
 }
 
+@section styles {
+    <link rel="stylesheet" href="~/libs/croppie/croppie.css"></link>
+}
+
 @section scripts {
     <script src="~/view-resources/Views/Profiles/Index.js" asp-append-version="true"></script>
+    <script src="~/libs/croppie/croppie.min.js" asp-append-version="true"></script>
 }
 
 <div class="position-relative mx-n4 mt-n4">

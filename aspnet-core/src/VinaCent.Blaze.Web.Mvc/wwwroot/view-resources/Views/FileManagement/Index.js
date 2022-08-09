@@ -5,7 +5,7 @@
         _$directoryCreateForm = _$directoryCreateModal.find('form'),
         _$uploadFileModal = $('#UploadFileModal'),
         _$uploadFileForm = _$uploadFileModal.find('form'),
-        _$table = $('#FileUnitsTable'),
+        _$table = $('#FileUnitsTable');
 
     var _$fileUnitsTable = _$table.DataTable({
         paging: true,

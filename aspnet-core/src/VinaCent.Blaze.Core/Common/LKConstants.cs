@@ -276,4 +276,6 @@ public static class LKConstants
     public const string UpdateExchangeRateBaseOn = "UpdateExchangeRateBaseOn";
     public const string ExchangeRateHistory = "ExchangeRateHistory";
     public const string UpdateAvatar = "UpdateAvatar";
+    public const string CanNotGetOrCreateDirectory_X = "CanNotGetOrCreateDirectory_X";
+    public const string PleaseLogInBeforeDoThisAction = "PleaseLogInBeforeDoThisAction"; 
 }
