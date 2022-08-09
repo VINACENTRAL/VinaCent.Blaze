@@ -19,7 +19,9 @@
                     </label>
                 </div>
             </div>
-            <h5 class="fs-16 mb-1">Anna Adame</h5>
+            <h5 class="fs-16 mb-1">@ViewBag.FullName</h5>
         </div>
     </div>
 </div>
+
+@await Html.PartialAsync("~/Views/Profile/Components/ProfileAvatar/_UpdateAvatarModal.cshtml", Model)

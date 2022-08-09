@@ -12,9 +12,23 @@
             <form id="uploadFileForm" role="form" class="form-horizontal" enctype="multipart/form-data">
                 <div class="modal-body">
                     <div class="mb-3">
-                        <label class="form-label" asp-for="Avatar">@L(LKConstants.PickAFileToUpload)</label>
-                        <input type="file" asp-for="Avatar" class="form-control">
-                        <span asp-validation-for="Avatar" class="text-danger"></span>
+                        <input type="file" asp-for="Avatar" style="display: none;" id="image-picker">
+                        <img id="crr-user-avt" vnc-src="@Model.Avatar" style="display: none;" alt="avatar" src=""/>
+                    </div>
+                    <div class="row">
+                        <div class="col-8 mx-auto">
+                            <div class="action-container" style="display: none;">
+                                <div class="row">
+                                    <div class="col-12 col-lg-6 d-grid">
+                                        <button class="btn btn-danger mb-3 px-1" onclick="$('#image-picker').click();">@L("ClickToChangePhoto")</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="action-no-image text-center">
+                        <div class="mb-3">@L("NoAvatarImageNotification::Message")</div>
+                        <button class="btn btn-danger" id="selectImage">@L("SelectImageAndEdit")</button>
                     </div>
                 </div>
                 @await Html.PartialAsync("~/Views/Shared/Modals/_ModalFooterWithSaveAndCancel.cshtml")

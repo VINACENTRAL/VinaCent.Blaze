@@ -12,7 +12,7 @@ using VinaCent.Blaze.EntityFrameworkCore;
 namespace VinaCent.Blaze.Migrations
 {
     [DbContext(typeof(BlazeDbContext))]
-    [Migration("20220808025654_Add.SHOP_Manage_Module.v1")]
+    [Migration("20220808033842_Add.SHOP_Manage_Module.v1")]
     partial class AddSHOP_Manage_Modulev1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -1876,7 +1876,7 @@ namespace VinaCent.Blaze.Migrations
                     b.Property<string>("MetaTitle")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ParentId")
+                    b.Property<int?>("ParentId")
                         .HasColumnType("int");
 
                     b.Property<string>("Slug")
@@ -2388,9 +2388,7 @@ namespace VinaCent.Blaze.Migrations
                 {
                     b.HasOne("VinaCent.Blaze.BusinessCore.Shop.Category", "ParentCategory")
                         .WithMany()
-                        .HasForeignKey("ParentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ParentId");
 
                     b.Navigation("ParentCategory");
                 });

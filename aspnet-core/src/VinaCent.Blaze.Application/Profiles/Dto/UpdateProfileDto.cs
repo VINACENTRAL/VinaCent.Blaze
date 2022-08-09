@@ -51,6 +51,8 @@ namespace VinaCent.Blaze.Profiles.Dto
         [AbpDisplayName(BlazeConsts.LocalizationSourceName, LKConstants.Birthday)]
         public DateTime? Birthday { get; set; }
 
+        public virtual string BirthdayStr { get; set; }
+
         [AbpDisplayName(BlazeConsts.LocalizationSourceName, LKConstants.IdentityCardNumber)]
         public string IdentityCardNumber { get; set; }
 

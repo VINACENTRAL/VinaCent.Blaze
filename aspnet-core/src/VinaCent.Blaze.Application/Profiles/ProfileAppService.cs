@@ -75,7 +75,7 @@ namespace VinaCent.Blaze.Profiles
             {
                 input.City = null;
             }
-
+            input.Birthday = DateTime.Parse(input.BirthdayStr);
             user = ObjectMapper.Map(input,user);
             if (!input.ConcurrencyStamp.IsNullOrEmpty())
             {
