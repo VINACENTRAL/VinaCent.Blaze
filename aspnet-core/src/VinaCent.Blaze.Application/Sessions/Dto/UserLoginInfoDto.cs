@@ -17,7 +17,7 @@ namespace VinaCent.Blaze.Sessions.Dto
 
         public string EmailAddress { get; set; }
 
-        public string Picture { get; set; } = "https://upload-os-bbs.hoyolab.com/upload/2021/09/08/10805287/d6cac34c75cd7ccb346b1133cff2e192_5253703590737420027.jpg?x-oss-process=image/resize,s_600/quality,q_80/auto-orient,0/interlace,1/format,jpg";
+        public string Avatar { get; set; } 
 
         public virtual string FullName
         {

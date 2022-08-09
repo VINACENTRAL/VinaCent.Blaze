@@ -1,4 +1,5 @@
 ﻿using Abp.Application.Services;
+using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
 using VinaCent.Blaze.Profiles.Dto;
 
@@ -11,5 +12,7 @@ namespace VinaCent.Blaze.Profiles
         Task<ProfileDto> UpdateAsync(UpdateProfileDto input);
 
         Task<bool> ChangePasswordAsync(ChangePasswordDto input);
+
+        Task<ProfileDto> UpdateAvatar(UpdateAvatarDto input);
     }
 }

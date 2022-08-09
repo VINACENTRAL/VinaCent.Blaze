@@ -1,6 +1,8 @@
 ﻿using Abp.Application.Services.Dto;
 using Abp.Authorization;
 using Abp.Domain.Repositories;
+using Abp.Domain.Uow;
+using Abp.EntityFrameworkCore.Repositories;
 using Abp.Extensions;
 using Abp.Linq.Extensions;
 using Abp.UI;
@@ -417,6 +419,86 @@ namespace VinaCent.Blaze.AppCore.FileUnits
 
                 await _repository.DeleteAsync(id);
             }
+        }
+
+        [UnitOfWork]
+        [AbpAuthorize]
+        public async Task<FileUnitDto> GetUserDir(long? userId = null)
+        {
+            if (userId is null or <= 0)
+            {
+                userId = AbpSession.UserId;
+            }
+
+            var usersDir = await GetByFullName(UsersDirName) ??
+                           await CreateDirectoryAsync(new CreateDirectoryDto
+                           {
+                               ParentId = null,
+                               Name = UsersDirName,
+                               Description =
+                                   "Thư mục có trách nhiệm lưu media của toàn bộ người dùng trên hệ thống. Vui lòng không xóa."
+                           });
+
+            if (usersDir == null)
+            {
+                throw new UserFriendlyException(L(LKConstants.CanNotGetOrCreateDirectory_X));
+            }
+
+            await _repository.GetDbContext().SaveChangesAsync();
+
+            var randomGuid = Guid.NewGuid().ToString().Replace("-", "");
+            var name = $"{randomGuid}{userId}";
+            var userIdStr = userId?.ToString() ?? "";
+            var dir = CreateFilteredQuery(new PagedFileUnitResultRequestDto
+            {
+                IsFolder = true,
+                Directory = usersDir.FullName
+            }).Where(x => x.Name.Length == name.Length && x.Name.EndsWith(userIdStr))
+              .ToList()
+              .FirstOrDefault();
+
+            var specifiedUserDir = MapToEntityDto(dir) ??
+                                   await CreateDirectoryAsync(new CreateDirectoryDto
+                                   {
+                                       ParentId = usersDir.Id,
+                                       Name = name,
+                                       Description =
+                                           $"Thư mục lưu trữ riêng cá nhân của người  dùng #{userId}"
+                                   });
+            if (specifiedUserDir == null)
+            {
+                throw new UserFriendlyException(L(LKConstants.CanNotGetOrCreateDirectory_X));
+            }
+
+            await _repository.GetDbContext().SaveChangesAsync();
+            return specifiedUserDir;
+        }
+
+        [AbpAuthorize]
+        public async Task<FileUnitDto> GetUserDirPicture(long? userId = null)
+        {
+            if (userId is null or <= 0)
+            {
+                userId = AbpSession.UserId;
+            }
+
+            var specifiedUserDir = await GetUserDir(userId);
+            var userDirPicturesPath = StringHelper.TrueCombine(specifiedUserDir.FullName, "Pictures");
+
+            var userDirPictures = await GetByFullName(userDirPicturesPath) ??
+                                  await CreateDirectoryAsync(new CreateDirectoryDto
+                                  {
+                                      ParentId = specifiedUserDir.Id,
+                                      Name = "Pictures",
+                                      Description = "Lưu trữ hình ảnh"
+                                  });
+            if (userDirPictures == null)
+            {
+                throw new UserFriendlyException(L(LKConstants.CanNotGetOrCreateDirectory_X));
+            }
+
+            await _repository.GetDbContext().SaveChangesAsync();
+            return userDirPictures;
         }
 
         #region Core Function

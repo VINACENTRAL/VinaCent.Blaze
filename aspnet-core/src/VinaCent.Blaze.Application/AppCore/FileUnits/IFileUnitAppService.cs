@@ -23,5 +23,8 @@ namespace VinaCent.Blaze.AppCore.FileUnits
         Task<FileUnitDto> RenameAsync(FileUnitRenameDto input);
         Task<FileUnitDto> MoveAsync(Guid id, Guid directoryId);
         Task DeleteAsync(Guid id);
+
+        Task<FileUnitDto> GetUserDir(long? userId);
+        Task<FileUnitDto> GetUserDirPicture(long? userId);
     }
 }
