@@ -51,11 +51,11 @@
     // It's useful if you're running application in a virtual directory under IIS.
     var abp = abp || {};
     abp.appPath = '@ApplicationPath';
+    var vinacent = vinacent || {};
 </script>
 
 <environment names="Development">
     <script type="text/javascript">
-        var vinacent = vinacent || {};
         vinacent.fileServer = '@(Configuration.GetValue<string>("FileServer"))';
     </script>
 </environment>
