@@ -30,7 +30,7 @@
     });
 
     function initCropper(source, oneDone) {
-
+        currentUserAvatarEl.croppie('destroy');
         const mc = currentUserAvatarEl.croppie({
             viewport: {
                 width: 300,
@@ -70,7 +70,7 @@
         abp.ui.setBusy(_$form);
         const form = document.getElementById('uploadAvatarForm');
         var fd = new FormData(form);
-        fd.append('File', blob);
+        fd.append('File', blob, `avatar~${new Date().getTime()}.png`);
 
         abp.ajax({
             url: abp.appPath + 'api/services/app/Profile/UpdateAvatar',
@@ -78,11 +78,11 @@
             data: fd,
             processData: false,
             contentType: false,
-        }).done(function () {
+        }).done(function (res) {
             _$modal.modal('hide');
             _$form[0].reset();
+            $('img[self-avatar]').attr('src',res.avatar);
             abp.notify.info(l(LKConstants.SavedSuccessfully));
-            window.location.reload();
         }).always(function () {
             abp.ui.clearBusy(_$form);
         });

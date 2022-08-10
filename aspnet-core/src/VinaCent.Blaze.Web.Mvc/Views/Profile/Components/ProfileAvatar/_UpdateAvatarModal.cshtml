@@ -16,7 +16,7 @@
             <form id="uploadAvatarForm" role="form" class="form-horizontal" enctype="multipart/form-data">
                 <div class="modal-body">
                     <div class="mb-3">
-                        <input type="file" asp-for="File" style="display: none;" id="image-picker">
+                        <input type="file" style="display: none;" id="image-picker">
                         <div id="crr-user-avt">
                             @if (!Model.Avatar.IsNullOrEmpty())
                             {
