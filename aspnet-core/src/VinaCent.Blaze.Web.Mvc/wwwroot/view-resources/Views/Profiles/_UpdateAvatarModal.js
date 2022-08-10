@@ -9,13 +9,13 @@
 
     let src = currentUserAvatarEl.children('img[avatar]').attr('src');
     // For dev purpose
-    if (vinacent && vinacent?.fileServer.length > 0 && src && src.length > 0) {
+    if (vinacent?.fileServer?.length > 0 && src && src?.length > 0) {
         src = src.slice(vinacent.fileServer.length);
     }
     // remove inner
+    if (src === abp.setting.get('App.SiteUserAvatarHolder')) src = '';
     currentUserAvatarEl.html('');
-
-
+    
     _$form.find('.select-image').on('click', (e) => {
         e.preventDefault();
         imagePicker.click();
@@ -50,7 +50,7 @@
         if (typeof oneDone === 'function') {
             bindPromise.then(oneDone);
         }
-        
+
         _$saveBtn.unbind();
         _$saveBtn.on('click', function (ev) {
             ev.preventDefault();
