@@ -81,29 +81,6 @@
         ]
     });
 
-    _$form.find('.save-button').on('click', (e) => {
-        e.preventDefault();
-
-        if (!_$form.valid()) {
-            return;
-        }
-
-        var currencyExchangeRate = _$form.serializeFormToObject();
-
-        abp.ui.setBusy(_$modal);
-        _currencyExchangeRateService
-            .updateExchangeRate(currencyExchangeRate)
-            .done(function () {
-                _$modal.modal('hide');
-                _$form[0].reset();
-                abp.notify.info(l(LKConstants.SavedSuccessfully));
-                _$currencyExchangeRatesTable.ajax.reload();
-            })
-            .always(function () {
-                abp.ui.clearBusy(_$modal);
-            });
-    });
-
     _$modal.on('shown.bs.modal', (evt) => {
         const currencyUnitId = $(evt.relatedTarget).attr("data-cruid");
         const currencyUnitSymbol = $(evt.relatedTarget).attr("data-symbol");
@@ -125,6 +102,10 @@
             _$currencyExchangeRatesTable.ajax.reload();
             return false;
         }
+    });
+
+    abp.event.on('currencyExchangeRate.edited', (data) => {
+        _$currencyExchangeRatesTable.ajax.reload();
     });
 
     // =============================== START HISTORY =============================== //

@@ -12,7 +12,7 @@ namespace VinaCent.Blaze.BusinessCore
 
         public string ISOCurrencySymbolTo { get; set; }
 
-        [Column(TypeName = "decimal(25,25)")]
+        [Column(TypeName = "decimal(25,12)")]
         public decimal ConvertedValue { get; set; }
 
         public bool IsActive { get; set; }
