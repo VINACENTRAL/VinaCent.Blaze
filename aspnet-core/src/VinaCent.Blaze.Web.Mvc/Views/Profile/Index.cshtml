@@ -1,10 +1,7 @@
-﻿@using VinaCent.Blaze.Web.Areas.Client.Common
-@using VinaCent.Blaze.Web.Common
+﻿@using VinaCent.Blaze.Web.Common
 @using VinaCent.Blaze.Web.Models.Profile
 @using VinaCent.Blaze.Web.Themes.Velzon.ThemeOptions
 @using VinaCent.Blaze.Web.Views.Profile.Components.ProfileAvatar
-@using VinaCent.Blaze.Web.Views.Profile.Components.ProfilePersonalInfo
-@using VinaCent.Blaze.Web.Views.Profile.Components.ProfilePassword
 @inject IVelzonThemeOptions ThemeOptions
 @model ProfilePageModel
 @{
@@ -14,11 +11,10 @@
 }
 
 @section styles {
-    <link rel="stylesheet" href="~/libs/croppie/croppie.css"></link>
+    <link rel="stylesheet" href="~/libs/croppie/croppie.css"/>
 }
 
 @section scripts {
-    <script src="~/view-resources/Views/Profiles/Index.js" asp-append-version="true"></script>
     <script src="~/libs/croppie/croppie.min.js" asp-append-version="true"></script>
 }
 
