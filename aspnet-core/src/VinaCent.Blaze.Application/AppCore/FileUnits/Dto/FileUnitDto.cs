@@ -4,6 +4,7 @@ using Abp.Domain.Entities;
 using JetBrains.Annotations;
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Globalization;
 using VinaCent.Blaze.Helpers;
 using VinaCent.Blaze.Users.Dto;
 
@@ -73,6 +74,26 @@ namespace VinaCent.Blaze.AppCore.FileUnits.Dto
         /// Real path of file/folder in physical file system
         /// </summary>
         public string PhysicalPath { get; set; }
+
+        public virtual string CreationTimeStr
+        {
+            get
+            {
+                var currentCultureDatetimeFormat = CultureInfo.CurrentCulture.DateTimeFormat;
+                var pattern = currentCultureDatetimeFormat.ShortTimePattern + " - " + currentCultureDatetimeFormat.ShortDatePattern;
+                return CreationTime.ToString(pattern);
+            }
+        }
+
+        public virtual string LastModificationTimeStr
+        {
+            get
+            {
+                var currentCultureDatetimeFormat = CultureInfo.CurrentCulture.DateTimeFormat;
+                var pattern = currentCultureDatetimeFormat.ShortTimePattern + " - " + currentCultureDatetimeFormat.ShortDatePattern;
+                return LastModificationTime?.ToString(pattern);
+            }
+        }
 
         /// <summary>
         /// Path for download or preview

@@ -19,8 +19,9 @@
         #endregion
 
         #region App File Management
-        public const string AllowedMaxFileSize = "App.AllowedMaxFileSize";
-        public const string AllowedUploadFormats = "App.AllowedUploadFormats";
+        public const string AllowedMaxFileSize = Prefix + "." + nameof(AllowedMaxFileSize);
+        public const string AllowedUploadFormats = Prefix + "." + nameof(AllowedUploadFormats);
+        public const string NoPreviewImage = Prefix + "." + nameof(NoPreviewImage);
         #endregion
 
         #region App System settings

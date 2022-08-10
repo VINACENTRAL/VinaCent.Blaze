@@ -9,6 +9,7 @@
                 <div>
                     <label asp-for="CurrentPassword" class="form-label"></label>
                     <input asp-for="CurrentPassword" class="form-control" />
+                    <span asp-validation-for="CurrentPassword" class="text-danger"></span>
                 </div>
             </div>
         }
@@ -16,14 +17,16 @@
         <div class="col-lg-4">
             <div>
                 <label asp-for="NewPassword" class="form-label"></label>
-                <input asp-for="NewPassword" class="form-control">
+                <input asp-for="NewPassword" class="form-control" />
+                <span asp-validation-for="NewPassword" class="text-danger"></span>
             </div>
         </div>
         <!--end col-->
         <div class="col-lg-4">
             <div>
                 <label asp-for="NewPasswordConfirm" class="form-label"></label>
-                <input asp-for="NewPasswordConfirm" class="form-control">
+                <input asp-for="NewPasswordConfirm" class="form-control" />
+                <span asp-validation-for="NewPasswordConfirm" class="text-danger"></span>
             </div>
         </div>
         <!--end col-->
