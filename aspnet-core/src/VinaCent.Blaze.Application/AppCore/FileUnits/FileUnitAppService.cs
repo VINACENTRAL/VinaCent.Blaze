@@ -201,16 +201,14 @@ namespace VinaCent.Blaze.AppCore.FileUnits
                 return entityDto;
             }
 
-            if (File.Exists(entityDto.PhysicalPath)) return entityDto;
+            return File.Exists(entityDto.PhysicalPath) ? entityDto : null;
 
             // Check if file not found, also remove in virtual file manager
             // Remove in virtual file
-            if (_hostEnvironment.IsProduction())
-            {
-                await _repository.DeleteAsync(entityDto.Id);
-            }
-
-            return null;
+            // if (_hostEnvironment.IsProduction())
+            // {
+            //     await _repository.DeleteAsync(entityDto.Id);
+            // }
         }
 
         public async Task<FileUnitDto> GetParentAsync(string directory)
@@ -344,6 +342,11 @@ namespace VinaCent.Blaze.AppCore.FileUnits
             await using (Stream fileStream = new FileStream(fileUnit.PhysicalPath, FileMode.Create))
             {
                 await input.File.CopyToAsync(fileStream);
+            }
+
+            if (!File.Exists(fileUnit.PhysicalPath))
+            {
+                throw new Exception("Save file fail!");
             }
 
             fileUnit = await _repository.InsertAsync(fileUnit);
