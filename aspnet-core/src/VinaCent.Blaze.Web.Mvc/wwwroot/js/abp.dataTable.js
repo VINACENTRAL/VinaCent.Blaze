@@ -7,8 +7,6 @@ var abp = abp || {};
 
     abp.libs = abp.libs || {};
     let l = abp.localization.getSource("Blaze");
-
-    console.log(l(LKConstants.DataTable_Info_Start_End_of_Total_items))
     
     const language = {
         emptyTable: l(LKConstants.NoDataAvailableInTable),

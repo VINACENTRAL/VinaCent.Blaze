@@ -132,6 +132,7 @@ namespace VinaCent.Blaze.Profiles
                 Description = "",
                 File = input.File
             };
+
             var result = await _fileUnitAppService.UploadFileAsync(dto);
             if (result == null || result.Id == Guid.Empty || result.FullName.IsNullOrWhiteSpace())
                 throw new UserFriendlyException(L("ChangeAvatarFail"));

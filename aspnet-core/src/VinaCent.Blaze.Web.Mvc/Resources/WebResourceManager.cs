@@ -13,11 +13,13 @@ namespace VinaCent.Blaze.Web.Resources
     {
         private readonly IWebHostEnvironment _environment;
         private readonly List<string> _scriptUrls;
+        private readonly List<string> _stylesUrls;
 
         public WebResourceManager(IWebHostEnvironment environment)
         {
             _environment = environment;
             _scriptUrls = new List<string>();
+            _stylesUrls = new List<string>();
         }
 
         public void AddScript(string url, bool addMinifiedOnProd = true)
@@ -37,6 +39,27 @@ namespace VinaCent.Blaze.Web.Resources
                 foreach (var scriptUrl in _scriptUrls)
                 {
                     await writer.WriteAsync($"<script src=\"{scriptUrl}?v=" + Clock.Now.Ticks + "\"></script>");
+                }
+            });
+        }
+
+        public void AddStyle(string url, bool addMinifiedOnProd = true)
+        {
+            _stylesUrls.AddIfNotContains(NormalizeUrl(url, "css", addMinifiedOnProd));
+        }
+
+        public IReadOnlyList<string> GetStyles()
+        {
+            return _stylesUrls.ToImmutableList();
+        }
+
+        public HelperResult RenderStyles()
+        {
+            return new HelperResult(async writer =>
+            {
+                foreach (var scriptUrl in _stylesUrls)
+                {
+                    await writer.WriteAsync($"<link href=\"{scriptUrl}?v={Clock.Now.Ticks}\" rel=\"stylesheet\">");
                 }
             });
         }

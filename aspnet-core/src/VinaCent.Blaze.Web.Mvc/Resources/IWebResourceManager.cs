@@ -10,5 +10,11 @@ namespace VinaCent.Blaze.Web.Resources
         IReadOnlyList<string> GetScripts();
 
         HelperResult RenderScripts();
+        
+        void AddStyle(string url, bool addMinifiedOnProd = true);
+        
+        IReadOnlyList<string> GetStyles();
+
+        HelperResult RenderStyles();
     }
 }

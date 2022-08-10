@@ -61,6 +61,7 @@
     <link href="velzon/css/custom.css" rel="stylesheet" type="text/css"/>
 
     @await RenderSectionAsync("styles", false)
+    @WebResourceManager.RenderStyles()
 </head>
 <body class="@rtl">
 <div class="auth-page-wrapper pt-5">
@@ -102,7 +103,6 @@
     <script src="~/velzon/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     @await Html.PartialAsync("~/Themes/Velzon/_CoreScripts.cshtml")
-    @WebResourceManager.RenderScripts()
 
     <!-- JAVASCRIPT -->
     <script src="velzon/libs/simplebar/simplebar.min.js"></script>
@@ -121,6 +121,8 @@
     @await Html.PartialAsync("~/Views/Shared/Layout/_Alerts.cshtml")
 
     @await RenderSectionAsync("scripts", false)
+    
+    @WebResourceManager.RenderScripts()
 </div>
 </body>
 </html>

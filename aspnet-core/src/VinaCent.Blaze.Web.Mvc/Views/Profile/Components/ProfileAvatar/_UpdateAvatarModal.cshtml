@@ -5,6 +5,8 @@
 @model UpdateAvatarDto
 @{
     Layout = null;
+    WebResourceManager.AddScript(ApplicationPath + "libs/croppie/croppie.min.js", false);
+    WebResourceManager.AddStyle(ApplicationPath + "libs/croppie/croppie.css", false);
     WebResourceManager.AddScript(ApplicationPath + "view-resources/Views/Profiles/_UpdateAvatarModal.js", false);
 }
 <div class="modal fade" id="UpdateAvatarModal" tabindex="-1" role="dialog" aria-labelledby="UpdateAvatarModalLabel" data-backdrop="static">
@@ -15,22 +17,19 @@
                 <div class="modal-body">
                     <div class="mb-3">
                         <input type="file" asp-for="File" style="display: none;" id="image-picker">
-                        <img id="crr-user-avt" vnc-src="@Model.Avatar" style="display: none;" alt="avatar" src=""/>
-                    </div>
-                    <div class="row">
-                        <div class="col-8 mx-auto">
-                            <div class="action-container" style="display: none;">
-                                <div class="row justify-content-center text-center">
-                                    <div class="col-6">
-                                        <button class="btn btn-danger mb-3 px-1" onclick="$('#image-picker').click();">@L(LKConstants.ClickToChangePhoto)</button>
-                                    </div>
-                                </div>
-                            </div>
+                        <div id="crr-user-avt">
+                            @if (!Model.Avatar.IsNullOrEmpty())
+                            {
+                                <img alt="avatar" src="@Model.Avatar" class="d-flex mx-auto" avatar/>
+                            }
                         </div>
                     </div>
-                    <div class="action-no-image text-center">
-                        <div class="mb-3">@L(LKConstants.NoAvatarImageNotification)</div>
-                        <button class="btn btn-danger" id="select-image">@L(LKConstants.SelectImageAndEdit)</button>
+                    <div class="text-center">
+                        @if (Model.Avatar.IsNullOrEmpty())
+                        {
+                            <div class="mb-3">@L(LKConstants.NoAvatarImageNotification)</div>
+                        }
+                        <button class="btn btn-danger select-image">@L(LKConstants.SelectImageAndEdit)</button>
                     </div>
                 </div>
                 @await Html.PartialAsync("~/Views/Shared/Modals/_ModalFooterWithSaveAndCancel.cshtml")

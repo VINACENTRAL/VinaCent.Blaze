@@ -282,7 +282,6 @@ public static class LKConstants
     public const string CurrentLanguageName = "CurrentLanguageName";
     public const string NoAvatarImageNotification = "NoAvatarImageNotification";
     public const string SelectImageAndEdit = "SelectImageAndEdit";
-    public const string ClickToChangePhoto = "ClickToChangePhoto";
     public const string NoDescription = "NoDescription";
     public const string Creator = "Creator";
     public const string NotEditedYet = "NotEditedYet";
