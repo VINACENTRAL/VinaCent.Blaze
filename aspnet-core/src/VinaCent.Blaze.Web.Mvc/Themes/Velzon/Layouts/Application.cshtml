@@ -1,13 +1,9 @@
-﻿@using Abp.Configuration.Startup
-@using Abp.Web.Mvc.Alerts
-@using Abp.Web.Security.AntiForgery
+﻿@using Abp.Web.Security.AntiForgery
 @using System.Globalization
 @using VinaCent.Blaze.Configuration
 @using VinaCent.Blaze.Web.Resources
 @inject IAbpAntiForgeryManager AbpAntiForgeryManager
-@inject IMultiTenancyConfig MultiTenancyConfig
 @inject IWebResourceManager WebResourceManager
-@inject IAlertManager AlertManager
 @inject ILanguageManager LanguageManager
 
 @using VinaCent.Blaze.Web.Themes.Velzon.ThemeOptions
@@ -50,7 +46,7 @@
     else
     {
         var defaultDescription = await SettingManager.GetSettingValueAsync(AppSettingNames.SiteDescription);
-        <meta name="description" content="defaultDescription" />
+        <meta name="description" content="@defaultDescription" />
     }
 
     <!-- Favicon -->

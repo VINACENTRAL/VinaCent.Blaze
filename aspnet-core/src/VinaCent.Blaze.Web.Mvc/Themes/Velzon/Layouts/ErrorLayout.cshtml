@@ -44,7 +44,7 @@
     else
     {
         var defaultDescription = await SettingManager.GetSettingValueAsync(AppSettingNames.SiteDescription);
-        <meta name="description" content="defaultDescription" />
+        <meta name="description" content="@defaultDescription" />
     }
 
     <!-- Favicon -->
