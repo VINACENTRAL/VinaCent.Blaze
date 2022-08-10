@@ -42,7 +42,7 @@ namespace VinaCent.Blaze.Profiles.Dto
         public string Country { get; set; }
 
         [AbpDisplayName(BlazeConsts.LocalizationSourceName, LKConstants.ZipCode)]
-        [StringLength(maximumLength:6, MinimumLength = 5)]
+        [StringLength(6)]
         public string ZipCode { get; set; }
 
         [AbpDisplayName(BlazeConsts.LocalizationSourceName, LKConstants.Bio)]
