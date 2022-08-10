@@ -1,6 +1,11 @@
+using System;
+using System.Net.Http;
 using System.Threading.Tasks;
+using Abp.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
 using VinaCent.Blaze.AppCore.FileUnits;
 using VinaCent.Blaze.Helpers;
 
@@ -13,10 +18,16 @@ namespace VinaCent.Blaze.Controllers
     {
         private readonly IFileUnitAppService _fileUnitAppService;
 
+        private readonly IHostEnvironment _environment;
+        private readonly IConfiguration _configuration;
+
         /// <inheritdoc />
-        public ResourcesController(IFileUnitAppService fileUnitAppService)
+        public ResourcesController(IFileUnitAppService fileUnitAppService, IHostEnvironment environment,
+            IConfiguration configuration)
         {
             _fileUnitAppService = fileUnitAppService;
+            _environment = environment;
+            _configuration = configuration;
         }
 
         /// <summary>
@@ -31,7 +42,31 @@ namespace VinaCent.Blaze.Controllers
             try
             {
                 var file = await _fileUnitAppService.GetByFullName(routeValues);
-                if (file == null || file.IsFolder)
+                if (file == null)
+                {
+                    if (!_environment.IsDevelopment()) return NotFound();
+                    var fileServerUri = _configuration.GetValue<string>("FileServer");
+                    using (var client = new HttpClient())
+                    {
+                        if (fileServerUri.IsNullOrEmpty() ||
+                            (!fileServerUri.StartsWith("https://") && !fileServerUri.StartsWith("http://")) ||
+                            new Uri(fileServerUri).IsLoopback) return NotFound();
+                            
+                        var fileServerResource = StringHelper.TrueCombine(fileServerUri.TrimEnd('/'), AppFileResourceHelper.ResourcePathPrefix.EnsureStartsWith('/'), routeValues.EnsureStartsWith('/'));
+                        using (var result = await client.GetAsync(fileServerResource))
+                        {
+                            if (result.IsSuccessStatusCode)
+                            {
+                                return File(await result.Content.ReadAsByteArrayAsync(), "application/octet-stream");
+                            }
+
+                        }
+                    }
+                    
+                    return NotFound();
+                }
+
+                if (file.IsFolder)
                     return NotFound();
 
                 var stream = System.IO.File.OpenRead(file.PhysicalPath);

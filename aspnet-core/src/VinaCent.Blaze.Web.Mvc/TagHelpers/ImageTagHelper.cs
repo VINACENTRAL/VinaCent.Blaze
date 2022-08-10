@@ -57,7 +57,7 @@ namespace VinaCent.Blaze.Web.TagHelpers
             if (onerror is {Length: > 0})
             {
                 // Prevent XSS
-                if (onerror.StartsWith("http://") || onerror.StartsWith("https://"))
+                if (onerror.Contains("http://", StringComparison.OrdinalIgnoreCase) || onerror.Contains("https://", StringComparison.OrdinalIgnoreCase))
                 {
                     output.Attributes.SetAttribute("onerror", $"this.src='{imageHolder}'");
                 }

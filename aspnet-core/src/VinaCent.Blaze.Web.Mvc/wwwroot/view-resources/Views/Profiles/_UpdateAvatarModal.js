@@ -1,47 +1,37 @@
 (function ($) {
-    var mc;
     const l = abp.localization.getSource('Blaze'),
         _$modal = $('#UpdateAvatarModal'),
         _$form = _$modal.find('form'),
         _$saveBtn = _$form.closest('div.modal-content').find(".save-button");
 
-    _$form.find('#select-image').on('click', (e) => {
+    const currentUserAvatarEl = $('#crr-user-avt');
+    const imagePicker = $("#image-picker");
+
+    let src = currentUserAvatarEl.children('img[avatar]').attr('src');
+    // For dev purpose
+    if (vinacent && vinacent?.fileServer.length > 0 && src && src.length > 0) {
+        src = src.slice(vinacent.fileServer.length);
+    }
+    // remove inner
+    currentUserAvatarEl.html('');
+
+
+    _$form.find('.select-image').on('click', (e) => {
         e.preventDefault();
-        $('#image-picker').click();
+        imagePicker.click();
     });
 
-    $("#image-picker").on('change', (event) => {
-        const el = $(event.currentTarget);
-        const file = el.prop('files')[0];
+    imagePicker.on('change', (event) => {
+        const file = imagePicker.prop('files')[0];
         if (file) {
             const blob = URL.createObjectURL(file);
             initCropper(blob);
         }
     });
-    const src = document.getElementById('crr-user-avt').getAttribute('vnc-src');
 
-    //if (!src) {
-    //    hideAction()
-    //} else {
-    //    // Init cropper
-    //    initCropper(src);
-    //}
+    function initCropper(source, oneDone) {
 
-    function showAction() {
-        $(".action-no-image").hide();
-        $(".action-container").show();
-    }
-
-    function hideAction() {
-        $(".action-no-image").show();
-        $(".action-container").hide();
-    }
-
-    function initCropper(source) {
-        showAction();
-        $('#crr-user-avt').croppie('destroy');
-        mc = $('#crr-user-avt');
-        mc.croppie({
+        const mc = currentUserAvatarEl.croppie({
             viewport: {
                 width: 300,
                 height: 300,
@@ -51,13 +41,16 @@
                 width: 300,
                 height: 300
             },
+        });
+
+        var bindPromise = mc.croppie('bind', {
             url: source,
-            // enforceBoundary: false
-            // mouseWheelZoom: false
         });
-        mc.on('update.croppie', function (ev, data) {
-            // console.log('jquery update', ev, data);
-        });
+
+        if (typeof oneDone === 'function') {
+            bindPromise.then(oneDone);
+        }
+        
         _$saveBtn.unbind();
         _$saveBtn.on('click', function (ev) {
             ev.preventDefault();
@@ -66,7 +59,6 @@
             mc.croppie('result', {
                 type: 'blob',
                 circle: false,
-                // size: { width: 300, height: 300 },
                 format: 'png'
             }).then(function (blob) {
                 uploadAvatar(blob);
@@ -95,4 +87,16 @@
             abp.ui.clearBusy(_$form);
         });
     }
+
+    _$modal.on('shown.bs.modal', () => {
+        if (src) {
+            abp.ui.setBusy(_$modal);
+            initCropper(src, () => {
+                abp.ui.clearBusy(_$modal);
+            });
+        }
+    }).on('hidden.bs.modal', () => {
+        currentUserAvatarEl.croppie('destroy');
+        _$form.clearForm();
+    });
 })(jQuery);

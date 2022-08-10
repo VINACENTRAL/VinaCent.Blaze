@@ -47,7 +47,7 @@ namespace VinaCent.Blaze.AppCore.FileUnits
         /// </summary>
         private const string ContentsDirName = "contents";
 
-        public static readonly string[] StaticDirName = { UsersDirName, ContentsDirName };
+        public static readonly string[] StaticDirName = {UsersDirName, ContentsDirName};
 
         /// <summary>
         /// Root folder for app file system
@@ -291,12 +291,14 @@ namespace VinaCent.Blaze.AppCore.FileUnits
             var fileUnit = MapToEntity(input);
             fileUnit.Id = Guid.NewGuid();
 
-            if (input.File is not { Length: > 0 })
+            if (input.File is not {Length: > 0})
             {
                 throw new UserFriendlyException(L(LKConstants.YouMustChooseAFileToUpload));
             }
 
-            var allowedMaxFileSize = Convert.ToInt16(await SettingManager.GetSettingValueAsync(AppSettingNames.AllowedMaxFileSize));//kb
+            var allowedMaxFileSize =
+                Convert.ToInt16(await SettingManager.GetSettingValueAsync(AppSettingNames.AllowedMaxFileSize)); //kb
+
             var allowedUploadFormats = (await SettingManager.GetSettingValueAsync(AppSettingNames.AllowedUploadFormats))
                 ?.Split(",", StringSplitOptions.RemoveEmptyEntries).Select(x => x.Trim());
 
@@ -315,6 +317,12 @@ namespace VinaCent.Blaze.AppCore.FileUnits
 
             fileUnit.Name = Path.GetFileName(input.File.FileName);
             fileUnit.Extension = Path.GetExtension(input.File.FileName);
+
+            MimeKit.MimeTypes.TryGetExtension(input.File.ContentType, out var realFileExtension);
+            if (!realFileExtension.IsNullOrEmpty())
+            {
+                fileUnit.Extension = realFileExtension;
+            }
 
             if (allowedUploadFormats == null || !allowedUploadFormats.Contains(fileUnit.Extension))
             {
@@ -409,9 +417,9 @@ namespace VinaCent.Blaze.AppCore.FileUnits
                 else
                 {
                     var children = _repository.GetAll()
-                    .Where(x => x.ParentId == fileUnit.Id)
-                    .Select(x => x.Id)
-                    .ToArray();
+                        .Where(x => x.ParentId == fileUnit.Id)
+                        .Select(x => x.Id)
+                        .ToArray();
                     foreach (var itemId in children)
                     {
                         await DeleteAsync(itemId);
@@ -451,12 +459,12 @@ namespace VinaCent.Blaze.AppCore.FileUnits
             var name = $"{randomGuid}{userId}";
             var userIdStr = userId?.ToString() ?? "";
             var dir = CreateFilteredQuery(new PagedFileUnitResultRequestDto
-            {
-                IsFolder = true,
-                Directory = usersDir.FullName
-            }).Where(x => x.Name.Length == name.Length && x.Name.EndsWith(userIdStr))
-              .ToList()
-              .FirstOrDefault();
+                {
+                    IsFolder = true,
+                    Directory = usersDir.FullName
+                }).Where(x => x.Name.Length == name.Length && x.Name.EndsWith(userIdStr))
+                .ToList()
+                .FirstOrDefault();
 
             var specifiedUserDir = MapToEntityDto(dir) ??
                                    await CreateDirectoryAsync(new CreateDirectoryDto
@@ -503,6 +511,7 @@ namespace VinaCent.Blaze.AppCore.FileUnits
         }
 
         #region Core Function
+
         private string ConvertToRealPhysicalFilePath(Guid id)
         {
             return StringHelper.TrueCombine(GetTodayContentPath, id.ToString());
@@ -617,6 +626,7 @@ namespace VinaCent.Blaze.AppCore.FileUnits
                 await _repository.UpdateAsync(child);
             }
         }
+
         #endregion
     }
 }

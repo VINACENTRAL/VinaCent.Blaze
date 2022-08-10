@@ -4,6 +4,7 @@
 @inject VinaCent.Blaze.Timing.AppTimes AppTimes
 @inject ICachedUniqueKeyPerUser CachedUniqueKeyPerUser
 @inject IGetScriptsResponsePerUserConfiguration GetScriptsResponsePerUserConfiguration
+@inject IConfiguration Configuration
 
 <script src="~/Common/LKConstants.js"></script>
 
@@ -52,9 +53,12 @@
     abp.appPath = '@ApplicationPath';
 </script>
 
-@*<environment names="Development">
-
-    </environment>*@
+<environment names="Development">
+    <script type="text/javascript">
+        var vinacent = vinacent || {};
+        vinacent.fileServer = '@(Configuration.GetValue<string>("FileServer"))';
+    </script>
+</environment>
 
 @*<environment names="Staging,Production">
     <script src="~/view-resources/Views/_Bundles/shared-layout.min.js" asp-append-version="true"></script>
