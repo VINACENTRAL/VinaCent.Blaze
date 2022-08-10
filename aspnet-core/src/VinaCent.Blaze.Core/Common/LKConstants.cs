@@ -287,5 +287,5 @@ public static class LKConstants
     public const string Creator = "Creator";
     public const string NotEditedYet = "NotEditedYet";
     public const string ResourcePath = "ResourcePath";
-    public const string DownloadFile_X = "DownloadFile_X";
+    public const string DownloadFile_X = "DownloadFile_X";    
 }

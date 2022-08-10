@@ -12,7 +12,7 @@
 
             var input = $('#PersonalInfoForm').serializeFormToObject();
 
-            _profileService.update(input).then(function (result) {
+            _profileService.update(input).done(function (result) {
                 abp.notify.info(l(LKConstants.SavedSuccessfully));
                 updateConcurrencyStamp();
             });
@@ -56,12 +56,11 @@
         }).on('hidden.bs.modal', () => {
             modal.clearForm();
         });
+
+        function updateConcurrencyStamp() {
+            _profileService.get().then(function (profile) {
+                $("#ConcurrencyStamp").val(profile.concurrencyStamp);
+            });
+        }
     });
-
-    function updateConcurrencyStamp() {
-        _profileService.get().then(function (profile) {
-            $("#ConcurrencyStamp").val(profile.concurrencyStamp);
-        });
-    }
-
 })(jQuery);

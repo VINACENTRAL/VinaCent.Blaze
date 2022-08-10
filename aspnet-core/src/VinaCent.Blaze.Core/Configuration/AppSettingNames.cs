@@ -5,17 +5,18 @@
         private const string Prefix = "App";
 
         #region App meta
-        public const string SiteTitle = "App.SiteTitle";
-        public const string SiteName = "App.SiteName";
-        public const string SiteFavicon = "App.Favicon";
-        public const string SiteDescription = "App.SiteDescription";
-        public const string SiteAuthor = "App.Author";
-        public const string SiteAuthorProfileUrl = "App.AuthorProfileUrl";
+        public const string SiteTitle = Prefix + "." + nameof(SiteTitle);
+        public const string SiteName = Prefix + "." + nameof(SiteName);
+        public const string SiteFavicon = Prefix + "." + nameof(SiteFavicon);
+        public const string SiteDescription = Prefix + "." + nameof(SiteDescription);
+        public const string SiteAuthor = Prefix + "." + nameof(SiteAuthor);
+        public const string SiteAuthorProfileUrl = Prefix + "." + nameof(SiteAuthorProfileUrl);
+        public const string SiteHolderImage = Prefix + "." + nameof(SiteHolderImage);
         #endregion
 
         #region App UI/Theme
-        public const string UiTheme = "App.UiTheme";
-        public const string UiThemeMode = "App.UiThemeMode";
+        public const string UiTheme = Prefix + "." + nameof(UiTheme);
+        public const string UiThemeMode = Prefix + "." + nameof(UiThemeMode);
         #endregion
 
         #region App File Management
@@ -32,10 +33,9 @@
         #region User
         public class User
         {
-            private const string UserPrefix = Prefix + ".User";
-
-            public const string IsUserNameUpdateEnabled = UserPrefix + ".IsUserNameUpdateEnabled";
-            public const string IsEmailUpdateEnabled = UserPrefix + ".IsEmailUpdateEnabled";
+            private const string UserPrefix = Prefix + "." + nameof(User);
+            public const string IsUserNameUpdateEnabled = UserPrefix + "." + nameof(IsUserNameUpdateEnabled);
+            public const string IsEmailUpdateEnabled = UserPrefix + "." + nameof(IsEmailUpdateEnabled);
         }
         #endregion
     }
