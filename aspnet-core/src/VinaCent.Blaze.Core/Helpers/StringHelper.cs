@@ -13,12 +13,11 @@ namespace VinaCent.Blaze.Helpers
         /// <returns></returns>
         public static string TrueCombine(params string[] paths)
         {
-            if (paths.Length > 1)
+            if (paths.Length <= 1) return Path.Combine(paths).Replace("\\", "/");
+            
+            for (var i = 1; i < paths.Length; i++)
             {
-                for (var i = 1; i < paths.Length; i++)
-                {
-                    paths[i] = paths[i].TrimStart('/').TrimStart('\\');
-                }
+                paths[i] = paths[i].TrimStart('/').TrimStart('\\');
             }
 
             return Path.Combine(paths).Replace("\\", "/");
