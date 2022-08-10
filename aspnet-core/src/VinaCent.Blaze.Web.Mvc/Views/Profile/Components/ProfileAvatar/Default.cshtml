@@ -4,36 +4,13 @@
 @inject IWebResourceManager WebResourceManager
 @{
     WebResourceManager.AddScript(ApplicationPath + "view-resources/Views/Profiles/Index.js", false);
-
-    string HostNameCorrector(string path)
-    {
-        if (path.IsNullOrWhiteSpace())
-            return path;
-        // ReSharper disable once InvertIf
-        if (Environment.IsDevelopment() &&
-            !path.StartsWith("http://") &&
-            !path.StartsWith("https://"))
-        {
-            var host = Configuration.GetValue<string>("HostUrls");
-            if (!host.IsNullOrWhiteSpace() && host.Contains(";"))
-            {
-                var hostList = host.Split(";");
-                host = hostList.FirstOrDefault(x => !Url.IsLocalUrl(x)) ?? hostList.FirstOrDefault() ?? "";
-            }
-            if (!Url.IsLocalUrl(host))
-            {
-                path = StringHelper.TrueCombine(host, path);
-            }
-        }
-        return path;
-    }
 }
 
 <div class="card mt-n5">
     <div class="card-body p-4">
         <div class="text-center">
             <div class="profile-user position-relative d-inline-block mx-auto  mb-4">
-                <img id="user-avatar" src="@HostNameCorrector(Model.Avatar)" class="rounded-circle avatar-xl img-thumbnail user-profile-image shadow" alt="user-profile-image"/>
+                <img id="user-avatar" src="@Model.Avatar" class="rounded-circle avatar-xl img-thumbnail user-profile-image shadow" alt="user-profile-image" avatar/>
                 <div class="avatar-xs p-0 rounded-circle profile-photo-edit">
                     <label data-bs-toggle="modal" data-bs-target="#UpdateAvatarModal" class="profile-photo-edit avatar-xs">
                         <span class="avatar-title rounded-circle bg-light text-body shadow">

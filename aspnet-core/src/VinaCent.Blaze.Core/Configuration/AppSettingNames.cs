@@ -12,6 +12,7 @@
         public const string SiteAuthor = Prefix + "." + nameof(SiteAuthor);
         public const string SiteAuthorProfileUrl = Prefix + "." + nameof(SiteAuthorProfileUrl);
         public const string SiteHolderImage = Prefix + "." + nameof(SiteHolderImage);
+        public const string SiteUserAvatarHolder = Prefix + "." + nameof(SiteUserAvatarHolder);
         #endregion
 
         #region App UI/Theme

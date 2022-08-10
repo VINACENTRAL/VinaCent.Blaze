@@ -5,26 +5,6 @@
 @model FileUnitDto
 @{
     Layout = null;
-    string HostNameCorrector(string path)
-    {
-        // ReSharper disable once InvertIf
-        if (Environment.IsDevelopment() &&
-            !path.StartsWith("http://") &&
-            !path.StartsWith("https://"))
-        {
-            var host = Configuration.GetValue<string>("HostUrls");
-            if (!host.IsNullOrWhiteSpace() && host.Contains(";"))
-            {
-                var hostList = host.Split(";");
-                host = hostList.FirstOrDefault(x => !Url.IsLocalUrl(x)) ?? hostList.FirstOrDefault() ?? "";
-            }
-            if (!Url.IsLocalUrl(host))
-            {
-                path = StringHelper.TrueCombine(host, path);
-            }
-        }
-        return path;
-    }
 
     var preview = await SettingManager.GetSettingValueAsync(AppSettingNames.NoPreviewImage);
     if (!Model.IsFolder && Model.Extension.IsImage())
@@ -98,7 +78,7 @@
         <div class="mb-3">
             <label class="form-label">@L(LKConstants.ResourcePath)</label>
             <div class="w-100 text-break">
-                <a href="@HostNameCorrector(Model.ResourcePath)"
+                <a href="@Model.ResourcePath"
                     data-bs-toggle="tooltip" data-bs-placement="bottom" title="@L(LKConstants.DownloadFile_X, Model.Name)">
                     @Model.ResourcePath
                 </a>

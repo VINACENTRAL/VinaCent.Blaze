@@ -10,29 +10,6 @@
 
     var isLockout = !string.IsNullOrEmpty(Model.UsernameOrEmailAddress);
     var userLoginInfo = (UserLoginInfoDto)ViewBag.UserLoginInfo;
-
-    string HostNameCorrector(string path)
-    {
-        if (path.IsNullOrWhiteSpace())
-            return path;
-        // ReSharper disable once InvertIf
-        if (Environment.IsDevelopment() &&
-            !path.StartsWith("http://") &&
-            !path.StartsWith("https://"))
-        {
-            var host = Configuration.GetValue<string>("HostUrls");
-            if (!host.IsNullOrWhiteSpace() && host.Contains(";"))
-            {
-                var hostList = host.Split(";");
-                host = hostList.FirstOrDefault(x => !Url.IsLocalUrl(x)) ?? hostList.FirstOrDefault() ?? "";
-            }
-            if (!Url.IsLocalUrl(host))
-            {
-                path = StringHelper.TrueCombine(host, path);
-            }
-        }
-        return path;
-    }
 }
 
 @section scripts
@@ -127,7 +104,7 @@
             else
             {
                 <div class="user-thumb text-center">
-                    <img src="@HostNameCorrector(userLoginInfo.Avatar)" class="rounded-circle img-thumbnail avatar-lg shadow" alt="thumbnail"/>
+                    <img src="@userLoginInfo.Avatar" class="rounded-circle img-thumbnail avatar-lg shadow" alt="thumbnail" avatar/>
                     <h5 class="font-size-15 mt-3">@userLoginInfo.FullName</h5>
                 </div>
                 <div class="p-2 mt-4">

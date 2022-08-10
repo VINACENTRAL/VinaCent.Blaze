@@ -46,6 +46,9 @@ namespace VinaCent.Blaze.Configuration
                 new SettingDefinition(AppSettingNames.SiteHolderImage, "/Common/images/no-image.png",
                     scopes: SettingScopes.Application | SettingScopes.Tenant,
                     isVisibleToClients: true),
+                new SettingDefinition(AppSettingNames.SiteUserAvatarHolder, "/Common/images/user.png",
+                    scopes: SettingScopes.Application | SettingScopes.Tenant,
+                    isVisibleToClients: true),
 #endregion
 
 #region App UI/Theme

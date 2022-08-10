@@ -28,37 +28,44 @@ namespace VinaCent.Blaze.Web.TagHelpers
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
-            var host = ""; // For current
             var imageHolder = _settingManager.GetSettingValue(AppSettingNames.SiteHolderImage);
             output.TagMode = TagMode.SelfClosing;
+            
+            if (output.Attributes.FirstOrDefault(attr => attr.Name == "avatar") != null)
+            {
+                imageHolder = _settingManager.GetSettingValue(AppSettingNames.SiteUserAvatarHolder);
+            }
+            
             if (_environment.IsDevelopment())
             {
-                var _host = _configuration.GetValue<string>("HostUrls");
-                if (!_host.IsNullOrWhiteSpace() && _host.Contains(";"))
-                {
-                    var hostList = _host.Split(";");
-                    _host = hostList.FirstOrDefault(x => new Uri(x).Host != "localhost") ??
-                            hostList.FirstOrDefault() ?? "";
-                }
+                var fileServerUri = _configuration.GetValue<string>("FileServer");
 
-                if (new Uri(_host).Host != "localhost")
-                {
-                    host = _host;
-                }
+                if (fileServerUri.IsNullOrEmpty() ||
+                    (!fileServerUri.StartsWith("https://") && !fileServerUri.StartsWith("http://")) ||
+                    new Uri(fileServerUri).IsLoopback) return;
 
-                imageHolder = StringHelper.TrueCombine(host, imageHolder);
                 var src = output.Attributes.FirstOrDefault(x => x.Name == "src")?.Value?.ToString();
-                if (src is { Length: > 0 } &&
-                    !src.StartsWith("http://") &&
-                    !src.StartsWith("https://"))
+                if (src is {Length: > 0} && !src.StartsWith("http://") && !src.StartsWith("https://"))
                 {
-                    src = StringHelper.TrueCombine(host, src);
+                    src = StringHelper.TrueCombine(fileServerUri.TrimEnd('/'), src.EnsureStartsWith('/'));
                 }
 
                 output.Attributes.SetAttribute("src", src);
             }
 
-            output.Attributes.Add("onerror", $"this.src='{imageHolder}'");
+            var onerror = output.Attributes.FirstOrDefault(attr => attr.Name == "onerror")?.Value?.ToString();
+            if (onerror is {Length: > 0})
+            {
+                // Prevent XSS
+                if (onerror.StartsWith("http://") || onerror.StartsWith("https://"))
+                {
+                    output.Attributes.SetAttribute("onerror", $"this.src='{imageHolder}'");
+                }
+            }
+            else
+            {
+                output.Attributes.Add("onerror", $"this.src='{imageHolder}'");
+            }
         }
     }
 }
