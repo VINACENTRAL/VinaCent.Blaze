@@ -15,6 +15,13 @@
     static PasswordResetSuccessful = 'PasswordResetSuccessful';
     static NewPasswordConfirmFailed = 'NewPasswordConfirmFailed';
     static PasswordChanged = 'PasswordChanged';
+    static NoDataAvailableInTable = 'NoDataAvailableInTable';
+    static NoRecords = 'NoRecords';
+    static DataTable_Info_Start_End_of_Total_items = 'DataTable_Info_Start_End_of_Total_items';
+    static LoadingEtc___ = 'LoadingEtc___';
+    static DataTable_FilteredFrom_MAX_TotalEntries = 'DataTable_FilteredFrom_MAX_TotalEntries';
+    static DataTable_Show_MENU_Entries = 'DataTable_Show_MENU_Entries';
+    static NoMatchingRecordsFound = 'NoMatchingRecordsFound';
 
     // ============================== START BUSINESS CORE ============================== //
     static UpdateExchangeRate = 'UpdateExchangeRate';

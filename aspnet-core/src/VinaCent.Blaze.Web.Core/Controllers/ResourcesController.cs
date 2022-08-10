@@ -6,13 +6,15 @@ using VinaCent.Blaze.Helpers;
 
 namespace VinaCent.Blaze.Controllers
 {
+    /// <inheritdoc />
     [AllowAnonymous]
     [Route(AppFileResourceHelper.ResourcePathPrefix)]
     public class ResourcesController : BlazeControllerBase
     {
         private readonly IFileUnitAppService _fileUnitAppService;
 
-        public ResourcesController(FileUnitAppService fileUnitAppService)
+        /// <inheritdoc />
+        public ResourcesController(IFileUnitAppService fileUnitAppService)
         {
             _fileUnitAppService = fileUnitAppService;
         }
@@ -26,12 +28,19 @@ namespace VinaCent.Blaze.Controllers
         public async Task<IActionResult> Index(string routeValues)
         {
             // Get virtual file
-            var file = await _fileUnitAppService.GetByFullName(routeValues);
-            if (file == null || file.IsFolder)
-                return NotFound();
+            try
+            {
+                var file = await _fileUnitAppService.GetByFullName(routeValues);
+                if (file == null || file.IsFolder)
+                    return NotFound();
 
-            var stream = System.IO.File.OpenRead(file.PhysicalPath);
-            return File(stream, "application/octet-stream");
+                var stream = System.IO.File.OpenRead(file.PhysicalPath);
+                return File(stream, "application/octet-stream");
+            }
+            catch
+            {
+                return NotFound();
+            }
         }
     }
 }

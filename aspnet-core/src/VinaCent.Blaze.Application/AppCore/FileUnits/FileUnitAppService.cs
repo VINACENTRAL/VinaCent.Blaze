@@ -178,6 +178,7 @@ namespace VinaCent.Blaze.AppCore.FileUnits
             return parentDirectories;
         }
 
+        [AbpAllowAnonymous]
         public async Task<FileUnitDto> GetByFullName(string fullName)
         {
             if (fullName.IsNullOrWhiteSpace())

@@ -45,11 +45,6 @@
 <script src="~/libs/push.js/push.js" asp-append-version="true"></script>
 @*other scripts end*@
 
-@*custom scripts start*@
-<script src="~/js/abp.dataTable.js" asp-append-version="true"></script>
-<script src="~/js/main.js" asp-append-version="true"></script>
-@*custom scripts end*@
-
 <script type="text/javascript">
     // This is used to get the application's root path from javascript.
     // It's useful if you're running application in a virtual directory under IIS.
@@ -107,3 +102,8 @@ else
 {
     <script src="@(ApplicationPath)AbpScripts/GetScripts?v=@(AppTimes.StartupTime.Ticks)" type="text/javascript"></script>
 }
+
+@*custom scripts start*@
+<script src="~/js/abp.dataTable.js" asp-append-version="true"></script>
+<script src="~/js/main.js" asp-append-version="true"></script>
+@*custom scripts end*@

@@ -6,20 +6,22 @@ var abp = abp || {};
     }
 
     abp.libs = abp.libs || {};
-    var l = abp.localization.getSource("Blaze");
+    let l = abp.localization.getSource("Blaze");
 
-    var language = {
-        emptyTable: "No data available in table",
-        info: "_START_-_END_ of _TOTAL_ items",
-        infoEmpty: "No records",
-        infoFiltered: "(filtered from _MAX_ total entries)",
+    console.log(l(LKConstants.DataTable_Info_Start_End_of_Total_items))
+    
+    const language = {
+        emptyTable: l(LKConstants.NoDataAvailableInTable),
+        info: l(LKConstants.DataTable_Info_Start_End_of_Total_items, '_START_', '_END_', '_TOTAL_'),
+        infoEmpty: l(LKConstants.NoRecords),
+        infoFiltered: l(LKConstants.DataTable_FilteredFrom_MAX_TotalEntries, '_MAX_'),
         infoPostFix: "",
         infoThousands: ",",
-        lengthMenu: "Show _MENU_ entries",
-        loadingRecords: "Loading...",
+        lengthMenu: l(LKConstants.DataTable_Show_MENU_Entries, '_MENU_'),
+        loadingRecords: l(LKConstants.LoadingEtc___),
         processing: '<i class="fas fa-refresh fa-spin"></i>',
         search: "Search:",
-        zeroRecords: "No matching records found",
+        zeroRecords: l(LKConstants.NoMatchingRecordsFound),
         paginate: {
             first: '<i class="fas fa-angle-double-left"></i>',
             last: '<i class="fas fa-angle-double-right"></i>',
