@@ -69,6 +69,9 @@ namespace VinaCent.Blaze.Configuration
                     ".jpeg, .jpg, .png",
                     scopes: SettingScopes.Application,
                     isVisibleToClients: true),
+                new SettingDefinition(AppSettingNames.NoPreviewImage, "/Common/images/no-cover.jpg",
+                    scopes: SettingScopes.Application | SettingScopes.Tenant,
+                    isVisibleToClients: true),
                 #endregion
 
 #region App System settings

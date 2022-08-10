@@ -34,5 +34,12 @@ namespace VinaCent.Blaze.Web.Areas.AdminCP.Controllers
             var model = ObjectMapper.Map<FileUnitRenameDto>(fileUnitDto);
             return PartialView("_RenameFileUnitModal", model);
         }
+
+        [HttpPost("detail-modal")]
+        public async Task<ActionResult> DetailModal(Guid fileUnitId)
+        {
+            var model = await _fileUnitAppService.GetAsync(fileUnitId);
+            return PartialView("_DetailFileModal", model);
+        }
     }
 }

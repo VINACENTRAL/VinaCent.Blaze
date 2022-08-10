@@ -5,6 +5,7 @@
         _$directoryCreateForm = _$directoryCreateModal.find('form'),
         _$uploadFileModal = $('#UploadFileModal'),
         _$uploadFileForm = _$uploadFileModal.find('form'),
+        _$detailFileModal = $('#DetailFileModal'),
         _$table = $('#FileUnitsTable');
 
     var _$fileUnitsTable = _$table.DataTable({
@@ -53,7 +54,7 @@
                     }
                     else {
                         return [
-                            `<span class="fw-bold d-flex"><i class="ri-file-3-fill me-1"></i> ${data}</span>`
+                            `<span class="fw-bold d-flex detail-file-unit" data-id="${row.id}" data-bs-toggle="modal" data-bs-target="#DetailFileModal"><i class="ri-file-3-fill me-1"></i><p class="text-decoration-underline cursor-pointer text-truncate" style="width: 150px">${data}</p></span>`
                         ]
                     }
                 }
@@ -70,12 +71,12 @@
             },
             {
                 targets: 4,
-                data: 'creationTime',
+                data: 'creationTimeStr',
                 sortable: false
             },
             {
                 targets: 5,
-                data: 'lastModificationTime',
+                data: 'lastModificationTimeStr',
                 sortable: false
             },
             {
@@ -177,6 +178,21 @@
             dataType: 'html',
             success: function (content) {
                 $('#RenameFileUnitModal div.modal-content').html(content);
+            },
+            error: function (e) {
+            }
+        });
+    });
+
+    $(document).on('click', '.detail-file-unit', function (e) {
+        var fileUnitId = $(this).attr('data-id');
+
+        abp.ajax({
+            url: abp.appPath + 'admincp/file-management/detail-modal?fileUnitId=' + fileUnitId,
+            type: 'POST',
+            dataType: 'html',
+            success: function (content) {
+                $('#DetailFileModal div.modal-content').html(content);
             },
             error: function (e) {
             }

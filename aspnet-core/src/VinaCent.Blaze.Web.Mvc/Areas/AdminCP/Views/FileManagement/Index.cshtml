@@ -54,7 +54,7 @@
                         <th></th>
                         <th>@L(LKConstants.Name)</th>
                         <th>@L(LKConstants.FileSize)</th>
-                        <th>@L(LKConstants.Description)</th>
+                        <th style="width: 350px">@L(LKConstants.Description)</th>
                         <th>@L(LKConstants.CreationTime)</th>
                         <th>@L(LKConstants.LastModificationTime)</th>
                         <th style="width: 150px">@L(LKConstants.Actions)</th>
@@ -70,6 +70,13 @@
 @await Html.PartialAsync("~/Areas/AdminCP/Views/FileManagement/_UploadFileModal.cshtml", new UploadFileUnitDto())
 
 <div class="modal fade" id="RenameFileUnitModal" tabindex="-1" role="dialog" aria-labelledby="RenameFileUnitModalLabel" data-backdrop="static">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="DetailFileModal" tabindex="-1" role="dialog" aria-labelledby="DetailFileModalLabel" data-backdrop="static">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
         </div>
