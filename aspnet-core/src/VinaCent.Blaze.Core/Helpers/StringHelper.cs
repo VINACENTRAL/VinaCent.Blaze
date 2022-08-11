@@ -1,11 +1,13 @@
 using System;
 using System.IO;
+using System.Linq;
 using System.Text;
 
 namespace VinaCent.Blaze.Helpers
 {
     public static class StringHelper
     {
+        public const string FileSeparator = "/";
         /// <summary>
         /// Prevent have path separator char '\' in windows
         /// </summary>
@@ -13,14 +15,14 @@ namespace VinaCent.Blaze.Helpers
         /// <returns></returns>
         public static string TrueCombine(params string[] paths)
         {
-            if (paths.Length <= 1) return Path.Combine(paths).Replace("\\", "/");
+            if (paths.Length <= 1) return Path.Combine(paths).Replace("\\", FileSeparator);
             
             for (var i = 1; i < paths.Length; i++)
             {
-                paths[i] = paths[i].TrimStart('/').TrimStart('\\');
+                paths[i] = paths[i].TrimStart(FileSeparator.First()).TrimStart('\\');
             }
 
-            return Path.Combine(paths).Replace("\\", "/");
+            return Path.Combine(paths).Replace("\\", FileSeparator);
         }
 
         public static string OSCombine(params string[] paths)
@@ -29,7 +31,7 @@ namespace VinaCent.Blaze.Helpers
             {
                 for (var i = 1; i < paths.Length; i++)
                 {
-                    paths[i] = paths[i].TrimStart('/').TrimStart('\\');
+                    paths[i] = paths[i].TrimStart(FileSeparator.First()).TrimStart('\\');
                 }
             }
 

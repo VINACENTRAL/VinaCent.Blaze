@@ -43,6 +43,11 @@ namespace VinaCent.Blaze.AppCore.FileUnits.Dto
         /// </summary>
         public bool IsFolder { get; set; }
 
+        /// <summary>
+        /// Is static folder and its child, you can rename, move, edit or delete all of it
+        /// </summary>
+        public bool IsStatic { get; set; }
+
         #region Extend propperties
 
         /// <summary>

@@ -62,7 +62,11 @@
             {
                 targets: 2,
                 data: 'length',
-                sortable: false
+                sortable: false,
+                render: (data, type, row, meta) => {
+                    console.log(row)
+                    return row.isFolder ? l(LKConstants.Directory) : `${data} (bytes)`;
+                }
             },
             {
                 targets: 3,
@@ -87,10 +91,10 @@
                 defaultContent: '',
                 render: (data, type, row, meta) => {
                     return [
-                        `   <button type="button" class="btn btn-sm btn-warning edit-file-unit" data-file-unit-id="${row.id}" data-bs-toggle="modal" data-bs-target="#RenameFileUnitModal">`,
+                        `   <button type="button" class="btn btn-sm ${row.isStatic?'disabled btn-light':' btn-warning edit-file-unit'}" data-file-unit-id="${row.id}" data-bs-toggle="modal" data-bs-target="#RenameFileUnitModal">`,
                         `       <i class="fas fa-pencil-alt"></i> ${l(LKConstants.Rename)}`,
                         '   </button>',
-                        `   <button type="button" class="btn btn-sm btn-danger delete-file-unit" data-file-unit-id="${row.id}" data-file-unit-name="${row.name}">`,
+                        `   <button type="button" class="btn btn-sm ${row.isStatic?'disabled btn-light':'btn-danger delete-file-unit'}" data-file-unit-id="${row.id}" data-file-unit-name="${row.name}">`,
                         `       <i class="fas fa-trash"></i> ${l(LKConstants.Delete)}`,
                         '   </button>',
                     ].join('');
@@ -106,7 +110,7 @@
             return;
         }
 
-        if (_$directoryCreateForm.find('#current-directory').val == '') {
+        if (_$directoryCreateForm.find('#current-directory').length === 0) {
             _$directoryCreateForm.find('#current-directory').val = null
         }
 
@@ -132,7 +136,7 @@
             return;
         }
 
-        if (_$uploadFileForm.find('#current-directory').val == '') {
+        if (_$uploadFileForm.find('#current-directory').length === 0) {
             _$uploadFileForm.find('#current-directory').val = null
         }
 
@@ -142,7 +146,7 @@
         var files = input.files;
         var formData = new FormData(crrForm);
 
-        for (var i = 0; i != files.length; i++) {
+        for (var i = 0; i !== files.length; i++) {
             formData.append("File", files[i]);
         }
 
@@ -268,7 +272,7 @@
 
             if (index >= 0) {
                 const crrDir = breadcrumbStorage[index];
-                if (crrDir.path == $('#Directory').val()) return;
+                if (crrDir.path === $('#Directory').val()) return;
                 updateStickData(crrDir.id, crrDir.path);
             } else {
                 updateStickData(null, null);
@@ -298,7 +302,7 @@
     });
 
     $('.txt-search').on('keypress', (e) => {
-        if (e.which == 13) {
+        if (e.which === 13) {
             _$fileUnitsTable.ajax.reload();
             return false;
         }
