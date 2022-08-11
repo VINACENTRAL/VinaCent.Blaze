@@ -1807,7 +1807,8 @@ function sendMessage(logger, transportName, httpClient, url, accessTokenFactory,
 exports.sendMessage = sendMessage;
 function createLogger(logger) {
     if (logger === undefined) {
-        return new ConsoleLogger(ILogger.LogLevel.Information);
+        // return new ConsoleLogger(ILogger.LogLevel.Information);
+        return new ConsoleLogger(ILogger.LogLevel.Error);
     }
     if (logger === null) {
         return Loggers.NullLogger.instance;
