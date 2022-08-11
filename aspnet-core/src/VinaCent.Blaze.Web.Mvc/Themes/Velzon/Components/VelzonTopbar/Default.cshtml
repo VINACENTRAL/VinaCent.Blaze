@@ -39,7 +39,7 @@
                 <vc:velzon-language-switcher/>
 
                 @* <vc:velzon-topbar-app-list/> *@
-                
+
                 <vc:velzon-topbar-my-cart/>
 
                 <div class="ms-1 header-item d-none d-sm-flex">
@@ -48,8 +48,11 @@
                         <i class="bx bx-moon fs-22"></i>
                     </button>
                 </div>
-                
-                <vc:velzon-topbar-notifications/>
+
+                @if (User.Identity?.IsAuthenticated == true)
+                {
+                    <vc:velzon-topbar-notifications/>
+                }
 
                 <vc:velzon-user-area/>
             </div>
