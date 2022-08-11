@@ -1,0 +1,20 @@
+.sorting_disabled {
+    display: none;
+}
+
+.datatable-footer {
+    -webkit-box-shadow: var(--vz-box-shadow);
+    box-shadow: var(--vz-box-shadow);
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: var(--vz-card-bg);
+    background-clip: border-box;
+    border: 0 solid rgba(0,0,0,.125);
+    border-radius: .25rem;
+    padding: 1rem 1rem;
+    margin: 0 0 1.5rem 0 !important;
+}
+
+.list-view-filter tr {
+    display: grid;
+}
