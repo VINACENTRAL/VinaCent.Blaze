@@ -12,4 +12,18 @@ if (document.querySelectorAll("[toast-list]") || document.querySelectorAll('[dat
     document.writeln("<script type='text/javascript' src='https://cdn.jsdelivr.net/npm/toastify-js'></script>");
     document.writeln("<script type='text/javascript' src='velzon/libs/choices.js/public/assets/scripts/choices.min.js'></script>");
     document.writeln("<script type='text/javascript' src='velzon/libs/flatpickr/flatpickr.min.js'></script>");
+
+    const flatPickerl10ns = [];
+    document.querySelectorAll("[data-datetime-locale]").forEach((item)=>{
+        const locate = item.dataset.datetimeLocale;
+        if (!locate.includes('us')) {
+            const stringBuilder = `<script type="text/javascript" src="velzon/libs/flatpickr/l10n/${locate}.js"></script>`;
+            if (!flatPickerl10ns.includes(stringBuilder)) {
+                flatPickerl10ns.push(stringBuilder);
+                document.writeln(stringBuilder);
+            }   
+        } else {
+            item.removeAttribute('data-datetime-locale');
+        }
+    });
 }

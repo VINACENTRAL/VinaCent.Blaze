@@ -69,23 +69,27 @@
     abp.appPath = '@ApplicationPath';
     </script>
     </environment>*@
-
-@if (CultureInfo.CurrentUICulture.Name != "en")
+@{
+    @CultureInfo.CurrentUICulture.TwoLetterISOLanguageName
+    @(new RegionInfo(CultureInfo.CurrentUICulture.Name).Name)
+}
+@if (CultureInfo.CurrentUICulture.TwoLetterISOLanguageName != "en")
 {
-    var normalizedCurrentUICultureName = CultureInfo.CurrentUICulture.Name.Replace("-", "_");
-    var localizationFileNameWithExtension = "messages_";
-    switch (normalizedCurrentUICultureName)
+    var normalizedCurrentUiCultureName = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
+
+    var sameables = new[] {"bn", "es", "hy", "pt", "sr", "zh"};
+    if (sameables.Contains(normalizedCurrentUiCultureName, StringComparer.OrdinalIgnoreCase))
     {
-        case "zh_Hans":
-            localizationFileNameWithExtension += "zh";
-            break;
-        case "es_MX":
-            localizationFileNameWithExtension += "es";
-            break;
-        default:
-            localizationFileNameWithExtension += normalizedCurrentUICultureName;
-            break;
+        normalizedCurrentUiCultureName = CultureInfo.CurrentUICulture.Name.Replace("-", "_");
     }
+
+    var localizationFileNameWithExtension = "messages_";
+    localizationFileNameWithExtension += normalizedCurrentUiCultureName switch
+    {
+        "zh_Hans" => "zh",
+        "es_MX" => "es",
+        _ => normalizedCurrentUiCultureName
+        };
     localizationFileNameWithExtension += ".min.js";
     <script src="~/libs/jquery-validate/localization/@localizationFileNameWithExtension" asp-append-version="true"></script>
 }
