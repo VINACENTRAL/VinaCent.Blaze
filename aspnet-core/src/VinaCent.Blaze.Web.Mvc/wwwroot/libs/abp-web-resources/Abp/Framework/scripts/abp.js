@@ -344,14 +344,14 @@
         FATAL: 5
       };
 
-      abp.log.level = abp.log.levels.DEBUG;
+      abp.log.level = abp.log.levels.FATAL;
 
       abp.log.log = function (logObject, logLevel) {
         if (!window.console || !window.console.log) {
           return;
         }
 
-        if (logLevel != undefined && logLevel < abp.log.level) {
+        if (logLevel !== undefined && logLevel < abp.log.level) {
           return;
         }
 
