@@ -287,4 +287,11 @@ public static class LKConstants
     public const string NotEditedYet = "NotEditedYet";
     public const string ResourcePath = "ResourcePath";
     public const string DownloadFile_X = "DownloadFile_X";
+    public const string Chat = "Chat";
+    public const string X_News = "X_News";
+    public const string Notifications = "Notifications";
+    public const string Messages = "Messages";
+    public const string Alerts = "Alerts";
+    public const string Shop = "Shop";
+    public const string Checkout = "Checkout";
 }

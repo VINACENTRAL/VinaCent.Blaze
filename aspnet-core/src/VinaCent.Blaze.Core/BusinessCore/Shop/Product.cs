@@ -32,13 +32,13 @@ namespace VinaCent.Blaze.BusinessCore.Shop
         /// <summary>
         /// The price of the product.
         /// </summary>
-        [Column(TypeName = "decimal(25,25)")]
+        [Column(TypeName = "decimal(25,12)")]
         public decimal Price { get; set; }
 
         /// <summary>
         /// The discount on the product.
         /// </summary>
-        [Column(TypeName = "decimal(25,25)")]
+        [Column(TypeName = "decimal(25,12)")]
         public decimal Discount { get; set; }
 
         /// <summary>
