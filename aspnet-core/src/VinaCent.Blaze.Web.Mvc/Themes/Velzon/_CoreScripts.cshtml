@@ -69,10 +69,7 @@
     abp.appPath = '@ApplicationPath';
     </script>
     </environment>*@
-@{
-    @CultureInfo.CurrentUICulture.TwoLetterISOLanguageName
-    @(new RegionInfo(CultureInfo.CurrentUICulture.Name).Name)
-}
+
 @if (CultureInfo.CurrentUICulture.TwoLetterISOLanguageName != "en")
 {
     var normalizedCurrentUiCultureName = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
