@@ -42,7 +42,7 @@ var abp = abp || {};
         dom: [
             "<'row'<'col-md-12'f>>",
             "<'row'<'col-md-12't>>",
-            "<'row mt-2'",
+            "<'row mt-2 datatable-footer'",
             "<'col-lg-1 col-xs-12'<'float-start text-center data-tables-refresh'B>>",
             "<'col-lg-3 col-xs-12'<'d-flex h-100 justify-content-start align-items-center'i>>",
             "<'col-lg-3 col-xs-12'<'d-flex h-100 justify-content-center align-items-center'l>>",
