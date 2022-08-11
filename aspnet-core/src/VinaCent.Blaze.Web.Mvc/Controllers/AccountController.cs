@@ -40,7 +40,7 @@ using System.Web;
 namespace VinaCent.Blaze.Web.Controllers
 {
     [Route("account")]
-    public partial class AccountController : BlazeControllerBase
+    public class AccountController : BlazeControllerBase
     {
         private readonly UserManager _userManager;
 
@@ -113,6 +113,11 @@ namespace VinaCent.Blaze.Web.Controllers
             string successMessage = ""
         )
         {
+            if (User.Identity?.IsAuthenticated == true)
+            {
+                RedirectToAppHome();
+            }
+            
             if (string.IsNullOrWhiteSpace(returnUrl))
             {
                 returnUrl = GetAppHomeUrl();
@@ -240,6 +245,10 @@ namespace VinaCent.Blaze.Web.Controllers
         [HttpGet("register")]
         public ActionResult Register()
         {
+            if (User.Identity?.IsAuthenticated == true)
+            {
+                RedirectToAppHome();
+            }
             return RegisterView(new RegisterViewModel());
         }
 
@@ -691,22 +700,14 @@ namespace VinaCent.Blaze.Web.Controllers
             Func<string> defaultValueBuilder = null
         )
         {
-            if (defaultValueBuilder == null)
-            {
-                defaultValueBuilder = GetAppHomeUrl;
-            }
+            defaultValueBuilder ??= GetAppHomeUrl;
 
             if (returnUrl.IsNullOrEmpty())
             {
                 return defaultValueBuilder();
             }
 
-            if (Url.IsLocalUrl(returnUrl))
-            {
-                return returnUrl;
-            }
-
-            return defaultValueBuilder();
+            return Url.IsLocalUrl(returnUrl) ? returnUrl : defaultValueBuilder();
         }
 
 
@@ -719,7 +720,8 @@ namespace VinaCent.Blaze.Web.Controllers
         /// This is a demo code to demonstrate sending notification to default tenant admin and host admin uers.
         /// Don't use this code in production !!!
         /// </summary>
-        /// <param name="message"></param>
+        /// <param name="value"></param>
+        /// <param name="expireDay"></param>
         /// <returns></returns>
         //[AbpMvcAuthorize]
         //[HttpGet("test-notify")]
@@ -767,16 +769,15 @@ namespace VinaCent.Blaze.Web.Controllers
             var key = $"{BlazeWebConstants.PreviousAccount}${AbpSession.TenantId ?? 0}";
             var value = Request.Cookies[key] ?? "";
 
-            if (!value.IsNullOrEmpty())
+            if (value.IsNullOrEmpty()) return value;
+
+            try
             {
-                try
-                {
-                    value = _aesHelper.Decrypt(value);
-                }
-                catch (Exception)
-                {
-                    return string.Empty;
-                }
+                value = _aesHelper.Decrypt(value);
+            }
+            catch (Exception)
+            {
+                return string.Empty;
             }
 
             return value;
