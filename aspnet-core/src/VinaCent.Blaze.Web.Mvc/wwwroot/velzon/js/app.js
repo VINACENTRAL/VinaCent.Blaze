@@ -124,16 +124,15 @@ File: Main Js File
         /**
          * flatpickr
          */
-        var flatpickrExamples = document.querySelectorAll("[data-provider]");
-        Array.from(flatpickrExamples).forEach(function (item) {
-            if (item.getAttribute("data-provider") == "flatpickr") {
+        Array.from(document.querySelectorAll("[data-provider]")).forEach(function (item) {
+            if (item.getAttribute("data-provider") === "flatpickr") {
                 var dateData = {};
                 var isFlatpickerVal = item.attributes;
                 if (isFlatpickerVal["data-date-format"])
                     dateData.dateFormat = isFlatpickerVal["data-date-format"].value.toString();
                 if (isFlatpickerVal["data-enable-time"]) {
-                    (dateData.enableTime = true),
-                        (dateData.dateFormat = isFlatpickerVal["data-date-format"].value.toString() + " H:i");
+                    dateData.enableTime = true;
+                    dateData.dateFormat = isFlatpickerVal["data-date-format"].value.toString() + " H:i"
                 }
                 if (isFlatpickerVal["data-altFormat"]) {
                     (dateData.altInput = true),
@@ -169,8 +168,11 @@ File: Main Js File
                     dates.push(isFlatpickerVal["data-disable-date"].value);
                     dateData.disable = dates.toString().split(",");
                 }
+                if (isFlatpickerVal["data-datetime-locale"]) {
+                    dateData.locale = isFlatpickerVal["data-datetime-locale"].value;
+                }
                 flatpickr(item, dateData);
-            } else if (item.getAttribute("data-provider") == "timepickr") {
+            } else if (item.getAttribute("data-provider") === "timepickr") {
                 var timeData = {};
                 var isTimepickerVal = item.attributes;
                 if (isTimepickerVal["data-time-basic"]) {
@@ -207,6 +209,9 @@ File: Main Js File
                         (timeData.noCalendar = true),
                         (timeData.defaultDate = isTimepickerVal["data-time-inline"].value.toString());
                     timeData.inline = true;
+                }
+                if (isTimepickerVal["data-datetime-locale"]) {
+                    timeData.locale = isTimepickerVal["data-datetime-locale"].value;
                 }
                 flatpickr(item, timeData);
             }

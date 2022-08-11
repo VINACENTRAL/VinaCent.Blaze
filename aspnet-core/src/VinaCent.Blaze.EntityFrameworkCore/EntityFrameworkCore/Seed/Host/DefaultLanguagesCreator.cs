@@ -8,17 +8,17 @@ namespace VinaCent.Blaze.EntityFrameworkCore.Seed.Host
 {
     public class DefaultLanguagesCreator
     {
-        public static List<ApplicationLanguage> InitialLanguages => GetInitialLanguages();
+        private static List<ApplicationLanguage> InitialLanguages => GetInitialLanguages();
 
         private readonly BlazeDbContext _context;
 
         private static List<ApplicationLanguage> GetInitialLanguages()
         {
-            var tenantId = BlazeConsts.MultiTenancyEnabled ? null : (int?)MultiTenancyConsts.DefaultTenantId;
+            var tenantId = (int?)MultiTenancyConsts.DefaultTenantId;
             return new List<ApplicationLanguage>
             {
-                new ApplicationLanguage(tenantId, "en", "English", "us.svg"),
-                new ApplicationLanguage(tenantId, "vi", "English", "vn.svg"),
+                new(tenantId, "en-US", "English", "us.svg"),
+                new(tenantId, "vi-VN", "English", "vn.svg"),
             };
         }
 
