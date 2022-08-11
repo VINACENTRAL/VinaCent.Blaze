@@ -13,3 +13,9 @@ const int = {
 const Guid = {
     EMPTY: '00000000-0000-0000-0000-000000000000'
 }
+    static EmailListSeprateByCommaChecker = /([\w\-\.]+@([\w-]+\.)+[\w-]{2,4}),? ?/gm
+}
+
+class CommonTimer {
+    static BlockElementTimeInSeconds = 30;
+}

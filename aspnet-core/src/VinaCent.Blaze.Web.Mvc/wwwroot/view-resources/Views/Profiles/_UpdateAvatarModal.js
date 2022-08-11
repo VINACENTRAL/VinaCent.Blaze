@@ -15,7 +15,7 @@
     // remove inner
     if (src === abp.setting.get('App.SiteUserAvatarHolder')) src = '';
     currentUserAvatarEl.html('');
-    
+
     _$form.find('.select-image').on('click', (e) => {
         e.preventDefault();
         imagePicker.click();
@@ -81,7 +81,8 @@
         }).done(function (res) {
             _$modal.modal('hide');
             _$form[0].reset();
-            $('img[self-avatar]').attr('src',res.avatar);
+            src = res.avatar;
+            $('img[self-avatar]').attr('src', res.avatar);
             abp.notify.info(l(LKConstants.SavedSuccessfully));
         }).always(function () {
             abp.ui.clearBusy(_$form);

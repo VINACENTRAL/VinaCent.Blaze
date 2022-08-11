@@ -10,7 +10,7 @@
 @{
     var isUserNameUpdateEnabled = string.Equals(await SettingManager.GetSettingValueAsync(AppSettingNames.User.IsUserNameUpdateEnabled), "false",
         StringComparison.OrdinalIgnoreCase);
-    var isEmailUpdateEnabled = string.Equals(await SettingManager.GetSettingValueAsync(AppSettingNames.User.IsEmailUpdateEnabled), "false",
+	var isEmailUpdateEnabled  = string.Equals(await SettingManager.GetSettingValueAsync(AppSettingNames.User.IsEmailUpdateEnabled), "true",
         StringComparison.OrdinalIgnoreCase);
     WebResourceManager.AddScript(ApplicationPath + "view-resources/Views/Profiles/UserInfo.js", false);
 }
@@ -39,18 +39,31 @@
         </div>
         <!--end col-->
         <div class="col-lg-6">
-            <div class="mb-3">
-                <label asp-for="PhoneNumber" class="form-label"></label>
-                <input asp-for="PhoneNumber" class="form-control"/>
-            </div>
-        </div>
-        <!--end col-->
-        <div class="col-lg-6">
-            <div class="mb-3">
-                <label asp-for="EmailAddress" class="form-label"></label>
-                <input asp-for="EmailAddress" class="form-control" readonly="@isEmailUpdateEnabled"/>
-            </div>
-        </div>
+			<div class="mb-3">
+				<label asp-for="PhoneNumber" class="form-label"></label>		
+				<div class="input-group mb-3">
+					<input asp-for="PhoneNumber" class="form-control" readonly disabled/>
+					<button type="button" id="change-phone-btn" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#ChangePhoneModal">
+						@L(LKConstants.Change)
+					</button>
+				</div>
+			</div>
+		</div>
+		<!--end col-->
+		<div class="col-lg-6">
+			<div class="mb-3">
+				<label asp-for="EmailAddress" class="form-label"></label>
+				<div class="input-group mb-3">
+					<input asp-for="EmailAddress" id="user-email" class="form-control" readonly disabled/>
+					@if(isEmailUpdateEnabled)
+					{
+						<button type="button" id="change-email-btn" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#ConfirmChangeEmailModal">
+							@L(LKConstants.Change)
+						</button>
+					}				
+				</div>		
+			</div>
+		</div>
         <!--end col-->
         <div class="col-lg-6">
             <div class="mb-3">
