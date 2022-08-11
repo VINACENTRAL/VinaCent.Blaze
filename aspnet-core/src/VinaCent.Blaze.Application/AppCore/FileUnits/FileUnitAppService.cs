@@ -9,7 +9,6 @@ using Abp.UI;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -30,7 +29,6 @@ namespace VinaCent.Blaze.AppCore.FileUnits
         private readonly IRepository<FileUnit, Guid> _repository;
         private readonly IRepository<User, long> _userRepository;
         private readonly IWebHostEnvironment _webHostEnvironment;
-        private readonly IHostEnvironment _hostEnvironment;
 
         /// <summary>
         /// Physical directory to store system files
@@ -47,6 +45,9 @@ namespace VinaCent.Blaze.AppCore.FileUnits
         /// </summary>
         private const string ContentsDirName = "contents";
 
+        /// <summary>
+        /// Static
+        /// </summary>
         public static readonly string[] StaticDirName = {UsersDirName, ContentsDirName};
 
         /// <summary>
@@ -60,7 +61,7 @@ namespace VinaCent.Blaze.AppCore.FileUnits
                 var path = StringHelper.TrueCombine(_webHostEnvironment.WebRootPath, ContentPhysicalDirectory);
                 if (!Directory.Exists(path))
                 {
-                    Directory.CreateDirectory(path);
+                    Directory.CreateDirectory(path!);
                 }
 
                 return path;
@@ -80,7 +81,7 @@ namespace VinaCent.Blaze.AppCore.FileUnits
                 var path = StringHelper.TrueCombine(GetAppContentPath, currentTenantContentDirectory);
                 if (!Directory.Exists(path))
                 {
-                    Directory.CreateDirectory(path);
+                    Directory.CreateDirectory(path!);
                 }
 
                 return path;
@@ -99,7 +100,7 @@ namespace VinaCent.Blaze.AppCore.FileUnits
                 var path = StringHelper.TrueCombine(GetCurrentTenantContentPath, currentUserContentDirectory);
                 if (!Directory.Exists(path))
                 {
-                    Directory.CreateDirectory(path);
+                    Directory.CreateDirectory(path!);
                 }
 
                 return path;
@@ -120,7 +121,7 @@ namespace VinaCent.Blaze.AppCore.FileUnits
                 var path = StringHelper.TrueCombine(GetCurrentUserContentPath, year, month, day);
                 if (!Directory.Exists(path))
                 {
-                    Directory.CreateDirectory(path);
+                    Directory.CreateDirectory(path!);
                 }
 
                 return path;
@@ -130,13 +131,11 @@ namespace VinaCent.Blaze.AppCore.FileUnits
         public FileUnitAppService(
             IRepository<FileUnit, Guid> repository,
             IRepository<User, long> userRepository,
-            IWebHostEnvironment webHostEnvironment,
-            IHostEnvironment hostEnvironment)
+            IWebHostEnvironment webHostEnvironment)
         {
             _repository = repository;
             _userRepository = userRepository;
             _webHostEnvironment = webHostEnvironment;
-            _hostEnvironment = hostEnvironment;
         }
 
         public async Task<FileUnitDto> GetAsync(Guid id)
@@ -172,7 +171,7 @@ namespace VinaCent.Blaze.AppCore.FileUnits
                 directory = currentDirectory.Directory;
 
                 parentDirectories.Add(MapToEntityDto(currentDirectory));
-            } while (!currentDirectory.Directory.IsNullOrEmpty() && currentDirectory.Directory != "/");
+            } while (!currentDirectory.Directory.IsNullOrEmpty() && currentDirectory.Directory != StringHelper.FileSeparator);
 
             parentDirectories.Reverse();
             return parentDirectories;
@@ -183,8 +182,8 @@ namespace VinaCent.Blaze.AppCore.FileUnits
         {
             if (fullName.IsNullOrWhiteSpace())
                 return null;
-            if (!fullName.StartsWith("/"))
-                fullName = "/" + fullName;
+            if (!fullName.StartsWith(StringHelper.FileSeparator))
+                fullName = StringHelper.FileSeparator + fullName;
             var file = await _repository.FirstOrDefaultAsync(x => x.FullName == fullName);
             if (file == null)
                 return null;
@@ -237,13 +236,14 @@ namespace VinaCent.Blaze.AppCore.FileUnits
 
             query = ApplyPaging(query, input);
             var items = MapToEntityDto(query.ToList());
-            // ReSharper disable once ForCanBeConvertedToForeach
-            for (var i = 0; i < items.Count; i++)
+            foreach (var item in items)
             {
-                var entity = items[i];
-                if (entity.CreatorUserId is not > 0) continue;
-                var creator = await _userRepository.GetAsync(entity.CreatorUserId.Value);
-                entity.Creator = ObjectMapper.Map<UserDto>(creator);
+                item.IsStatic = StaticDirName.Any(x =>
+                    item.FullName.EnsureStartsWith(StringHelper.FileSeparator.First())
+                        .StartsWith(x.EnsureStartsWith(StringHelper.FileSeparator.First())));
+                if (item.CreatorUserId is not > 0) continue;
+                var creator = await _userRepository.GetAsync(item.CreatorUserId.Value);
+                item.Creator = ObjectMapper.Map<UserDto>(creator);
             }
 
             return new PagedResultDto<FileUnitDto>(totalCount, items);
@@ -266,7 +266,7 @@ namespace VinaCent.Blaze.AppCore.FileUnits
             }
             else
             {
-                fileUnit.Directory = "/";
+                fileUnit.Directory = StringHelper.FileSeparator;
             }
 
             fileUnit.Name = input.Name;
@@ -310,7 +310,7 @@ namespace VinaCent.Blaze.AppCore.FileUnits
             }
             else
             {
-                fileUnit.Directory = "/";
+                fileUnit.Directory = StringHelper.FileSeparator;
             }
 
             fileUnit.Name = Path.GetFileName(input.File.FileName);
@@ -364,6 +364,9 @@ namespace VinaCent.Blaze.AppCore.FileUnits
             NameValidation(input.Name);
 
             var fileUnit = await GetFileUnit(input.Id);
+
+            PreventStaticObjectChange(fileUnit.FullName);
+            
             var newFileName = Path.GetFileNameWithoutExtension(input.Name);
             var newFileExtension = Path.GetExtension(input.Name);
             if (newFileExtension.IsNullOrWhiteSpace())
@@ -394,6 +397,9 @@ namespace VinaCent.Blaze.AppCore.FileUnits
         public async Task<FileUnitDto> MoveAsync(Guid id, Guid directoryId)
         {
             var fileUnit = await GetFileUnit(id);
+            
+            PreventStaticObjectChange(fileUnit.FullName);
+            
             var directory = await GetFileUnit(directoryId);
             fileUnit.ParentId = directoryId;
             fileUnit.Directory = directory.FullName;
@@ -411,26 +417,26 @@ namespace VinaCent.Blaze.AppCore.FileUnits
         public async Task DeleteAsync(Guid id)
         {
             var fileUnit = await GetAsync(id);
-            if (fileUnit != null)
-            {
-                if (!fileUnit.IsFolder)
-                {
-                    File.Delete(fileUnit.PhysicalPath);
-                }
-                else
-                {
-                    var children = _repository.GetAll()
-                        .Where(x => x.ParentId == fileUnit.Id)
-                        .Select(x => x.Id)
-                        .ToArray();
-                    foreach (var itemId in children)
-                    {
-                        await DeleteAsync(itemId);
-                    }
-                }
+            
+            PreventStaticObjectChange(fileUnit.FullName);
 
-                await _repository.DeleteAsync(id);
+            if (!fileUnit.IsFolder)
+            {
+                File.Delete(fileUnit.PhysicalPath);
             }
+            else
+            {
+                var children = _repository.GetAll()
+                    .Where(x => x.ParentId == fileUnit.Id)
+                    .Select(x => x.Id)
+                    .ToArray();
+                foreach (var itemId in children)
+                {
+                    await DeleteAsync(itemId);
+                }
+            }
+
+            await _repository.DeleteAsync(id);
         }
 
         [UnitOfWork]
@@ -529,7 +535,7 @@ namespace VinaCent.Blaze.AppCore.FileUnits
             query = query.WhereIf(!input.Directory.IsNullOrWhiteSpace(),
                 x => x.Directory.ToLower() == input.Directory.ToLower());
             query = query.WhereIf(input.Directory.IsNullOrWhiteSpace(),
-                x => x.Directory == "/");
+                x => x.Directory == StringHelper.FileSeparator);
             return query;
         }
 
@@ -627,6 +633,18 @@ namespace VinaCent.Blaze.AppCore.FileUnits
                 child.Directory = parent.FullName;
                 child.FullName = StringHelper.TrueCombine(child.Directory, child.Name);
                 await _repository.UpdateAsync(child);
+            }
+        }
+
+        private void PreventStaticObjectChange(string directory)
+        {
+            directory = directory.EnsureStartsWith(StringHelper.FileSeparator.First());
+            var isStatic = StaticDirName.Any(x =>
+                directory.EnsureStartsWith(StringHelper.FileSeparator.First())
+                    .StartsWith(x.EnsureStartsWith(StringHelper.FileSeparator.First())));
+            if (isStatic)
+            {
+                throw new UserFriendlyException("You can change this object!");
             }
         }
 
