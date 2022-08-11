@@ -147,6 +147,12 @@
 
     _$modal.on('shown.bs.modal', () => {
         _$modal.find('input:not([type=hidden]):first').focus();
+        _$form.find('input').on('keypress', function (e) {
+            if (e.which === 13) {
+                e.preventDefault();
+                _$form.find('.save-button').click();
+            }
+        });
     }).on('hidden.bs.modal', () => {
         _$form.clearForm();
     });
@@ -162,7 +168,7 @@
     });
 
     $('.txt-search').on('keypress', (e) => {
-        if (e.which == 13) {
+        if (e.which === 13) {
             _$languageTextsTable.ajax.reload();
             return false;
         }
