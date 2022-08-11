@@ -115,7 +115,7 @@ namespace VinaCent.Blaze.Web.Controllers
         {
             if (User.Identity?.IsAuthenticated == true)
             {
-                RedirectToAppHome();
+                return RedirectToAppHome();
             }
             
             if (string.IsNullOrWhiteSpace(returnUrl))
@@ -245,11 +245,7 @@ namespace VinaCent.Blaze.Web.Controllers
         [HttpGet("register")]
         public ActionResult Register()
         {
-            if (User.Identity?.IsAuthenticated == true)
-            {
-                RedirectToAppHome();
-            }
-            return RegisterView(new RegisterViewModel());
+            return User.Identity?.IsAuthenticated == true ? RedirectToAppHome() : RegisterView(new RegisterViewModel());
         }
 
         private ActionResult RegisterView(RegisterViewModel model)
