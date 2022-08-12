@@ -147,7 +147,7 @@
 
     _$modal.on('shown.bs.modal', () => {
         _$modal.find('input:not([type=hidden]):first').focus();
-        _$form.find('input').on('keypress', function (e) {
+        _$form.find('input').unbind().on('keypress', function (e) {
             if (e.which === 13) {
                 e.preventDefault();
                 _$form.find('.save-button').click();

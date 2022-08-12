@@ -1,0 +1,11 @@
+@using VinaCent.Blaze.Web.Areas.BusinessCP.Common
+@using VinaCent.Blaze.Web.Themes.Velzon.ThemeOptions
+@inject IVelzonThemeOptions ThemeOptions
+
+@{
+    ThemeOptions.AddBreadcrumb(L(LKConstants.BusinessCP)).AddBreadcrumb(L(LKConstants.Shop)).AddBreadcrumb(L(LKConstants.Shop_CategoryManagement)).Commit(this);
+    ViewBag.Title = L(LKConstants.Shop_CategoryManagement);
+    ViewBag.CurrentPageName = BusinessCpPageNames.ShopPageNames.Shop_CategoryManagement;
+}
+
+ABC

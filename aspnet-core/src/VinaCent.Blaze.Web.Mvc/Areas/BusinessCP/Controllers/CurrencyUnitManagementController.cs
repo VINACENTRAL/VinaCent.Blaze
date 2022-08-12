@@ -7,31 +7,30 @@ using VinaCent.Blaze.BusinessCore.CurrencyUnits;
 using VinaCent.Blaze.BusinessCore.CurrencyUnits.Dto;
 using VinaCent.Blaze.Controllers;
 
-namespace VinaCent.Blaze.Web.Areas.BusinessCP.Controllers
+namespace VinaCent.Blaze.Web.Areas.BusinessCP.Controllers;
+
+[AbpMvcAuthorize]
+[Area(nameof(BusinessCP))]
+[Route("businesscp/currency-units")]
+public class CurrencyUnitManagementController : BlazeControllerBase
 {
-    [AbpMvcAuthorize]
-    [Area(nameof(BusinessCP))]
-    [Route("businesscp/currency-units")]
-    public class CurrencyUnitManagementController : BlazeControllerBase
+    private readonly ICurrencyUnitAppService _currencyUnitAppService;
+
+    public CurrencyUnitManagementController(ICurrencyUnitAppService currencyUnitAppService)
     {
-        private readonly ICurrencyUnitAppService _currencyUnitAppService;
+        _currencyUnitAppService = currencyUnitAppService;
+    }
 
-        public CurrencyUnitManagementController(ICurrencyUnitAppService currencyUnitAppService)
-        {
-            _currencyUnitAppService = currencyUnitAppService;
-        }
+    public IActionResult Index()
+    {
+        return View();
+    }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
-
-        [HttpPost("edit-modal")]
-        public async Task<ActionResult> EditModal(Guid id)
-        {
-            var languageDto = await _currencyUnitAppService.GetAsync(new EntityDto<Guid>(id));
-            var model = ObjectMapper.Map<UpdateCurrencyUnitDto>(languageDto);
-            return PartialView("_EditModal", model);
-        }
+    [HttpPost("edit-modal")]
+    public async Task<ActionResult> EditModal(Guid id)
+    {
+        var languageDto = await _currencyUnitAppService.GetAsync(new EntityDto<Guid>(id));
+        var model = ObjectMapper.Map<UpdateCurrencyUnitDto>(languageDto);
+        return PartialView("_EditModal", model);
     }
 }

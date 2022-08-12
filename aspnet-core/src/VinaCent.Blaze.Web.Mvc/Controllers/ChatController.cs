@@ -11,6 +11,7 @@ public class ChatController : BlazeControllerBase
     // GET
     public IActionResult Index()
     {
+        AddSuccessNotify("Ahihi 123");
         return View();
     }
 }

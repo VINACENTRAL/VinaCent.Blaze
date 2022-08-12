@@ -365,7 +365,7 @@ namespace VinaCent.Blaze.AppCore.FileUnits
 
             var fileUnit = await GetFileUnit(input.Id);
 
-            PreventStaticObjectChange(fileUnit.FullName);
+            PreventStaticObjectChange(fileUnit.FullName, fileUnit.CreatorUserId);
             
             var newFileName = Path.GetFileNameWithoutExtension(input.Name);
             var newFileExtension = Path.GetExtension(input.Name);
@@ -398,7 +398,7 @@ namespace VinaCent.Blaze.AppCore.FileUnits
         {
             var fileUnit = await GetFileUnit(id);
             
-            PreventStaticObjectChange(fileUnit.FullName);
+            PreventStaticObjectChange(fileUnit.FullName, fileUnit.CreatorUserId);
             
             var directory = await GetFileUnit(directoryId);
             fileUnit.ParentId = directoryId;
@@ -418,7 +418,7 @@ namespace VinaCent.Blaze.AppCore.FileUnits
         {
             var fileUnit = await GetAsync(id);
             
-            PreventStaticObjectChange(fileUnit.FullName);
+            PreventStaticObjectChange(fileUnit.FullName, fileUnit.CreatorUserId);
 
             if (!fileUnit.IsFolder)
             {
@@ -636,15 +636,18 @@ namespace VinaCent.Blaze.AppCore.FileUnits
             }
         }
 
-        private void PreventStaticObjectChange(string directory)
+        private void PreventStaticObjectChange(string directory, long? creatorId)
         {
+            // If changer is creator => Permit
+            if (AbpSession.UserId == creatorId) return;
+
             directory = directory.EnsureStartsWith(StringHelper.FileSeparator.First());
             var isStatic = StaticDirName.Any(x =>
                 directory.EnsureStartsWith(StringHelper.FileSeparator.First())
                     .StartsWith(x.EnsureStartsWith(StringHelper.FileSeparator.First())));
             if (isStatic)
             {
-                throw new UserFriendlyException("You can change this object!");
+                throw new UserFriendlyException(LKConstants.YouDoNotHaveToBeTheOwnerToPerformThisAction);
             }
         }
 

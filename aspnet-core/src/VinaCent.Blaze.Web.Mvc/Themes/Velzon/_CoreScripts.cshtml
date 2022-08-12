@@ -6,24 +6,21 @@
 @inject IGetScriptsResponsePerUserConfiguration GetScriptsResponsePerUserConfiguration
 @inject IConfiguration Configuration
 
-<script src="~/Common/LKConstants.js"></script>
+<script src="~/Common/LKConstants.js" asp-append-version="true"></script>
 
-@*core scripts start*@
 <script src="~/libs/jquery/jquery.js" asp-append-version="true"></script>
-@*core scripts end*@
 
-<script type="text/javascript" src="~/libs/DataTables/DataTables-1.12.1/js/jquery.dataTables.min.js"></script>
+<script src="~/libs/DataTables/DataTables-1.12.1/js/jquery.dataTables.min.js" asp-append-version="true"></script>
 
-<script src="~/view-resources/Views/_Bundles/helpers.min.js" asp-append-version="true"></script>
-<script src="~/view-resources/Views/_Bundles/datatables.ajax.min.js" asp-append-version="true"></script>
+<script src="~/Common/helpers.js" asp-append-version="true"></script>
+<script src="~/Common/datatables.ajax.js" asp-append-version="true"></script>
 
-<script type="text/javascript" src="~/libs/DataTables/DataTables-1.12.1/js/dataTables.bootstrap5.min.js"></script>
-<script type="text/javascript" src="~/libs/DataTables/Buttons-2.2.3/js/dataTables.buttons.min.js"></script>
-<script type="text/javascript" src="~/libs/DataTables/Buttons-2.2.3/js/buttons.bootstrap5.min.js"></script>
-<script type="text/javascript" src="~/libs/DataTables/Responsive-2.3.0/js/dataTables.responsive.min.js"></script>
-<script type="text/javascript" src="~/libs/DataTables/Responsive-2.3.0/js/responsive.bootstrap5.js"></script>
+<script src="~/libs/DataTables/DataTables-1.12.1/js/dataTables.bootstrap5.min.js" asp-append-version="true"></script>
+<script src="~/libs/DataTables/Buttons-2.2.3/js/dataTables.buttons.min.js" asp-append-version="true"></script>
+<script src="~/libs/DataTables/Buttons-2.2.3/js/buttons.bootstrap5.min.js" asp-append-version="true"></script>
+<script src="~/libs/DataTables/Responsive-2.3.0/js/dataTables.responsive.min.js" asp-append-version="true"></script>
+<script src="~/libs/DataTables/Responsive-2.3.0/js/responsive.bootstrap5.js" asp-append-version="true"></script>
 
-@*abp scripts start*@
 <script src="~/libs/block-ui/jquery.blockUI.js" asp-append-version="true"></script>
 <script src="~/libs/spin/spin.js" asp-append-version="true"></script>
 <script src="~/libs-ext/spin/jquery.spin.js" asp-append-version="true"></script>
@@ -38,17 +35,12 @@
 <script src="~/libs/abp-web-resources/Abp/Framework/scripts/libs/abp.spin.js" asp-append-version="true"></script>
 <script src="~/libs/abp-web-resources/Abp/Framework/scripts/libs/abp.sweet-alert.js" asp-append-version="true"></script>
 <script src="~/libs/abp-web-resources/Abp/Framework/scripts/libs/abp.signalr-client.js" asp-append-version="true"></script>
-@*abp scripts end*@
 
-@*other scripts start*@
 <script src="~/libs/jquery-validate/jquery.validate.js" asp-append-version="true"></script>
 <script src="~/libs/jquery-validate/jquery.validate.unobtrusive.js" asp-append-version="true"></script>
 <script src="~/libs/push.js/push.js" asp-append-version="true"></script>
-@*other scripts end*@
 
 <script type="text/javascript">
-    // This is used to get the application's root path from javascript.
-    // It's useful if you're running application in a virtual directory under IIS.
     var abp = abp || {};
     abp.appPath = '@ApplicationPath';
     var vinacent = vinacent || {};
@@ -59,16 +51,6 @@
         vinacent.fileServer = '@(Configuration.GetValue<string>("FileServer"))';
     </script>
 </environment>
-
-@*<environment names="Staging,Production">
-    <script src="~/view-resources/Views/_Bundles/shared-layout.min.js" asp-append-version="true"></script>
-    <script type="text/javascript">
-    // This is used to get the application's root path from javascript.
-    // It's useful if you're running application in a virtual directory under IIS.
-    var abp = abp || {};
-    abp.appPath = '@ApplicationPath';
-    </script>
-    </environment>*@
 
 @if (CultureInfo.CurrentUICulture.TwoLetterISOLanguageName != "en")
 {
@@ -92,11 +74,9 @@
 }
 
 <script type="text/javascript">
-    // Localizing momentjs
     moment.locale('@CultureInfo.CurrentUICulture.Name');
 </script>
 
-<!-- Dynamic scripts of ABP system (They are created on runtime and can not be bundled) -->
 <script src="~/AbpServiceProxies/GetAll?v=@(AppTimes.StartupTime.Ticks)" type="text/javascript"></script>
 
 @if (GetScriptsResponsePerUserConfiguration.IsEnabled)
@@ -108,7 +88,5 @@ else
     <script src="@(ApplicationPath)AbpScripts/GetScripts?v=@(AppTimes.StartupTime.Ticks)" type="text/javascript"></script>
 }
 
-@*custom scripts start*@
 <script src="~/js/abp.dataTable.js" asp-append-version="true"></script>
 <script src="~/js/main.js" asp-append-version="true"></script>
-@*custom scripts end*@
