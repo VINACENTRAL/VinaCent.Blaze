@@ -11,7 +11,7 @@
 
       //Converts given path to absolute path using abp.appPath variable.
       abp.toAbsAppPath = function (path) {
-        if (path.indexOf('/') == 0) {
+        if (path.indexOf('/') === 0) {
           path = path.substring(1);
         }
 
@@ -401,6 +401,23 @@
       };
 
       abp.notify.error = function (message, title, options) {
+        abp.log.warn('abp.notify.error is not implemented!');
+      };
+
+      abp.notifyStack = abp.notifyStack || {};
+      abp.notifyStack.success = function (message, title, options) {
+        abp.log.warn('abp.notify.success is not implemented!');
+      };
+
+      abp.notifyStack.info = function (message, title, options) {
+        abp.log.warn('abp.notify.info is not implemented!');
+      };
+
+      abp.notifyStack.warn = function (message, title, options) {
+        abp.log.warn('abp.notify.warn is not implemented!');
+      };
+
+      abp.notifyStack.error = function (message, title, options) {
         abp.log.warn('abp.notify.error is not implemented!');
       };
 

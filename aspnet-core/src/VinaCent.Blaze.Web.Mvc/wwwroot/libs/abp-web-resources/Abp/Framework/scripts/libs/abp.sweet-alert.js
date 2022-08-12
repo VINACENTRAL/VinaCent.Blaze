@@ -4,30 +4,30 @@
         return;
     }
 
+    const l = abp.localization.getSource('Blaze');
+
     /* DEFAULTS *************************************************/
 
     abp.libs = abp.libs || {};
     abp.libs.sweetAlert = {
         config: {
-            'default': {
-
-            },
-            info: {
-                icon: 'info'
-            },
-            success: {
-                icon: 'success'
-            },
-            warn: {
-                icon: 'warning'
-            },
-            error: {
-                icon: 'error'
-            },
-            confirm: {
-                icon: 'warning',
-                title: 'Are you sure?',
-                buttons: ['Cancel', 'Yes']
+            'default': {}, info: {
+                icon: 'info',
+                timer: 10000,
+            }, success: {
+                icon: 'https://cdn.lordicon.com/tqywkdcz.json',
+                timer: 10000,
+            }, warn: {
+                icon: '/Common/images/vinacent-error-outline.gif',
+            }, error: {
+                icon: 'error',
+                dangerMode: true,
+            }, confirm: {
+                icon: 'https://cdn.lordicon.com/inrunzby.json',
+                title: l('AreYouSure'), buttons: [l('Cancel'), l('Confirm')],
+                closeOnClickOutside: false,
+                closeOnEsc: false,
+                dangerMode: true,
             }
         }
     };
@@ -37,7 +37,7 @@
     var showMessage = function (type, message, title, callback, options) {
         options = options || {};
         var messageContent = {};
-        if(title){
+        if (title) {
             messageContent.title = title;
         }
 
@@ -89,8 +89,8 @@
     };
 
     abp.event.on('abp.dynamicScriptsInitialized', function () {
-        abp.libs.sweetAlert.config.confirm.title = abp.localization.abpWeb('AreYouSure');
-        abp.libs.sweetAlert.config.confirm.buttons = [abp.localization.abpWeb('Cancel'), abp.localization.abpWeb('Yes')];
+        abp.libs.sweetAlert.config.confirm.title = l('AreYouSure');
+        abp.libs.sweetAlert.config.confirm.buttons = [l('Cancel'), l('Yes')];
     });
 
 })(jQuery);

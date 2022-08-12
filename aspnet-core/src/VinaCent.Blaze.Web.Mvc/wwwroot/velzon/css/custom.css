@@ -85,3 +85,12 @@
 .app-file .progress-bar::before, .app-file .progress-bar::after {
     pointer-events: none;
 }
+
+.swal-footer {
+    display: flex;
+    justify-content: space-between;
+}
+
+.swal-footer .swal-button-container:last-child {
+    margin-left: auto;
+}

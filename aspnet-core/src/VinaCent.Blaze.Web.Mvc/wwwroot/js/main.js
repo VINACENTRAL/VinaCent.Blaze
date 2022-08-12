@@ -1,4 +1,5 @@
 ﻿(function ($) {
+    const l = abp.localization.getSource('Blaze');
     //Notification handler
     abp.event.on('abp.notifications.received', function (userNotification) {
         abp.notifications.showUiNotifyForUserNotification(userNotification);
