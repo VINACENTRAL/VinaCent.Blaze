@@ -15,7 +15,5 @@
             public const string AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
             public const bool RequireUniqueEmail = true;
         }
-
-
     }
 }

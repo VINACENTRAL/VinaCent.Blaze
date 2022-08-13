@@ -1,11 +1,12 @@
-﻿@using VinaCent.Blaze.Web.Common
+﻿@using VinaCent.Blaze.Profiles.Dto
+@using VinaCent.Blaze.Web.Common
 @using VinaCent.Blaze.Web.Models.Profile
 @using VinaCent.Blaze.Web.Themes.Velzon.ThemeOptions
 @using VinaCent.Blaze.Web.Views.Profile.Components.ProfileAvatar
 @inject IVelzonThemeOptions ThemeOptions
 @model ProfilePageModel
 @{
-    ThemeOptions.LayoutHorizontal().HideBreadcrumb().Commit(this);
+    ThemeOptions.LayoutHorizontal().AddBreadcrumb(L(LKConstants.HomePage)).AddBreadcrumb(L(LKConstants.ProfileSettings)).Commit(this);
     ViewBag.Title = L(LKConstants.ProfileSettings);
     ViewBag.CurrentPageName = CommonPageNames.ProfileSettings;
 }
@@ -14,7 +15,7 @@
     <script src="~/view-resources/Views/Profiles/Index.js"></script>
 }
 
-<div class="position-relative mx-n4 mt-n4">
+<div class="position-relative mx-n4">
     <div class="profile-wid-bg profile-setting-img">
         <img src="velzon/images/profile-bg.jpg" class="profile-wid-img" alt=""/>
         <div class="overlay-content">
@@ -129,3 +130,6 @@
     <!--end col-->
 </div>
 <!--end row-->
+
+@await Html.PartialAsync("~/Views/Profile/_ConfirmChangeEmailModal.cshtml", new ConfirmCodeDto())
+@await Html.PartialAsync("~/Views/Profile/_ChangeEmailModal.cshtml", new ChangeEmailDto())

@@ -4,6 +4,8 @@ using Microsoft.Extensions.Options;
 using System;
 using System.Threading.Tasks;
 using VinaCent.Blaze.Controllers;
+using VinaCent.Blaze.Profiles;
+using VinaCent.Blaze.Profiles.Dto;
 using VinaCent.Blaze.Web.Contributors.ProfileManagement;
 using VinaCent.Blaze.Web.Models.Profile;
 
@@ -15,12 +17,15 @@ namespace VinaCent.Blaze.Web.Controllers
     {
         protected ProfileManagementPageOptions Options { get; }
         public IServiceProvider ServiceProvider { get; set; }
+        public IProfileAppService _profileAppService;
 
-        public ProfileController(IOptions<ProfileManagementPageOptions> options, 
-            IServiceProvider serviceProvider)
+        public ProfileController(IOptions<ProfileManagementPageOptions> options,
+            IServiceProvider serviceProvider,
+            IProfileAppService profileAppService)
         {
             Options = options.Value;
             ServiceProvider = serviceProvider;
+            _profileAppService = profileAppService;
         }
 
         [HttpGet("")]
@@ -35,7 +40,17 @@ namespace VinaCent.Blaze.Web.Controllers
             {
                 await contributor.ConfigureAsync(model.ProfileManagementPageCreationContext);
             }
+
             return View(model);
         }
+
+        [HttpPost("send-code")]
+        public async Task<ActionResult> SendCode(string emailAddress)
+        {
+            var token = await _profileAppService.SendConfirmCodeAsync(new RequestEmailDto { Email = emailAddress });
+           
+            return Json(token);
+        }
+
     }
 }

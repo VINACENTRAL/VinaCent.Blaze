@@ -170,7 +170,7 @@ namespace VinaCent.Blaze.Web.Controllers
             {
                 SetOrRemoveLoggedInUserName(loginModel.UsernameOrEmailAddress);
             }
-
+            AddSuccessNotify(LKConstants.LoginSuccessMessage);
             return Json(new AjaxResponse { TargetUrl = returnUrl });
         }
 
@@ -477,8 +477,8 @@ namespace VinaCent.Blaze.Web.Controllers
                 verify = HttpUtility.UrlDecode(verify);
                 verify = _aesHelper.Decrypt(verify, key);
                 var raw = verify.Split("|");
-                userName = raw[0];
-                token = raw[1];
+                userName = raw.FirstOrDefault();
+                token = raw.LastOrDefault();
             }
             catch (Exception)
             {

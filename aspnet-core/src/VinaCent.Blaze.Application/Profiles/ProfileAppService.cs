@@ -2,19 +2,24 @@
 using Abp.Domain.Repositories;
 using Abp.Extensions;
 using Abp.IdentityFramework;
+using Abp.Net.Mail;
 using Abp.Runtime.Session;
 using Abp.UI;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using VinaCent.Blaze.AppCore.CommonDatas;
 using VinaCent.Blaze.AppCore.FileUnits;
 using VinaCent.Blaze.AppCore.FileUnits.Dto;
+using VinaCent.Blaze.AppCore.TextTemplates;
 using VinaCent.Blaze.Authorization.Users;
 using VinaCent.Blaze.Configuration;
 using VinaCent.Blaze.Helpers;
+using VinaCent.Blaze.Helpers.Encryptions;
 using VinaCent.Blaze.Profiles.Dto;
 
 namespace VinaCent.Blaze.Profiles
@@ -25,14 +30,26 @@ namespace VinaCent.Blaze.Profiles
         private readonly UserManager _userManager;
         private readonly IRepository<CommonData, Guid> _repository;
         private readonly IFileUnitAppService _fileUnitAppService;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IAESHelper _aesHelper;
+        private readonly ITextTemplateAppService _textTemplateAppService;
+        private readonly IEmailSender _emailSender;
 
         public ProfileAppService(UserManager userManager,
             IRepository<CommonData, Guid> repository,
-            IFileUnitAppService fileUnitAppService)
+            IFileUnitAppService fileUnitAppService,
+            IHttpContextAccessor httpContextAccessor,
+            ITextTemplateAppService textTemplateAppService,
+            IEmailSender emailSender,
+            IAESHelper aesHelper)
         {
             _userManager = userManager;
             _repository = repository;
             _fileUnitAppService = fileUnitAppService;
+            _httpContextAccessor = httpContextAccessor;
+            _textTemplateAppService = textTemplateAppService;
+            _emailSender = emailSender;
+            _aesHelper = aesHelper;
         }
 
         public async Task<bool> ChangePasswordAsync(ChangePasswordDto input)
@@ -135,7 +152,7 @@ namespace VinaCent.Blaze.Profiles
 
             var result = await _fileUnitAppService.UploadFileAsync(dto);
             if (result == null || result.Id == Guid.Empty || result.FullName.IsNullOrWhiteSpace())
-                throw new UserFriendlyException(L("ChangeAvatarFail"));
+                throw new UserFriendlyException(L(LKConstants.ChangeAvatarFail));
 
             if (!user.Avatar.IsNullOrEmpty())
             {
@@ -147,6 +164,88 @@ namespace VinaCent.Blaze.Profiles
 
             user.Avatar = result.ResourcePath;
             return ObjectMapper.Map<ProfileDto>(user);
+        }
+
+        public async Task<string> SendConfirmCodeAsync(RequestEmailDto input)
+        {
+            if (_httpContextAccessor.HttpContext == null)
+            {
+                throw new UserFriendlyException(L(LKConstants.UnknownHttpContextRequest));
+            }
+
+            var user = await GetCurrentUserAsync();
+
+            if (user == null)
+            {
+                throw new UserFriendlyException(L(LKConstants.PleaseLogInBeforeDoThisAction));
+            }
+
+            var template = await _textTemplateAppService.GetSecurityCodeAsync();
+
+            var token = await _userManager.GenerateChangeEmailTokenAsync(user, user.EmailAddress);
+
+            // Random keycode
+            var key = Guid.NewGuid().ToString("N")[..6].ToUpper();
+
+            // For security double
+            var verify = _aesHelper.Encrypt($"{user.UserName}|{token}", key);
+
+            var systemName = await SettingManager.GetSettingValueAsync(AppSettingNames.SiteName);
+
+            var subject = $"[{systemName.ToUpper()}] {L(template.Name)}";
+
+            await _emailSender.SendAsync(user.EmailAddress, subject, template.Apply(key));
+
+            return verify;
+        }
+        public async Task<string> ConfirmCodeAsync(ConfirmCodeDto input)
+        {
+            string verify;
+            try
+            {
+                verify = _aesHelper.Decrypt(input.Token, input.ConfirmCode);
+            } 
+            catch
+            {
+                throw new UserFriendlyException(L(LKConstants.InvalidCode));
+            }
+            var raw = verify.Split("|");
+            var userName = raw.FirstOrDefault();
+            var currentUser = await GetCurrentUserAsync();
+            var token = raw.LastOrDefault();
+            if (currentUser.UserName == userName)
+            {
+                return token;
+            }
+
+            throw new UserFriendlyException(L(LKConstants.InvalidCode));
+        }
+
+        public async Task<bool> ChangeEmailAsync(ChangeEmailDto input)
+        {
+            string verify;
+            try
+            {
+                verify = _aesHelper.Decrypt(input.VerifyToken, input.ConfirmCode);
+            }
+            catch
+            {
+                throw new UserFriendlyException(L(LKConstants.InvalidCode));
+            }
+            var raw = verify.Split("|");
+            var userName = raw.FirstOrDefault();
+            var currentUser = await GetCurrentUserAsync();
+            if (currentUser.UserName == userName)
+            {
+                if (!string.Equals(currentUser.EmailAddress, input.NewEmail, StringComparison.InvariantCultureIgnoreCase))
+                {
+                    (await UserManager.SetEmailAsync(currentUser, input.NewEmail)).CheckErrors();
+                    return true;
+                }
+                return false;
+            }
+
+            throw new UserFriendlyException(L(LKConstants.InvalidCode));
         }
     }
 }

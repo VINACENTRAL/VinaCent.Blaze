@@ -5,6 +5,16 @@
     const personalInfoForm = $('#PersonalInfoForm');
     const changePasswordForm = $('#ChangePasswordForm');
 
+    const confirmChangeEmailModal = $('#ConfirmChangeEmailModal');
+    const confirmChangeEmailForm = confirmChangeEmailModal.find('form');
+    const sendCodeEmailBtn = confirmChangeEmailForm.find('.send-code-btn');
+    const sendCodeEmailBtn_TimeRemaining = sendCodeEmailBtn.children('span');
+
+    const changeEmailModal = $('#ChangeEmailModal');
+    const changeEmailForm = changeEmailModal.find('form');
+    const sendCodeBtn = changeEmailForm.find('.send-code-btn');
+    const sendCodeBtn_TimeRemaining = sendCodeBtn.children('span');
+
     personalInfoForm.submit(function (e) {
         e.preventDefault();
 
@@ -18,6 +28,116 @@
             abp.notify.info(l(LKConstants.SavedSuccessfully));
             updateConcurrencyStamp();
         });
+    });
+
+    confirmChangeEmailModal.on('shown.bs.modal', () => {
+
+    }).on('hidden.bs.modal', () => {
+        confirmChangeEmailForm.clearForm();
+    });
+
+    sendCodeEmailBtn.click((e) => {
+        sendCodeEmailBtn.attr('disabled', 'true');
+        let waitTimeRemaining = CommonTimer.BlockElementTimeInSeconds + 1;
+
+        const email = document.getElementById('user-email').value;
+        abp.ajax({
+            url: abp.appPath + 'profile/send-code?emailAddress=' + email,
+            type: 'POST',
+            dataType: 'html',
+            success: function (content) {
+                const tokenInput = document.getElementById('Token');
+                var obj = JSON.parse(content);
+                tokenInput.value = obj.result;
+
+                setInterval(() => {
+                    waitTimeRemaining--;
+                    if (waitTimeRemaining <= 0) {
+                        sendCodeEmailBtn_TimeRemaining.html('');
+                        sendCodeEmailBtn.removeAttr('disabled');
+                    } else {
+                        sendCodeEmailBtn_TimeRemaining.html(`(${waitTimeRemaining}s)`);
+                        sendCodeEmailBtn.attr('disabled', 'true');
+                    }
+                }, 1000);
+            },
+            error: function (e) {
+            }
+        });
+    });
+
+    confirmChangeEmailForm.submit((e) => {
+        e.preventDefault();
+        if (!confirmChangeEmailForm.valid()) {
+            return;
+        }
+        var verify = confirmChangeEmailForm.serializeFormToObject();
+        abp.ui.setBusy(confirmChangeEmailModal);
+        _profileService
+            .confirmCode(verify)
+            .done(function (result) {
+                confirmChangeEmailModal.modal('hide');
+                confirmChangeEmailForm[0].reset();
+                abp.event.trigger('changeEmailNextStep');
+            })
+            .always(function () {
+                abp.ui.clearBusy(confirmChangeEmailModal);
+            });
+    });
+
+    abp.event.on('changeEmailNextStep', () => {
+        changeEmailModal.modal('show')
+    });
+
+    sendCodeBtn.click((e) => {
+        sendCodeBtn.attr('disabled', 'true');
+        let waitTimeRemaining = CommonTimer.BlockElementTimeInSeconds + 1;
+
+        const email = document.getElementById('NewEmail').value;
+        abp.ajax({
+            url: abp.appPath + 'profile/send-code?emailAddress=' + email,
+            type: 'POST',
+            dataType: 'html',
+            success: function (content) {
+                const tokenInput = document.getElementById('VerifyToken');
+                var obj = JSON.parse(content);
+                tokenInput.value = obj.result;
+
+                const intervalId = setInterval(() => {
+                    waitTimeRemaining--;
+                    if (waitTimeRemaining <= 0) {
+                        sendCodeBtn_TimeRemaining.html('');
+                        sendCodeBtn.removeAttr('disabled');
+                        clearInterval(intervalId);
+                    } else {
+                        sendCodeBtn_TimeRemaining.html(`(${waitTimeRemaining}s)`);
+                        sendCodeBtn.attr('disabled', 'true');
+                    }
+                }, 1000);
+            },
+            error: function (e) {
+            }
+        });
+    });
+
+    changeEmailForm.submit((e) => {
+        e.preventDefault();
+        if (!changeEmailForm.valid()) {
+            return;
+        }
+        var verify = changeEmailForm.serializeFormToObject();
+        abp.ui.setBusy(changeEmailModal);
+        _profileService
+            .changeEmail(verify)
+            .done(function (result) {
+                changeEmailModal.modal('hide');
+                changeEmailForm[0].reset();
+                abp.notifyStack.success(LKConstants.ChangeEmailSuccessMessage);
+                window.location.reload();
+            })
+            .always(function () {
+                abp.ui.clearBusy(changeEmailModal);
+            });
     });
 
     changePasswordForm.submit(function (e) {
@@ -48,10 +168,9 @@
     abp.event.on('passwordChanged', updateConcurrencyStamp);
 
     const modal = $('UpdateAvatarModal');
-    const src = document.getElementById('crr-user-avt').getAttribute('vnc-src');
 
     modal.on('shown.bs.modal', () => {
-        console.log(src);
+
     }).on('hidden.bs.modal', () => {
         modal.clearForm();
     });
