@@ -313,4 +313,5 @@ public static class LKConstants
     public const string Shop_CategoryManagement = "Shop_CategoryManagement";
     public const string Shop_TagManagement = "Shop_TagManagement";
     public const string Shop_ProductManagement = "Shop_ProductManagement";
+    public const string LoginSuccessMessage = "LoginSuccessMessage";    
 }

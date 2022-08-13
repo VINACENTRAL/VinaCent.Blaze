@@ -1,5 +1,6 @@
 ﻿using Abp.Localization;
 using System.ComponentModel.DataAnnotations;
+using VinaCent.Blaze.Common;
 
 namespace VinaCent.Blaze.Profiles.Dto
 {
@@ -10,6 +11,7 @@ namespace VinaCent.Blaze.Profiles.Dto
 
         [Required]
         [AbpDisplayName(BlazeConsts.LocalizationSourceName, LKConstants.NewEmail)]
+        [RegularExpression(AvailableRegexs.EmailChecker)]
         public string NewEmail { get; set; }
 
         [Required]

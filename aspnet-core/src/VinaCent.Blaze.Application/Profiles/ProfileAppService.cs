@@ -10,8 +10,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 using VinaCent.Blaze.AppCore.CommonDatas;
 using VinaCent.Blaze.AppCore.FileUnits;
 using VinaCent.Blaze.AppCore.FileUnits.Dto;
@@ -21,7 +21,6 @@ using VinaCent.Blaze.Configuration;
 using VinaCent.Blaze.Helpers;
 using VinaCent.Blaze.Helpers.Encryptions;
 using VinaCent.Blaze.Profiles.Dto;
-using VinaCent.Blaze.Validation;
 
 namespace VinaCent.Blaze.Profiles
 {
@@ -201,26 +200,40 @@ namespace VinaCent.Blaze.Profiles
         }
         public async Task<string> ConfirmCodeAsync(ConfirmCodeDto input)
         {
-            var verify = _aesHelper.Decrypt(input.Token, input.ConfirmCode);
+            string verify;
+            try
+            {
+                verify = _aesHelper.Decrypt(input.Token, input.ConfirmCode);
+            } 
+            catch
+            {
+                throw new UserFriendlyException(L(LKConstants.InvalidCode));
+            }
             var raw = verify.Split("|");
-            var userName = raw[0];
+            var userName = raw.FirstOrDefault();
             var currentUser = await GetCurrentUserAsync();
-            var token = raw[1];
+            var token = raw.LastOrDefault();
             if (currentUser.UserName == userName)
             {
                 return token;
             }
-            else
-            {
-                throw new UserFriendlyException(L(LKConstants.InvalidCode));
-            }
+
+            throw new UserFriendlyException(L(LKConstants.InvalidCode));
         }
 
         public async Task<bool> ChangeEmailAsync(ChangeEmailDto input)
         {
-            var verify = _aesHelper.Decrypt(input.VerifyToken, input.ConfirmCode);
+            string verify;
+            try
+            {
+                verify = _aesHelper.Decrypt(input.VerifyToken, input.ConfirmCode);
+            }
+            catch
+            {
+                throw new UserFriendlyException(L(LKConstants.InvalidCode));
+            }
             var raw = verify.Split("|");
-            var userName = raw[0];
+            var userName = raw.FirstOrDefault();
             var currentUser = await GetCurrentUserAsync();
             if (currentUser.UserName == userName)
             {
@@ -231,10 +244,8 @@ namespace VinaCent.Blaze.Profiles
                 }
                 return false;
             }
-            else
-            {
-                throw new UserFriendlyException(L(LKConstants.InvalidCode));
-            }
+
+            throw new UserFriendlyException(L(LKConstants.InvalidCode));
         }
     }
 }

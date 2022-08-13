@@ -103,11 +103,12 @@
                 var obj = JSON.parse(content);
                 tokenInput.value = obj.result;
 
-                setInterval(() => {
+                const intervalId = setInterval(() => {
                     waitTimeRemaining--;
                     if (waitTimeRemaining <= 0) {
                         sendCodeBtn_TimeRemaining.html('');
                         sendCodeBtn.removeAttr('disabled');
+                        clearInterval(intervalId);
                     } else {
                         sendCodeBtn_TimeRemaining.html(`(${waitTimeRemaining}s)`);
                         sendCodeBtn.attr('disabled', 'true');
@@ -131,6 +132,7 @@
             .done(function (result) {
                 changeEmailModal.modal('hide');
                 changeEmailForm[0].reset();
+                abp.notifyStack.success(LKConstants.ChangeEmailSuccessMessage);
                 window.location.reload();
             })
             .always(function () {
