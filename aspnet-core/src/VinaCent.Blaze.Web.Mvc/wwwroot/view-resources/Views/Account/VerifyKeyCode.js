@@ -14,13 +14,11 @@ form.querySelector('button[type="button"]').addEventListener('click', () => {
 
     const key = `${c1.value}${c2.value}${c3.value}${c4.value}`;
 
-    if (key.length != 4) {
+    if (key.length !== 4) {
         return;
     }
 
-    let action = form.action + `&key=${key}`;
-    console.log(action);
-    window.location = action;
+    window.location = form.action + `&key=${key}`;
 });
 
 function moveToNext(e, t) { 0 < e.value.length && document.getElementById("digit" + t + "-input").focus() }

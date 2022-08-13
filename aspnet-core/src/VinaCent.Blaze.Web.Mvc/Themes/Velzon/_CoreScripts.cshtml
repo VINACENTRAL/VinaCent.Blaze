@@ -47,12 +47,6 @@
     var vinacent = vinacent || {};
 </script>
 
-<environment names="Development">
-    <script type="text/javascript">
-        vinacent.fileServer = '@(Configuration.GetValue<string>("FileServer"))';
-    </script>
-</environment>
-
 @if (CultureInfo.CurrentUICulture.TwoLetterISOLanguageName != "en")
 {
     var normalizedCurrentUiCultureName = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;

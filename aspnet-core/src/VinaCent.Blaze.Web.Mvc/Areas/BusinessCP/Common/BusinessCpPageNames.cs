@@ -9,7 +9,11 @@
         public class ShopPageNames
         {
             public const string Shop = "Shop";
+            
             public const string Shop_CategoryManagement = Shop + ".CategoryManagement";
+            public const string Shop_CategoryManagement_ParentLevel = Shop_CategoryManagement +".ParentLevel";
+            public const string Shop_CategoryManagement_ChildrenLevel = Shop_CategoryManagement +".ChildrenLevel";
+            
             public const string Shop_TagManagement = Shop + ".TagManagement";
             public const string Shop_ProductManagement = Shop + ".ProductManagement";
         }

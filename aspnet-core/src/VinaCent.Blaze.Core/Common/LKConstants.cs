@@ -311,7 +311,13 @@ public static class LKConstants
     public const string Checkout = "Checkout";
     public const string YouDoNotHaveToBeTheOwnerToPerformThisAction = "YouDoNotHaveToBeTheOwnerToPerformThisAction";
     public const string Shop_CategoryManagement = "Shop_CategoryManagement";
+    public const string Shop_CategoryManagement_ParentLevel = "Shop_CategoryManagement_ParentLevel";
+    public const string Shop_CategoryManagement_ChildrenLevel = "Shop_CategoryManagement_ChildrenLevel";
     public const string Shop_TagManagement = "Shop_TagManagement";
     public const string Shop_ProductManagement = "Shop_ProductManagement";
     public const string LoginSuccessMessage = "LoginSuccessMessage";    
+    public const string Title = "Title";
+    public const string Slug = "Slug";
+    public const string ShopModule_CreateNewCategory = "ShopModule_CreateNewCategory";
+    public const string ShopModule_UpdateCategory = "ShopModule_UpdateCategory";
 }

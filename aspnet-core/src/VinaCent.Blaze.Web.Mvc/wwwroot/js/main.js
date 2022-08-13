@@ -23,7 +23,7 @@
 
         //add also disabled items
         $(':disabled[name]', this).each(function () {
-            data.push({ name: this.name, value: $(this).val() });
+            data.push({name: this.name, value: $(this).val()});
         });
 
         //map to object
@@ -135,4 +135,143 @@
         });
         $this[0].reset();
     };
+
+    $.fn.db = function (ajaxFunction, searFormId, dataCols, action) {
+        let _columnDefs = [...dataCols];
+        if (action && typeof action === 'function') {
+            _columnDefs.push({
+                data: null,
+                sortable: false,
+                autoWidth: false,
+                defaultContent: '',
+                render: (data, type, row, meta) => action(row)
+            });
+        }
+        _columnDefs = _columnDefs.map((el, index) => {
+            el.targets = index;
+            el.sortable = false;
+            return el
+        });
+
+        //serialize to array
+        const _$dataTable = $(this).DataTable({
+            paging: true,
+            serverSide: true,
+            listAction: {
+                ajaxFunction: ajaxFunction,
+                inputFilter: function () {
+                    return $(searFormId).serializeFormToObject(true);
+                }
+            },
+            buttons: [
+                {
+                    name: 'refresh',
+                    text: '<i class="fas fa-redo-alt"></i>',
+                    className: 'waves-effect waves-light',
+                    action: () => _$dataTable.draw(false)
+                }
+            ],
+            responsive: {
+                details: {
+                    type: 'column'
+                }
+            },
+            columnDefs: _columnDefs
+        });
+
+        return _$dataTable;
+    };
+    $.fn.modalCreate = function(ajaxFunction, onSuccess, onShow, onHide) {
+        const _$modal = $(this);
+        const _$formCreate = _$modal.find('form');
+
+        _$formCreate.find('.save-button').on('click', (e) => {
+            e.preventDefault();
+
+            if (!_$formCreate.valid()) {
+                return;
+            }
+
+            var formObjected = _$formCreate.serializeFormToObject();
+
+            abp.ui.setBusy(_$modal);
+            ajaxFunction(formObjected)
+                .done(function () {
+                    _$modal.modal('hide');
+                    _$formCreate[0].reset();
+                    abp.notify.success(l(LKConstants.SavedSuccessfully));
+                    if (onSuccess && typeof onSuccess === 'function') {
+                        onSuccess();
+                    }
+                })
+                .always(function () {
+                    abp.ui.clearBusy(_$modal);
+                });
+        });
+
+        _$modal.on('shown.bs.modal', () => {
+            _$modal.find('input:not([type=hidden]):first').focus();
+            _$formCreate.find('input').unbind().on('keypress', function (e) {
+                if (e.which === 13) {
+                    e.preventDefault();
+                    _$formCreate.find('.save-button').click();
+                }
+            });
+            if (onShow && typeof onShow === 'function') {
+                onShow();
+            }
+        }).on('hidden.bs.modal', () => {
+            _$formCreate.clearForm();
+            if (onHide && typeof onHide === 'function') {
+                onHide();
+            }
+        });
+    }
+    $.fn.modalUpdate = function(ajaxFunction, onSuccess, onShow, onHide) {
+        const _$modal = $(this);
+        const _$formUpdate = _$modal.find('form');
+
+        function saveFormUpdate() {
+            if (!_$formUpdate.valid()) {
+                return;
+            }
+
+            var formObjected = _$formUpdate.serializeFormToObject();
+
+            abp.ui.setBusy(_$formUpdate);
+            ajaxFunction(formObjected).done(function () {
+                _$modal.modal('hide');
+                abp.notify.success(l(LKConstants.SavedSuccessfully));
+                if (onSuccess && typeof  onSuccess === 'function') {
+                    onSuccess();
+                }
+            }).always(function () {
+                abp.ui.clearBusy(_$formUpdate);
+            });
+        }
+
+        _$formUpdate.closest('div.modal-content').find(".save-button").click(function (e) {
+            e.preventDefault();
+            saveFormUpdate();
+        });
+
+        _$formUpdate.find('input').on('keypress', function (e) {
+            if (e.which === 13) {
+                e.preventDefault();
+                saveFormUpdate();
+            }
+        });
+
+        _$modal.on('shown.bs.modal', () => {
+            _$modal.find('input:not([type=hidden]):first').focus();
+            if (onShow && typeof onShow === 'function') {
+                onShow();
+            }
+        }).on('hidden.bs.modal', () => {
+            _$formUpdate.clearForm();
+            if (onHide && typeof onHide === 'function') {
+                onHide();
+            }
+        });
+    }
 })(jQuery);

@@ -63,7 +63,6 @@
                 data: 'length',
                 sortable: false,
                 render: (data, type, row, meta) => {
-                    console.log(row)
                     return row.isFolder ? l(LKConstants.Directory) : `${data} (bytes)`;
                 }
             },

@@ -14,16 +14,10 @@ namespace VinaCent.Blaze.Web.TagHelpers
     public class ImageTagHelper : TagHelper
     {
         private readonly ISettingManager _settingManager;
-        private readonly IHostEnvironment _environment;
-        private readonly IConfiguration _configuration;
 
-        public ImageTagHelper(ISettingManager settingManager,
-            IHostEnvironment environment,
-            IConfiguration configuration)
+        public ImageTagHelper(ISettingManager settingManager)
         {
             _settingManager = settingManager;
-            _environment = environment;
-            _configuration = configuration;
         }
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
@@ -36,23 +30,6 @@ namespace VinaCent.Blaze.Web.TagHelpers
                 imageHolder = _settingManager.GetSettingValue(AppSettingNames.SiteUserAvatarHolder);
             }
             
-            if (_environment.IsDevelopment())
-            {
-                var fileServerUri = _configuration.GetValue<string>("FileServer");
-
-                if (fileServerUri.IsNullOrEmpty() ||
-                    (!fileServerUri.StartsWith("https://") && !fileServerUri.StartsWith("http://")) ||
-                    new Uri(fileServerUri).IsLoopback) return;
-
-                var src = output.Attributes.FirstOrDefault(x => x.Name == "src")?.Value?.ToString();
-                if (src is {Length: > 0} && !src.StartsWith("http://") && !src.StartsWith("https://"))
-                {
-                    src = StringHelper.TrueCombine(fileServerUri.TrimEnd('/'), src.EnsureStartsWith('/'));
-                }
-
-                output.Attributes.SetAttribute("src", src);
-            }
-
             var onerror = output.Attributes.FirstOrDefault(attr => attr.Name == "onerror")?.Value?.ToString();
             if (onerror is {Length: > 0})
             {

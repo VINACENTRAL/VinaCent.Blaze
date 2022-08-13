@@ -67,9 +67,6 @@ namespace VinaCent.Blaze.AppCore.UserLoginAttempts
             var log = await _repository.GetAsync(id);
             return ObjectMapper.Map<UserLoginAttemptDto>(log);
         }
-        public async Task DeleteAsync(long id)
-        {
-            await _repository.DeleteAsync(id);
-        }
+        
     }
 }
