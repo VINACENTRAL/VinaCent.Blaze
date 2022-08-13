@@ -12411,3 +12411,356 @@ DEBUG 2022-07-29 11:42:20,843 [30   ] Abp.BackgroundJobs.BackgroundJobManager  -
 DEBUG 2022-07-29 11:42:20,845 [30   ] , Culture=neutral, PublicKeyToken=null]] - WaitToStop background worker: Abp.Authorization.Users.UserTokenExpirationWorker`2[[VinaCent.Blaze.MultiTenancy.Tenant, VinaCent.Blaze.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[VinaCent.Blaze.Authorization.Users.User, VinaCent.Blaze.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]
 DEBUG 2022-07-29 11:42:20,845 [30   ] Abp.Modules.AbpModuleManager             - Shutting down completed.
 INFO  2022-07-29 11:42:20,849 [30   ] Microsoft.Hosting.Lifetime               - Application is shutting down...
+DEBUG 2022-08-13 11:38:38,078 [1    ] Abp.Modules.AbpModuleManager             - Loading Abp modules...
+DEBUG 2022-08-13 11:38:38,192 [1    ] Abp.Modules.AbpModuleManager             - Found 16 ABP modules in total.
+DEBUG 2022-08-13 11:38:38,229 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: VinaCent.Blaze.Web.Host.Startup.BlazeWebHostModule, VinaCent.Blaze.Web.Host, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2022-08-13 11:38:38,245 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: VinaCent.Blaze.BlazeWebCoreModule, VinaCent.Blaze.Web.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2022-08-13 11:38:38,246 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: VinaCent.Blaze.BlazeApplicationModule, VinaCent.Blaze.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2022-08-13 11:38:38,247 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: VinaCent.Blaze.BlazeCoreModule, VinaCent.Blaze.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2022-08-13 11:38:38,248 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.Zero.AbpZeroCoreModule, Abp.ZeroCore, Version=7.3.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2022-08-13 11:38:38,248 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.Zero.AbpZeroCommonModule, Abp.Zero.Common, Version=7.3.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2022-08-13 11:38:38,248 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.AbpKernelModule, Abp, Version=7.3.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2022-08-13 11:38:38,249 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.AutoMapper.AbpAutoMapperModule, Abp.AutoMapper, Version=7.3.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2022-08-13 11:38:38,250 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.MailKit.AbpMailKitModule, Abp.MailKit, Version=7.3.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2022-08-13 11:38:38,251 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: VinaCent.Blaze.EntityFrameworkCore.BlazeEntityFrameworkModule, VinaCent.Blaze.EntityFrameworkCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2022-08-13 11:38:38,252 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.Zero.EntityFrameworkCore.AbpZeroCoreEntityFrameworkCoreModule, Abp.ZeroCore.EntityFrameworkCore, Version=7.3.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2022-08-13 11:38:38,252 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.EntityFrameworkCore.AbpEntityFrameworkCoreModule, Abp.EntityFrameworkCore, Version=7.3.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2022-08-13 11:38:38,253 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.EntityFramework.AbpEntityFrameworkCommonModule, Abp.EntityFramework.Common, Version=7.3.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2022-08-13 11:38:38,253 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.AspNetCore.AbpAspNetCoreModule, Abp.AspNetCore, Version=7.3.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2022-08-13 11:38:38,253 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.Web.AbpWebCommonModule, Abp.Web.Common, Version=7.3.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2022-08-13 11:38:38,254 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.AspNetCore.SignalR.AbpAspNetCoreSignalRModule, Abp.AspNetCore.SignalR, Version=7.3.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2022-08-13 11:38:38,261 [1    ] Abp.Modules.AbpModuleManager             - 16 modules loaded.
+DEBUG 2022-08-13 11:38:38,427 [1    ] o.Configuration.LanguageManagementConfig - Converted Abp (Abp.Localization.Dictionaries.DictionaryBasedLocalizationSource) to MultiTenantLocalizationSource
+DEBUG 2022-08-13 11:38:38,427 [1    ] o.Configuration.LanguageManagementConfig - Converted AbpZero (Abp.Localization.Dictionaries.DictionaryBasedLocalizationSource) to MultiTenantLocalizationSource
+DEBUG 2022-08-13 11:38:38,427 [1    ] o.Configuration.LanguageManagementConfig - Converted Blaze (Abp.Localization.Dictionaries.DictionaryBasedLocalizationSource) to MultiTenantLocalizationSource
+DEBUG 2022-08-13 11:38:38,427 [1    ] o.Configuration.LanguageManagementConfig - Converted AbpWeb (Abp.Localization.Dictionaries.DictionaryBasedLocalizationSource) to MultiTenantLocalizationSource
+DEBUG 2022-08-13 11:38:39,140 [1    ] ameworkCore.AbpEntityFrameworkCoreModule - Registering DbContext: VinaCent.Blaze.EntityFrameworkCore.BlazeDbContext, VinaCent.Blaze.EntityFrameworkCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2022-08-13 11:38:39,519 [1    ] Abp.Localization.LocalizationManager     - Initializing 4 localization sources.
+DEBUG 2022-08-13 11:38:39,593 [1    ] Abp.Localization.LocalizationManager     - Initialized localization source: Abp
+DEBUG 2022-08-13 11:38:39,682 [1    ] Abp.Localization.LocalizationManager     - Initialized localization source: AbpZero
+DEBUG 2022-08-13 11:38:39,711 [1    ] Abp.Localization.LocalizationManager     - Initialized localization source: Blaze
+DEBUG 2022-08-13 11:38:39,754 [1    ] Abp.Localization.LocalizationManager     - Initialized localization source: AbpWeb
+DEBUG 2022-08-13 11:38:39,770 [1    ] Abp.BackgroundJobs.BackgroundJobManager  - Start background worker: Abp.BackgroundJobs.BackgroundJobManager
+DEBUG 2022-08-13 11:38:39,776 [1    ] , Culture=neutral, PublicKeyToken=null]] - Start background worker: Abp.Authorization.Users.UserTokenExpirationWorker`2[[VinaCent.Blaze.MultiTenancy.Tenant, VinaCent.Blaze.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[VinaCent.Blaze.Authorization.Users.User, VinaCent.Blaze.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]
+DEBUG 2022-08-13 11:38:39,841 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - Found 36 classes define auto mapping attributes
+DEBUG 2022-08-13 11:38:39,841 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - VinaCent.Blaze.Models.TokenAuth.ExternalLoginProviderInfoModel
+DEBUG 2022-08-13 11:38:39,850 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - VinaCent.Blaze.Users.Dto.CreateUserDto
+DEBUG 2022-08-13 11:38:39,851 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - VinaCent.Blaze.Users.Dto.UserDto
+DEBUG 2022-08-13 11:38:39,852 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - VinaCent.Blaze.Sessions.Dto.TenantLoginInfoDto
+DEBUG 2022-08-13 11:38:39,852 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - VinaCent.Blaze.Sessions.Dto.UserLoginInfoDto
+DEBUG 2022-08-13 11:38:39,852 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - VinaCent.Blaze.Roles.Dto.PermissionDto
+DEBUG 2022-08-13 11:38:39,853 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - VinaCent.Blaze.Profiles.Dto.ProfileDto
+DEBUG 2022-08-13 11:38:39,853 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - VinaCent.Blaze.Profiles.Dto.UpdateProfileDto
+DEBUG 2022-08-13 11:38:39,854 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - VinaCent.Blaze.MultiTenancy.Dto.CreateTenantDto
+DEBUG 2022-08-13 11:38:39,854 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - VinaCent.Blaze.MultiTenancy.Dto.TenantDto
+DEBUG 2022-08-13 11:38:39,854 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - VinaCent.Blaze.BusinessCore.ShopModule.Categories.Dto.CategoryDto
+DEBUG 2022-08-13 11:38:39,854 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - VinaCent.Blaze.BusinessCore.ShopModule.Categories.Dto.CreateCategoryDto
+DEBUG 2022-08-13 11:38:39,854 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - VinaCent.Blaze.BusinessCore.ShopModule.Categories.Dto.UpdateCategoryDto
+DEBUG 2022-08-13 11:38:39,854 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - VinaCent.Blaze.BusinessCore.CurrencyUnits.Dto.CreateCurrencyUnitDto
+DEBUG 2022-08-13 11:38:39,854 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - VinaCent.Blaze.BusinessCore.CurrencyUnits.Dto.CurrencyUnitDto
+DEBUG 2022-08-13 11:38:39,855 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - VinaCent.Blaze.BusinessCore.CurrencyUnits.Dto.UpdateCurrencyUnitDto
+DEBUG 2022-08-13 11:38:39,855 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - VinaCent.Blaze.BusinessCore.CurrencyExchangeRates.Dto.CurrencyExchangeRateDto
+DEBUG 2022-08-13 11:38:39,855 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - VinaCent.Blaze.BusinessCore.CurrencyExchangeRates.Dto.CurrencyExchangeRateListDto
+DEBUG 2022-08-13 11:38:39,855 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - VinaCent.Blaze.AppCore.UserLoginAttempts.Dto.UserLoginAttemptDto
+DEBUG 2022-08-13 11:38:39,855 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - VinaCent.Blaze.AppCore.TextTemplates.Dto.CreateTextTemplateDto
+DEBUG 2022-08-13 11:38:39,856 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - VinaCent.Blaze.AppCore.TextTemplates.Dto.TextTemplateDto
+DEBUG 2022-08-13 11:38:39,856 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - VinaCent.Blaze.AppCore.TextTemplates.Dto.TextTemplateListDto
+DEBUG 2022-08-13 11:38:39,856 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - VinaCent.Blaze.AppCore.TextTemplates.Dto.UpdateTextTemplateDto
+DEBUG 2022-08-13 11:38:39,856 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - VinaCent.Blaze.AppCore.LanguageTexts.Dto.CreateLanguageTextDto
+DEBUG 2022-08-13 11:38:39,856 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - VinaCent.Blaze.AppCore.LanguageTexts.Dto.LanguageTextDto
+DEBUG 2022-08-13 11:38:39,856 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - VinaCent.Blaze.AppCore.LanguageTexts.Dto.UpdateLanguageTextDto
+DEBUG 2022-08-13 11:38:39,856 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - VinaCent.Blaze.AppCore.Languages.Dto.CreateLanguageDto
+DEBUG 2022-08-13 11:38:39,856 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - VinaCent.Blaze.AppCore.Languages.Dto.LanguageDto
+DEBUG 2022-08-13 11:38:39,857 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - VinaCent.Blaze.AppCore.Languages.Dto.UpdateLanguageDto
+DEBUG 2022-08-13 11:38:39,857 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - VinaCent.Blaze.AppCore.FileUnits.Dto.CreateDirectoryDto
+DEBUG 2022-08-13 11:38:39,857 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - VinaCent.Blaze.AppCore.FileUnits.Dto.FileUnitDto
+DEBUG 2022-08-13 11:38:39,857 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - VinaCent.Blaze.AppCore.FileUnits.Dto.FileUnitRenameDto
+DEBUG 2022-08-13 11:38:39,857 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - VinaCent.Blaze.AppCore.FileUnits.Dto.UploadFileUnitDto
+DEBUG 2022-08-13 11:38:39,857 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - VinaCent.Blaze.AppCore.CommonDatas.Dto.CommonDataDto
+DEBUG 2022-08-13 11:38:39,857 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - VinaCent.Blaze.AppCore.AuditLogs.Dto.AuditLogDto
+DEBUG 2022-08-13 11:38:39,858 [1    ] Abp.AutoMapper.AbpAutoMapperModule       - VinaCent.Blaze.AppCore.AuditLogs.Dto.AuditLogListDto
+WARN  2022-08-13 11:38:42,260 [1    ] oft.EntityFrameworkCore.Model.Validation - Entity 'Edition' has a global query filter defined and is the required end of a relationship with the entity 'EditionFeatureSetting'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+INFO  2022-08-13 11:38:42,889 [1    ] osoft.EntityFrameworkCore.Infrastructure - Entity Framework Core 6.0.4 initialized 'BlazeDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.4' with options: None
+INFO  2022-08-13 11:38:44,088 [1    ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (51ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[CreationTime], [a].[CreatorUserId], [a].[DeleterUserId], [a].[DeletionTime], [a].[DisplayName], [a].[IsDeleted], [a].[LastModificationTime], [a].[LastModifierUserId], [a].[Name]
+FROM [AbpEditions] AS [a]
+WHERE [a].[Name] = N'Standard'
+INFO  2022-08-13 11:38:44,370 [1    ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (56ms) [Parameters=[@__language_TenantId_0='?' (DbType = Int32), @__language_Name_1='?' (Size = 128)], CommandType='Text', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [AbpLanguages] AS [a]
+        WHERE ([a].[TenantId] = @__language_TenantId_0) AND ([a].[Name] = @__language_Name_1)) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+INFO  2022-08-13 11:38:44,387 [1    ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (10ms) [Parameters=[@__language_TenantId_0='?' (DbType = Int32), @__language_Name_1='?' (Size = 128)], CommandType='Text', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [AbpLanguages] AS [a]
+        WHERE ([a].[TenantId] = @__language_TenantId_0) AND ([a].[Name] = @__language_Name_1)) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+INFO  2022-08-13 11:38:44,414 [1    ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (14ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[CreationTime], [a].[CreatorUserId], [a].[DeleterUserId], [a].[DeletionTime], [a].[Description], [a].[DisplayName], [a].[IsDefault], [a].[IsDeleted], [a].[IsStatic], [a].[LastModificationTime], [a].[LastModifierUserId], [a].[Name], [a].[NormalizedName], [a].[TenantId]
+FROM [AbpRoles] AS [a]
+WHERE ([a].[TenantId] IS NULL) AND ([a].[Name] = N'Admin')
+INFO  2022-08-13 11:38:44,519 [1    ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (17ms) [Parameters=[@__adminRoleForHost_Id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [a].[Name]
+FROM [AbpPermissions] AS [a]
+WHERE ([a].[Discriminator] = N'RolePermissionSetting') AND (([a].[TenantId] IS NULL) AND ([a].[RoleId] = @__adminRoleForHost_Id_0))
+INFO  2022-08-13 11:38:44,548 [1    ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (16ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[AddressLine1], [a].[AddressLine2], [a].[AuthenticationSource], [a].[Avatar], [a].[Background], [a].[Birthday], [a].[City], [a].[ConcurrencyStamp], [a].[Country], [a].[CreationTime], [a].[CreatorUserId], [a].[DeleterUserId], [a].[DeletionTime], [a].[Description], [a].[EmailAddress], [a].[EmailConfirmationCode], [a].[IdentityCardNumber], [a].[IsActive], [a].[IsDeleted], [a].[IsEmailConfirmed], [a].[IsLockoutEnabled], [a].[IsPhoneNumberConfirmed], [a].[IsTwoFactorEnabled], [a].[LastModificationTime], [a].[LastModifierUserId], [a].[LockoutEndDateUtc], [a].[Name], [a].[NormalizedEmailAddress], [a].[NormalizedUserName], [a].[Password], [a].[PasswordResetCode], [a].[PhoneNumber], [a].[SecurityStamp], [a].[State], [a].[Surname], [a].[TenantId], [a].[UserName], [a].[ZipCode]
+FROM [AbpUsers] AS [a]
+WHERE ([a].[TenantId] IS NULL) AND ([a].[UserName] = N'admin')
+INFO  2022-08-13 11:38:44,735 [1    ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (13ms) [Parameters=[@__name_0='?' (Size = 256), @__tenantId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [AbpSettings] AS [a]
+        WHERE (([a].[Name] = @__name_0) AND ([a].[TenantId] = @__tenantId_1)) AND ([a].[UserId] IS NULL)) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+INFO  2022-08-13 11:38:44,745 [1    ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (9ms) [Parameters=[@__name_0='?' (Size = 256), @__tenantId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [AbpSettings] AS [a]
+        WHERE (([a].[Name] = @__name_0) AND ([a].[TenantId] = @__tenantId_1)) AND ([a].[UserId] IS NULL)) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+INFO  2022-08-13 11:38:44,756 [1    ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (11ms) [Parameters=[@__name_0='?' (Size = 256), @__tenantId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [AbpSettings] AS [a]
+        WHERE (([a].[Name] = @__name_0) AND ([a].[TenantId] = @__tenantId_1)) AND ([a].[UserId] IS NULL)) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+INFO  2022-08-13 11:38:44,776 [1    ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (13ms) [Parameters=[@__tt_Id_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [AppCore.TextTemplates] AS [a]
+        WHERE [a].[Id] = @__tt_Id_0) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+INFO  2022-08-13 11:38:44,786 [1    ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (9ms) [Parameters=[@__tt_Id_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [AppCore.TextTemplates] AS [a]
+        WHERE [a].[Id] = @__tt_Id_0) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+INFO  2022-08-13 11:38:44,791 [7    ] osoft.EntityFrameworkCore.Infrastructure - Entity Framework Core 6.0.4 initialized 'BlazeDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.4' with options: None
+INFO  2022-08-13 11:38:44,796 [1    ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (10ms) [Parameters=[@__tt_Id_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [AppCore.TextTemplates] AS [a]
+        WHERE [a].[Id] = @__tt_Id_0) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+INFO  2022-08-13 11:38:44,805 [1    ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (9ms) [Parameters=[@__tt_Id_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [AppCore.TextTemplates] AS [a]
+        WHERE [a].[Id] = @__tt_Id_0) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+INFO  2022-08-13 11:38:44,815 [1    ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (10ms) [Parameters=[@__tt_Id_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [AppCore.TextTemplates] AS [a]
+        WHERE [a].[Id] = @__tt_Id_0) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+INFO  2022-08-13 11:38:44,832 [1    ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (12ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [BusinessCore.CurrencyUnits] AS [b]) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+INFO  2022-08-13 11:38:44,909 [7    ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (21ms) [Parameters=[@__p_1='?' (DbType = Int32), @__Now_0='?' (DbType = DateTime2)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(@__p_1) [a].[Id], [a].[CreationTime], [a].[CreatorUserId], [a].[IsAbandoned], [a].[JobArgs], [a].[JobType], [a].[LastTryTime], [a].[NextTryTime], [a].[Priority], [a].[TryCount]
+FROM [AbpBackgroundJobs] AS [a]
+WHERE ([a].[IsAbandoned] = CAST(0 AS bit)) AND ([a].[NextTryTime] <= @__Now_0)
+ORDER BY [a].[Priority] DESC, [a].[TryCount], [a].[NextTryTime]
+INFO  2022-08-13 11:38:44,958 [1    ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (13ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[ConnectionString], [a].[CreationTime], [a].[CreatorUserId], [a].[DeleterUserId], [a].[DeletionTime], [a].[EditionId], [a].[IsActive], [a].[IsDeleted], [a].[LastModificationTime], [a].[LastModifierUserId], [a].[Name], [a].[TenancyName]
+FROM [AbpTenants] AS [a]
+WHERE [a].[TenancyName] = N'Default'
+INFO  2022-08-13 11:38:45,020 [1    ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (12ms) [Parameters=[@___tenantId_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[CreationTime], [a].[CreatorUserId], [a].[DeleterUserId], [a].[DeletionTime], [a].[Description], [a].[DisplayName], [a].[IsDefault], [a].[IsDeleted], [a].[IsStatic], [a].[LastModificationTime], [a].[LastModifierUserId], [a].[Name], [a].[NormalizedName], [a].[TenantId]
+FROM [AbpRoles] AS [a]
+WHERE ([a].[TenantId] = @___tenantId_0) AND ([a].[Name] = N'Admin')
+INFO  2022-08-13 11:38:45,040 [1    ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (13ms) [Parameters=[@___tenantId_0='?' (DbType = Int32), @__adminRole_Id_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [a].[Name]
+FROM [AbpPermissions] AS [a]
+WHERE ([a].[Discriminator] = N'RolePermissionSetting') AND (([a].[TenantId] = @___tenantId_0) AND ([a].[RoleId] = @__adminRole_Id_1))
+INFO  2022-08-13 11:38:45,063 [1    ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (13ms) [Parameters=[@___tenantId_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[AddressLine1], [a].[AddressLine2], [a].[AuthenticationSource], [a].[Avatar], [a].[Background], [a].[Birthday], [a].[City], [a].[ConcurrencyStamp], [a].[Country], [a].[CreationTime], [a].[CreatorUserId], [a].[DeleterUserId], [a].[DeletionTime], [a].[Description], [a].[EmailAddress], [a].[EmailConfirmationCode], [a].[IdentityCardNumber], [a].[IsActive], [a].[IsDeleted], [a].[IsEmailConfirmed], [a].[IsLockoutEnabled], [a].[IsPhoneNumberConfirmed], [a].[IsTwoFactorEnabled], [a].[LastModificationTime], [a].[LastModifierUserId], [a].[LockoutEndDateUtc], [a].[Name], [a].[NormalizedEmailAddress], [a].[NormalizedUserName], [a].[Password], [a].[PasswordResetCode], [a].[PhoneNumber], [a].[SecurityStamp], [a].[State], [a].[Surname], [a].[TenantId], [a].[UserName], [a].[ZipCode]
+FROM [AbpUsers] AS [a]
+WHERE ([a].[TenantId] = @___tenantId_0) AND ([a].[UserName] = N'admin')
+INFO  2022-08-13 11:38:45,186 [1    ] osoft.EntityFrameworkCore.Infrastructure - Entity Framework Core 6.0.4 initialized 'BlazeDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.4' with options: None
+INFO  2022-08-13 11:38:45,237 [1    ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (13ms) [Parameters=[@__ef_filter__p_0='?' (DbType = Boolean), @__ef_filter__p_1='?' (DbType = Boolean)], CommandType='Text', CommandTimeout='30']
+SELECT [a].[Id], [a].[CreationTime], [a].[CreatorUserId], [a].[DeleterUserId], [a].[DeletionTime], [a].[DisplayName], [a].[Icon], [a].[IsDeleted], [a].[IsDisabled], [a].[LastModificationTime], [a].[LastModifierUserId], [a].[Name], [a].[TenantId]
+FROM [AbpLanguages] AS [a]
+WHERE ((@__ef_filter__p_0 = CAST(1 AS bit)) OR ([a].[IsDeleted] = CAST(0 AS bit))) AND ((@__ef_filter__p_1 = CAST(1 AS bit)) OR ([a].[TenantId] IS NULL))
+INFO  2022-08-13 11:38:45,304 [1    ] osoft.EntityFrameworkCore.Infrastructure - Entity Framework Core 6.0.4 initialized 'BlazeDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.4' with options: None
+INFO  2022-08-13 11:38:45,333 [1    ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (11ms) [Parameters=[@__ef_filter__p_0='?' (DbType = Boolean), @__p_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[ConnectionString], [a].[CreationTime], [a].[CreatorUserId], [a].[DeleterUserId], [a].[DeletionTime], [a].[EditionId], [a].[IsActive], [a].[IsDeleted], [a].[LastModificationTime], [a].[LastModifierUserId], [a].[Name], [a].[TenancyName]
+FROM [AbpTenants] AS [a]
+WHERE ((@__ef_filter__p_0 = CAST(1 AS bit)) OR ([a].[IsDeleted] = CAST(0 AS bit))) AND ([a].[Id] = @__p_0)
+INFO  2022-08-13 11:38:45,353 [1    ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (12ms) [Parameters=[@__ef_filter__p_0='?' (DbType = Boolean), @__ef_filter__p_1='?' (DbType = Boolean), @__ef_filter__CurrentTenantId_2='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [a].[Id], [a].[CreationTime], [a].[CreatorUserId], [a].[DeleterUserId], [a].[DeletionTime], [a].[DisplayName], [a].[Icon], [a].[IsDeleted], [a].[IsDisabled], [a].[LastModificationTime], [a].[LastModifierUserId], [a].[Name], [a].[TenantId]
+FROM [AbpLanguages] AS [a]
+WHERE ((@__ef_filter__p_0 = CAST(1 AS bit)) OR ([a].[IsDeleted] = CAST(0 AS bit))) AND ((@__ef_filter__p_1 = CAST(1 AS bit)) OR ([a].[TenantId] = @__ef_filter__CurrentTenantId_2))
+INFO  2022-08-13 11:38:45,374 [1    ] osoft.EntityFrameworkCore.Infrastructure - Entity Framework Core 6.0.4 initialized 'BlazeDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.4' with options: None
+INFO  2022-08-13 11:38:45,404 [1    ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (14ms) [Parameters=[@__ef_filter__p_0='?' (DbType = Boolean), @__ef_filter__CurrentTenantId_1='?' (DbType = Int32), @__tenantId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [a].[Id], [a].[CreationTime], [a].[CreatorUserId], [a].[LastModificationTime], [a].[LastModifierUserId], [a].[Name], [a].[TenantId], [a].[UserId], [a].[Value]
+FROM [AbpSettings] AS [a]
+WHERE ((@__ef_filter__p_0 = CAST(1 AS bit)) OR ([a].[TenantId] = @__ef_filter__CurrentTenantId_1)) AND (([a].[UserId] IS NULL) AND ([a].[TenantId] = @__tenantId_1))
+INFO  2022-08-13 11:38:45,465 [1    ] tCore.Builder.RequestLocalizationOptions - Supported Request Localization Cultures: en-US,vi-VN
+WARN  2022-08-13 11:38:45,784 [1    ] Microsoft.AspNetCore.Server.Kestrel      - Overriding address(es) 'https://localhost:44311/'. Binding to endpoints defined via IConfiguration and/or UseKestrel() instead.
+INFO  2022-08-13 11:38:45,796 [1    ] Microsoft.Hosting.Lifetime               - Now listening on: https://localhost:44311
+INFO  2022-08-13 11:38:45,798 [1    ] Microsoft.Hosting.Lifetime               - Application started. Press Ctrl+C to shut down.
+INFO  2022-08-13 11:38:45,799 [1    ] Microsoft.Hosting.Lifetime               - Hosting environment: Development
+INFO  2022-08-13 11:38:45,799 [1    ] Microsoft.Hosting.Lifetime               - Content root path: /Users/rogzi/Documents/VINACENT/System/VinaCent.Blaze/aspnet-core/src/VinaCent.Blaze.Web.Host
+INFO  2022-08-13 11:38:47,668 [22   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/1.1 GET https://localhost:44311/ - -
+INFO  2022-08-13 11:38:47,820 [22   ] ft.AspNetCore.Routing.EndpointMiddleware - Executing endpoint 'VinaCent.Blaze.Web.Host.Controllers.HomeController.Index (VinaCent.Blaze.Web.Host)'
+INFO  2022-08-13 11:38:47,889 [22   ] c.Infrastructure.ControllerActionInvoker - Route matched with {action = "Index", controller = "Home", area = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller VinaCent.Blaze.Web.Host.Controllers.HomeController (VinaCent.Blaze.Web.Host).
+INFO  2022-08-13 11:38:47,974 [22   ] osoft.EntityFrameworkCore.Infrastructure - Entity Framework Core 6.0.4 initialized 'BlazeDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.4' with options: None
+INFO  2022-08-13 11:38:48,330 [7    ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (34ms) [Parameters=[@p0='?' (Size = 512), @p1='?' (Size = 64), @p2='?' (Size = 128), @p3='?' (Size = 2000), @p4='?' (Size = 2000), @p5='?' (Size = 1024), @p6='?' (DbType = Int32), @p7='?' (DbType = DateTime2), @p8='?' (DbType = Int32), @p9='?' (DbType = Int64), @p10='?' (Size = 256), @p11='?' (Size = 1024), @p12='?' (Size = 4000), @p13='?' (Size = 256), @p14='?' (DbType = Int32), @p15='?' (DbType = Int64)], CommandType='Text', CommandTimeout='30']
+SET NOCOUNT ON;
+INSERT INTO [AbpAuditLogs] ([BrowserInfo], [ClientIpAddress], [ClientName], [CustomData], [Exception], [ExceptionMessage], [ExecutionDuration], [ExecutionTime], [ImpersonatorTenantId], [ImpersonatorUserId], [MethodName], [Parameters], [ReturnValue], [ServiceName], [TenantId], [UserId])
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15);
+SELECT [Id]
+FROM [AbpAuditLogs]
+WHERE @@ROWCOUNT = 1 AND [Id] = scope_identity();
+INFO  2022-08-13 11:38:48,450 [7    ] vc.Infrastructure.RedirectResultExecutor - Executing RedirectResult, redirecting to /swagger.
+INFO  2022-08-13 11:38:48,476 [7    ] c.Infrastructure.ControllerActionInvoker - Executed action VinaCent.Blaze.Web.Host.Controllers.HomeController.Index (VinaCent.Blaze.Web.Host) in 567.8595ms
+INFO  2022-08-13 11:38:48,478 [7    ] ft.AspNetCore.Routing.EndpointMiddleware - Executed endpoint 'VinaCent.Blaze.Web.Host.Controllers.HomeController.Index (VinaCent.Blaze.Web.Host)'
+INFO  2022-08-13 11:38:48,510 [7    ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished HTTP/1.1 GET https://localhost:44311/ - - - 302 0 - 843.7958ms
+INFO  2022-08-13 11:38:48,519 [7    ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/1.1 GET https://localhost:44311/swagger - -
+INFO  2022-08-13 11:38:48,632 [7    ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished HTTP/1.1 GET https://localhost:44311/swagger - - - 301 0 - 113.0385ms
+INFO  2022-08-13 11:38:48,638 [23   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/1.1 GET https://localhost:44311/swagger/index.html - -
+INFO  2022-08-13 11:38:48,723 [23   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished HTTP/1.1 GET https://localhost:44311/swagger/index.html - - - 200 - text/html;charset=utf-8 84.3669ms
+INFO  2022-08-13 11:38:48,756 [22   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/1.1 GET https://localhost:44311/swagger/swagger-ui.css - -
+INFO  2022-08-13 11:38:48,756 [26   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/1.1 GET https://localhost:44311/swagger/swagger-ui-bundle.js - -
+INFO  2022-08-13 11:38:48,775 [22   ] NetCore.StaticFiles.StaticFileMiddleware - Sending file. Request path: '/swagger-ui.css'. Physical path: 'N/A'
+INFO  2022-08-13 11:38:48,775 [22   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished HTTP/1.1 GET https://localhost:44311/swagger/swagger-ui.css - - - 200 143943 text/css 18.6864ms
+INFO  2022-08-13 11:38:48,808 [27   ] NetCore.StaticFiles.StaticFileMiddleware - Sending file. Request path: '/swagger-ui-bundle.js'. Physical path: 'N/A'
+INFO  2022-08-13 11:38:48,811 [27   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished HTTP/1.1 GET https://localhost:44311/swagger/swagger-ui-bundle.js - - - 200 1095087 application/javascript 54.3042ms
+INFO  2022-08-13 11:38:48,814 [26   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/1.1 GET https://localhost:44311/swagger/swagger-ui-standalone-preset.js - -
+INFO  2022-08-13 11:38:48,818 [27   ] NetCore.StaticFiles.StaticFileMiddleware - Sending file. Request path: '/swagger-ui-standalone-preset.js'. Physical path: 'N/A'
+INFO  2022-08-13 11:38:48,818 [27   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished HTTP/1.1 GET https://localhost:44311/swagger/swagger-ui-standalone-preset.js - - - 200 339486 application/javascript 3.5811ms
+INFO  2022-08-13 11:38:48,820 [27   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/1.1 GET https://localhost:44311/swagger/ui/abp.js - -
+INFO  2022-08-13 11:38:48,831 [28   ] NetCore.StaticFiles.StaticFileMiddleware - Sending file. Request path: '/swagger/ui/abp.js'. Physical path: '/Users/rogzi/Documents/VINACENT/System/VinaCent.Blaze/aspnet-core/src/VinaCent.Blaze.Web.Host/wwwroot/swagger/ui/abp.js'
+INFO  2022-08-13 11:38:48,831 [28   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished HTTP/1.1 GET https://localhost:44311/swagger/ui/abp.js - - - 200 3697 application/javascript 10.9722ms
+INFO  2022-08-13 11:38:48,832 [27   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/1.1 GET https://localhost:44311/swagger/ui/abp.swagger.js - -
+INFO  2022-08-13 11:38:48,834 [28   ] NetCore.StaticFiles.StaticFileMiddleware - Sending file. Request path: '/swagger/ui/abp.swagger.js'. Physical path: '/Users/rogzi/Documents/VINACENT/System/VinaCent.Blaze/aspnet-core/src/VinaCent.Blaze.Web.Host/wwwroot/swagger/ui/abp.swagger.js'
+INFO  2022-08-13 11:38:48,834 [28   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished HTTP/1.1 GET https://localhost:44311/swagger/ui/abp.swagger.js - - - 200 8029 application/javascript 1.7726ms
+INFO  2022-08-13 11:38:49,065 [4    ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/1.1 GET https://localhost:44311/AntiForgery/SetCookie - -
+INFO  2022-08-13 11:38:49,065 [4    ] ft.AspNetCore.Routing.EndpointMiddleware - Executing endpoint 'VinaCent.Blaze.Web.Host.Controllers.AntiForgeryController.SetCookie (VinaCent.Blaze.Web.Host)'
+INFO  2022-08-13 11:38:49,070 [4    ] c.Infrastructure.ControllerActionInvoker - Route matched with {action = "SetCookie", controller = "AntiForgery", area = ""}. Executing controller action with signature Void SetCookie() on controller VinaCent.Blaze.Web.Host.Controllers.AntiForgeryController (VinaCent.Blaze.Web.Host).
+INFO  2022-08-13 11:38:49,081 [4    ] osoft.EntityFrameworkCore.Infrastructure - Entity Framework Core 6.0.4 initialized 'BlazeDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.4' with options: None
+INFO  2022-08-13 11:38:49,115 [28   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/1.1 GET https://localhost:44311/swagger/v1/swagger.json - -
+INFO  2022-08-13 11:38:49,120 [26   ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (12ms) [Parameters=[@p0='?' (Size = 512), @p1='?' (Size = 64), @p2='?' (Size = 128), @p3='?' (Size = 2000), @p4='?' (Size = 2000), @p5='?' (Size = 1024), @p6='?' (DbType = Int32), @p7='?' (DbType = DateTime2), @p8='?' (DbType = Int32), @p9='?' (DbType = Int64), @p10='?' (Size = 256), @p11='?' (Size = 1024), @p12='?' (Size = 4000), @p13='?' (Size = 256), @p14='?' (DbType = Int32), @p15='?' (DbType = Int64)], CommandType='Text', CommandTimeout='30']
+SET NOCOUNT ON;
+INSERT INTO [AbpAuditLogs] ([BrowserInfo], [ClientIpAddress], [ClientName], [CustomData], [Exception], [ExceptionMessage], [ExecutionDuration], [ExecutionTime], [ImpersonatorTenantId], [ImpersonatorUserId], [MethodName], [Parameters], [ReturnValue], [ServiceName], [TenantId], [UserId])
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15);
+SELECT [Id]
+FROM [AbpAuditLogs]
+WHERE @@ROWCOUNT = 1 AND [Id] = scope_identity();
+INFO  2022-08-13 11:38:49,144 [26   ] .Mvc.Infrastructure.ObjectResultExecutor - Executing ObjectResult, writing value of type 'Abp.Web.Models.AjaxResponse'.
+INFO  2022-08-13 11:38:49,155 [27   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request starting HTTP/1.1 GET https://localhost:44311/swagger/favicon-32x32.png - -
+INFO  2022-08-13 11:38:49,156 [27   ] NetCore.StaticFiles.StaticFileMiddleware - Sending file. Request path: '/favicon-32x32.png'. Physical path: 'N/A'
+INFO  2022-08-13 11:38:49,156 [27   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished HTTP/1.1 GET https://localhost:44311/swagger/favicon-32x32.png - - - 200 628 image/png 1.0580ms
+INFO  2022-08-13 11:38:49,439 [28   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished HTTP/1.1 GET https://localhost:44311/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 323.7622ms
+INFO  2022-08-13 11:38:49,474 [26   ] c.Infrastructure.ControllerActionInvoker - Executed action VinaCent.Blaze.Web.Host.Controllers.AntiForgeryController.SetCookie (VinaCent.Blaze.Web.Host) in 403.8991ms
+INFO  2022-08-13 11:38:49,474 [26   ] ft.AspNetCore.Routing.EndpointMiddleware - Executed endpoint 'VinaCent.Blaze.Web.Host.Controllers.AntiForgeryController.SetCookie (VinaCent.Blaze.Web.Host)'
+INFO  2022-08-13 11:38:49,474 [26   ] Microsoft.AspNetCore.Hosting.Diagnostics - Request finished HTTP/1.1 GET https://localhost:44311/AntiForgery/SetCookie - - - 200 101 application/json;+charset=utf-8 409.5858ms
+INFO  2022-08-13 11:38:49,983 [18   ] osoft.EntityFrameworkCore.Infrastructure - Entity Framework Core 6.0.4 initialized 'BlazeDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.4' with options: None
+INFO  2022-08-13 11:38:50,009 [18   ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (10ms) [Parameters=[@__p_1='?' (DbType = Int32), @__Now_0='?' (DbType = DateTime2)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(@__p_1) [a].[Id], [a].[CreationTime], [a].[CreatorUserId], [a].[IsAbandoned], [a].[JobArgs], [a].[JobType], [a].[LastTryTime], [a].[NextTryTime], [a].[Priority], [a].[TryCount]
+FROM [AbpBackgroundJobs] AS [a]
+WHERE ([a].[IsAbandoned] = CAST(0 AS bit)) AND ([a].[NextTryTime] <= @__Now_0)
+ORDER BY [a].[Priority] DESC, [a].[TryCount], [a].[NextTryTime]
+INFO  2022-08-13 11:38:55,024 [22   ] osoft.EntityFrameworkCore.Infrastructure - Entity Framework Core 6.0.4 initialized 'BlazeDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.4' with options: None
+INFO  2022-08-13 11:38:55,060 [22   ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (16ms) [Parameters=[@__p_1='?' (DbType = Int32), @__Now_0='?' (DbType = DateTime2)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(@__p_1) [a].[Id], [a].[CreationTime], [a].[CreatorUserId], [a].[IsAbandoned], [a].[JobArgs], [a].[JobType], [a].[LastTryTime], [a].[NextTryTime], [a].[Priority], [a].[TryCount]
+FROM [AbpBackgroundJobs] AS [a]
+WHERE ([a].[IsAbandoned] = CAST(0 AS bit)) AND ([a].[NextTryTime] <= @__Now_0)
+ORDER BY [a].[Priority] DESC, [a].[TryCount], [a].[NextTryTime]
+INFO  2022-08-13 11:39:00,076 [27   ] osoft.EntityFrameworkCore.Infrastructure - Entity Framework Core 6.0.4 initialized 'BlazeDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.4' with options: None
+INFO  2022-08-13 11:39:00,110 [27   ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (14ms) [Parameters=[@__p_1='?' (DbType = Int32), @__Now_0='?' (DbType = DateTime2)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(@__p_1) [a].[Id], [a].[CreationTime], [a].[CreatorUserId], [a].[IsAbandoned], [a].[JobArgs], [a].[JobType], [a].[LastTryTime], [a].[NextTryTime], [a].[Priority], [a].[TryCount]
+FROM [AbpBackgroundJobs] AS [a]
+WHERE ([a].[IsAbandoned] = CAST(0 AS bit)) AND ([a].[NextTryTime] <= @__Now_0)
+ORDER BY [a].[Priority] DESC, [a].[TryCount], [a].[NextTryTime]
+INFO  2022-08-13 11:39:05,125 [27   ] osoft.EntityFrameworkCore.Infrastructure - Entity Framework Core 6.0.4 initialized 'BlazeDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.4' with options: None
+INFO  2022-08-13 11:39:05,146 [27   ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (10ms) [Parameters=[@__p_1='?' (DbType = Int32), @__Now_0='?' (DbType = DateTime2)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(@__p_1) [a].[Id], [a].[CreationTime], [a].[CreatorUserId], [a].[IsAbandoned], [a].[JobArgs], [a].[JobType], [a].[LastTryTime], [a].[NextTryTime], [a].[Priority], [a].[TryCount]
+FROM [AbpBackgroundJobs] AS [a]
+WHERE ([a].[IsAbandoned] = CAST(0 AS bit)) AND ([a].[NextTryTime] <= @__Now_0)
+ORDER BY [a].[Priority] DESC, [a].[TryCount], [a].[NextTryTime]
+INFO  2022-08-13 11:39:10,160 [27   ] osoft.EntityFrameworkCore.Infrastructure - Entity Framework Core 6.0.4 initialized 'BlazeDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.4' with options: None
+INFO  2022-08-13 11:39:10,182 [27   ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (10ms) [Parameters=[@__p_1='?' (DbType = Int32), @__Now_0='?' (DbType = DateTime2)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(@__p_1) [a].[Id], [a].[CreationTime], [a].[CreatorUserId], [a].[IsAbandoned], [a].[JobArgs], [a].[JobType], [a].[LastTryTime], [a].[NextTryTime], [a].[Priority], [a].[TryCount]
+FROM [AbpBackgroundJobs] AS [a]
+WHERE ([a].[IsAbandoned] = CAST(0 AS bit)) AND ([a].[NextTryTime] <= @__Now_0)
+ORDER BY [a].[Priority] DESC, [a].[TryCount], [a].[NextTryTime]
+INFO  2022-08-13 11:39:15,198 [27   ] osoft.EntityFrameworkCore.Infrastructure - Entity Framework Core 6.0.4 initialized 'BlazeDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.4' with options: None
+INFO  2022-08-13 11:39:15,219 [27   ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (10ms) [Parameters=[@__p_1='?' (DbType = Int32), @__Now_0='?' (DbType = DateTime2)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(@__p_1) [a].[Id], [a].[CreationTime], [a].[CreatorUserId], [a].[IsAbandoned], [a].[JobArgs], [a].[JobType], [a].[LastTryTime], [a].[NextTryTime], [a].[Priority], [a].[TryCount]
+FROM [AbpBackgroundJobs] AS [a]
+WHERE ([a].[IsAbandoned] = CAST(0 AS bit)) AND ([a].[NextTryTime] <= @__Now_0)
+ORDER BY [a].[Priority] DESC, [a].[TryCount], [a].[NextTryTime]
+INFO  2022-08-13 11:39:20,235 [27   ] osoft.EntityFrameworkCore.Infrastructure - Entity Framework Core 6.0.4 initialized 'BlazeDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.4' with options: None
+INFO  2022-08-13 11:39:20,263 [27   ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (10ms) [Parameters=[@__p_1='?' (DbType = Int32), @__Now_0='?' (DbType = DateTime2)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(@__p_1) [a].[Id], [a].[CreationTime], [a].[CreatorUserId], [a].[IsAbandoned], [a].[JobArgs], [a].[JobType], [a].[LastTryTime], [a].[NextTryTime], [a].[Priority], [a].[TryCount]
+FROM [AbpBackgroundJobs] AS [a]
+WHERE ([a].[IsAbandoned] = CAST(0 AS bit)) AND ([a].[NextTryTime] <= @__Now_0)
+ORDER BY [a].[Priority] DESC, [a].[TryCount], [a].[NextTryTime]
+INFO  2022-08-13 11:39:25,281 [26   ] osoft.EntityFrameworkCore.Infrastructure - Entity Framework Core 6.0.4 initialized 'BlazeDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.4' with options: None
+INFO  2022-08-13 11:39:25,308 [26   ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (10ms) [Parameters=[@__p_1='?' (DbType = Int32), @__Now_0='?' (DbType = DateTime2)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(@__p_1) [a].[Id], [a].[CreationTime], [a].[CreatorUserId], [a].[IsAbandoned], [a].[JobArgs], [a].[JobType], [a].[LastTryTime], [a].[NextTryTime], [a].[Priority], [a].[TryCount]
+FROM [AbpBackgroundJobs] AS [a]
+WHERE ([a].[IsAbandoned] = CAST(0 AS bit)) AND ([a].[NextTryTime] <= @__Now_0)
+ORDER BY [a].[Priority] DESC, [a].[TryCount], [a].[NextTryTime]
+INFO  2022-08-13 11:39:30,324 [26   ] osoft.EntityFrameworkCore.Infrastructure - Entity Framework Core 6.0.4 initialized 'BlazeDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.4' with options: None
+INFO  2022-08-13 11:39:30,351 [26   ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (11ms) [Parameters=[@__p_1='?' (DbType = Int32), @__Now_0='?' (DbType = DateTime2)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(@__p_1) [a].[Id], [a].[CreationTime], [a].[CreatorUserId], [a].[IsAbandoned], [a].[JobArgs], [a].[JobType], [a].[LastTryTime], [a].[NextTryTime], [a].[Priority], [a].[TryCount]
+FROM [AbpBackgroundJobs] AS [a]
+WHERE ([a].[IsAbandoned] = CAST(0 AS bit)) AND ([a].[NextTryTime] <= @__Now_0)
+ORDER BY [a].[Priority] DESC, [a].[TryCount], [a].[NextTryTime]
+INFO  2022-08-13 11:39:35,368 [26   ] osoft.EntityFrameworkCore.Infrastructure - Entity Framework Core 6.0.4 initialized 'BlazeDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.4' with options: None
+INFO  2022-08-13 11:39:35,389 [26   ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (10ms) [Parameters=[@__p_1='?' (DbType = Int32), @__Now_0='?' (DbType = DateTime2)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(@__p_1) [a].[Id], [a].[CreationTime], [a].[CreatorUserId], [a].[IsAbandoned], [a].[JobArgs], [a].[JobType], [a].[LastTryTime], [a].[NextTryTime], [a].[Priority], [a].[TryCount]
+FROM [AbpBackgroundJobs] AS [a]
+WHERE ([a].[IsAbandoned] = CAST(0 AS bit)) AND ([a].[NextTryTime] <= @__Now_0)
+ORDER BY [a].[Priority] DESC, [a].[TryCount], [a].[NextTryTime]
+INFO  2022-08-13 11:39:40,405 [26   ] osoft.EntityFrameworkCore.Infrastructure - Entity Framework Core 6.0.4 initialized 'BlazeDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.4' with options: None
+INFO  2022-08-13 11:39:40,432 [26   ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (10ms) [Parameters=[@__p_1='?' (DbType = Int32), @__Now_0='?' (DbType = DateTime2)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(@__p_1) [a].[Id], [a].[CreationTime], [a].[CreatorUserId], [a].[IsAbandoned], [a].[JobArgs], [a].[JobType], [a].[LastTryTime], [a].[NextTryTime], [a].[Priority], [a].[TryCount]
+FROM [AbpBackgroundJobs] AS [a]
+WHERE ([a].[IsAbandoned] = CAST(0 AS bit)) AND ([a].[NextTryTime] <= @__Now_0)
+ORDER BY [a].[Priority] DESC, [a].[TryCount], [a].[NextTryTime]
+INFO  2022-08-13 11:39:45,444 [28   ] osoft.EntityFrameworkCore.Infrastructure - Entity Framework Core 6.0.4 initialized 'BlazeDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.4' with options: None
+INFO  2022-08-13 11:39:45,471 [28   ] oft.EntityFrameworkCore.Database.Command - Executed DbCommand (10ms) [Parameters=[@__p_1='?' (DbType = Int32), @__Now_0='?' (DbType = DateTime2)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(@__p_1) [a].[Id], [a].[CreationTime], [a].[CreatorUserId], [a].[IsAbandoned], [a].[JobArgs], [a].[JobType], [a].[LastTryTime], [a].[NextTryTime], [a].[Priority], [a].[TryCount]
+FROM [AbpBackgroundJobs] AS [a]
+WHERE ([a].[IsAbandoned] = CAST(0 AS bit)) AND ([a].[NextTryTime] <= @__Now_0)
+ORDER BY [a].[Priority] DESC, [a].[TryCount], [a].[NextTryTime]
+DEBUG 2022-08-13 11:39:45,582 [ndler] Abp.Modules.AbpModuleManager             - Shutting down has been started
+DEBUG 2022-08-13 11:39:45,584 [ndler] Abp.BackgroundJobs.BackgroundJobManager  - Stop background worker: Abp.BackgroundJobs.BackgroundJobManager
+DEBUG 2022-08-13 11:39:45,584 [ndler] , Culture=neutral, PublicKeyToken=null]] - Stop background worker: Abp.Authorization.Users.UserTokenExpirationWorker`2[[VinaCent.Blaze.MultiTenancy.Tenant, VinaCent.Blaze.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[VinaCent.Blaze.Authorization.Users.User, VinaCent.Blaze.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]
+DEBUG 2022-08-13 11:39:45,585 [ndler] Abp.BackgroundJobs.BackgroundJobManager  - WaitToStop background worker: Abp.BackgroundJobs.BackgroundJobManager
+DEBUG 2022-08-13 11:39:45,586 [ndler] , Culture=neutral, PublicKeyToken=null]] - WaitToStop background worker: Abp.Authorization.Users.UserTokenExpirationWorker`2[[VinaCent.Blaze.MultiTenancy.Tenant, VinaCent.Blaze.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[VinaCent.Blaze.Authorization.Users.User, VinaCent.Blaze.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]
+DEBUG 2022-08-13 11:39:45,586 [ndler] Abp.Modules.AbpModuleManager             - Shutting down completed.
+INFO  2022-08-13 11:39:45,586 [ndler] Microsoft.Hosting.Lifetime               - Application is shutting down...

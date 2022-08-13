@@ -8,10 +8,7 @@
     const imagePicker = $("#image-picker");
 
     let src = currentUserAvatarEl.children('img[avatar]').attr('src');
-    // For dev purpose
-    if (vinacent?.fileServer?.length > 0 && src && src?.length > 0) {
-        src = src.slice(vinacent.fileServer.length);
-    }
+    
     // remove inner
     if (src === abp.setting.get('App.SiteUserAvatarHolder')) src = '';
     currentUserAvatarEl.html('');
@@ -21,7 +18,7 @@
         imagePicker.click();
     });
 
-    imagePicker.on('change', (event) => {
+    imagePicker.on('change', () => {
         const file = imagePicker.prop('files')[0];
         if (file) {
             const blob = URL.createObjectURL(file);

@@ -20,13 +20,6 @@ namespace VinaCent.Blaze.AppCore.UserLoginAttempts
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        Task DeleteAsync(long id);
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
         Task<PagedResultDto<UserLoginAttemptDto>> GetAllAsync(PagedUserLoginAttemptResultRequestDto input);

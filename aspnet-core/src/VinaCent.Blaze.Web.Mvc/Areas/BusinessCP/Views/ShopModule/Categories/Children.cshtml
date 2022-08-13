@@ -8,9 +8,9 @@
 @inject IVelzonThemeOptions ThemeOptions
 
 @{
-    ThemeOptions.AddBreadcrumb(L(LKConstants.BusinessCP)).AddBreadcrumb(L(LKConstants.Shop)).AddBreadcrumb(L(LKConstants.Shop_CategoryManagement)).AddBreadcrumb(L(LKConstants.Shop_CategoryManagement_ParentLevel)).Commit(this);
-    ViewBag.Title = L(LKConstants.Shop_CategoryManagement_ParentLevel) + " - " + L(LKConstants.Shop_CategoryManagement);
-    ViewBag.CurrentPageName = BusinessCpPageNames.ShopPageNames.Shop_CategoryManagement_ParentLevel;
+    ThemeOptions.AddBreadcrumb(L(LKConstants.BusinessCP)).AddBreadcrumb(L(LKConstants.Shop)).AddBreadcrumb(L(LKConstants.Shop_CategoryManagement)).AddBreadcrumb(L(LKConstants.Shop_CategoryManagement_ChildrenLevel)).Commit(this);
+    ViewBag.Title = L(LKConstants.Shop_CategoryManagement_ChildrenLevel) + " - " + L(LKConstants.Shop_CategoryManagement);
+    ViewBag.CurrentPageName = BusinessCpPageNames.ShopPageNames.Shop_CategoryManagement_ChildrenLevel;
 
     var commonRef = new
     {
