@@ -7,7 +7,7 @@ namespace VinaCent.Blaze.Authorization.Accounts.Dto
     public class ResetPasswordInput
     {
         [Required]
-        [RegularExpression(AvailableRegexs.EmailChecker)]
+        [RegularExpression(RegexLib.EmailChecker)]
         [AbpDisplayName(BlazeConsts.LocalizationSourceName, LKConstants.EmailAddress)]
         public string EmailAddress { get; set; }
 
@@ -17,7 +17,7 @@ namespace VinaCent.Blaze.Authorization.Accounts.Dto
 
         [Required]
         [AbpDisplayName(BlazeConsts.LocalizationSourceName, LKConstants.NewPassword)]
-        [RegularExpression(AvailableRegexs.PasswordRegex)]
+        [RegularExpression(RegexLib.PasswordRegex)]
         public string NewPassword { get; set; }
     }
 }

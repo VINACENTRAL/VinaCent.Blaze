@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VinaCent.Blaze.EntityFrameworkCore;
 
@@ -11,9 +12,10 @@ using VinaCent.Blaze.EntityFrameworkCore;
 namespace VinaCent.Blaze.Migrations
 {
     [DbContext(typeof(BlazeDbContext))]
-    partial class BlazeDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220814183129_Add.TranslatedField.v012915082022")]
+    partial class AddTranslatedFieldv012915082022
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

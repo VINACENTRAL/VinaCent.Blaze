@@ -1,4 +1,3 @@
-using System.ComponentModel.DataAnnotations.Schema;
 using Abp.Application.Services.Dto;
 using Abp.AutoMapper;
 using Abp.Domain.Entities;
@@ -7,7 +6,7 @@ using VinaCent.Blaze.BusinessCore.Shop;
 namespace VinaCent.Blaze.BusinessCore.ShopModule.Categories.Dto;
 
 [AutoMapFrom(typeof(Category))]
-public class CategoryLevelDto : EntityDto, IPassivable
+public class CategoryListDto : EntityDto, IPassivable
 {
     /// <summary>s
     /// The parent id to identify the parent category.
@@ -42,5 +41,5 @@ public class CategoryLevelDto : EntityDto, IPassivable
     /// <summary>
     /// Level of this category, start from 0 (Zero) as Parent
     /// </summary>
-    public virtual int Level { get; set; }
+    public int Level { get; set; }
 }

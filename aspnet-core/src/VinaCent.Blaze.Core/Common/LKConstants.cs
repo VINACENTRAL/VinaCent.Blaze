@@ -318,6 +318,16 @@ public static class LKConstants
     public const string LoginSuccessMessage = "LoginSuccessMessage";    
     public const string Title = "Title";
     public const string Slug = "Slug";
-    public const string ShopModule_CreateNewCategory = "ShopModule_CreateNewCategory";
-    public const string ShopModule_UpdateCategory = "ShopModule_UpdateCategory";
+    public const string ShopModule_CreateNewParentCategory = "ShopModule_CreateNewParentCategory";
+    public const string ShopModule_UpdateParentCategory = "ShopModule_UpdateParentCategory";
+    public const string ShopModule_CreateNewChildCategory = "ShopModule_CreateNewChildCategory";
+    public const string ShopModule_UpdateChildCategory = "ShopModule_UpdateChildCategory";
+    public const string ParentCategory = "ParentCategory";
+    public const string MetaTitle = "MetaTitle";
+    public const string LanguageName = "LanguageName";
+    public const string EntityName = "EntityName";
+    public const string EntityId = "EntityId";
+    public const string FieldName = "FieldName";
+    public const string LanguageText = "LanguageText";
+    public const string IsIgnore = "IsIgnore";
 }

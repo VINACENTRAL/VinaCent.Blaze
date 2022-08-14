@@ -38,6 +38,11 @@ namespace VinaCent.Blaze.BusinessCore.Shop
         /// </summary>
         public bool IsActive { get; set; }
 
+        /// <summary>
+        /// Level of this category
+        /// </summary>
+        public int Level { get; set; }
+
         [ForeignKey(nameof(ParentId))]
         public virtual Category ParentCategory { get; set; }
     }

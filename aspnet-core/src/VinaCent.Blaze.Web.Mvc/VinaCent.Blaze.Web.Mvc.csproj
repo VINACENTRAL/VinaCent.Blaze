@@ -559,9 +559,4 @@
     <_ContentIncludedByDefault Remove="wwwroot\libs-ext\famfamfam-flags\README.md" />
     <_ContentIncludedByDefault Remove="wwwroot\libs-ext\spin\jquery.spin.js" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Areas\BusinessCP\Models\ShopModule\Categories" />
-    <Folder Include="Areas\BusinessCP\Models\ShopModule\Products" />
-    <Folder Include="Areas\BusinessCP\Models\ShopModule\Tags" />
-  </ItemGroup>
 </Project>

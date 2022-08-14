@@ -1,4 +1,3 @@
-using System.ComponentModel.DataAnnotations.Schema;
 using Abp.Application.Services.Dto;
 using Abp.AutoMapper;
 using Abp.Domain.Entities;
@@ -38,6 +37,11 @@ public class CategoryDto : AuditedEntityDto, IPassivable
     /// The column used to notify current category is visible or not
     /// </summary>
     public bool IsActive { get; set; }
+
+    /// <summary>
+    /// Level of this category
+    /// </summary>
+    public int Level { get; set; }
 
     public virtual CategoryDto ParentCategory { get; set; }
 }
