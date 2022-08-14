@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VinaCent.Blaze.EntityFrameworkCore;
 
@@ -11,9 +12,10 @@ using VinaCent.Blaze.EntityFrameworkCore;
 namespace VinaCent.Blaze.Migrations
 {
     [DbContext(typeof(BlazeDbContext))]
-    partial class BlazeDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220814152520_Update.SHOP_Manage_Module.v215314082022")]
+    partial class UpdateSHOP_Manage_Modulev215314082022
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1466,44 +1468,6 @@ namespace VinaCent.Blaze.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("AppCore.TextTemplates");
-                });
-
-            modelBuilder.Entity("VinaCent.Blaze.AppCore.TranslateFields.TranslatedField", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long?>("CreatorUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("EntityId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("EntityName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FieldName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LanguageName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LanguageText")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("LastModificationTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long?>("LastModifierUserId")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("AppCore.TranslateFields");
                 });
 
             modelBuilder.Entity("VinaCent.Blaze.Authorization.Roles.Role", b =>

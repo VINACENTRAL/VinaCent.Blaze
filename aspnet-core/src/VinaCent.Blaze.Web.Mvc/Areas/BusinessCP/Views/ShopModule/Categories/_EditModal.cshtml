@@ -2,26 +2,35 @@
 @model VinaCent.Blaze.BusinessCore.ShopModule.Categories.Dto.UpdateCategoryDto
 @{
     Layout = null;
-    var title = L(LKConstants.ShopModule_UpdateCategory);
+    var currentLevel = (int)ViewBag.CurrentLevel;
+    var title = currentLevel == 0 ? L(LKConstants.ShopModule_UpdateParentCategory) : L(LKConstants.ShopModule_UpdateChildCategory);
 }
 @await Html.PartialAsync("~/Views/Shared/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(title))
 <form role="form" class="form-horizontal">
-    <input type="hidden" asp-for="Id"/>
-    <input type="hidden" asp-for="ParentId"/>
+    <input type="hidden" asp-for="Id" />
+    <input type="hidden" asp-for="ParentId" />
     <div class="modal-body">
+        @if (currentLevel != 0)
+        {
+            <div class="required mb-3">
+                <label class="form-label" asp-for="ParentId"></label>
+                <select class="form-control" asp-for="ParentId" asp-items="@ViewBag.Parents"></select>
+                <span asp-validation-for="ParentId" class="invalid-feedback"></span>
+            </div>
+        }
         <div class="required mb-3">
             <label class="form-label" asp-for="Title"></label>
-            <input type="text" asp-for="Title" class="form-control"/>
+            <input type="text" asp-for="Title" class="form-control" />
             <span asp-validation-for="Title" class="invalid-feedback"></span>
         </div>
         <div class="required mb-3">
             <label class="form-label" asp-for="MetaTitle"></label>
-            <input type="text" asp-for="MetaTitle" class="form-control"/>
+            <input type="text" asp-for="MetaTitle" class="form-control" />
             <span asp-validation-for="MetaTitle" class="invalid-feedback"></span>
         </div>
         <div class="required mb-3">
             <label class="form-label" asp-for="Slug"></label>
-            <input type="text" asp-for="Slug" class="form-control"/>
+            <input type="text" asp-for="Slug" class="form-control" slug-of="#Title" />
             <span asp-validation-for="Slug" class="invalid-feedback"></span>
         </div>
         <div class="required mb-3">

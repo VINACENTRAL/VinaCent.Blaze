@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Abp.Application.Services;
-using Abp.Application.Services.Dto;
 using Abp.Domain.Repositories;
 using Abp.Extensions;
 using Abp.Linq.Extensions;
@@ -35,9 +34,9 @@ public class ShopCategoryAppService:AsyncCrudAppService<Category, CategoryDto, i
         return query.OrderBy(x => x.Title).ThenByDescending(x => x.CreationTime);
     }
 
-    public async Task<List<CategoryLevelDto>> GetAllParentListAsync(int id)
+    public async Task<List<CategoryListDto>> GetAllParentListAsync(int id)
     {
-        var parents = new List<CategoryLevelDto>();
+        var parents = new List<CategoryListDto>();
 
         var current = await Repository.GetAsync(id);
 
@@ -47,10 +46,16 @@ public class ShopCategoryAppService:AsyncCrudAppService<Category, CategoryDto, i
         while (parentId.HasValue)
         {
             var parent = await Repository.GetAsync(parentId.Value);
-            parents = parents.Prepend(ObjectMapper.Map<CategoryLevelDto>(parent)).ToList();
+            parents = parents.Prepend(ObjectMapper.Map<CategoryListDto>(parent)).ToList();
             parentId = parent.ParentId;
         }
 
         return parents;
+    }
+
+    public async Task<List<CategoryListDto>> GetAllListByLevelAsync(int level)
+    {
+        var listResult = await Repository.GetAllListAsync(x => x.Level == level && x.IsActive);
+        return ObjectMapper.Map<List<CategoryListDto>>(listResult);
     }
 }

@@ -5,6 +5,35 @@ namespace VinaCent.Blaze.Utilities
 {
     public static class StringUtils
     {
+        private static readonly string[] VietnameseSigns = new string[] {
+            "aAeEoOuUiIdDyY",
+            "áàạảãâấầậẩẫăắằặẳẵ",
+            "ÁÀẠẢÃÂẤẦẬẨẪĂẮẰẶẲẴ",
+            "éèẹẻẽêếềệểễ",
+            "ÉÈẸẺẼÊẾỀỆỂỄ",
+            "óòọỏõôốồộổỗơớờợởỡ",
+            "ÓÒỌỎÕÔỐỒỘỔỖƠỚỜỢỞỠ",
+            "úùụủũưứừựửữ",
+            "ÚÙỤỦŨƯỨỪỰỬỮ",
+            "íìịỉĩ",
+            "ÍÌỊỈĨ",
+            "đ",
+            "Đ",
+            "ýỳỵỷỹ",
+            "ÝỲỴỶỸ"
+        };
+
+        public static string RemoveVietnameseAccent(this string str)
+        {
+            //Tiến hành thay thế , lọc bỏ dấu cho chuỗi
+            for (int i = 1; i < VietnameseSigns.Length; i++)
+            {
+                for (int j = 0; j < VietnameseSigns[i].Length; j++)
+                    str = str.Replace(VietnameseSigns[i][j], VietnameseSigns[0][i - 1]);
+            }
+            return str;
+        }
+
         public static string Remove(this string input, params string[] defacts)
         {
             foreach (var defact in defacts)
@@ -38,17 +67,20 @@ namespace VinaCent.Blaze.Utilities
             return result;
         }
 
-        public static string GenerateSlug(this string phrase)
+        public static string GenerateSlug(this string phrase, int maxLength = -1)
         {
-            string str = phrase.RemoveAccent().ToLower();
+            phrase = phrase.RemoveVietnameseAccent().RemoveAccent().ToLower();
             // invalid chars           
-            str = Regex.Replace(str, @"[^a-z0-9\s-]", "");
+            phrase = Regex.Replace(phrase, @"[^a-z0-9\s-]", "");
             // convert multiple spaces into one space   
-            str = Regex.Replace(str, @"\s+", " ").Trim();
+            phrase = Regex.Replace(phrase, @"\s+", " ").Trim();
             // cut and trim 
-            str = str.Substring(0, str.Length <= 45 ? str.Length : 45).Trim();
-            str = Regex.Replace(str, @"\s", "-"); // hyphens   
-            return str;
+            if (maxLength > 0)
+            {
+                phrase = phrase.Substring(0, phrase.Length <= maxLength ? phrase.Length : maxLength).Trim();
+            }
+            phrase = Regex.Replace(phrase, @"\s", "-"); // hyphens   
+            return phrase;
         }
 
         public static string RemoveAccent(this string txt)

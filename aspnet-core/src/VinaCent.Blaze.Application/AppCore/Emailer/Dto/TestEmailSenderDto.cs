@@ -7,7 +7,7 @@ namespace VinaCent.Blaze.Web.Areas.AdminCP.Models.EmailConfiguration.SetUpMailSe
 {
     public class TestEmailSenderDto
     {
-        [RegularExpression(AvailableRegexs.EmailListSeprateByCommaChecker,
+        [RegularExpression(RegexLib.EmailListSeprateByCommaChecker,
             ErrorMessage = "Invalid. Ex: email1@vinacent.com, email2@vinacent.com")]
         [AbpDisplayName(BlazeConsts.LocalizationSourceName, LKConstants.Receivers)]
         public string Receivers { get; set; }

@@ -11,7 +11,7 @@ namespace VinaCent.Blaze.Profiles.Dto
 
         [Required]
         [AbpDisplayName(BlazeConsts.LocalizationSourceName, LKConstants.NewEmail)]
-        [RegularExpression(AvailableRegexs.EmailChecker)]
+        [RegularExpression(RegexLib.EmailChecker)]
         public string NewEmail { get; set; }
 
         [Required]

@@ -13,7 +13,7 @@ public class TestTextTemplateDto
     [AbpDisplayName(BlazeConsts.LocalizationSourceName, LKConstants.Parameters)]
     public string Parameters { get; set; }
 
-    [RegularExpression(AvailableRegexs.EmailChecker,
+    [RegularExpression(RegexLib.EmailChecker,
         ErrorMessage = "Invalid. Ex: email1@vinacent.com")]
     [AbpDisplayName(BlazeConsts.LocalizationSourceName, LKConstants.Receiver)]
     public string Receiver { get; set; }

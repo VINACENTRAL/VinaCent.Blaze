@@ -8,7 +8,7 @@ namespace VinaCent.Blaze.Web.Models.Account
     {
         [Required]
         [AbpDisplayName(BlazeConsts.LocalizationSourceName, LKConstants.EmailAddress)]
-        [RegularExpression(AvailableRegexs.EmailChecker)]
+        [RegularExpression(RegexLib.EmailChecker)]
         public string EmailAddress { get; set; }
     }
 }

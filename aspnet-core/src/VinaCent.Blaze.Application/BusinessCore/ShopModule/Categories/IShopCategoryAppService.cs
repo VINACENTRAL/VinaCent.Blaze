@@ -13,7 +13,12 @@ public interface IShopCategoryAppService: IAsyncCrudAppService<CategoryDto, int,
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    Task<List<CategoryLevelDto>> GetAllParentListAsync(int id);
+    Task<List<CategoryListDto>> GetAllParentListAsync(int id);
+
+    Task<List<CategoryListDto>> GetAllListByLevelAsync(int level);
+
+
+
     //
     // /// <summary>
     // /// Get all nearest level cateory. Ex in level 0 will get paged result level 1
