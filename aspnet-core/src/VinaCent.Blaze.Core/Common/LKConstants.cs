@@ -330,4 +330,6 @@ public static class LKConstants
     public const string FieldName = "FieldName";
     public const string LanguageText = "LanguageText";
     public const string IsIgnore = "IsIgnore";
+    public const string RootDirectory = "RootDirectory";
+    public const string Delete = "Delete"; 
 }

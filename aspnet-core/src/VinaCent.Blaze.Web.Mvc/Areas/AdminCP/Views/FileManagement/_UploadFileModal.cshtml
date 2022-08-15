@@ -1,20 +1,72 @@
 ﻿@using VinaCent.Blaze.Web.Models.Common.Modals
 @using VinaCent.Blaze.AppCore.FileUnits.Dto
+@using VinaCent.Blaze.Web.Resources
 @model UploadFileUnitDto
+@inject IWebResourceManager WebResourceManager
 @{
     Layout = null;
+
+    WebResourceManager.AddScript("view-resources/Views/FileManagement/upload-file-modal.js");
 }
 <div class="modal fade" id="UploadFileModal" tabindex="-1" role="dialog" aria-labelledby="UploadFileModalLabel" data-backdrop="static">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             @await Html.PartialAsync("~/Views/Shared/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L(LKConstants.UploadFile)))
             <form id="uploadFileForm" role="form" class="form-horizontal" enctype="multipart/form-data">
+                <div class="fallback">
+                    <input asp-for="File" type="file" style="display: none; " />
+                </div>
                 <div class="modal-body">
                     <input type="hidden" asp-for="ParentId" id="current-directory-2">
-                    <div class="mb-3">
+                    @*<div class="mb-3">
                         <label class="form-label" asp-for="File">@L(LKConstants.PickAFileToUpload)</label>
                         <input type="file" asp-for="File" class="form-control">
                         <span asp-validation-for="File" class="text-danger"></span>
+                    </div>*@
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="dropzone">
+                                        <div class="dz-message needsclick">
+                                            <div class="mb-3">
+                                                <i class="display-4 text-muted ri-upload-cloud-2-fill"></i>
+                                            </div>
+
+                                            <h4>@L(LKConstants.PickAFileToUpload)</h4>
+                                        </div>
+                                    </div>
+
+                                    <ul class="list-unstyled mb-0" id="dropzone-preview">
+                                        <li class="mt-2" id="dropzone-preview-list">
+                                            <!-- This is used as the file preview template -->
+                                            <div class="border rounded">
+                                                <div class="d-flex p-2">
+                                                    <div class="flex-shrink-0 me-3">
+                                                        <div class="avatar-sm bg-light rounded">
+                                                            <img data-dz-thumbnail class="img-fluid rounded d-block" src="#" alt="Dropzone-Image" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="flex-grow-1">
+                                                        <div class="pt-1">
+                                                            <h5 class="fs-14 mb-1" data-dz-name>&nbsp;</h5>
+                                                            <p class="fs-13 text-muted mb-0" data-dz-size></p>
+                                                            <strong class="error text-danger" data-dz-errormessage></strong>
+                                                        </div>
+                                                    </div>
+                                                    <div class="flex-shrink-0 ms-3">
+                                                        <button data-dz-remove class="btn btn-sm btn-danger">Delete</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <!-- end dropzon-preview -->
+                                </div>
+                                <!-- end card body -->
+                            </div>
+                            <!-- end card -->
+                        </div> <!-- end col -->
                     </div>
                     <div class="mb-3">
                         <label class="form-label" asp-for="Description">@L(LKConstants.Description)</label>
@@ -26,3 +78,19 @@
         </div>
     </div>
 </div>
+
+@*<script>
+  Dropzone.options.uploadFileForm = {
+    maxFiles: 1,
+    accept: function(file, done) {
+        console.log("uploaded");
+        done();
+    },
+    init: function() {
+        this.on("maxfilesexceeded", function(file){
+            alert("No moar files please!");
+        }); 
+    }
+  };
+</script>*@
+

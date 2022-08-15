@@ -29,12 +29,12 @@
 
         const input = changePasswordForm.serializeFormToObject();
 
-        if (input.newPassword !== input.newPasswordConfirm || input.newPassword.length === 0) {
+        if (input['NewPassword'] !== input['NewPasswordConfirm'] || input['NewPassword'].length === 0) {
             abp.message.error(l(LKConstants.NewPasswordConfirmFailed));
             return;
         }
 
-        if (!input || input.currentPassword.length === 0) {
+        if (!input || input['CurrentPassword'].length === 0) {
             return;
         }
 
@@ -48,7 +48,6 @@
     abp.event.on('passwordChanged', updateConcurrencyStamp);
 
     const modal = $('UpdateAvatarModal');
-    const src = document.getElementById('crr-user-avt').getAttribute('vnc-src');
 
     modal.on('shown.bs.modal', () => {
 
