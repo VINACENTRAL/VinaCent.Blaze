@@ -1,14 +1,14 @@
 ﻿using Abp.Localization;
-using System.ComponentModel.DataAnnotations;
+using VinaCent.Blaze.DataAnnotations;
 
 namespace VinaCent.Blaze.Profiles.Dto
 {
     public class ConfirmCodeDto
     {
-        [Required]
+        [AppRequired]
         public string Token { get; set; }
 
-        [Required]
+        [AppRequired]
         [AbpDisplayName(BlazeConsts.LocalizationSourceName, LKConstants.ConfirmCode)]
         public string ConfirmCode { get; set; }
     }

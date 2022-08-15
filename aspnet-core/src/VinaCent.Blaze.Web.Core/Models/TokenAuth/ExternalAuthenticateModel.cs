@@ -1,19 +1,20 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Abp.Authorization.Users;
+using VinaCent.Blaze.DataAnnotations;
 
 namespace VinaCent.Blaze.Models.TokenAuth
 {
     public class ExternalAuthenticateModel
     {
-        [Required]
-        [StringLength(UserLogin.MaxLoginProviderLength)]
+        [AppRequired]
+        [AppStringLength(UserLogin.MaxLoginProviderLength)]
         public string AuthProvider { get; set; }
 
-        [Required]
-        [StringLength(UserLogin.MaxProviderKeyLength)]
+        [AppRequired]
+        [AppStringLength(UserLogin.MaxProviderKeyLength)]
         public string ProviderKey { get; set; }
 
-        [Required]
+        [AppRequired]
         public string ProviderAccessCode { get; set; }
     }
 }

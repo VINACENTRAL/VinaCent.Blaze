@@ -1,10 +1,6 @@
 ﻿using Abp.AutoMapper;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using VinaCent.Blaze.DataAnnotations;
 
 namespace VinaCent.Blaze.AppCore.FileUnits.Dto
 {
@@ -19,8 +15,8 @@ namespace VinaCent.Blaze.AppCore.FileUnits.Dto
         /// <summary>
         /// Folder name
         /// </summary>
-        [Required]
-        [RegularExpression(@"^[\w\-. ]+$")]
+        [AppRequired]
+        [AppRegex(@"^[\w\-. ]+$")]
         public string Name { get; set; }
 
         /// <summary>

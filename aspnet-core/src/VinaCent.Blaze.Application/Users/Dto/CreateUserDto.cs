@@ -4,35 +4,37 @@ using Abp.Authorization.Users;
 using Abp.AutoMapper;
 using Abp.Runtime.Validation;
 using VinaCent.Blaze.Authorization.Users;
+using VinaCent.Blaze.Common;
+using VinaCent.Blaze.DataAnnotations;
 
 namespace VinaCent.Blaze.Users.Dto
 {
     [AutoMapTo(typeof(User))]
     public class CreateUserDto : IShouldNormalize
     {
-        [Required]
-        [StringLength(AbpUserBase.MaxUserNameLength)]
+        [AppRequired]
+        [AppStringLength(AbpUserBase.MaxUserNameLength)]
         public string UserName { get; set; }
 
-        [Required]
-        [StringLength(AbpUserBase.MaxNameLength)]
+        [AppRequired]
+        [AppStringLength(AbpUserBase.MaxNameLength)]
         public string Name { get; set; }
 
-        [Required]
-        [StringLength(AbpUserBase.MaxSurnameLength)]
+        [AppRequired]
+        [AppStringLength(AbpUserBase.MaxSurnameLength)]
         public string Surname { get; set; }
 
-        [Required]
-        [EmailAddress]
-        [StringLength(AbpUserBase.MaxEmailAddressLength)]
+        [AppRequired]
+        [AppRegex(RegexLib.EmailChecker)]
+        [AppStringLength(AbpUserBase.MaxEmailAddressLength)]
         public string EmailAddress { get; set; }
 
         public bool IsActive { get; set; }
 
         public string[] RoleNames { get; set; }
 
-        [Required]
-        [StringLength(AbpUserBase.MaxPlainPasswordLength)]
+        [AppRequired]
+        [AppStringLength(AbpUserBase.MaxPlainPasswordLength)]
         [DisableAuditing]
         public string Password { get; set; }
 

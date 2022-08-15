@@ -278,18 +278,13 @@
     }
 
     $.fn.filePond = function (options = {}) {
-        if (options && options['labelIdle']?.length == 0) {
+        if (!options || !options.labelIdle) {
             options['labelIdle'] = l(LKConstants.FilePickSuggestionMessage);
         }
-
-        const els = [...$(this)];
-
-        const result = els.map((el) => {
+        const result = [...$(this)].map((el) => {
             return FilePond.create(el, options);
         });
-
         if (result.length === 1) return result[0];
-
         return result;
     }
 })(jQuery);

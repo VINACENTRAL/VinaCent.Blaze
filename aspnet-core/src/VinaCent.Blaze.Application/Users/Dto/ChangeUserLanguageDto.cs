@@ -1,10 +1,10 @@
-using System.ComponentModel.DataAnnotations;
+using VinaCent.Blaze.DataAnnotations;
 
 namespace VinaCent.Blaze.Users.Dto
 {
     public class ChangeUserLanguageDto
     {
-        [Required]
+        [AppRequired]
         public string LanguageName { get; set; }
     }
 }

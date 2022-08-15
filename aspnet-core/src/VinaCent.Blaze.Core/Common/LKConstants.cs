@@ -331,5 +331,8 @@ public static class LKConstants
     public const string LanguageText = "LanguageText";
     public const string IsIgnore = "IsIgnore";
     public const string RootDirectory = "RootDirectory";
-    public const string Delete = "Delete"; 
+    public const string Delete = "Delete";
+    public const string Field_X_IsRequired = "Field_X_IsRequired";
+    public const string TheField_X_MustBeAStringWithAMaximumLengthOf_Y = "TheField_X_MustBeAStringWithAMaximumLengthOf_Y";
+    
 }

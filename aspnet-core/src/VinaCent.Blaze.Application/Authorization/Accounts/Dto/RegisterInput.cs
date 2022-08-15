@@ -3,31 +3,33 @@ using System.ComponentModel.DataAnnotations;
 using Abp.Auditing;
 using Abp.Authorization.Users;
 using Abp.Extensions;
+using VinaCent.Blaze.Common;
+using VinaCent.Blaze.DataAnnotations;
 using VinaCent.Blaze.Validation;
 
 namespace VinaCent.Blaze.Authorization.Accounts.Dto
 {
     public class RegisterInput : IValidatableObject
     {
-        [Required]
-        [StringLength(AbpUserBase.MaxNameLength)]
+        [AppRequired]
+        [AppStringLength(AbpUserBase.MaxNameLength)]
         public string Name { get; set; }
 
-        [Required]
-        [StringLength(AbpUserBase.MaxSurnameLength)]
+        [AppRequired]
+        [AppStringLength(AbpUserBase.MaxSurnameLength)]
         public string Surname { get; set; }
 
-        [Required]
-        [StringLength(AbpUserBase.MaxUserNameLength)]
+        [AppRequired]
+        [AppStringLength(AbpUserBase.MaxUserNameLength)]
         public string UserName { get; set; }
 
-        [Required]
-        [EmailAddress]
-        [StringLength(AbpUserBase.MaxEmailAddressLength)]
+        [AppRequired]
+        [AppRegex(RegexLib.EmailChecker)]
+        [AppStringLength(AbpUserBase.MaxEmailAddressLength)]
         public string EmailAddress { get; set; }
 
-        [Required]
-        [StringLength(AbpUserBase.MaxPlainPasswordLength)]
+        [AppRequired]
+        [AppStringLength(AbpUserBase.MaxPlainPasswordLength)]
         [DisableAuditing]
         public string Password { get; set; }
 

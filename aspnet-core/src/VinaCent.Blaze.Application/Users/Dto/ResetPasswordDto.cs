@@ -1,16 +1,16 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using VinaCent.Blaze.DataAnnotations;
 
 namespace VinaCent.Blaze.Users.Dto
 {
     public class ResetPasswordDto
     {
-        [Required]
+        [AppRequired]
         public string AdminPassword { get; set; }
 
-        [Required]
+        [AppRequired]
         public long UserId { get; set; }
 
-        [Required]
+        [AppRequired]
         public string NewPassword { get; set; }
     }
 }

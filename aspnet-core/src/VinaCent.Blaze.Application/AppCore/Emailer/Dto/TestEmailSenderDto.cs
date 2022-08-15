@@ -1,18 +1,16 @@
 ﻿using Abp.Localization;
-using System;
-using System.ComponentModel.DataAnnotations;
 using VinaCent.Blaze.Common;
+using VinaCent.Blaze.DataAnnotations;
 
 namespace VinaCent.Blaze.Web.Areas.AdminCP.Models.EmailConfiguration.SetUpMailServer
 {
     public class TestEmailSenderDto
     {
-        [RegularExpression(RegexLib.EmailListSeprateByCommaChecker,
-            ErrorMessage = "Invalid. Ex: email1@vinacent.com, email2@vinacent.com")]
+        [AppRegex(RegexLib.EmailListSeprateByCommaChecker)]
         [AbpDisplayName(BlazeConsts.LocalizationSourceName, LKConstants.Receivers)]
         public string Receivers { get; set; }
 
-        [Required]
+        [AppRequired]
         [AbpDisplayName(BlazeConsts.LocalizationSourceName, LKConstants.Content)]
         public string Content { get; set; }
     }

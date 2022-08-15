@@ -1,13 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using VinaCent.Blaze.DataAnnotations;
 
 namespace VinaCent.Blaze.Profiles.Dto
 {
     public class ChangePasswordDto
     {
-        [Required]
+        [AppRequired]
         public string CurrentPassword { get; set; }
 
-        [Required]
+        [AppRequired]
         public string NewPassword { get; set; }
     }
 }

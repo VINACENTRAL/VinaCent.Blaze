@@ -1,23 +1,23 @@
 ﻿using Abp.Localization;
-using System.ComponentModel.DataAnnotations;
 using VinaCent.Blaze.Common;
+using VinaCent.Blaze.DataAnnotations;
 
 namespace VinaCent.Blaze.Authorization.Accounts.Dto
 {
     public class ResetPasswordInput
     {
-        [Required]
-        [RegularExpression(RegexLib.EmailChecker)]
+        [AppRequired]
+        [AppRegex(RegexLib.EmailChecker)]
         [AbpDisplayName(BlazeConsts.LocalizationSourceName, LKConstants.EmailAddress)]
         public string EmailAddress { get; set; }
 
-        [Required]
+        [AppRequired]
         [AbpDisplayName(BlazeConsts.LocalizationSourceName, LKConstants.Token)]
         public string Token { get; set; }
 
-        [Required]
+        [AppRequired]
         [AbpDisplayName(BlazeConsts.LocalizationSourceName, LKConstants.NewPassword)]
-        [RegularExpression(RegexLib.PasswordRegex)]
+        [AppRegex(RegexLib.PasswordRegex)]
         public string NewPassword { get; set; }
     }
 }
