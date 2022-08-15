@@ -250,7 +250,7 @@
 
     function renderBreadcrumb() {
         const breadcumbs = [];
-        breadcumbs.push('<div class="progress-bar"><span class="px-3 pointer" data-change-dir=""><i class="mdi mdi-folder-home"></i> Thư mục gốc</span></div>');
+        breadcumbs.push(`<div class="progress-bar"><span class="px-3 pointer" data-change-dir=""><i class="mdi mdi-folder-home"></i>${l(LKConstants.RootDirectory)}</span></div>`);
         breadcrumbStorage.forEach((item) => {
             breadcumbs.push(`<div class="progress-bar"><span class="px-3 pointer" data-change-dir="${item.id}">${item.name}</span></div>`);
         });
@@ -305,4 +305,5 @@
             return false;
         }
     });
+
 })(jQuery);

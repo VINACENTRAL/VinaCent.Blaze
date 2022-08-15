@@ -23,6 +23,7 @@
     static DataTable_Show_MENU_Entries = 'DataTable_Show_MENU_Entries';
     static NoMatchingRecordsFound = 'NoMatchingRecordsFound';
     static Directory = 'Directory';
+    static RootDirectory = 'RootDirectory';
     static ChangeEmailSuccessMessage = 'ChangeEmailSuccessMessage';
 
     // ============================== START BUSINESS CORE ============================== //

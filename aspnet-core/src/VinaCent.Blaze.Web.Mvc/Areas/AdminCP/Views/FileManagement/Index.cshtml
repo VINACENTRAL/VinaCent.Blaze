@@ -12,15 +12,31 @@
 }
 
 @section styles {
-<style>
-    .table-card td:first-child, .table-card th:first-child {
-        padding-left: 26px;
-    }
-</style>
+    <!-- dropzone css -->
+    <link rel="stylesheet" href="velzon/libs/dropzone/dropzone.css" type="text/css" />
+
+    <!-- Filepond css -->
+    <link rel="stylesheet" href="velzon/libs/filepond/filepond.min.css" type="text/css" />
+    <link rel="stylesheet" href="velzon/libs/filepond-plugin-image-preview/filepond-plugin-image-preview.min.css">
+
+    <style>
+        .table-card td:first-child, .table-card th:first-child {
+            padding-left: 26px;
+        }
+    </style>
 }
 
 @section scripts {
-<script src="~/view-resources/Views/FileManagement/Index.js" asp-append-version="true"></script>
+    <!-- dropzone min -->
+<script src="velzon/libs/dropzone/dropzone-min.js" asp-append-version="true"></script>
+<!-- filepond js -->
+<script src="velzon/libs/filepond/filepond.min.js" asp-append-version="true"></script>
+<script src="velzon/libs/filepond-plugin-image-preview/filepond-plugin-image-preview.min.js" asp-append-version="true"></script>
+<script src="velzon/libs/filepond-plugin-file-validate-size/filepond-plugin-file-validate-size.min.js" asp-append-version="true"></script>
+<script src="velzon/libs/filepond-plugin-image-exif-orientation/filepond-plugin-image-exif-orientation.min.js" asp-append-version="true"></script>
+<script src="velzon/libs/filepond-plugin-file-encode/filepond-plugin-file-encode.min.js" asp-append-version="true"></script>
+
+    <script src="~/view-resources/Views/FileManagement/Index.js" asp-append-version="true"></script>
 }
 
 <div class="card">
@@ -44,7 +60,7 @@
     <div class="card-body">
         <div class="mb-3">
             <div class="progress progress-step-arrow progress-primary app-file" id="appfilebreadcrumbs">
-                <div class="progress-bar"><span class="px-3"><i class="mdi mdi-folder-home"></i> Thư mục gốc</span></div>
+                <div class="progress-bar"><span class="px-3"><i class="mdi mdi-folder-home"></i>@L(LKConstants.RootDirectory)</span></div>
             </div>
         </div>
         <div class="table-responsive">
