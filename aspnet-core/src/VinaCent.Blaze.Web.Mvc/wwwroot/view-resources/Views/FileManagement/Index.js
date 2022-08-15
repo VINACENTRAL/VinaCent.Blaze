@@ -5,6 +5,7 @@
         _$directoryCreateForm = _$directoryCreateModal.find('form'),
         _$uploadFileModal = $('#UploadFileModal'),
         _$uploadFileForm = _$uploadFileModal.find('form'),
+        _$filePond = $('#file-uploader').filePond(),
         _$table = $('#FileUnitsTable');
 
     var _$fileUnitsTable = _$table.DataTable({
@@ -89,10 +90,10 @@
                 defaultContent: '',
                 render: (data, type, row, meta) => {
                     return [
-                        `   <button type="button" class="btn btn-sm ${row.isStatic?'disabled btn-light':' btn-warning edit-file-unit'}" data-file-unit-id="${row.id}" data-bs-toggle="modal" data-bs-target="#RenameFileUnitModal">`,
+                        `   <button type="button" class="btn btn-sm ${row.isStatic ? 'disabled btn-light' : ' btn-warning edit-file-unit'}" data-file-unit-id="${row.id}" data-bs-toggle="modal" data-bs-target="#RenameFileUnitModal">`,
                         `       <i class="fas fa-pencil-alt"></i> ${l(LKConstants.Rename)}`,
                         '   </button>',
-                        `   <button type="button" class="btn btn-sm ${row.isStatic?'disabled btn-light':'btn-danger delete-file-unit'}" data-file-unit-id="${row.id}" data-file-unit-name="${row.name}">`,
+                        `   <button type="button" class="btn btn-sm ${row.isStatic ? 'disabled btn-light' : 'btn-danger delete-file-unit'}" data-file-unit-id="${row.id}" data-file-unit-name="${row.name}">`,
                         `       <i class="fas fa-trash"></i> ${l(LKConstants.Delete)}`,
                         '   </button>',
                     ].join('');
@@ -140,8 +141,9 @@
 
         abp.ui.setBusy(_$uploadFileForm);
         const crrForm = document.getElementById('uploadFileForm');
-        var input = crrForm.querySelector('input[type="file"]');
-        var files = input.files;
+
+        var files = _$filePond.getFiles().map((fileObj) => fileObj.file);
+
         var formData = new FormData(crrForm);
 
         for (var i = 0; i !== files.length; i++) {
