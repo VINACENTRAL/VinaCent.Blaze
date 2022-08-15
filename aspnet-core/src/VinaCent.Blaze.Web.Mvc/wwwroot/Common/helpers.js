@@ -23,13 +23,15 @@
         const currentInputSlugField = $(this);
         const inputRef = currentInputSlugField.attr('slug-of');
 
+        if (!inputRef || inputRef?.length === 0) return;
+
         const input = document.querySelector(`input${inputRef}`);
         input.addEventListener('input', () => {
             currentInputSlugField.val(renderSlug(input.value));
         });
     }
 
-    $('[slug-of]').slug();
+    $('[slug-of]')?.slug();
     // =============================================================== //
 })();
 
