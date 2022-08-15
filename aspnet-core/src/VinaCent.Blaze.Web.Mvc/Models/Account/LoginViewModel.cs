@@ -1,14 +1,14 @@
-﻿using System.ComponentModel.DataAnnotations;
-using Abp.Auditing;
+﻿using Abp.Auditing;
+using VinaCent.Blaze.DataAnnotations;
 
 namespace VinaCent.Blaze.Web.Models.Account
 {
     public class LoginViewModel
     {
-        [Required]
+        [AppRequired]
         public string UsernameOrEmailAddress { get; set; }
 
-        [Required]
+        [AppRequired]
         [DisableAuditing]
         public string Password { get; set; }
 

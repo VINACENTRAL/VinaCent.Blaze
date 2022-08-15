@@ -23,7 +23,7 @@
 
         //add also disabled items
         $(':disabled[name]', this).each(function () {
-            data.push({name: this.name, value: $(this).val()});
+            data.push({ name: this.name, value: $(this).val() });
         });
 
         //map to object
@@ -181,7 +181,8 @@
 
         return _$dataTable;
     };
-    $.fn.modalCreate = function(ajaxFunction, onSuccess, onShow, onHide) {
+
+    $.fn.modalCreate = function (ajaxFunction, onSuccess, onShow, onHide) {
         const _$modal = $(this);
         const _$formCreate = _$modal.find('form');
 
@@ -227,7 +228,8 @@
             }
         });
     }
-    $.fn.modalUpdate = function(ajaxFunction, onSuccess, onShow, onHide) {
+
+    $.fn.modalUpdate = function (ajaxFunction, onSuccess, onShow, onHide) {
         const _$modal = $(this);
         const _$formUpdate = _$modal.find('form');
 
@@ -242,7 +244,7 @@
             ajaxFunction(formObjected).done(function () {
                 _$modal.modal('hide');
                 abp.notify.success(l(LKConstants.SavedSuccessfully));
-                if (onSuccess && typeof  onSuccess === 'function') {
+                if (onSuccess && typeof onSuccess === 'function') {
                     onSuccess();
                 }
             }).always(function () {
@@ -274,5 +276,15 @@
             }
         });
     }
-    
+
+    $.fn.filePond = function (options = {}) {
+        if (!options || !options.labelIdle) {
+            options['labelIdle'] = l(LKConstants.FilePickSuggestionMessage);
+        }
+        const result = [...$(this)].map((el) => {
+            return FilePond.create(el, options);
+        });
+        if (result.length === 1) return result[0];
+        return result;
+    }
 })(jQuery);

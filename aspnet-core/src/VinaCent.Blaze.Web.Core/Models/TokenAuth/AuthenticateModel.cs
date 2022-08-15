@@ -1,17 +1,17 @@
-﻿using System.ComponentModel.DataAnnotations;
-using Abp.Auditing;
+﻿using Abp.Auditing;
 using Abp.Authorization.Users;
+using VinaCent.Blaze.DataAnnotations;
 
 namespace VinaCent.Blaze.Models.TokenAuth
 {
     public class AuthenticateModel
     {
-        [Required]
-        [StringLength(AbpUserBase.MaxEmailAddressLength)]
+        [AppRequired]
+        [AppStringLength(AbpUserBase.MaxEmailAddressLength)]
         public string UserNameOrEmailAddress { get; set; }
 
-        [Required]
-        [StringLength(AbpUserBase.MaxPlainPasswordLength)]
+        [AppRequired]
+        [AppStringLength(AbpUserBase.MaxPlainPasswordLength)]
         [DisableAuditing]
         public string Password { get; set; }
 

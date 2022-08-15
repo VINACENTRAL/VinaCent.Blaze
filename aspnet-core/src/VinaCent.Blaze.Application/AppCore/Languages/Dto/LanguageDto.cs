@@ -3,6 +3,7 @@ using Abp.AutoMapper;
 using Abp.Domain.Entities;
 using Abp.Localization;
 using System.ComponentModel.DataAnnotations;
+using VinaCent.Blaze.DataAnnotations;
 
 namespace VinaCent.Blaze.AppCore.Languages.Dto
 {
@@ -18,15 +19,15 @@ namespace VinaCent.Blaze.AppCore.Languages.Dto
         /// <summary>
         /// Gets or sets the name of the culture, like "en" or "en-US".
         /// </summary>
-        [Required]
-        [StringLength(ApplicationLanguage.MaxNameLength)]
+        [AppRequired]
+        [AppStringLength(ApplicationLanguage.MaxNameLength)]
         public string Name { get; set; }
 
         /// <summary>
         /// Gets or sets the display name.
         /// </summary>
-        [Required]
-        [StringLength(ApplicationLanguage.MaxDisplayNameLength)]
+        [AppRequired]
+        [AppStringLength(ApplicationLanguage.MaxDisplayNameLength)]
         public string DisplayName { get; set; }
 
         public virtual bool IsDefault { get; set; } = false;

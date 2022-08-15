@@ -1,7 +1,7 @@
 ﻿using Abp.AutoMapper;
 using Abp.Domain.Entities;
 using Abp.Localization;
-using System.ComponentModel.DataAnnotations;
+using VinaCent.Blaze.DataAnnotations;
 
 namespace VinaCent.Blaze.AppCore.LanguageTexts.Dto
 {
@@ -16,29 +16,29 @@ namespace VinaCent.Blaze.AppCore.LanguageTexts.Dto
         /// <summary>
         /// Language name (culture name). Matches to <see cref="ApplicationLanguage.Name"/>.
         /// </summary>
-        [Required]
-        [StringLength(ApplicationLanguage.MaxNameLength)]
+        [AppRequired]
+        [AppStringLength(ApplicationLanguage.MaxNameLength)]
         public string LanguageName { get; set; }
 
         /// <summary>
         /// Localization source name
         /// </summary>
-        [Required]
-        [StringLength(ApplicationLanguageText.MaxSourceNameLength)]
+        [AppRequired]
+        [AppStringLength(ApplicationLanguageText.MaxSourceNameLength)]
         public string Source { get; set; }
 
         /// <summary>
         /// Localization key
         /// </summary>
-        [Required]
-        [StringLength(ApplicationLanguageText.MaxKeyLength)]
+        [AppRequired]
+        [AppStringLength(ApplicationLanguageText.MaxKeyLength)]
         public string Key { get; set; }
 
         /// <summary>
         /// Localized value
         /// </summary>
-        [Required(AllowEmptyStrings = true)]
-        [StringLength(ApplicationLanguageText.MaxValueLength)]
+        [AppRequired(AllowEmptyStrings = true)]
+        [AppStringLength(ApplicationLanguageText.MaxValueLength)]
         public string Value { get; set; }
     }
 }

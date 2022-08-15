@@ -1,11 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using VinaCent.Blaze.DataAnnotations;
 
 namespace VinaCent.Blaze.Configuration.Dto
 {
     public class ChangeUiThemeInput
     {
-        [Required]
-        [StringLength(32)]
+        [AppRequired]
+        [AppStringLength(32)]
         public string Theme { get; set; }
     }
 }

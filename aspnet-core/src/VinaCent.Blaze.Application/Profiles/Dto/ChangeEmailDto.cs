@@ -1,20 +1,21 @@
 ﻿using Abp.Localization;
 using System.ComponentModel.DataAnnotations;
 using VinaCent.Blaze.Common;
+using VinaCent.Blaze.DataAnnotations;
 
 namespace VinaCent.Blaze.Profiles.Dto
 {
     public class ChangeEmailDto
     {
-        [Required]
+        [AppRequired]
         public string VerifyToken { get; set; }
 
-        [Required]
+        [AppRequired]
         [AbpDisplayName(BlazeConsts.LocalizationSourceName, LKConstants.NewEmail)]
-        [RegularExpression(RegexLib.EmailChecker)]
+        [AppRegex(RegexLib.EmailChecker)]
         public string NewEmail { get; set; }
 
-        [Required]
+        [AppRequired]
         [AbpDisplayName(BlazeConsts.LocalizationSourceName, LKConstants.ConfirmCode)]
         public string ConfirmCode { get; set; }
     }

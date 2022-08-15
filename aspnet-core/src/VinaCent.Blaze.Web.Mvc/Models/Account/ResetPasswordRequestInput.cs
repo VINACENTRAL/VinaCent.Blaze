@@ -1,14 +1,14 @@
 ﻿using Abp.Localization;
-using System.ComponentModel.DataAnnotations;
 using VinaCent.Blaze.Common;
+using VinaCent.Blaze.DataAnnotations;
 
 namespace VinaCent.Blaze.Web.Models.Account
 {
     public class ResetPasswordRequestInput
     {
-        [Required]
+        [AppRequired]
         [AbpDisplayName(BlazeConsts.LocalizationSourceName, LKConstants.EmailAddress)]
-        [RegularExpression(RegexLib.EmailChecker)]
+        [AppRegex(RegexLib.EmailChecker)]
         public string EmailAddress { get; set; }
     }
 }

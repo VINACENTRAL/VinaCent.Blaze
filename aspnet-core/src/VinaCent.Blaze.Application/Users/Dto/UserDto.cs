@@ -4,27 +4,29 @@ using Abp.Application.Services.Dto;
 using Abp.Authorization.Users;
 using Abp.AutoMapper;
 using VinaCent.Blaze.Authorization.Users;
+using VinaCent.Blaze.Common;
+using VinaCent.Blaze.DataAnnotations;
 
 namespace VinaCent.Blaze.Users.Dto
 {
     [AutoMapFrom(typeof(User))]
     public class UserDto : EntityDto<long>
     {
-        [Required]
-        [StringLength(AbpUserBase.MaxUserNameLength)]
+        [AppRequired]
+        [AppStringLength(AbpUserBase.MaxUserNameLength)]
         public string UserName { get; set; }
 
-        [Required]
-        [StringLength(AbpUserBase.MaxNameLength)]
+        [AppRequired]
+        [AppStringLength(AbpUserBase.MaxNameLength)]
         public string Name { get; set; }
 
-        [Required]
-        [StringLength(AbpUserBase.MaxSurnameLength)]
+        [AppRequired]
+        [AppStringLength(AbpUserBase.MaxSurnameLength)]
         public string Surname { get; set; }
 
-        [Required]
-        [EmailAddress]
-        [StringLength(AbpUserBase.MaxEmailAddressLength)]
+        [AppRequired]
+        [AppRegex(RegexLib.EmailChecker)]
+        [AppStringLength(AbpUserBase.MaxEmailAddressLength)]
         public string EmailAddress { get; set; }
 
         public bool IsActive { get; set; }
@@ -45,29 +47,29 @@ namespace VinaCent.Blaze.Users.Dto
 
         #region Profile
 
-        [StringLength(50)]
+        [AppStringLength(50)]
         public string Country { get; set; }
 
-        [StringLength(50)]
+        [AppStringLength(50)]
         public string State { get; set; }
 
-        [StringLength(50)]
+        [AppStringLength(50)]
         public string City { get; set; }
 
-        [StringLength(10)]
+        [AppStringLength(10)]
         public string ZipCode { get; set; }
 
         public string Description { get; set; }
 
-        [StringLength(255)]
+        [AppStringLength(255)]
         public string Avatar { get; set; }
 
-        [StringLength(255)]
+        [AppStringLength(255)]
         public string Background { get; set; }
 
         public DateTime? Birthday { get; set; }
 
-        [StringLength(14)]
+        [AppStringLength(14)]
         public string IdentityCardNumber { get; set; }
 
         public string AddressLine1 { get; set; }

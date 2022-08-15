@@ -1,104 +1,104 @@
 ﻿using Abp.Configuration;
 using Abp.Localization;
-using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using VinaCent.Blaze.Configuration;
+using VinaCent.Blaze.DataAnnotations;
 using static Abp.Zero.Configuration.AbpZeroSettingNames;
 
 namespace VinaCent.Blaze.Web.Areas.AdminCP.Models.SettingManagement
 {
     public class AppSystemSettingModel
     {
-        [Required]
+        [AppRequired]
         [AbpDisplayName(BlazeConsts.LocalizationSourceName, nameof(AppSys_DoNotShowLogoutScreen))]
         public bool AppSys_DoNotShowLogoutScreen { get; set; }
 
-        [Required]
+        [AppRequired]
         [AbpDisplayName(BlazeConsts.LocalizationSourceName, nameof(AppSys_IsRegisterEnabled))]
         public bool AppSys_IsRegisterEnabled { get; set; }
 
-        [Required]
+        [AppRequired]
         [AbpDisplayName(BlazeConsts.LocalizationSourceName, nameof(IsUserNameUpdateEnabled))]
         public bool IsUserNameUpdateEnabled { get; set; }
 
-        [Required]
+        [AppRequired]
         [AbpDisplayName(BlazeConsts.LocalizationSourceName, nameof(IsEmailUpdateEnabled))]
         public bool IsEmailUpdateEnabled { get; set; }
 
         // File management
 
-        [Required]
+        [AppRequired]
         [AbpDisplayName(BlazeConsts.LocalizationSourceName, nameof(AllowedMaxFileSize))]
         public long AllowedMaxFileSize { get; set; }
 
-        [Required]
+        [AppRequired]
         [AbpDisplayName(BlazeConsts.LocalizationSourceName, nameof(AllowedUploadFormats))]
         public string AllowedUploadFormats { get; set; }
 
         #region UserManagement
 
-        [Required]
+        [AppRequired]
         [AbpDisplayName(BlazeConsts.LocalizationSourceName, nameof(UserManagement_IsEmailConfirmationRequiredForLogin))]
         public bool UserManagement_IsEmailConfirmationRequiredForLogin { get; set; }
 
         // UserLockOut
 
-        [Required]
+        [AppRequired]
         [AbpDisplayName(BlazeConsts.LocalizationSourceName, nameof(UserManagement_UserLockOut_IsEnabled))]
         public bool UserManagement_UserLockOut_IsEnabled { get; set; }
 
-        [Required]
+        [AppRequired]
         [AbpDisplayName(BlazeConsts.LocalizationSourceName, nameof(UserManagement_UserLockOut_MaxFailedAccessAttemptsBeforeLockout))]
         public int UserManagement_UserLockOut_MaxFailedAccessAttemptsBeforeLockout { get; set; }
 
-        [Required]
+        [AppRequired]
         [AbpDisplayName(BlazeConsts.LocalizationSourceName, nameof(UserManagement_UserLockOut_DefaultAccountLockoutSeconds))]
         public int UserManagement_UserLockOut_DefaultAccountLockoutSeconds { get; set; }
 
         // TwoFactorLogin
 
-        [Required]
+        [AppRequired]
         [AbpDisplayName(BlazeConsts.LocalizationSourceName, nameof(UserManagement_TwoFactorLogin_IsEnabled))]
         public bool UserManagement_TwoFactorLogin_IsEnabled { get; set; }
 
-        [Required]
+        [AppRequired]
         [AbpDisplayName(BlazeConsts.LocalizationSourceName, nameof(UserManagement_TwoFactorLogin_IsEmailProviderEnabled))]
         public bool UserManagement_TwoFactorLogin_IsEmailProviderEnabled { get; set; }
 
-        [Required]
+        [AppRequired]
         [AbpDisplayName(BlazeConsts.LocalizationSourceName, nameof(UserManagement_TwoFactorLogin_IsSmsProviderEnabled))]
         public bool UserManagement_TwoFactorLogin_IsSmsProviderEnabled { get; set; }
 
-        [Required]
+        [AppRequired]
         [AbpDisplayName(BlazeConsts.LocalizationSourceName, nameof(UserManagement_TwoFactorLogin_IsRememberBrowserEnabled))]
         public bool UserManagement_TwoFactorLogin_IsRememberBrowserEnabled { get; set; }
 
         // PasswordComplexity
 
-        [Required]
+        [AppRequired]
         [AbpDisplayName(BlazeConsts.LocalizationSourceName, nameof(UserManagement_PasswordComplexity_RequiredLength))]
         public int UserManagement_PasswordComplexity_RequiredLength { get; set; }
 
-        [Required]
+        [AppRequired]
         [AbpDisplayName(BlazeConsts.LocalizationSourceName, nameof(UserManagement_PasswordComplexity_RequireNonAlphanumeric))]
         public bool UserManagement_PasswordComplexity_RequireNonAlphanumeric { get; set; }
 
-        [Required]
+        [AppRequired]
         [AbpDisplayName(BlazeConsts.LocalizationSourceName, nameof(UserManagement_PasswordComplexity_RequireLowercase))]
         public bool UserManagement_PasswordComplexity_RequireLowercase { get; set; }
 
-        [Required]
+        [AppRequired]
         [AbpDisplayName(BlazeConsts.LocalizationSourceName, nameof(UserManagement_PasswordComplexity_RequireUppercase))]
         public bool UserManagement_PasswordComplexity_RequireUppercase { get; set; }
 
-        [Required]
+        [AppRequired]
         [AbpDisplayName(BlazeConsts.LocalizationSourceName, nameof(UserManagement_PasswordComplexity_RequireDigit))]
         public bool UserManagement_PasswordComplexity_RequireDigit { get; set; }
 
 
         // OrganizationUnits
 
-        [Required]
+        [AppRequired]
         [AbpDisplayName(BlazeConsts.LocalizationSourceName, nameof(UserManagement_OrganizationUnits_MaxUserMembershipCount))]
         public int UserManagement_OrganizationUnits_MaxUserMembershipCount { get; set; }
         #endregion

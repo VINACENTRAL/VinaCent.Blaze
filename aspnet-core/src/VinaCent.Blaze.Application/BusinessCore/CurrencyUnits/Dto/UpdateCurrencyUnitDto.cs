@@ -3,7 +3,7 @@ using Abp.AutoMapper;
 using Abp.Domain.Entities;
 using Abp.Localization;
 using System;
-using System.ComponentModel.DataAnnotations;
+using VinaCent.Blaze.DataAnnotations;
 
 namespace VinaCent.Blaze.BusinessCore.CurrencyUnits.Dto
 {
@@ -11,15 +11,15 @@ namespace VinaCent.Blaze.BusinessCore.CurrencyUnits.Dto
     [AutoMapFrom(typeof(CurrencyUnitDto))]
     public class UpdateCurrencyUnitDto : EntityDto<Guid>, IPassivable
     {
-        [Required]
+        [AppRequired]
         [AbpDisplayName(BlazeConsts.LocalizationSourceName, LKConstants.CultureName)]
         public string CultureName { get; set; }
 
-        [Required]
+        [AppRequired]
         [AbpDisplayName(BlazeConsts.LocalizationSourceName, LKConstants.CurrencyEnglishName)]
         public string CurrencyEnglishName { get; set; }
 
-        [Required]
+        [AppRequired]
         [AbpDisplayName(BlazeConsts.LocalizationSourceName, LKConstants.CurrencyNativeName)]
         public string CurrencyNativeName { get; set; }
 
@@ -38,19 +38,19 @@ namespace VinaCent.Blaze.BusinessCore.CurrencyUnits.Dto
         [AbpDisplayName(BlazeConsts.LocalizationSourceName, LKConstants.ISOCurrencySymbol)]
         public string ISOCurrencySymbol { get; set; }
 
-        [Required]
+        [AppRequired]
         [AbpDisplayName(BlazeConsts.LocalizationSourceName, LKConstants.CurrencyNegativePattern)]
         public int CurrencyNegativePattern { get; set; }
 
-        [Required]
+        [AppRequired]
         [AbpDisplayName(BlazeConsts.LocalizationSourceName, LKConstants.CurrencyPositivePattern)]
         public int CurrencyPositivePattern { get; set; }
 
-        [Required]
+        [AppRequired]
         [AbpDisplayName(BlazeConsts.LocalizationSourceName, LKConstants.IsActive)]
         public bool IsActive { get; set; }
 
-        [Required]
+        [AppRequired]
         [AbpDisplayName(BlazeConsts.LocalizationSourceName, LKConstants.IsDefault)]
         public bool IsDefault { get; set; }
     }

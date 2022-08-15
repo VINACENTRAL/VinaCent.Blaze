@@ -1,12 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
-using Abp.MultiTenancy;
+﻿using Abp.MultiTenancy;
+using VinaCent.Blaze.DataAnnotations;
 
 namespace VinaCent.Blaze.Authorization.Accounts.Dto
 {
     public class IsTenantAvailableInput
     {
-        [Required]
-        [StringLength(AbpTenantBase.MaxTenancyNameLength)]
+        [AppRequired]
+        [AppStringLength(AbpTenantBase.MaxTenancyNameLength)]
         public string TenancyName { get; set; }
     }
 }

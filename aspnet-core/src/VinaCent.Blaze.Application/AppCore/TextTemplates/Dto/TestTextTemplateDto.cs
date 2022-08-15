@@ -2,19 +2,19 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using VinaCent.Blaze.Common;
+using VinaCent.Blaze.DataAnnotations;
 
 namespace VinaCent.Blaze.AppCore.TextTemplates.Dto;
 
 public class TestTextTemplateDto
 {
-    [Required]
+    [AppRequired]
     public Guid TextTemplateId { get; set; }
 
     [AbpDisplayName(BlazeConsts.LocalizationSourceName, LKConstants.Parameters)]
     public string Parameters { get; set; }
 
-    [RegularExpression(RegexLib.EmailChecker,
-        ErrorMessage = "Invalid. Ex: email1@vinacent.com")]
+    [AppRegex(RegexLib.EmailChecker)]
     [AbpDisplayName(BlazeConsts.LocalizationSourceName, LKConstants.Receiver)]
     public string Receiver { get; set; }
 }
