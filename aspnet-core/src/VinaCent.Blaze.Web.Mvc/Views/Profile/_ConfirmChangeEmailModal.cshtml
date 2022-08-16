@@ -12,7 +12,7 @@
             <form role="form" class="form-horizontal">
                 <div class="modal-body">
                     <input type="hidden" asp-for="Token" />
-                    <div class="alert alert-info alert-outline show" role="alert">
+                    <div class="alert alert-info alert-outline show" role="alert" id="confirm-alert">
                         @L(LKConstants.ClickToReceiveConfirmCode).
                         @L(LKConstants.ConfirmEmailWillBeSentToYourEmailInbox).
                     </div>

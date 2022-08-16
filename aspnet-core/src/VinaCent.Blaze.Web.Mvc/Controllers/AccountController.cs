@@ -170,7 +170,7 @@ namespace VinaCent.Blaze.Web.Controllers
             {
                 SetOrRemoveLoggedInUserName(loginModel.UsernameOrEmailAddress);
             }
-            AddSuccessNotify(LKConstants.LoginSuccessMessage);
+            AddSuccessNotify(L(LKConstants.LoginSuccessMessage));
             return Json(new AjaxResponse { TargetUrl = returnUrl });
         }
 

@@ -65,6 +65,7 @@ namespace VinaCent.Blaze.Profiles
             if (await _userManager.CheckPasswordAsync(user, input.CurrentPassword))
             {
                 CheckErrors(await _userManager.ChangePasswordAsync(user, input.NewPassword));
+                await UserManager.UpdateSecurityStampAsync(user);
             }
             else
             {

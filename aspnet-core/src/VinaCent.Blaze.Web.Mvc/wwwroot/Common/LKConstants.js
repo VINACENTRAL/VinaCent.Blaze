@@ -25,7 +25,8 @@
     static Directory = 'Directory';
     static RootDirectory = 'RootDirectory';
     static ChangeEmailSuccessMessage = 'ChangeEmailSuccessMessage';
-    static FilePickSuggestionMessage = 'FilePickSuggestionMessage'
+    static FilePickSuggestionMessage = 'FilePickSuggestionMessage';
+    static InvalidEmail = 'InvalidEmail';
 
     // ============================== START BUSINESS CORE ============================== //
     static UpdateExchangeRate = 'UpdateExchangeRate';
