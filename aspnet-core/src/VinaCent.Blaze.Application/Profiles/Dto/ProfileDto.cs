@@ -1,8 +1,10 @@
 ﻿using Abp.AutoMapper;
 using Abp.Localization;
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using VinaCent.Blaze.Authorization.Users;
+using VinaCent.Blaze.Helpers;
 
 namespace VinaCent.Blaze.Profiles.Dto
 {
@@ -16,11 +18,41 @@ namespace VinaCent.Blaze.Profiles.Dto
         [AbpDisplayName(BlazeConsts.LocalizationSourceName, LKConstants.EmailAddress)]
         public string EmailAddress { get; set; }
 
+        public virtual string MaskedEmailAddress
+        {
+            get
+            {
+                return EmailAddress.MaskHiddingEmailAddress();
+            }
+        }
+
         [AbpDisplayName(BlazeConsts.LocalizationSourceName, LKConstants.Name)]
         public string Name { get; set; }
 
         [AbpDisplayName(BlazeConsts.LocalizationSourceName, LKConstants.Surname)]
         public string Surname { get; set; }
+
+        public virtual string FullName
+        {
+            get
+            {
+                string fullName;
+                var styleName_SureName_Name = new List<string> { "vi", "vi-VN" };
+
+                if (styleName_SureName_Name.Contains(CultureInfo.CurrentUICulture.Name))
+                {
+                    fullName = Surname + " " + Name;
+                }
+                else
+                {
+                    fullName = Name + " " + Surname;
+                }
+
+                fullName = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(fullName.Trim());
+
+                return fullName;
+            }
+        }
 
         [AbpDisplayName(BlazeConsts.LocalizationSourceName, LKConstants.PhoneNumber)]
         public string PhoneNumber { get; set; }

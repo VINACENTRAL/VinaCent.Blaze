@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace VinaCent.Blaze.Helpers
 {
@@ -96,6 +97,13 @@ namespace VinaCent.Blaze.Helpers
             }
 
             return new string(base64Chars);
+        }
+
+        public static string MaskHiddingEmailAddress(this string email)
+        {
+            string pattern = @"(?<=[\w]{1})[\w-\._\+%]*(?=[\w]{1}@)";
+            string result = Regex.Replace(email, pattern, m => new string('*', m.Length));
+            return result;
         }
     }
 }

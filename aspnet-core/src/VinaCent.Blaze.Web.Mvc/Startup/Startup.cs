@@ -1,5 +1,4 @@
-﻿using System;
-using System.Text.Encodings.Web;
+﻿using System.Text.Encodings.Web;
 using System.Text.Unicode;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -22,6 +21,9 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.WebEncoders;
 using Newtonsoft.Json.Serialization;
 using VinaCent.Blaze.Web.Contributors.ProfileManagement;
+using Microsoft.AspNetCore.Identity;
+using System;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace VinaCent.Blaze.Web.Startup
 {
@@ -83,6 +85,14 @@ namespace VinaCent.Blaze.Web.Startup
             {
                 options.Contributors.Add(new ProfileManagementPageContributor());
             });
+
+            
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options =>
+                {
+                    options.LoginPath = "/account/login";
+                    options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+                });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
