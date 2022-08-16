@@ -30,7 +30,7 @@
         });
     });
 
-    var alert = document.getElementById('confirm-alert');
+    const alert = document.getElementById('confirm-alert');
 
     confirmChangeEmailModal.on('shown.bs.modal', () => {
         const maskedEmail = document.getElementById('MaskedEmailAddress').value;

@@ -21,7 +21,6 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.WebEncoders;
 using Newtonsoft.Json.Serialization;
 using VinaCent.Blaze.Web.Contributors.ProfileManagement;
-using Microsoft.AspNetCore.Identity;
 using System;
 using Microsoft.AspNetCore.Authentication.Cookies;
 
@@ -91,7 +90,7 @@ namespace VinaCent.Blaze.Web.Startup
                 .AddCookie(options =>
                 {
                     options.LoginPath = "/account/login";
-                    options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+                    options.ExpireTimeSpan = TimeSpan.FromDays(30);
                 });
         }
 
