@@ -27,6 +27,7 @@
     static ChangeEmailSuccessMessage = 'ChangeEmailSuccessMessage';
     static FilePickSuggestionMessage = 'FilePickSuggestionMessage';
     static InvalidEmail = 'InvalidEmail';
+    static Member = 'Member';
 
     // ============================== START BUSINESS CORE ============================== //
     static UpdateExchangeRate = 'UpdateExchangeRate';
