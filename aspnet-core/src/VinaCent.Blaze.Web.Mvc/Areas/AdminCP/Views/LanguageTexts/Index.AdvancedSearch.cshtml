@@ -1,4 +1,6 @@
-﻿@using VinaCent.Blaze
+﻿@using Abp
+@using VinaCent.Blaze
+@using Abp.Zero
 @using VinaCent.Blaze.AppCore.LanguageTexts.Dto
 @model PagedLanguageTextResultRequestDto
 
@@ -27,7 +29,10 @@
                                 <div class="required mb-3">
                                     <label class="form-label" asp-for="SourceName"></label>
                                     <select class="form-control" asp-for="SourceName" asp-items="@languages">
+                                        <option value="">@L(LKConstants.All)</option>
                                         <option value="@BlazeConsts.LocalizationSourceName">@BlazeConsts.LocalizationSourceName</option>
+                                        <option value="@AbpZeroConsts.LocalizationSourceName">@AbpZeroConsts.LocalizationSourceName</option>
+                                        <option value="@AbpConsts.LocalizationSourceName">@AbpConsts.LocalizationSourceName</option>
                                     </select>
                                     <span asp-validation-for="SourceName" class="invalid-feedback"></span>
                                 </div>

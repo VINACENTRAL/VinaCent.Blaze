@@ -44,6 +44,7 @@ namespace VinaCent.Blaze.Users
             LogInManager logInManager)
             : base(repository)
         {
+            LocalizationSourceName = BlazeConsts.LocalizationSourceName;
             _userManager = userManager;
             _roleManager = roleManager;
             _roleRepository = roleRepository;
@@ -95,7 +96,17 @@ namespace VinaCent.Blaze.Users
 
         public override async Task DeleteAsync(EntityDto<long> input)
         {
+            if(input.Id == AbpSession.UserId)
+            {
+                throw new UserFriendlyException(L(LKConstants.YouCannotDeleteYourAccount));
+            }
             var user = await _userManager.GetUserByIdAsync(input.Id);
+
+            if(await _userManager.IsInRoleAsync(user, StaticRoleNames.Host.Admin))
+            {
+                throw new UserFriendlyException(L(LKConstants.CannotDeleteAccountInAdminRole));
+            }
+
             await _userManager.DeleteAsync(user);
         }
 

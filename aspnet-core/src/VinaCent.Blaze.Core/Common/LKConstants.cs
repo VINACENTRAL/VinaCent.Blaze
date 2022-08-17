@@ -334,5 +334,7 @@ public static class LKConstants
     public const string Delete = "Delete";
     public const string Field_X_IsRequired = "Field_X_IsRequired";
     public const string TheField_X_MustBeAStringWithAMaximumLengthOf_Y = "TheField_X_MustBeAStringWithAMaximumLengthOf_Y";
-    
+    public const string PasswordMismatch = "PasswordMismatch";
+    public const string YouCannotDeleteYourAccount = "YouCannotDeleteYourAccount";
+    public const string CannotDeleteAccountInAdminRole = "CannotDeleteAccountInAdminRole";
 }

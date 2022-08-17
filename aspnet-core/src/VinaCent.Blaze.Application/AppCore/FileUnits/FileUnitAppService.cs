@@ -138,17 +138,7 @@ namespace VinaCent.Blaze.AppCore.FileUnits
             _webHostEnvironment = webHostEnvironment;
         }
 
-        public async Task<FileUnitDto> GetAsync(Guid id)
-        {
-            var entityDto = MapToEntityDto(await GetFileUnit(id));
-            if (entityDto.CreatorUserId != null)
-            {
-                var creator = await _userRepository.GetAsync(entityDto.CreatorUserId.Value);
-                entityDto.Creator = ObjectMapper.Map<UserDto>(creator);
-            }
-
-            return entityDto;
-        }
+        public Task<FileUnitDto> GetAsync(Guid id) => GetFileUnitAsync(id);
 
         public async Task<List<FileUnitDto>> GetAllParentAsync(string directory)
         {
@@ -249,39 +239,7 @@ namespace VinaCent.Blaze.AppCore.FileUnits
             return new PagedResultDto<FileUnitDto>(totalCount, items);
         }
 
-        public async Task<FileUnitDto> CreateDirectoryAsync(CreateDirectoryDto input)
-        {
-            var fileUnit = ObjectMapper.Map<FileUnit>(input);
-            fileUnit.Id = Guid.NewGuid();
-
-            NameValidation(input.Name);
-
-            fileUnit.TenantId = AbpSession.TenantId;
-            fileUnit.IsFolder = true;
-
-            if (input.ParentId != null && input.ParentId != Guid.Empty)
-            {
-                var directory = await GetAsync(input.ParentId.Value);
-                fileUnit.Directory = directory.FullName;
-            }
-            else
-            {
-                fileUnit.Directory = StringHelper.FileSeparator;
-            }
-
-            fileUnit.Name = input.Name;
-            fileUnit.Extension = "";
-            fileUnit.NameWithoutExtension = input.Name;
-            fileUnit.FullName = StringHelper.TrueCombine(fileUnit.Directory, fileUnit.Name);
-            fileUnit.Length = 0;
-
-            fileUnit.PhysicalPath = "";
-
-            fileUnit = RollUniqueName(fileUnit);
-            fileUnit = await _repository.InsertAsync(fileUnit);
-
-            return MapToEntityDto(fileUnit);
-        }
+        public Task<FileUnitDto> CreateDirectoryAsync(CreateDirectoryDto input) => CreateVirtualDirectoryAsync(input);
 
         [AbpAuthorize]
         public async Task<FileUnitDto> UploadFileAsync([FromForm] UploadFileUnitDto input)
@@ -414,6 +372,7 @@ namespace VinaCent.Blaze.AppCore.FileUnits
             return MapToEntityDto(fileUnit);
         }
 
+        [AbpAuthorize]
         public async Task DeleteAsync(Guid id)
         {
             var fileUnit = await GetAsync(id);
@@ -440,57 +399,8 @@ namespace VinaCent.Blaze.AppCore.FileUnits
         }
 
         [UnitOfWork]
-        [AbpAuthorize]
-        public async Task<FileUnitDto> GetUserDir(long? userId = null)
-        {
-            if (userId is null or <= 0)
-            {
-                userId = AbpSession.UserId;
-            }
-
-            var usersDir = await GetByFullName(UsersDirName) ??
-                           await CreateDirectoryAsync(new CreateDirectoryDto
-                           {
-                               ParentId = null,
-                               Name = UsersDirName,
-                               Description =
-                                   "Thư mục có trách nhiệm lưu media của toàn bộ người dùng trên hệ thống. Vui lòng không xóa."
-                           });
-
-            if (usersDir == null)
-            {
-                throw new UserFriendlyException(L(LKConstants.CanNotGetOrCreateDirectory_X));
-            }
-
-            await _repository.GetDbContext().SaveChangesAsync();
-
-            var randomGuid = Guid.NewGuid().ToString().Replace("-", "");
-            var name = $"{randomGuid}{userId}";
-            var userIdStr = userId?.ToString() ?? "";
-            var dir = CreateFilteredQuery(new PagedFileUnitResultRequestDto
-                {
-                    IsFolder = true,
-                    Directory = usersDir.FullName
-                }).Where(x => x.Name.Length == name.Length && x.Name.EndsWith(userIdStr))
-                .ToList()
-                .FirstOrDefault();
-
-            var specifiedUserDir = MapToEntityDto(dir) ??
-                                   await CreateDirectoryAsync(new CreateDirectoryDto
-                                   {
-                                       ParentId = usersDir.Id,
-                                       Name = name,
-                                       Description =
-                                           $"Thư mục lưu trữ riêng cá nhân của người  dùng #{userId}"
-                                   });
-            if (specifiedUserDir == null)
-            {
-                throw new UserFriendlyException(L(LKConstants.CanNotGetOrCreateDirectory_X));
-            }
-
-            await _repository.GetDbContext().SaveChangesAsync();
-            return specifiedUserDir;
-        }
+        public Task<FileUnitDto> GetUserDir(long? userId = null) => GetVirtualUserDirAsync(userId);
+  
 
         [AbpAuthorize]
         public async Task<FileUnitDto> GetUserDirPicture(long? userId = null)
@@ -504,7 +414,7 @@ namespace VinaCent.Blaze.AppCore.FileUnits
             var userDirPicturesPath = StringHelper.TrueCombine(specifiedUserDir.FullName, "Pictures");
 
             var userDirPictures = await GetByFullName(userDirPicturesPath) ??
-                                  await CreateDirectoryAsync(new CreateDirectoryDto
+                                  await CreateVirtualDirectoryAsync(new CreateDirectoryDto
                                   {
                                       ParentId = specifiedUserDir.Id,
                                       Name = "Pictures",
@@ -650,6 +560,104 @@ namespace VinaCent.Blaze.AppCore.FileUnits
                 throw new UserFriendlyException(LKConstants.YouDoNotHaveToBeTheOwnerToPerformThisAction);
             }
         }
+
+        private async Task<FileUnitDto> GetFileUnitAsync(Guid id)
+        {
+            var entityDto = MapToEntityDto(await GetFileUnit(id));
+            if (entityDto.CreatorUserId != null)
+            {
+                var creator = await _userRepository.GetAsync(entityDto.CreatorUserId.Value);
+                entityDto.Creator = ObjectMapper.Map<UserDto>(creator);
+            }
+
+            return entityDto;
+        }
+
+        private async Task<FileUnitDto> CreateVirtualDirectoryAsync(CreateDirectoryDto input)
+        {
+            var fileUnit = ObjectMapper.Map<FileUnit>(input);
+            fileUnit.Id = Guid.NewGuid();
+
+            NameValidation(input.Name);
+
+            fileUnit.TenantId = AbpSession.TenantId;
+            fileUnit.IsFolder = true;
+
+            if (input.ParentId != null && input.ParentId != Guid.Empty)
+            {
+                var directory = await GetFileUnitAsync(input.ParentId.Value);
+                fileUnit.Directory = directory.FullName;
+            }
+            else
+            {
+                fileUnit.Directory = StringHelper.FileSeparator;
+            }
+
+            fileUnit.Name = input.Name;
+            fileUnit.Extension = "";
+            fileUnit.NameWithoutExtension = input.Name;
+            fileUnit.FullName = StringHelper.TrueCombine(fileUnit.Directory, fileUnit.Name);
+            fileUnit.Length = 0;
+
+            fileUnit.PhysicalPath = "";
+
+            fileUnit = RollUniqueName(fileUnit);
+            fileUnit = await _repository.InsertAsync(fileUnit);
+
+            return MapToEntityDto(fileUnit);
+        }
+
+        private async Task<FileUnitDto> GetVirtualUserDirAsync(long? userId = null)
+        {
+            if (userId is null or <= 0)
+            {
+                userId = AbpSession.UserId;
+            }
+
+            var usersDir = await GetByFullName(UsersDirName) ??
+                           await CreateVirtualDirectoryAsync(new CreateDirectoryDto
+                           {
+                               ParentId = null,
+                               Name = UsersDirName,
+                               Description =
+                                   "Thư mục có trách nhiệm lưu media của toàn bộ người dùng trên hệ thống. Vui lòng không xóa."
+                           });
+
+            if (usersDir == null)
+            {
+                throw new UserFriendlyException(L(LKConstants.CanNotGetOrCreateDirectory_X));
+            }
+
+            await _repository.GetDbContext().SaveChangesAsync();
+
+            var randomGuid = Guid.NewGuid().ToString().Replace("-", "");
+            var name = $"{randomGuid}{userId}";
+            var userIdStr = userId?.ToString() ?? "";
+            var dir = CreateFilteredQuery(new PagedFileUnitResultRequestDto
+            {
+                IsFolder = true,
+                Directory = usersDir.FullName
+            }).Where(x => x.Name.Length == name.Length && x.Name.EndsWith(userIdStr))
+                .ToList()
+                .FirstOrDefault();
+
+            var specifiedUserDir = MapToEntityDto(dir) ??
+                                   await CreateVirtualDirectoryAsync(new CreateDirectoryDto
+                                   {
+                                       ParentId = usersDir.Id,
+                                       Name = name,
+                                       Description =
+                                           $"Thư mục lưu trữ riêng cá nhân của người  dùng #{userId}"
+                                   });
+            if (specifiedUserDir == null)
+            {
+                throw new UserFriendlyException(L(LKConstants.CanNotGetOrCreateDirectory_X));
+            }
+
+            await _repository.GetDbContext().SaveChangesAsync();
+            return specifiedUserDir;
+        }
+
 
         #endregion
     }
