@@ -1,4 +1,6 @@
-﻿@using VinaCent.Blaze.Web.Themes.Velzon.Components.VelzonUserArea
+﻿@using Abp.Collections.Extensions
+@using Abp.Extensions
+@using VinaCent.Blaze.Web.Themes.Velzon.Components.VelzonUserArea
 @using VinaCent.Blaze.Web.Themes.Velzon.ThemeOptions
 @model VelzonUserAreaViewModel
 
@@ -10,18 +12,18 @@
 
     var area = ViewContext.ActionDescriptor.RouteValues["Area"] ?? "";
 
-    var roles = "Member";
-    //if (roles.IsNullOrWhiteSpace())
-    //{
-    //    roles = L(LKConstants.__Roles:DefaultName");
-    //}
+    var roles = Model.LoginInformations.User.Roles.JoinAsString(", ");
+    if (roles.IsNullOrWhiteSpace())
+    {
+        roles = L(LKConstants.Member);
+    }
 
     <div class="dropdown header-item">
         <button type="button" class="btn shadow-none" id="page-header-user-dropdown"
             data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <span class="d-flex align-items-center">
-                <img class="rounded-circle header-profile-user" 
-                    src="@picture" alt="@fullName" avatar self-avatar />
+                <img class="rounded-circle header-profile-user"
+                 src="@picture" alt="@fullName" avatar self-avatar />
                 <span class="text-start ms-xl-2">
                     <span class="d-none d-xl-inline-block ms-1 fw-medium user-name-text">
                         @fullName
@@ -32,7 +34,7 @@
         </button>
         <div class="dropdown-menu dropdown-menu-end">
             <!-- item-->
-        <h6 class="dropdown-header">@L(LKConstants.WelcomeUserMsg, name)</h6>
+            <h6 class="dropdown-header">@L(LKConstants.WelcomeUserMsg, name)</h6>
             <a class="dropdown-item" asp-action="Lockout" asp-controller="Account" asp-area="">
                 <i class="ri-lock-fill text-muted fs-16 align-middle me-1"></i> <span class="align-middle">@L(LKConstants.GotoLockScreen)</span>
             </a>

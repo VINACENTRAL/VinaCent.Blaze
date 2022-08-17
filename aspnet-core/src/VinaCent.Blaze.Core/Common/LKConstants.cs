@@ -336,4 +336,5 @@ public static class LKConstants
     public const string PasswordMismatch = "PasswordMismatch";
     public const string YouCannotDeleteYourAccount = "YouCannotDeleteYourAccount";
     public const string CannotDeleteAccountInAdminRole = "CannotDeleteAccountInAdminRole";
+    public const string Member = "Member";
 }

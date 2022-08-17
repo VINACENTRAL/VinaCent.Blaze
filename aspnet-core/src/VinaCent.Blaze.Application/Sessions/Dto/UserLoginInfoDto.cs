@@ -18,6 +18,7 @@ namespace VinaCent.Blaze.Sessions.Dto
         public string EmailAddress { get; set; }
 
         public string Avatar { get; set; } 
+        public string[] Roles { get; set; }
 
         public virtual string FullName
         {
