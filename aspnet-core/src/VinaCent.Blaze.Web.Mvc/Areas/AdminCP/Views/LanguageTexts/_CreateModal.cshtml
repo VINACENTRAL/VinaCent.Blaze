@@ -1,5 +1,7 @@
-﻿@using Abp.Authorization.Users
+﻿@using Abp
+@using Abp.Authorization.Users
 @using Abp.MultiTenancy
+@using Abp.Zero
 @using VinaCent.Blaze
 @using VinaCent.Blaze.AppCore.LanguageTexts.Dto
 @using VinaCent.Blaze.MultiTenancy
@@ -22,6 +24,8 @@
                                 <label class="form-label" asp-for="Source"></label>
                                 <select class="form-control" asp-for="Source">
                                     <option value="@BlazeConsts.LocalizationSourceName">@BlazeConsts.LocalizationSourceName</option>
+                                    <option value="@AbpZeroConsts.LocalizationSourceName">@AbpZeroConsts.LocalizationSourceName</option>
+                                    <option value="@AbpConsts.LocalizationSourceName">@AbpConsts.LocalizationSourceName</option>
                                 </select>
                                 <span asp-validation-for="Source" class="invalid-feedback"></span>
                             </div>
