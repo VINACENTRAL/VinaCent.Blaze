@@ -65,8 +65,10 @@ namespace VinaCent.Blaze.AppCore.LanguageTexts
 
             var query = base.CreateFilteredQuery(input);
             query = query.Where(x => x.TenantId == AbpSession.TenantId);
-            query = query.Where(x => x.Source == input.SourceName);
-            query = query.WhereIf(!input.Keyword.IsNullOrEmpty(), x => x.Key.ToUpper() == input.Keyword || x.Value.ToUpper().Contains(input.Keyword));
+            query = query.WhereIf(!input.SourceName.IsNullOrWhiteSpace(),
+                x => x.Source == input.SourceName);
+            query = query.WhereIf(!input.Keyword.IsNullOrEmpty(), 
+                x => x.Key.ToUpper() == input.Keyword || x.Value.ToUpper().Contains(input.Keyword));
             query = query.Where(x => x.LanguageName == input.CurrentLanguageName);
 
             return query;

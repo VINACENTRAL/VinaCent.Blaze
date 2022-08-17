@@ -251,6 +251,7 @@ paket-files/
 .idea/
 *.sln.iml
 
+src/VinaCent.Blaze.Web.Mvc/App_Data/
 src/VinaCent.Blaze.Web.Mvc/secrets.json
 src/VinaCent.Blaze.Web.Host/secrets.json
 src/VinaCent.Blaze.Migrator/secrets.json

@@ -90,7 +90,7 @@
 
     abp.event.on('abp.dynamicScriptsInitialized', function () {
         abp.libs.sweetAlert.config.confirm.title = l('AreYouSure');
-        abp.libs.sweetAlert.config.confirm.buttons = [l('Cancel'), l('Yes')];
+        abp.libs.sweetAlert.config.confirm.buttons = [l('Cancel'), l('Confirm')];
     });
 
 })(jQuery);

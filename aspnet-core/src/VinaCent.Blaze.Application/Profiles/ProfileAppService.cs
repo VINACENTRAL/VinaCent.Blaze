@@ -57,10 +57,6 @@ namespace VinaCent.Blaze.Profiles
             await _userManager.InitializeOptionsAsync(AbpSession.TenantId);
 
             var user = await GetCurrentUserAsync();
-            if (user == null)
-            {
-                throw new Exception("There is no current user!");
-            }
 
             if (await _userManager.CheckPasswordAsync(user, input.CurrentPassword))
             {
@@ -175,11 +171,6 @@ namespace VinaCent.Blaze.Profiles
             }
 
             var user = await GetCurrentUserAsync();
-
-            if (user == null)
-            {
-                throw new UserFriendlyException(L(LKConstants.PleaseLogInBeforeDoThisAction));
-            }
 
             var template = await _textTemplateAppService.GetSecurityCodeAsync();
 

@@ -6,6 +6,7 @@ using Abp.IdentityFramework;
 using Abp.Runtime.Session;
 using VinaCent.Blaze.Authorization.Users;
 using VinaCent.Blaze.MultiTenancy;
+using Abp.UI;
 
 namespace VinaCent.Blaze
 {
@@ -28,7 +29,7 @@ namespace VinaCent.Blaze
             var user = await UserManager.FindByIdAsync(AbpSession.GetUserId().ToString());
             if (user == null)
             {
-                throw new Exception("There is no current user!");
+                throw new UserFriendlyException(L(LKConstants.PleaseLogInBeforeDoThisAction));
             }
 
             return user;

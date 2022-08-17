@@ -94,3 +94,7 @@
 .swal-footer .swal-button-container:last-child {
     margin-left: auto;
 }
+
+.profile-wid-bg::before, .profile-wid-img {
+    border-radius: 20px;
+}
