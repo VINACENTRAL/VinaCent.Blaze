@@ -1,13 +1,14 @@
 ﻿using Abp.AspNetCore.Mvc.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using VinaCent.Blaze.Authorization;
 using VinaCent.Blaze.BusinessCore.CurrencyUnits;
 using VinaCent.Blaze.Controllers;
 using VinaCent.Blaze.Web.Areas.BusinessCP.Models.CurrencyExchangeRateManagement;
 
 namespace VinaCent.Blaze.Web.Areas.BusinessCP.Controllers;
 
-[AbpMvcAuthorize]
+[AbpMvcAuthorize(PermissionNames.Pages_CurrencyManagement)]
 [Area(nameof(BusinessCP))]
 [Route("businesscp/currency-exchange-rates")]
 public class CurrencyExchangeRateManagementController : BlazeControllerBase

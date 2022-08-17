@@ -292,7 +292,6 @@ public static class LKConstants
     public const string ChangeAvatarFail = "ChangeAvatarFail";
     public const string UnknownHttpContextRequest = "UnknownHttpContextRequest";
     public const string EmailFormatNotCorrect = "EmailFormatNotCorrect";
-    public const string TheEmailAddressWasRegisted = "TheEmailAddressWasRegisted";
     public const string ThisEmailWasUsedByAnotherUser = "ThisEmailWasUsedByAnotherUser";
     public const string ConfirmCode = "ConfirmCode";
     public const string ClickToReceiveConfirmCode = "ClickToReceiveConfirmCode";
@@ -337,4 +336,5 @@ public static class LKConstants
     public const string PasswordMismatch = "PasswordMismatch";
     public const string YouCannotDeleteYourAccount = "YouCannotDeleteYourAccount";
     public const string CannotDeleteAccountInAdminRole = "CannotDeleteAccountInAdminRole";
+    public const string Member = "Member";
 }

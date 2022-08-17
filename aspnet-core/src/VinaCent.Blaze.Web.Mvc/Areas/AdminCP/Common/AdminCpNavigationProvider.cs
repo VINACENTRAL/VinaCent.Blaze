@@ -31,7 +31,8 @@ public class AdminCpNavigationProvider : NavigationProvider
                     L(LKConstants.FileManagement),
                     url: "admincp/file-management",
                     icon: "mdi mdi-folder-multiple",
-                    requiresAuthentication: true
+                    requiresAuthentication: true,
+                    permissionDependency: new SimplePermissionDependency(PermissionNames.Pages_FileManagement)
                 )
             )
             .AddItem(
@@ -42,8 +43,7 @@ public class AdminCpNavigationProvider : NavigationProvider
                     isVisible: BlazeConsts.MultiTenancyEnabled,
                     url: "admincp/tenants",
                     icon: "mdi mdi-office-building",
-                    permissionDependency: new SimplePermissionDependency(PermissionNames.Pages_Tenants
-                    )
+                    permissionDependency: new SimplePermissionDependency(PermissionNames.Pages_Tenants)
                 )
             )
             .AddItem(

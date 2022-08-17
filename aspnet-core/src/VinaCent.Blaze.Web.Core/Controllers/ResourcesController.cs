@@ -16,18 +16,19 @@ namespace VinaCent.Blaze.Controllers
     [Route(AppFileResourceHelper.ResourcePathPrefix)]
     public class ResourcesController : BlazeControllerBase
     {
-        private readonly IFileUnitAppService _fileUnitAppService;
+        private readonly FileUnitManager _fileUnitManager;
 
         private readonly IHostEnvironment _environment;
         private readonly IConfiguration _configuration;
 
         /// <inheritdoc />
-        public ResourcesController(IFileUnitAppService fileUnitAppService, IHostEnvironment environment,
-            IConfiguration configuration)
+        public ResourcesController(IHostEnvironment environment,
+            IConfiguration configuration,
+            FileUnitManager fileUnitManager)
         {
-            _fileUnitAppService = fileUnitAppService;
             _environment = environment;
             _configuration = configuration;
+            _fileUnitManager = fileUnitManager;
         }
 
         /// <summary>
@@ -41,7 +42,7 @@ namespace VinaCent.Blaze.Controllers
             // Get virtual file
             try
             {
-                var file = await _fileUnitAppService.GetByFullName(routeValues);
+                var file = await _fileUnitManager.GetByFullName(routeValues);
                 if (file == null)
                 {
                     if (!_environment.IsDevelopment()) return NotFound();
@@ -51,7 +52,7 @@ namespace VinaCent.Blaze.Controllers
                         if (fileServerUri.IsNullOrEmpty() ||
                             (!fileServerUri.StartsWith("https://") && !fileServerUri.StartsWith("http://")) ||
                             new Uri(fileServerUri).IsLoopback) return NotFound();
-                            
+
                         var fileServerResource = StringHelper.TrueCombine(fileServerUri.TrimEnd('/'), AppFileResourceHelper.ResourcePathPrefix.EnsureStartsWith('/'), routeValues.EnsureStartsWith('/'));
                         using (var result = await client.GetAsync(fileServerResource))
                         {
@@ -62,7 +63,7 @@ namespace VinaCent.Blaze.Controllers
 
                         }
                     }
-                    
+
                     return NotFound();
                 }
 

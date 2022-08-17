@@ -20,5 +20,10 @@
 
             return input;
         }
+
+        public static string ToResourcePath(this string fullname)
+        {
+            return StringHelper.TrueCombine("/resources", fullname);
+        }
     }
 }

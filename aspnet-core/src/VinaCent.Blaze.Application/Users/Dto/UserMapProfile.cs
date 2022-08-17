@@ -14,6 +14,9 @@ namespace VinaCent.Blaze.Users.Dto
 
             CreateMap<CreateUserDto, User>();
             CreateMap<CreateUserDto, User>().ForMember(x => x.Roles, opt => opt.Ignore());
+            
+            CreateMap<UpdateUserDto, User>();
+            CreateMap<UpdateUserDto, User>().ForMember(x => x.Roles, opt => opt.Ignore());
         }
     }
 }

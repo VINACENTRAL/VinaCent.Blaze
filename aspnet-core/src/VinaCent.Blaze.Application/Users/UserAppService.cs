@@ -25,7 +25,7 @@ using VinaCent.Blaze.Profiles.Dto;
 namespace VinaCent.Blaze.Users
 {
     [AbpAuthorize(PermissionNames.Pages_Users)]
-    public class UserAppService : AsyncCrudAppService<User, UserDto, long, PagedUserResultRequestDto, CreateUserDto, UserDto>, IUserAppService
+    public class UserAppService : AsyncCrudAppService<User, UserDto, long, PagedUserResultRequestDto, CreateUserDto, UpdateUserDto>, IUserAppService
     {
         private readonly UserManager _userManager;
         private readonly RoleManager _roleManager;
@@ -76,7 +76,7 @@ namespace VinaCent.Blaze.Users
             return MapToEntityDto(user);
         }
 
-        public override async Task<UserDto> UpdateAsync(UserDto input)
+        public override async Task<UserDto> UpdateAsync(UpdateUserDto input)
         {
             CheckUpdatePermission();
 
@@ -96,13 +96,13 @@ namespace VinaCent.Blaze.Users
 
         public override async Task DeleteAsync(EntityDto<long> input)
         {
-            if(input.Id == AbpSession.UserId)
+            if (input.Id == AbpSession.UserId)
             {
                 throw new UserFriendlyException(L(LKConstants.YouCannotDeleteYourAccount));
             }
             var user = await _userManager.GetUserByIdAsync(input.Id);
 
-            if(await _userManager.IsInRoleAsync(user, StaticRoleNames.Host.Admin))
+            if (await _userManager.IsInRoleAsync(user, StaticRoleNames.Host.Admin))
             {
                 throw new UserFriendlyException(L(LKConstants.CannotDeleteAccountInAdminRole));
             }
@@ -150,7 +150,7 @@ namespace VinaCent.Blaze.Users
             return user;
         }
 
-        protected override void MapToEntity(UserDto input, User user)
+        protected override void MapToEntity(UpdateUserDto input, User user)
         {
             ObjectMapper.Map(input, user);
             user.SetNormalizedNames();
@@ -203,19 +203,19 @@ namespace VinaCent.Blaze.Users
             {
                 throw new UserFriendlyException("Please log in before attempting to reset password.");
             }
-            
+
             var currentUser = await _userManager.GetUserByIdAsync(_abpSession.GetUserId());
             var loginAsync = await _logInManager.LoginAsync(currentUser.UserName, input.AdminPassword, shouldLockout: false);
             if (loginAsync.Result != AbpLoginResultType.Success)
             {
                 throw new UserFriendlyException("Your 'Admin Password' did not match the one on record.  Please try again.");
             }
-            
+
             if (currentUser.IsDeleted || !currentUser.IsActive)
             {
                 return false;
             }
-            
+
             var roles = await _userManager.GetRolesAsync(currentUser);
             if (!roles.Contains(StaticRoleNames.Tenants.Admin))
             {

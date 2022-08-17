@@ -4,6 +4,7 @@ using Abp.Application.Services.Dto;
 using Abp.AspNetCore.Mvc.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using VinaCent.Blaze.Authorization;
 using VinaCent.Blaze.BusinessCore.ShopModule.Categories;
 using VinaCent.Blaze.BusinessCore.ShopModule.Categories.Dto;
 using VinaCent.Blaze.Controllers;
@@ -11,7 +12,7 @@ using VinaCent.Blaze.Web.Areas.BusinessCP.Models.ShopModule.Categories;
 
 namespace VinaCent.Blaze.Web.Areas.BusinessCP.Controllers.ShopModule;
 
-[AbpMvcAuthorize]
+[AbpMvcAuthorize(PermissionNames.Pages_Shop)]
 [Area(nameof(BusinessCP))]
 [Route("businesscp/shop/categories")]
 public class CategoriesController : BlazeControllerBase

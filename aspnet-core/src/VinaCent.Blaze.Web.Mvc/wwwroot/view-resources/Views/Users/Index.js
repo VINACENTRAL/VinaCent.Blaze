@@ -25,7 +25,7 @@
             data: 'userName',
             sortable: false,
             render: (data, type, row) => buildUserBox(row),
-            className: 'p-0 border-bottom-0'
+            className: 'p-0 border-bottom-0 d-block h-100'
         }], createdRow: function (row, data, dataIndex) {
             $(row).attr('class', 'col');
         }
@@ -162,7 +162,7 @@
                                 <a data-bs-toggle="offcanvas" href="#offcanvasExample" aria-controls="offcanvasExample">
                                     <h5 class="fs-16 mb-1 ${row.isActive ? '' : 'text-decoration-line-through'}">${row.fullName}${(row.isEmailConfirmed || row.isPhoneNumberConfirmed) ? '<i class="ri-checkbox-circle-fill align-middle text-info ms-1"></i>' : ''}</h5>
                                 </a>
-                                <p class="text-muted mb-0">${row.roleNames.join(', ')}</p>
+                                <p class="text-muted mb-0">${row.roleNames?.length > 0 ? row.roleNames.join(', ') : l(LKConstants.Member)}</p>
                             </div>
                         </div>
                     </div>

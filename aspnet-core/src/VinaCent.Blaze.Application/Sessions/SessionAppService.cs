@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Abp.Auditing;
 using VinaCent.Blaze.Sessions.Dto;
@@ -7,6 +8,7 @@ namespace VinaCent.Blaze.Sessions
 {
     public class SessionAppService : BlazeAppServiceBase, ISessionAppService
     {
+
         [DisableAuditing]
         public async Task<GetCurrentLoginInformationsOutput> GetCurrentLoginInformations()
         {
@@ -27,7 +29,11 @@ namespace VinaCent.Blaze.Sessions
 
             if (AbpSession.UserId.HasValue)
             {
-                output.User = ObjectMapper.Map<UserLoginInfoDto>(await GetCurrentUserAsync());
+                var user = await GetCurrentUserAsync();
+                output.User = ObjectMapper.Map<UserLoginInfoDto>(user);
+
+                // Process for get role
+                output.User.Roles = (await UserManager.GetRolesAsync(user)).ToArray();
             }
 
             return output;
