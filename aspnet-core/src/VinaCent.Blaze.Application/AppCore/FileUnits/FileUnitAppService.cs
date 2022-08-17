@@ -381,7 +381,14 @@ namespace VinaCent.Blaze.AppCore.FileUnits
 
             if (!fileUnit.IsFolder)
             {
-                File.Delete(fileUnit.PhysicalPath);
+                try
+                {
+                    // Try to delete this file
+                    File.Delete(fileUnit.PhysicalPath);
+                } catch
+                {
+                    // Ignore process
+                }
             }
             else
             {
