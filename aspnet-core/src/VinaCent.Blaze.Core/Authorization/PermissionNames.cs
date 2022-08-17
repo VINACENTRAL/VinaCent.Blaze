@@ -15,5 +15,11 @@
         public const string Pages_LanguageTexts = "Pages.LanguageTexts";
 
         public const string Pages_AuditLogs = "Pages.AuditLogs";
+
+        // Business Core
+        public const string Pages_CurrencyManagement = "Pages.CurrencyManagement";
+
+        // Shop core
+        public const string Pages_Shop = "Pages.Shop";
     }
 }

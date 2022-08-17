@@ -40,9 +40,12 @@
             </a>
             @if (!VelzonConsts.CPAreas.Contains(area))
             {
-                <a class="dropdown-item" asp-action="Index" asp-controller="Dashboard" asp-area="AdminCP">
-                    <i class="ri-shield-fill text-muted fs-16 align-middle me-1"></i> <span class="align-middle">@L(LKConstants.GoToAdminCP)</span>
-                </a>
+                // If User have any role with system
+                if (!Model.LoginInformations.User.Roles.IsNullOrEmpty()) {
+                    <a class="dropdown-item" asp-action="Index" asp-controller="Dashboard" asp-area="AdminCP">
+                        <i class="ri-shield-fill text-muted fs-16 align-middle me-1"></i> <span class="align-middle">@L(LKConstants.GoToAdminCP)</span>
+                    </a>
+                }
             }
             else
             {

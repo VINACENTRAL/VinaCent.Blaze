@@ -16,6 +16,10 @@ namespace VinaCent.Blaze.Authorization
             context.CreatePermission(PermissionNames.Pages_Languages, L(LKConstants.LanguageManagement));
             context.CreatePermission(PermissionNames.Pages_LanguageTexts, L(LKConstants.LanguageTextManagement));
             context.CreatePermission(PermissionNames.Pages_AuditLogs, L(LKConstants.AuditLogs));
+            // Business
+            context.CreatePermission(PermissionNames.Pages_CurrencyManagement, L(LKConstants.CurrencyManagement));
+            // Shop module
+            context.CreatePermission(PermissionNames.Pages_Shop, L(LKConstants.Shop));
         }
 
         private static ILocalizableString L(string name)
