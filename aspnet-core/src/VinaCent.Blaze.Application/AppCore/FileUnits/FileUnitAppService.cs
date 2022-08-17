@@ -1,23 +1,17 @@
 ﻿using Abp.Application.Services.Dto;
 using Abp.Authorization;
 using Abp.Domain.Repositories;
-using Abp.Domain.Uow;
-using Abp.EntityFrameworkCore.Repositories;
 using Abp.Extensions;
 using Abp.Linq.Extensions;
-using Abp.UI;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using VinaCent.Blaze.AppCore.FileUnits.Dto;
 using VinaCent.Blaze.Authorization;
 using VinaCent.Blaze.Authorization.Users;
-using VinaCent.Blaze.Configuration;
 using VinaCent.Blaze.Helpers;
 using VinaCent.Blaze.Users.Dto;
 
@@ -26,196 +20,23 @@ namespace VinaCent.Blaze.AppCore.FileUnits
     [AbpAuthorize(PermissionNames.Pages_FileManagement)]
     public class FileUnitAppService : BlazeAppServiceBase, IFileUnitAppService
     {
+        private readonly FileUnitManager _fileUnitManager;
+
         private readonly IRepository<FileUnit, Guid> _repository;
         private readonly IRepository<User, long> _userRepository;
-        private readonly IWebHostEnvironment _webHostEnvironment;
 
-        /// <summary>
-        /// Physical directory to store system files
-        /// </summary>
-        private const string ContentPhysicalDirectory = "contents";
-
-        /// <summary>
-        /// Virtual root directory to contains all user files
-        /// </summary>
-        private const string UsersDirName = "personal";
-
-        /// <summary>
-        /// Virtual root directory to contain all system's runtime files
-        /// </summary>
-        private const string ContentsDirName = "contents";
-
-        /// <summary>
-        /// Static
-        /// </summary>
-        public static readonly string[] StaticDirName = {UsersDirName, ContentsDirName};
-
-        /// <summary>
-        /// Root folder for app file system
-        /// </summary>
-        /// <returns></returns>
-        public string GetAppContentPath
-        {
-            get
-            {
-                var path = StringHelper.TrueCombine(_webHostEnvironment.WebRootPath, ContentPhysicalDirectory);
-                if (!Directory.Exists(path))
-                {
-                    Directory.CreateDirectory(path!);
-                }
-
-                return path;
-            }
-        }
-
-        /// <summary>
-        /// Current content folder of current tenant
-        /// </summary>
-        /// <returns></returns>
-        public string GetCurrentTenantContentPath
-        {
-            get
-            {
-                var currentTenantContentDirectory =
-                    AbpSession.TenantId == null ? "root" : $"tenant_{AbpSession.TenantId}";
-                var path = StringHelper.TrueCombine(GetAppContentPath, currentTenantContentDirectory);
-                if (!Directory.Exists(path))
-                {
-                    Directory.CreateDirectory(path!);
-                }
-
-                return path;
-            }
-        }
-
-        /// <summary>
-        /// Get content folder of current User
-        /// </summary>
-        public string GetCurrentUserContentPath
-        {
-            get
-            {
-                var currentUserContentDirectory =
-                    AbpSession.UserId == null ? "anonymous" : $"user_{AbpSession.UserId}";
-                var path = StringHelper.TrueCombine(GetCurrentTenantContentPath, currentUserContentDirectory);
-                if (!Directory.Exists(path))
-                {
-                    Directory.CreateDirectory(path!);
-                }
-
-                return path;
-            }
-        }
-
-        /// <summary>
-        /// Get today content folder
-        /// </summary>
-        public string GetTodayContentPath
-        {
-            get
-            {
-                var year = DateTime.Now.ToString("yyyy");
-                var month = DateTime.Now.ToString("MM");
-                var day = DateTime.Now.ToString("dd");
-
-                var path = StringHelper.TrueCombine(GetCurrentUserContentPath, year, month, day);
-                if (!Directory.Exists(path))
-                {
-                    Directory.CreateDirectory(path!);
-                }
-
-                return path;
-            }
-        }
 
         public FileUnitAppService(
             IRepository<FileUnit, Guid> repository,
             IRepository<User, long> userRepository,
-            IWebHostEnvironment webHostEnvironment)
+            FileUnitManager fileUnitManager)
         {
             _repository = repository;
             _userRepository = userRepository;
-            _webHostEnvironment = webHostEnvironment;
+            _fileUnitManager = fileUnitManager;
         }
 
-        public Task<FileUnitDto> GetAsync(Guid id) => GetFileUnitAsync(id);
-
-        public async Task<List<FileUnitDto>> GetAllParentAsync(string directory)
-        {
-            var parentDirectories = new List<FileUnitDto>();
-            if (directory.IsNullOrEmpty())
-            {
-                return parentDirectories;
-            }
-
-            FileUnit currentDirectory;
-            do
-            {
-                currentDirectory = await _repository.FirstOrDefaultAsync(x =>
-                    x.FullName == directory);
-                if (currentDirectory == null)
-                {
-                    break;
-                }
-
-                directory = currentDirectory.Directory;
-
-                parentDirectories.Add(MapToEntityDto(currentDirectory));
-            } while (!currentDirectory.Directory.IsNullOrEmpty() && currentDirectory.Directory != StringHelper.FileSeparator);
-
-            parentDirectories.Reverse();
-            return parentDirectories;
-        }
-
-        [AbpAllowAnonymous]
-        public async Task<FileUnitDto> GetByFullName(string fullName)
-        {
-            if (fullName.IsNullOrWhiteSpace())
-                return null;
-            if (!fullName.StartsWith(StringHelper.FileSeparator))
-                fullName = StringHelper.FileSeparator + fullName;
-            var file = await _repository.FirstOrDefaultAsync(x => x.FullName == fullName);
-            if (file == null)
-                return null;
-            var entityDto = MapToEntityDto(file);
-            if (entityDto.CreatorUserId != null)
-            {
-                var creator = await _userRepository.GetAsync(entityDto.CreatorUserId.Value);
-                entityDto.Creator = ObjectMapper.Map<UserDto>(creator);
-            }
-
-            // If is a folder => Return it
-            if (entityDto.IsFolder)
-            {
-                return entityDto;
-            }
-
-            return File.Exists(entityDto.PhysicalPath) ? entityDto : null;
-
-            // Check if file not found, also remove in virtual file manager
-            // Remove in virtual file
-            // if (_hostEnvironment.IsProduction())
-            // {
-            //     await _repository.DeleteAsync(entityDto.Id);
-            // }
-        }
-
-        public async Task<FileUnitDto> GetParentAsync(string directory)
-        {
-            if (directory.IsNullOrEmpty())
-            {
-                throw new UserFriendlyException(L(LKConstants.YourParentDirectoryPathNotCorrect));
-            }
-
-            var currentDirectory = await _repository.FirstOrDefaultAsync(x =>
-                x.FullName == directory);
-            if (currentDirectory == null)
-            {
-                throw new UserFriendlyException(L(LKConstants.ParentDirectoryWasNotExists));
-            }
-
-            return MapToEntityDto(currentDirectory);
-        }
+        public async Task<FileUnitDto> GetAsync(Guid id) => MapToEntityDto(await _fileUnitManager.GetById(id));
 
         public async Task<PagedResultDto<FileUnitDto>> GetAllAsync(PagedFileUnitResultRequestDto input)
         {
@@ -228,7 +49,7 @@ namespace VinaCent.Blaze.AppCore.FileUnits
             var items = MapToEntityDto(query.ToList());
             foreach (var item in items)
             {
-                item.IsStatic = StaticDirName.Any(x =>
+                item.IsStatic = FileUnitConsts.StaticDirName.Any(x =>
                     item.FullName.EnsureStartsWith(StringHelper.FileSeparator.First())
                         .StartsWith(x.EnsureStartsWith(StringHelper.FileSeparator.First())));
                 if (item.CreatorUserId is not > 0) continue;
@@ -239,209 +60,17 @@ namespace VinaCent.Blaze.AppCore.FileUnits
             return new PagedResultDto<FileUnitDto>(totalCount, items);
         }
 
-        public Task<FileUnitDto> CreateDirectoryAsync(CreateDirectoryDto input) => CreateVirtualDirectoryAsync(input);
+        public async Task<FileUnitDto> UploadFileAsync([FromForm] UploadFileUnitDto input) => MapToEntityDto(await _fileUnitManager.UploadFileAsync(MapToEntity(input), input.File));
 
-        [AbpAuthorize]
-        public async Task<FileUnitDto> UploadFileAsync([FromForm] UploadFileUnitDto input)
-        {
-            var fileUnit = MapToEntity(input);
-            fileUnit.Id = Guid.NewGuid();
+        public async Task<FileUnitDto> CreateDirectoryAsync(CreateDirectoryDto input) => MapToEntityDto(await _fileUnitManager.CreateDirectoryAsync(MapToEntity(input)));
 
-            if (input.File is not {Length: > 0})
-            {
-                throw new UserFriendlyException(L(LKConstants.YouMustChooseAFileToUpload));
-            }
+        public async Task<FileUnitDto> RenameAsync(FileUnitRenameDto input) => MapToEntityDto(await _fileUnitManager.RenameAsync(input.Id, input.Name, input.Description));
 
-            var allowedMaxFileSize =
-                Convert.ToInt16(await SettingManager.GetSettingValueAsync(AppSettingNames.AllowedMaxFileSize)); //kb
+        public async Task<FileUnitDto> MoveAsync(Guid id, Guid directoryId) => MapToEntityDto(await _fileUnitManager.MoveAsync(id, directoryId));
 
-            var allowedUploadFormats = (await SettingManager.GetSettingValueAsync(AppSettingNames.AllowedUploadFormats))
-                ?.Split(",", StringSplitOptions.RemoveEmptyEntries).Select(x => x.Trim());
+        public Task DeleteAsync(Guid id) => DeleteAsync(id);
 
-            fileUnit.TenantId = AbpSession.TenantId;
-            fileUnit.IsFolder = false;
 
-            if (input.ParentId != null && input.ParentId != Guid.Empty)
-            {
-                var directory = await GetAsync(input.ParentId.Value);
-                fileUnit.Directory = directory.FullName;
-            }
-            else
-            {
-                fileUnit.Directory = StringHelper.FileSeparator;
-            }
-
-            fileUnit.Name = Path.GetFileName(input.File.FileName);
-            fileUnit.Extension = Path.GetExtension(input.File.FileName);
-
-            MimeKit.MimeTypes.TryGetExtension(input.File.ContentType, out var realFileExtension);
-            if (!realFileExtension.IsNullOrEmpty())
-            {
-                fileUnit.Extension = realFileExtension;
-            }
-
-            if (allowedUploadFormats == null || !allowedUploadFormats.Contains(fileUnit.Extension))
-            {
-                throw new UserFriendlyException(L(LKConstants.NotValidFormat));
-            }
-
-            fileUnit.NameWithoutExtension = Path.GetFileNameWithoutExtension(input.File.FileName);
-            fileUnit.FullName = StringHelper.TrueCombine(fileUnit.Directory, fileUnit.Name);
-            fileUnit.Length = input.File.Length;
-
-            if (fileUnit.Length > allowedMaxFileSize * 1024 * 1024)
-            {
-                throw new UserFriendlyException(L(LKConstants.ExceedsTheMaximumSize, allowedMaxFileSize));
-            }
-
-            fileUnit = RollUniqueName(fileUnit);
-
-            fileUnit.PhysicalPath = ConvertToRealPhysicalFilePath(fileUnit.Id);
-            await using (Stream fileStream = new FileStream(fileUnit.PhysicalPath, FileMode.Create))
-            {
-                await input.File.CopyToAsync(fileStream);
-            }
-
-            if (!File.Exists(fileUnit.PhysicalPath))
-            {
-                throw new Exception("Save file fail!");
-            }
-
-            fileUnit = await _repository.InsertAsync(fileUnit);
-
-            return MapToEntityDto(fileUnit);
-        }
-
-        public async Task<FileUnitDto> RenameAsync(FileUnitRenameDto input)
-        {
-            if (input.Name.IsNullOrWhiteSpace())
-            {
-                throw new UserFriendlyException(L(LKConstants.YourDataIsInvalid));
-            }
-
-            NameValidation(input.Name);
-
-            var fileUnit = await GetFileUnit(input.Id);
-
-            PreventStaticObjectChange(fileUnit.FullName, fileUnit.CreatorUserId);
-            
-            var newFileName = Path.GetFileNameWithoutExtension(input.Name);
-            var newFileExtension = Path.GetExtension(input.Name);
-            if (newFileExtension.IsNullOrWhiteSpace())
-            {
-                fileUnit.Name = newFileName + fileUnit.Extension;
-            }
-            else
-            {
-                fileUnit.Name = input.Name;
-                fileUnit.Extension = newFileExtension;
-            }
-
-            fileUnit.Description = input.Description;
-
-            fileUnit.NameWithoutExtension = newFileName;
-            fileUnit.FullName = StringHelper.TrueCombine(fileUnit.Directory, fileUnit.Name!);
-
-            fileUnit = RollUniqueName(fileUnit);
-            fileUnit = await _repository.UpdateAsync(fileUnit);
-            if (fileUnit.IsFolder)
-            {
-                await UpdateChildDirectory(fileUnit);
-            }
-
-            return MapToEntityDto(fileUnit);
-        }
-
-        public async Task<FileUnitDto> MoveAsync(Guid id, Guid directoryId)
-        {
-            var fileUnit = await GetFileUnit(id);
-            
-            PreventStaticObjectChange(fileUnit.FullName, fileUnit.CreatorUserId);
-            
-            var directory = await GetFileUnit(directoryId);
-            fileUnit.ParentId = directoryId;
-            fileUnit.Directory = directory.FullName;
-            fileUnit.FullName = StringHelper.TrueCombine(fileUnit.Directory, fileUnit.Name);
-            fileUnit = RollUniqueName(fileUnit);
-            fileUnit = await _repository.UpdateAsync(fileUnit);
-            if (fileUnit.IsFolder)
-            {
-                await UpdateChildDirectory(fileUnit);
-            }
-
-            return MapToEntityDto(fileUnit);
-        }
-
-        [AbpAuthorize]
-        public async Task DeleteAsync(Guid id)
-        {
-            var fileUnit = await GetAsync(id);
-            
-            PreventStaticObjectChange(fileUnit.FullName, fileUnit.CreatorUserId);
-
-            if (!fileUnit.IsFolder)
-            {
-                try
-                {
-                    // Try to delete this file
-                    File.Delete(fileUnit.PhysicalPath);
-                } catch
-                {
-                    // Ignore process
-                }
-            }
-            else
-            {
-                var children = _repository.GetAll()
-                    .Where(x => x.ParentId == fileUnit.Id)
-                    .Select(x => x.Id)
-                    .ToArray();
-                foreach (var itemId in children)
-                {
-                    await DeleteAsync(itemId);
-                }
-            }
-
-            await _repository.DeleteAsync(id);
-        }
-
-        [UnitOfWork]
-        public Task<FileUnitDto> GetUserDir(long? userId = null) => GetVirtualUserDirAsync(userId);
-  
-
-        [AbpAuthorize]
-        public async Task<FileUnitDto> GetUserDirPicture(long? userId = null)
-        {
-            if (userId is null or <= 0)
-            {
-                userId = AbpSession.UserId;
-            }
-
-            var specifiedUserDir = await GetUserDir(userId);
-            var userDirPicturesPath = StringHelper.TrueCombine(specifiedUserDir.FullName, "Pictures");
-
-            var userDirPictures = await GetByFullName(userDirPicturesPath) ??
-                                  await CreateVirtualDirectoryAsync(new CreateDirectoryDto
-                                  {
-                                      ParentId = specifiedUserDir.Id,
-                                      Name = "Pictures",
-                                      Description = "Lưu trữ hình ảnh"
-                                  });
-            if (userDirPictures == null)
-            {
-                throw new UserFriendlyException(L(LKConstants.CanNotGetOrCreateDirectory_X));
-            }
-
-            await _repository.GetDbContext().SaveChangesAsync();
-            return userDirPictures;
-        }
-
-        #region Core Function
-
-        private string ConvertToRealPhysicalFilePath(Guid id)
-        {
-            return StringHelper.TrueCombine(GetTodayContentPath, id.ToString());
-        }
 
         private IQueryable<FileUnit> CreateFilteredQuery(PagedFileUnitResultRequestDto input)
         {
@@ -485,187 +114,5 @@ namespace VinaCent.Blaze.AppCore.FileUnits
         {
             return ObjectMapper.Map<FileUnit>(input);
         }
-
-        private async Task<FileUnit> GetFileUnit(Guid id)
-        {
-            if (id == Guid.Empty)
-            {
-                throw new UserFriendlyException(L(LKConstants.YourDataIsInvalid));
-            }
-
-            var entity = await _repository.GetAsync(id);
-            if (entity == null)
-            {
-                throw new UserFriendlyException(L(LKConstants.NotFoundYourData));
-            }
-
-            return entity;
-        }
-
-        /// <summary>
-        /// Create suffix for name of file/directory if have one
-        /// </summary>
-        /// <returns></returns>
-        private FileUnit RollUniqueName(FileUnit input, int count = 0)
-        {
-            var one = _repository.FirstOrDefault(x =>
-                x.ParentId == input.ParentId &&
-                x.IsFolder == input.IsFolder &&
-                x.Name == input.Name && x.Id != input.Id);
-            if (one == null)
-            {
-                if (count > 0)
-                {
-                    input.NameWithoutExtension = $"{input.NameWithoutExtension} ({count})";
-                    input.FullName = StringHelper.TrueCombine(input.Directory, input.Name);
-                }
-
-                return input;
-            }
-
-            input.Name = $"{input.NameWithoutExtension} ({count + 1}){input.Extension}";
-            return RollUniqueName(input, count + 1);
-        }
-
-        private void NameValidation(string name)
-        {
-            if (name.IndexOfAny(Path.GetInvalidFileNameChars()) != -1)
-            {
-                throw new UserFriendlyException(L(LKConstants.NameOfFileOrFolderIsInvalid));
-            }
-        }
-
-        private async Task UpdateChildDirectory(FileUnit parent)
-        {
-            if (!parent.IsFolder)
-                return;
-            var children = await _repository.GetAllListAsync(x => x.ParentId == parent.Id);
-            foreach (var child in children)
-            {
-                if (child.IsFolder)
-                {
-                    await UpdateChildDirectory(child);
-                }
-
-                child.Directory = parent.FullName;
-                child.FullName = StringHelper.TrueCombine(child.Directory, child.Name);
-                await _repository.UpdateAsync(child);
-            }
-        }
-
-        private void PreventStaticObjectChange(string directory, long? creatorId)
-        {
-            // If changer is creator => Permit
-            if (AbpSession.UserId == creatorId) return;
-
-            directory = directory.EnsureStartsWith(StringHelper.FileSeparator.First());
-            var isStatic = StaticDirName.Any(x =>
-                directory.EnsureStartsWith(StringHelper.FileSeparator.First())
-                    .StartsWith(x.EnsureStartsWith(StringHelper.FileSeparator.First())));
-            if (isStatic)
-            {
-                throw new UserFriendlyException(LKConstants.YouDoNotHaveToBeTheOwnerToPerformThisAction);
-            }
-        }
-
-        private async Task<FileUnitDto> GetFileUnitAsync(Guid id)
-        {
-            var entityDto = MapToEntityDto(await GetFileUnit(id));
-            if (entityDto.CreatorUserId != null)
-            {
-                var creator = await _userRepository.GetAsync(entityDto.CreatorUserId.Value);
-                entityDto.Creator = ObjectMapper.Map<UserDto>(creator);
-            }
-
-            return entityDto;
-        }
-
-        private async Task<FileUnitDto> CreateVirtualDirectoryAsync(CreateDirectoryDto input)
-        {
-            var fileUnit = ObjectMapper.Map<FileUnit>(input);
-            fileUnit.Id = Guid.NewGuid();
-
-            NameValidation(input.Name);
-
-            fileUnit.TenantId = AbpSession.TenantId;
-            fileUnit.IsFolder = true;
-
-            if (input.ParentId != null && input.ParentId != Guid.Empty)
-            {
-                var directory = await GetFileUnitAsync(input.ParentId.Value);
-                fileUnit.Directory = directory.FullName;
-            }
-            else
-            {
-                fileUnit.Directory = StringHelper.FileSeparator;
-            }
-
-            fileUnit.Name = input.Name;
-            fileUnit.Extension = "";
-            fileUnit.NameWithoutExtension = input.Name;
-            fileUnit.FullName = StringHelper.TrueCombine(fileUnit.Directory, fileUnit.Name);
-            fileUnit.Length = 0;
-
-            fileUnit.PhysicalPath = "";
-
-            fileUnit = RollUniqueName(fileUnit);
-            fileUnit = await _repository.InsertAsync(fileUnit);
-
-            return MapToEntityDto(fileUnit);
-        }
-
-        private async Task<FileUnitDto> GetVirtualUserDirAsync(long? userId = null)
-        {
-            if (userId is null or <= 0)
-            {
-                userId = AbpSession.UserId;
-            }
-
-            var usersDir = await GetByFullName(UsersDirName) ??
-                           await CreateVirtualDirectoryAsync(new CreateDirectoryDto
-                           {
-                               ParentId = null,
-                               Name = UsersDirName,
-                               Description =
-                                   "Thư mục có trách nhiệm lưu media của toàn bộ người dùng trên hệ thống. Vui lòng không xóa."
-                           });
-
-            if (usersDir == null)
-            {
-                throw new UserFriendlyException(L(LKConstants.CanNotGetOrCreateDirectory_X));
-            }
-
-            await _repository.GetDbContext().SaveChangesAsync();
-
-            var randomGuid = Guid.NewGuid().ToString().Replace("-", "");
-            var name = $"{randomGuid}{userId}";
-            var userIdStr = userId?.ToString() ?? "";
-            var dir = CreateFilteredQuery(new PagedFileUnitResultRequestDto
-            {
-                IsFolder = true,
-                Directory = usersDir.FullName
-            }).Where(x => x.Name.Length == name.Length && x.Name.EndsWith(userIdStr))
-                .ToList()
-                .FirstOrDefault();
-
-            var specifiedUserDir = MapToEntityDto(dir) ??
-                                   await CreateVirtualDirectoryAsync(new CreateDirectoryDto
-                                   {
-                                       ParentId = usersDir.Id,
-                                       Name = name,
-                                       Description =
-                                           $"Thư mục lưu trữ riêng cá nhân của người  dùng #{userId}"
-                                   });
-            if (specifiedUserDir == null)
-            {
-                throw new UserFriendlyException(L(LKConstants.CanNotGetOrCreateDirectory_X));
-            }
-
-            await _repository.GetDbContext().SaveChangesAsync();
-            return specifiedUserDir;
-        }
-
-
-        #endregion
     }
 }

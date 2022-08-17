@@ -29,27 +29,27 @@ namespace VinaCent.Blaze.Profiles
     {
         private readonly UserManager _userManager;
         private readonly IRepository<CommonData, Guid> _repository;
-        private readonly IFileUnitAppService _fileUnitAppService;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IAESHelper _aesHelper;
         private readonly ITextTemplateAppService _textTemplateAppService;
         private readonly IEmailSender _emailSender;
+        private readonly FileUnitManager _fileUnitManager;
 
         public ProfileAppService(UserManager userManager,
             IRepository<CommonData, Guid> repository,
-            IFileUnitAppService fileUnitAppService,
             IHttpContextAccessor httpContextAccessor,
             ITextTemplateAppService textTemplateAppService,
             IEmailSender emailSender,
-            IAESHelper aesHelper)
+            IAESHelper aesHelper,
+            FileUnitManager fileUnitManager)
         {
             _userManager = userManager;
             _repository = repository;
-            _fileUnitAppService = fileUnitAppService;
             _httpContextAccessor = httpContextAccessor;
             _textTemplateAppService = textTemplateAppService;
             _emailSender = emailSender;
             _aesHelper = aesHelper;
+            _fileUnitManager = fileUnitManager;
         }
 
         public async Task<bool> ChangePasswordAsync(ChangePasswordDto input)
@@ -84,19 +84,20 @@ namespace VinaCent.Blaze.Profiles
         {
             var user = await GetCurrentUserAsync();
             var commonDataQuery = _repository.GetAll();
-            if(!await commonDataQuery.AnyAsync(x=>x.Type == "COUNTRY" && x.Key == input.Country)){
+            if (!await commonDataQuery.AnyAsync(x => x.Type == "COUNTRY" && x.Key == input.Country))
+            {
                 input.Country = input.State = input.City = null;
             }
-            else if(!await commonDataQuery.AnyAsync(x => x.Type == "STATE" && x.Key == input.State))
+            else if (!await commonDataQuery.AnyAsync(x => x.Type == "STATE" && x.Key == input.State))
             {
                 input.State = input.City = null;
             }
-            else if(!await commonDataQuery.AnyAsync(x => x.Type == "CITY" && x.Key == input.City))
+            else if (!await commonDataQuery.AnyAsync(x => x.Type == "CITY" && x.Key == input.City))
             {
                 input.City = null;
             }
             input.Birthday = DateTime.Parse(input.BirthdayStr);
-            user = ObjectMapper.Map(input,user);
+            user = ObjectMapper.Map(input, user);
             if (!input.ConcurrencyStamp.IsNullOrEmpty())
             {
                 user.ConcurrencyStamp = input.ConcurrencyStamp;
@@ -133,33 +134,32 @@ namespace VinaCent.Blaze.Profiles
         public async Task<ProfileDto> UpdateAvatar([FromForm] UpdateAvatarDto input)
         {
             var user = await GetCurrentUserAsync();
-            if(user == null)
+            if (user == null)
             {
                 throw new UserFriendlyException(L(LKConstants.PleaseLogInBeforeDoThisAction));
             }
 
-            var userDirPictures = await _fileUnitAppService.GetUserDirPicture(user.Id);
+            var userDirPictures = await _fileUnitManager.GetUserSelfPictureDir();
 
-            var dto = new UploadFileUnitDto
+            var result = await _fileUnitManager.UploadFileAsync(new FileUnit
             {
                 ParentId = userDirPictures.Id,
-                Description = "",
-                File = input.File
-            };
+                Description = ""
+            }, input.File);
 
-            var result = await _fileUnitAppService.UploadFileAsync(dto);
             if (result == null || result.Id == Guid.Empty || result.FullName.IsNullOrWhiteSpace())
                 throw new UserFriendlyException(L(LKConstants.ChangeAvatarFail));
 
             if (!user.Avatar.IsNullOrEmpty())
             {
+                // If user has previous data, remove it
                 var avaFilePath = user.Avatar.ResourceFullName();
-                var avaFile = await _fileUnitAppService.GetByFullName(avaFilePath);
+                var avaFile = await _fileUnitManager.GetByFullName(avaFilePath);
                 if (avaFile != null && avaFile.Id != Guid.Empty)
-                    await _fileUnitAppService.DeleteAsync(avaFile.Id);
+                    await _fileUnitManager.DeleteAsync(avaFile.Id);
             }
 
-            user.Avatar = result.ResourcePath;
+            user.Avatar = result.FullName.ToResourcePath();
             return ObjectMapper.Map<ProfileDto>(user);
         }
 
@@ -196,7 +196,7 @@ namespace VinaCent.Blaze.Profiles
             try
             {
                 verify = _aesHelper.Decrypt(input.Token, input.ConfirmCode);
-            } 
+            }
             catch
             {
                 throw new UserFriendlyException(L(LKConstants.InvalidCode));

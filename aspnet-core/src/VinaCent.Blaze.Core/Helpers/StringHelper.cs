@@ -26,6 +26,16 @@ namespace VinaCent.Blaze.Helpers
             return Path.Combine(paths).Replace("\\", FileSeparator);
         }
 
+        public static string TrueCombieAndEnsureDirExist(params string[] paths)
+        {
+            var path = TrueCombine(paths);
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path!);
+            }
+            return path;
+        }
+
         public static string OSCombine(params string[] paths)
         {
             if (paths.Length > 1)
