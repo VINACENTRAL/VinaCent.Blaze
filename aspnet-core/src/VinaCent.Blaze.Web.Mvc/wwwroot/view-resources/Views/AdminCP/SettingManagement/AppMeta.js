@@ -1,4 +1,6 @@
 ﻿(function () {
+    const l = abp.localization.getSource('Blaze');
+
     var _$form = $('#AppMetaForm');
 
     _$form.submit(function (e) {
@@ -13,8 +15,8 @@
             contentType: 'application/x-www-form-urlencoded',
             url: _$form.attr('action'),
             data: _$form.serialize(),
-        }).done(function (data) {
-            abp.notify.success(LKConstants.SavedSuccessfully);
+        }).done(function () {
+            abp.notify.success(l(LKConstants.SavedSuccessfully));
         }).always(function () {
             abp.ui.clearBusy(_$form);
         });
