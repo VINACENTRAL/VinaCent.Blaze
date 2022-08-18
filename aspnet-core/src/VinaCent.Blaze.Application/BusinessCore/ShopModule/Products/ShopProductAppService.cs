@@ -5,7 +5,9 @@ using Abp.Collections.Extensions;
 using Abp.Domain.Repositories;
 using Abp.Extensions;
 using Abp.Linq.Extensions;
-using VinaCent.Blaze.BusinessCore.Shop;
+using VinaCent.Blaze.BusinessCore.Shop.ProductCategories;
+using VinaCent.Blaze.BusinessCore.Shop.Products;
+using VinaCent.Blaze.BusinessCore.Shop.ProductTags;
 using VinaCent.Blaze.BusinessCore.ShopModule.Products.Dto;
 
 namespace VinaCent.Blaze.BusinessCore.ShopModule.Products;

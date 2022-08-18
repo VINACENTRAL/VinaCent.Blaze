@@ -1,10 +1,11 @@
 ﻿using Abp.Domain.Entities;
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
+using VinaCent.Blaze.BusinessCore.Shop.Products;
 
-namespace VinaCent.Blaze.BusinessCore.Shop
+namespace VinaCent.Blaze.BusinessCore.Shop.ProductMetas
 {
-    [Table(nameof(BusinessCore) + $".{nameof(Shop)}.{nameof(ProductMeta)}s")]
+    [Table(nameof(BusinessCore) + $".{nameof(Shop)}.{nameof(ProductMetas)}")]
     public class ProductMeta : Entity<Guid>
     {
         /// <summary>

@@ -4,9 +4,9 @@ using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using VinaCent.Blaze.BusinessCore.Shop.Common;
 
-namespace VinaCent.Blaze.BusinessCore.Shop
+namespace VinaCent.Blaze.BusinessCore.Shop.Products
 {
-    [Table(nameof(BusinessCore) + $".{nameof(Shop)}.{nameof(Product)}s")]
+    [Table(nameof(BusinessCore) + $".{nameof(Shop)}.{nameof(Products)}")]
     public class Product : AuditedEntity<long>, IPassivable
     {
         /// <summary>

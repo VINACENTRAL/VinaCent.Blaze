@@ -1,4 +1,5 @@
 ﻿using Abp;
+using Abp.Configuration;
 using Abp.Dependency;
 using Abp.Domain.Repositories;
 using Abp.Domain.Uow;
@@ -16,6 +17,7 @@ using System.Threading.Tasks;
 using VinaCent.Blaze.Authorization.Users;
 using VinaCent.Blaze.Configuration;
 using VinaCent.Blaze.Helpers;
+using VinaCent.Blaze.Utilities;
 
 namespace VinaCent.Blaze.AppCore.FileUnits
 {
@@ -173,9 +175,6 @@ namespace VinaCent.Blaze.AppCore.FileUnits
                 throw new UserFriendlyException(L(LKConstants.YouMustChooseAFileToUpload));
             }
 
-            var allowedMaxFileSize =
-                Convert.ToInt16(await SettingManager.GetSettingValueAsync(AppSettingNames.AllowedMaxFileSize)); //kb
-
             var allowedUploadFormats = (await SettingManager.GetSettingValueAsync(AppSettingNames.AllowedUploadFormats))
                 ?.Split(",", StringSplitOptions.RemoveEmptyEntries).Select(x => x.Trim());
 
@@ -210,9 +209,9 @@ namespace VinaCent.Blaze.AppCore.FileUnits
             input.FullName = StringHelper.TrueCombine(input.Directory, input.Name);
             input.Length = file.Length;
 
-            if (input.Length > allowedMaxFileSize * 1024 * 1024)
+            if (input.Length > SettingManager.GetAllowMaxFileSizeInBytes())
             {
-                throw new UserFriendlyException(L(LKConstants.ExceedsTheMaximumSize, allowedMaxFileSize));
+                throw new UserFriendlyException(L(LKConstants.ExceedsTheMaximumSize, SettingManager.GetAllowMaxFileSizeInMB()));
             }
 
             input = RollUniqueName(input);

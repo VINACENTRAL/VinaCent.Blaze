@@ -1,12 +1,20 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Abp.Application.Services;
+using Abp.Application.Services.Dto;
 using VinaCent.Blaze.BusinessCore.ShopModule.Categories.Dto;
 
 namespace VinaCent.Blaze.BusinessCore.ShopModule.Categories;
 
-public interface IShopCategoryAppService: IAsyncCrudAppService<CategoryDto, int, FilterCategoryDto, CreateCategoryDto, UpdateCategoryDto>
+public interface IShopCategoryAppService: IApplicationService
 {
+    Task<CategoryDto> GetAsync(EntityDto input);
+    Task<CategoryDto> CreateAsync(CreateCategoryDto input);
+    Task<CategoryDto> UpdateAsync(UpdateCategoryDto input);
+    Task DeleteAsync(int id);
+    Task<PagedResultDto<CategoryListDto>> GetAllAsync(FilterCategoryDto input);
+
+
     /// <summary>
     /// Get all parent category of inputted category, and sort them by level from root (0)
     /// No included itself

@@ -2,9 +2,9 @@
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace VinaCent.Blaze.BusinessCore.Shop
+namespace VinaCent.Blaze.BusinessCore.Shop.Tags
 {
-    [Table(nameof(BusinessCore) + $".{nameof(Shop)}.{nameof(Tag)}s")]
+    [Table(nameof(BusinessCore) + $".{nameof(Shop)}.{nameof(Tags)}")]
     public class Tag : Entity<Guid>
     {
         public string Title { get; set; }

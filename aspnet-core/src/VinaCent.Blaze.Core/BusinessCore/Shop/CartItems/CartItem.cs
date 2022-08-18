@@ -1,10 +1,11 @@
 ﻿using Abp.Domain.Entities.Auditing;
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
+using VinaCent.Blaze.BusinessCore.Shop.Products;
 
-namespace VinaCent.Blaze.BusinessCore.Shop
+namespace VinaCent.Blaze.BusinessCore.Shop.CartItems
 {
-    [Table(nameof(BusinessCore) + $".{nameof(Shop)}.{nameof(CartItem)}s")]
+    [Table(nameof(BusinessCore) + $".{nameof(Shop)}.{nameof(CartItems)}")]
     public class CartItem : AuditedEntity<Guid>
     {
         /// <summary>
