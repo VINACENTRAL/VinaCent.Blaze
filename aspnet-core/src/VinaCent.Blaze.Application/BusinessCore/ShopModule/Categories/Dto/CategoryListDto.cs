@@ -5,7 +5,7 @@ using VinaCent.Blaze.BusinessCore.Shop.Categories;
 
 namespace VinaCent.Blaze.BusinessCore.ShopModule.Categories.Dto;
 
-[AutoMapFrom(typeof(Category))]
+[AutoMapFrom(typeof(Category), typeof(CategoryTranslation))]
 public class CategoryListDto : EntityDto, IPassivable
 {
     /// <summary>s

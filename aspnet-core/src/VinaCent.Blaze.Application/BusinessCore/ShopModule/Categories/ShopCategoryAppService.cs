@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -32,10 +33,10 @@ public class ShopCategoryAppService : BlazeAppServiceBase,
         return ObjectMapper.Map<CategoryDto>(result);
     }
 
-    public async Task DeleteAsync(int id)
+    public async Task DeleteAsync(EntityDto input)
     {
-        await _translationRepository.DeleteAsync(x => x.CoreId == id);
-        await _repository.DeleteAsync(id);
+        await _translationRepository.DeleteAsync(x => x.CoreId == input.Id);
+        await _repository.DeleteAsync(input.Id);
     }
 
     public async Task<PagedResultDto<CategoryListDto>> GetAllAsync(FilterCategoryDto input)
@@ -66,7 +67,24 @@ public class ShopCategoryAppService : BlazeAppServiceBase,
     public async Task<CategoryDto> CreateAsync(CreateCategoryDto input)
     {
         var category = ObjectMapper.Map<Category>(input);
+        var translations = category.Translations;
+        category.Translations = new List<CategoryTranslation>();
+
+        if (category.ParentId.HasValue)
+        {
+            category.Level = _repository.Get(category.ParentId.Value)?.Level ?? 0;
+        } else
+        {
+            category.Level = 0;
+        }
+
         category = await _repository.InsertAsync(category);
+        foreach (var translation in translations)
+        {
+            var trans = await _translationRepository.InsertAsync(translation);
+            category.Translations.Add(trans);
+        }
+
         return ObjectMapper.Map<CategoryDto>(category);
     }
 
@@ -78,6 +96,17 @@ public class ShopCategoryAppService : BlazeAppServiceBase,
         // Clear old translation
         category.Translations = new List<CategoryTranslation>();
         await _translationRepository.DeleteAsync(x => x.CoreId == category.Id);
+
+        if (category.ParentId.HasValue)
+        {
+            category.Level = _repository.Get(category.ParentId.Value)?.Level ?? 0;
+        }
+        else
+        {
+            category.Level = 0;
+        }
+
+        category = await _repository.UpdateAsync(category);
 
         // Insert new translation again
         foreach (var translation in translations)

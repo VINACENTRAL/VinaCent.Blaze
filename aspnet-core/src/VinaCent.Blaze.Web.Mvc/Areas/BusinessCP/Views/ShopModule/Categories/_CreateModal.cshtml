@@ -3,7 +3,7 @@
 @model VinaCent.Blaze.BusinessCore.ShopModule.Categories.Dto.CreateCategoryDto
 @{
     Layout = null;
-    var currentLevel = (int)ViewBag.CurrentLevel;
+    var currentLevel = (int)(ViewBag.CurrentLevel ?? 0);
     var title = currentLevel == 0 ? L(LKConstants.ShopModule_CreateNewParentCategory) : L(LKConstants.ShopModule_CreateNewChildCategory);
 
     var languageInfos = LanguageManager.GetActiveLanguages();
@@ -13,7 +13,7 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             @await Html.PartialAsync("~/Views/Shared/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(title))
-            <form name="LanguageCreateForm" role="form" class="form-horizontal">
+            <form role="form" class="form-horizontal">
                 <div class="modal-body">
                     @if (currentLevel != 0)
                     {
@@ -39,8 +39,8 @@
                         {
                             var languageInfo = languageInfos.FirstOrDefault(x => x.Name.Equals(translation.Language));
                             <li class="nav-item">
-                                <a class="nav-link @(languageInfo.Name == languageInfos.FirstOrDefault()?.Name?"active":"")" data-bs-toggle="tab" href="#@translation.Language" role="tab" aria-selected="false">
-                                    <i class="ri-home-5-line align-middle me-1"></i> @languageInfo.DisplayName
+                                <a class="nav-link @(languageInfo.Name == languageInfos.FirstOrDefault()?.Name?"active":"")" data-bs-toggle="tab" href="#create-@translation.Language" role="tab" aria-selected="false">
+                                    <img src="/vinacent/flags/1x1/@languageInfo.Icon" alt="user-image" class="me-2 rounded" height="18" /> @languageInfo.DisplayName
                                 </a>
                             </li>
                         }
@@ -49,20 +49,20 @@
                         @for (int i = 0; i < Model.Translations.Count; i++)
                         {
                             var languageInfo = languageInfos.FirstOrDefault(x => x.Name.Equals(Model.Translations[i].Language));
-                            <input type="hidden" asp-for="Translations[i].Language" />
-                            <div class="tab-pane @(languageInfo.Name == languageInfos.FirstOrDefault()?.Name?"active":"")" id="#@Model.Translations[i].Language" role="tabpanel">
+                            <div class="tab-pane @(languageInfo.Name == languageInfos.FirstOrDefault()?.Name?"active":"")" id="create-@Model.Translations[i].Language" role="tabpanel">
+                                <input type="hidden" asp-for="Translations[i].Language" />
                                 <div class="required mb-3">
-                                    <label class="form-label" asp-for="Translations[i].Title"></label>
+                                    <label class="form-label d-flex" asp-for="Translations[i].Title">@L(LKConstants.Title) <span class="small ms-auto text-info">[@languageInfo.Name]</span></label>
                                     <input type="text" asp-for="Translations[i].Title" class="form-control" />
                                     <span asp-validation-for="Translations[i].Title" class="invalid-feedback"></span>
                                 </div>
                                 <div class="required mb-3">
-                                    <label class="form-label" asp-for="Translations[i].MetaTitle"></label>
+                                    <label class="form-label d-flex" asp-for="Translations[i].MetaTitle">@L(LKConstants.MetaTitle) <span class="small ms-auto text-info">[@languageInfo.Name]</span></label>
                                     <input type="text" asp-for="Translations[i].MetaTitle" class="form-control" />
                                     <span asp-validation-for="Translations[i].MetaTitle" class="invalid-feedback"></span>
                                 </div>
                                 <div class="required mb-3">
-                                    <label class="form-label" asp-for="Translations[i].Content"></label>
+                                    <label class="form-label d-flex" asp-for="Translations[i].Content">@L(LKConstants.Content) <span class="small ms-auto text-info">[@languageInfo.Name]</span></label>
                                     <textarea class="form-control" asp-for="Translations[i].Content"></textarea>
                                     <span asp-validation-for="Translations[i].Content" class="invalid-feedback"></span>
                                 </div>

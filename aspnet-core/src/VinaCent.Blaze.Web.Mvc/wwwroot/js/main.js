@@ -18,6 +18,7 @@
 
     //serializeFormToObject plugin for jQuery
     $.fn.serializeFormToObject = function (camelCased = false) {
+        const regex = /^(\w+)\[(\d+)\]\.(\w+)$/;
         //serialize to array
         var data = $(this).serializeArray();
 
@@ -29,8 +30,19 @@
         //map to object
         var obj = {};
         data.map(function (x) { // Prevent duplicated in checkbox
-            if (obj[x.name] === undefined) {
-                obj[x.name] = x.value;
+            let m = regex.exec(x.name);
+            if (m) {
+                if (obj[m[1]] === undefined) {
+                    obj[m[1]] = [];
+                }
+                if (obj[m[1]][m[2]] === undefined) {
+                    obj[m[1]][m[2]] = {};
+                }
+                obj[m[1]][m[2]][m[3]] = x.value;
+            } else {
+                if (obj[x.name] === undefined) {
+                    obj[x.name] = x.value;
+                }
             }
         });
 

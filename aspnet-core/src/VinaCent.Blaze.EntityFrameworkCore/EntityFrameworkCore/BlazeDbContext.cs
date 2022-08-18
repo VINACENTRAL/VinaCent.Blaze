@@ -18,7 +18,7 @@ using VinaCent.Blaze.BusinessCore.Shop.ProductMetas;
 
 namespace VinaCent.Blaze.EntityFrameworkCore
 {
-    // dotnet ef migrations add "Add.TranslatedField.v012915082022" -p ./src/VinaCent.Blaze.EntityFrameworkCore -s ./src/VinaCent.Blaze.Web.Mvc --context BlazeDbContext
+    // dotnet ef migrations add "Remove.TranslatedField.v225118082022" -p ./src/VinaCent.Blaze.EntityFrameworkCore -s ./src/VinaCent.Blaze.Web.Mvc --context BlazeDbContext
     // dotnet ef database update -p ./src/VinaCent.Blaze.EntityFrameworkCore -s ./src/VinaCent.Blaze.Web.Mvc --context BlazeDbContext
     // dotnet ef migrations remove -p ./src/VinaCent.Blaze.EntityFrameworkCore -s ./src/VinaCent.Blaze.Web.Mvc --context BlazeDbContext
     public class BlazeDbContext : AbpZeroDbContext<Tenant, Role, User, BlazeDbContext>

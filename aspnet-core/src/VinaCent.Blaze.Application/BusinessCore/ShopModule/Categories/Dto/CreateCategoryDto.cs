@@ -14,7 +14,6 @@ public class CreateCategoryDto : IPassivable
     /// <summary>
     /// The parent id to identify the parent category.
     /// </summary>
-    [AppRequired]
     [AbpDisplayName(BlazeConsts.LocalizationSourceName, LKConstants.ParentCategory)]
     public int? ParentId { get; set; }
 
@@ -32,6 +31,11 @@ public class CreateCategoryDto : IPassivable
     [AppRequired]
     [AbpDisplayName(BlazeConsts.LocalizationSourceName, LKConstants.IsActive)]
     public bool IsActive { get; set; }
+
+    /// <summary>
+    /// Level of this category
+    /// </summary>
+    public int Level { get; set; }
 
     public List<CategoryTranslationDto> Translations { get; set; }
 }

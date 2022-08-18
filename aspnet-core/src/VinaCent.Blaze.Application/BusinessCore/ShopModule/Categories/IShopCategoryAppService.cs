@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Abp.Application.Services;
@@ -11,7 +12,7 @@ public interface IShopCategoryAppService: IApplicationService
     Task<CategoryDto> GetAsync(EntityDto input);
     Task<CategoryDto> CreateAsync(CreateCategoryDto input);
     Task<CategoryDto> UpdateAsync(UpdateCategoryDto input);
-    Task DeleteAsync(int id);
+    Task DeleteAsync(EntityDto input);
     Task<PagedResultDto<CategoryListDto>> GetAllAsync(FilterCategoryDto input);
 
 

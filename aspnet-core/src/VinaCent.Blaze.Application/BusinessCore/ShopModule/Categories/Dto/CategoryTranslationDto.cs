@@ -1,10 +1,13 @@
 ﻿using Abp.Application.Services.Dto;
+using Abp.AutoMapper;
 using Abp.Localization;
+using VinaCent.Blaze.BusinessCore.Shop.Categories;
 using VinaCent.Blaze.DataAnnotations;
 
 namespace VinaCent.Blaze.BusinessCore.ShopModule.Categories.Dto
 {
-    public class CategoryTranslationDto : EntityDto
+    [AutoMap(typeof(CategoryTranslation))]
+    public class CategoryTranslationDto
     {
         public CategoryTranslationDto() { }
 
@@ -30,7 +33,6 @@ namespace VinaCent.Blaze.BusinessCore.ShopModule.Categories.Dto
         /// <summary>
         /// The column used to store the category details.
         /// </summary>
-        [AppRequired]
         [AbpDisplayName(BlazeConsts.LocalizationSourceName, LKConstants.Content)]
         public string Content { get; set; }
 
