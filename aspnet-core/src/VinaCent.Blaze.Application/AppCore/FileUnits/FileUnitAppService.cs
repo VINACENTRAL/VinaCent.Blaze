@@ -68,7 +68,7 @@ namespace VinaCent.Blaze.AppCore.FileUnits
 
         public async Task<FileUnitDto> MoveAsync(Guid id, Guid directoryId) => MapToEntityDto(await _fileUnitManager.MoveAsync(id, directoryId));
 
-        public Task DeleteAsync(Guid id) => DeleteAsync(id);
+        public Task DeleteAsync(Guid id) => _fileUnitManager.DeleteAsync(id);
 
 
 
