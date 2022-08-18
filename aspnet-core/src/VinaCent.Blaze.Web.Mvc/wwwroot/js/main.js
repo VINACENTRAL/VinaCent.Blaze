@@ -223,6 +223,7 @@
             }
         }).on('hidden.bs.modal', () => {
             _$formCreate.clearForm();
+            _$formCreate.find('.field-validation-valid').html('');
             if (onHide && typeof onHide === 'function') {
                 onHide();
             }
@@ -271,6 +272,7 @@
             }
         }).on('hidden.bs.modal', () => {
             _$formUpdate.clearForm();
+            _$formUpdate.find('.field-validation-valid').html('');
             if (onHide && typeof onHide === 'function') {
                 onHide();
             }

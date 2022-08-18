@@ -14,7 +14,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using VinaCent.Blaze.AppCore.CommonDatas;
 using VinaCent.Blaze.AppCore.FileUnits;
-using VinaCent.Blaze.AppCore.FileUnits.Dto;
 using VinaCent.Blaze.AppCore.TextTemplates;
 using VinaCent.Blaze.Authorization.Users;
 using VinaCent.Blaze.Configuration;

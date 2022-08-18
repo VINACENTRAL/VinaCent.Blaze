@@ -28,6 +28,7 @@
     static FilePickSuggestionMessage = 'FilePickSuggestionMessage';
     static InvalidEmail = 'InvalidEmail';
     static Member = 'Member';
+    static AreYouSureWantToDelete = 'AreYouSureWantToDelete';
 
     // ============================== START BUSINESS CORE ============================== //
     static UpdateExchangeRate = 'UpdateExchangeRate';
