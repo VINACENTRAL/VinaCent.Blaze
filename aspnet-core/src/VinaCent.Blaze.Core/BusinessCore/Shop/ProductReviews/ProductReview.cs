@@ -2,10 +2,11 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System;
 using VinaCent.Blaze.BusinessCore.Shop.Common;
+using VinaCent.Blaze.BusinessCore.Shop.Products;
 
-namespace VinaCent.Blaze.BusinessCore.Shop
+namespace VinaCent.Blaze.BusinessCore.Shop.ProductReviews
 {
-    [Table(nameof(BusinessCore) + $".{nameof(Shop)}.{nameof(ProductReview)}s")]
+    [Table(nameof(BusinessCore) + $".{nameof(Shop)}.{nameof(ProductReviews)}")]
     public class ProductReview : AuditedEntity<Guid>
     {
         /// <summary>

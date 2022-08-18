@@ -112,7 +112,7 @@ namespace VinaCent.Blaze.Web.Areas.AdminCP.Models.SettingManagement
         {
             AppSys_DoNotShowLogoutScreen = settingManager.GetSettingValue<bool>(AppSettingNames.AppSys_DoNotShowLogoutScreen);
             AppSys_IsRegisterEnabled = settingManager.GetSettingValue<bool>(AppSettingNames.AppSys_IsRegisterEnabled);
-            AllowedMaxFileSize = settingManager.GetSettingValue<long>(AppSettingNames.AllowedMaxFileSize);
+            AllowedMaxFileSize = settingManager.GetSettingValue<long>(AppSettingNames.AllowedMaxFileSizeInMB);
             AllowedUploadFormats = settingManager.GetSettingValue(AppSettingNames.AllowedUploadFormats);
             IsUserNameUpdateEnabled = settingManager.GetSettingValue<bool>(AppSettingNames.User.IsUserNameUpdateEnabled);
             IsEmailUpdateEnabled = settingManager.GetSettingValue<bool>(AppSettingNames.User.IsEmailUpdateEnabled);
@@ -146,7 +146,7 @@ namespace VinaCent.Blaze.Web.Areas.AdminCP.Models.SettingManagement
                 await settingManager.ChangeSettingForTenantAsync(tenantId.Value, AppSettingNames.User.IsEmailUpdateEnabled, IsEmailUpdateEnabled.ToString().ToLower());
                 await settingManager.ChangeSettingForTenantAsync(tenantId.Value, UserManagement.IsEmailConfirmationRequiredForLogin, UserManagement_IsEmailConfirmationRequiredForLogin.ToString().ToLower());
 
-                await settingManager.ChangeSettingForTenantAsync(tenantId.Value, AppSettingNames.AllowedMaxFileSize, AllowedMaxFileSize.ToString());
+                await settingManager.ChangeSettingForTenantAsync(tenantId.Value, AppSettingNames.AllowedMaxFileSizeInMB, AllowedMaxFileSize.ToString());
                 await settingManager.ChangeSettingForTenantAsync(tenantId.Value, AppSettingNames.AllowedUploadFormats, AllowedUploadFormats.ToString().ToLower());
 
                 await settingManager.ChangeSettingForTenantAsync(tenantId.Value, UserManagement.UserLockOut.IsEnabled, UserManagement_UserLockOut_IsEnabled.ToString().ToLower());
@@ -174,7 +174,7 @@ namespace VinaCent.Blaze.Web.Areas.AdminCP.Models.SettingManagement
                 await settingManager.ChangeSettingForApplicationAsync(AppSettingNames.User.IsEmailUpdateEnabled, IsEmailUpdateEnabled.ToString().ToLower());
                 await settingManager.ChangeSettingForApplicationAsync(UserManagement.IsEmailConfirmationRequiredForLogin, UserManagement_IsEmailConfirmationRequiredForLogin.ToString().ToLower());
 
-                await settingManager.ChangeSettingForApplicationAsync(AppSettingNames.AllowedMaxFileSize, AllowedMaxFileSize.ToString());
+                await settingManager.ChangeSettingForApplicationAsync(AppSettingNames.AllowedMaxFileSizeInMB, AllowedMaxFileSize.ToString());
                 await settingManager.ChangeSettingForApplicationAsync(AppSettingNames.AllowedUploadFormats, AllowedUploadFormats.ToString().ToLower());
 
                 await settingManager.ChangeSettingForApplicationAsync(UserManagement.UserLockOut.IsEnabled, UserManagement_UserLockOut_IsEnabled.ToString().ToLower());

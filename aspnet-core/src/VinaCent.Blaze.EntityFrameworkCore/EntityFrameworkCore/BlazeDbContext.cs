@@ -7,12 +7,18 @@ using VinaCent.Blaze.AppCore.FileUnits;
 using VinaCent.Blaze.AppCore.TextTemplates;
 using VinaCent.Blaze.AppCore.CommonDatas;
 using VinaCent.Blaze.BusinessCore;
-using VinaCent.Blaze.BusinessCore.Shop;
-using VinaCent.Blaze.AppCore.TranslateFields;
+using VinaCent.Blaze.BusinessCore.Shop.Categories;
+using VinaCent.Blaze.BusinessCore.Shop.CartItems;
+using VinaCent.Blaze.BusinessCore.Shop.Products;
+using VinaCent.Blaze.BusinessCore.Shop.ProductCategories;
+using VinaCent.Blaze.BusinessCore.Shop.ProductReviews;
+using VinaCent.Blaze.BusinessCore.Shop.ProductTags;
+using VinaCent.Blaze.BusinessCore.Shop.Tags;
+using VinaCent.Blaze.BusinessCore.Shop.ProductMetas;
 
 namespace VinaCent.Blaze.EntityFrameworkCore
 {
-    // dotnet ef migrations add "Add.TranslatedField.v012915082022" -p ./src/VinaCent.Blaze.EntityFrameworkCore -s ./src/VinaCent.Blaze.Web.Mvc --context BlazeDbContext
+    // dotnet ef migrations add "Remove.TranslatedField.v225118082022" -p ./src/VinaCent.Blaze.EntityFrameworkCore -s ./src/VinaCent.Blaze.Web.Mvc --context BlazeDbContext
     // dotnet ef database update -p ./src/VinaCent.Blaze.EntityFrameworkCore -s ./src/VinaCent.Blaze.Web.Mvc --context BlazeDbContext
     // dotnet ef migrations remove -p ./src/VinaCent.Blaze.EntityFrameworkCore -s ./src/VinaCent.Blaze.Web.Mvc --context BlazeDbContext
     public class BlazeDbContext : AbpZeroDbContext<Tenant, Role, User, BlazeDbContext>
@@ -24,8 +30,6 @@ namespace VinaCent.Blaze.EntityFrameworkCore
 
         public DbSet<CommonData> CommonDatas { get; set; }
 
-        public DbSet<TranslatedField> TranslatedFields { get; set; }
-
         #region Business Core
         public DbSet<CurrencyUnit> CurrencyUnits { get; set; }
         public DbSet<CurrencyExchangeRate> CurrencyExchangeRates { get; set; }
@@ -33,6 +37,7 @@ namespace VinaCent.Blaze.EntityFrameworkCore
         // ======================== START SHOP ======================== //
         public DbSet<CartItem> CartItems { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<CategoryTranslation> CategoryTranslations { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<ProductCategory> ProductCategories { get; set; }
         public DbSet<ProductMeta> ProductMetas { get; set; }

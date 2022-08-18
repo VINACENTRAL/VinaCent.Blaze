@@ -21,7 +21,7 @@
         #endregion
 
         #region App File Management
-        public const string AllowedMaxFileSize = Prefix + "." + nameof(AllowedMaxFileSize);
+        public const string AllowedMaxFileSizeInMB = Prefix + "." + nameof(AllowedMaxFileSizeInMB);
         public const string AllowedUploadFormats = Prefix + "." + nameof(AllowedUploadFormats);
         public const string NoPreviewImage = Prefix + "." + nameof(NoPreviewImage);
         #endregion

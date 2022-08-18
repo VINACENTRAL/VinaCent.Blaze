@@ -1,10 +1,12 @@
 ﻿using Abp.Domain.Entities;
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
+using VinaCent.Blaze.BusinessCore.Shop.Categories;
+using VinaCent.Blaze.BusinessCore.Shop.Products;
 
-namespace VinaCent.Blaze.BusinessCore.Shop
+namespace VinaCent.Blaze.BusinessCore.Shop.ProductCategories
 {
-    [Table(nameof(BusinessCore) + $".{nameof(Shop)}.ProductCategories")]
+    [Table(nameof(BusinessCore) + $".{nameof(Shop)}.{nameof(ProductCategories)}")]
     public class ProductCategory : Entity<Guid>
     {
         /// <summary>

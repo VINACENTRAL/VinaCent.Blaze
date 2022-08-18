@@ -28,14 +28,25 @@ $('section[app-main-section]').each((index, section) => {
     const thActionElement = mainTable.find('th[data-action]');
     if (thActionElement) {
         const actionRenderFuncName = thActionElement.attr('data-action');
+        let primaryKey = thActionElement.attr('data-primary');
+        let nameKey = thActionElement.attr('data-name');
+
+        if (!primaryKey || primaryKey.length === 0) {
+            primaryKey = 'id';
+        }
+
+        if (!nameKey || nameKey.length === 0) {
+            nameKey = 'name';
+        }
+
         actionRender = (row) => {
             if (actionRenderFuncName && actionRenderFuncName.length > 0 && typeof window[actionRenderFuncName] === "function")
                 return eval(actionRenderFuncName)(row, masterName);
             return [
-                `   <button type="button" class="btn btn-sm btn-warning edit-${masterName.toLowerCase()}" data-${masterName.toLowerCase()}-id="${row.id}">`,
+                `   <button type="button" class="btn btn-sm btn-warning edit-${masterName.toLowerCase()}" data-${masterName.toLowerCase()}-id="${row[primaryKey]}">`,
                 `       <i class="fas fa-pencil-alt"></i> ${l(LKConstants.Edit)}`,
                 '   </button>',
-                `   <button type="button" class="btn btn-sm btn-danger delete-${masterName.toLowerCase()}" data-${masterName.toLowerCase()}-id="${row.id}" data-${masterName.toLowerCase()}-name="${row.name}">`,
+                `   <button type="button" class="btn btn-sm btn-danger delete-${masterName.toLowerCase()}" data-${masterName.toLowerCase()}-id="${row[primaryKey]}" data-${masterName.toLowerCase()}-name="${row[nameKey]}">`,
                 `       <i class="fas fa-trash"></i> ${l(LKConstants.Delete)}`,
                 '   </button>',
             ].join('');

@@ -64,10 +64,10 @@
                     <table class="table table-striped table-bordered main-table">
                         <thead>
                             <tr>
-                                <th data-ref="@nameof(CategoryDto.Title).ToCamelCase()" data-render="RenderTitleColumn">@L(LKConstants.Title)</th>
-                                <th data-ref="@nameof(CategoryDto.Slug).ToCamelCase()">@L(LKConstants.Slug)</th>
-                                <th data-ref="@nameof(CategoryDto.Content).ToCamelCase()">@L(LKConstants.Content)</th>
-                                <th data-action="" style="width: 150px">@L(LKConstants.Actions)</th>
+                                <th data-ref="@nameof(CategoryListDto.Title).ToCamelCase()" data-render="RenderTitleColumn">@L(LKConstants.Title)</th>
+                                <th data-ref="@nameof(CategoryListDto.Slug).ToCamelCase()">@L(LKConstants.Slug)</th>
+                                <th data-ref="@nameof(CategoryListDto.Content).ToCamelCase()">@L(LKConstants.Content)</th>
+                                <th data-action="" data-primary="@nameof(CategoryListDto.Id).ToCamelCase()" data-name="@nameof(CategoryListDto.Title).ToCamelCase()" style="width: 150px">@L(LKConstants.Actions)</th>
                             </tr>
                         </thead>
                         <tbody>

@@ -1,11 +1,11 @@
 using Abp.Application.Services.Dto;
 using Abp.AutoMapper;
 using Abp.Domain.Entities;
-using VinaCent.Blaze.BusinessCore.Shop;
+using VinaCent.Blaze.BusinessCore.Shop.Categories;
 
 namespace VinaCent.Blaze.BusinessCore.ShopModule.Categories.Dto;
 
-[AutoMapFrom(typeof(Category))]
+[AutoMapFrom(typeof(Category), typeof(CategoryTranslation))]
 public class CategoryListDto : EntityDto, IPassivable
 {
     /// <summary>s
