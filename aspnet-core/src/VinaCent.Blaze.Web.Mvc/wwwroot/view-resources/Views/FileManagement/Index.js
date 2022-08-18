@@ -288,6 +288,7 @@
 
     }).on('hidden.bs.modal', () => {
         _$directoryCreateForm.clearForm();
+        _$directoryCreateForm.find('.field-validation-valid').html('');
     });
 
     _$uploadFileModal.on('shown.bs.modal', () => {

@@ -15,6 +15,20 @@
     const sendCodeBtn = changeEmailForm.find('.send-code-btn');
     const sendCodeBtn_TimeRemaining = sendCodeBtn.children('span');
 
+    personalInfoForm.find('.cancel-btn').on('click', () => {
+        abp.message.confirm(
+            abp.utils.formatString(
+                l(LKConstants.AreYouSureWantToCancel)
+            ),
+            null,
+            (isConfirmed) => {
+                if (isConfirmed) {
+                    window.location.reload();
+                }
+            }
+        );
+    })
+
     personalInfoForm.submit(function (e) {
         e.preventDefault();
 
@@ -173,10 +187,10 @@
         _profileService.changePassword(input).then(function () {
             abp.message.success('You will sign out all of your devices for security!',
                 l(LKConstants.PasswordChanged), {
-                    closeOnEsc: false,
-                    closeOnClickOutside: false,
-                    timer: null
-                })
+                closeOnEsc: false,
+                closeOnClickOutside: false,
+                timer: null
+            })
                 .then((result) => {
                     if (result) {
                         window.location.reload();
@@ -185,10 +199,6 @@
             abp.event.trigger('passwordChanged');
             changePasswordForm.trigger("reset");
         });
-    });
-
-    abp.event.on('passwordChanged', () => {
-
     });
 
     const modal = $('UpdateAvatarModal');
