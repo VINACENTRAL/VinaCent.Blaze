@@ -6,10 +6,11 @@
     const stateSelector = document.getElementById('stateSelector');
 
     const citySelector = document.getElementById('citySelector');
-    let defaultCountry = countrySelector.dataset.default;
 
-    let defaultState = stateSelector.dataset.default;
-    let defaultCity = citySelector.dataset.default;
+    // Get default value in first load
+    const defaultCountry = countrySelector.dataset.default;
+    const defaultState = stateSelector.dataset.default;
+    const defaultCity = citySelector.dataset.default;
 
     if (defaultCountry) {
         loadStates(defaultCountry, () => {
@@ -23,29 +24,31 @@
         });
     }
 
-    countrySelector.addEventListener('change', function () {
-        var country = this.value; 
-        clearStates();
-        clearCities();
-        loadStates(country);  
+    // =======================================  START DATA CHOICE STORES  ======================================= //
+    let countryChoice = new Choices(countrySelector, {
+        placeholder: l('PleaseSelectCountry'),
+        shouldSort: false,
+    });
+    let stateChoice = new Choices(stateSelector, {
+        placeholder: l('PleaseSelectState'),
+        shouldSort: false,
+    });
+    let cityChoice = new Choices(citySelector, {
+        placeholder: l('PleaseSelectCity'),
+        shouldSort: false,
     });
 
-    stateSelector.addEventListener('change', function () {
-        var state = this.value;
+    // Proceess country
+    countrySelector.addEventListener('choice', (e) => {
         clearCities();
-        loadCities(state);
-    });
+        loadStates(e.detail.choice.value);
+    })
 
-    function clearStates() {
-        // Clear all old state
-        stateSelector.innerHTML = `<option value="">${l('PleaseSelectState')}</option>`;
-        stateSelector.disabled = true;
-    }
-
+    // State process
     function loadStates(countryCode, onDone) {
         clearStates();
 
-        if (!countryCode || countryCode.length === 0) {
+        if (countryCode?.length == 0) {
             return;
         }
 
@@ -55,24 +58,39 @@
             parentKey: countryCode
         }).done(function (result) {
             const runAble = result && result.items.length > 0;
-            stateSelector.disabled = !runAble;
             if (runAble) {
-                result.items.forEach((item) => {
-                    stateSelector.innerHTML += `<option value=${item.key}>${item.value}</option>`;
-                })       
+                const items = result.items.map((x) => {
+                    return {
+                        label: x.value,
+                        value: x.key
+                    }
+                });
+                stateChoice.enable();
+                stateChoice.setChoices([{
+                    label: l('PleaseSelectState'),
+                    value: '',
+                    selected: true,
+                    disabled: true,
+                }, ...items]);
+            } else {
+                stateChoice.disable();
             }
             if (typeof onDone === 'function') {
                 onDone();
             }
         });
     }
-
-    function clearCities() {
+    function clearStates() {
         // Clear all old state
-        citySelector.innerHTML = `<option value="">${l('PleaseSelectCity')}</option>`;
-        citySelector.disabled = true;
+        stateChoice.clearStore();
+        stateChoice.clearInput();
+        stateChoice.disable();
     }
+    stateSelector.addEventListener('choice', function (e) {
+        loadCities(e.detail.choice.value);
+    });
 
+    // City process
     function loadCities(stateCode, onDone) {
         clearCities();
 
@@ -86,16 +104,34 @@
             parentKey: stateCode
         }).done(function (result) {
             const runAble = result && result.items.length > 0;
-            citySelector.disabled = !runAble;
             if (runAble) {
-                result.items.forEach((item) => {
-                    citySelector.innerHTML += `<option value=${item.key}>${item.value}</option>`;
-                })
+                const items = result.items.map((x) => {
+                    return {
+                        label: x.value,
+                        value: x.key
+                    }
+                });
+                cityChoice.enable();
+                cityChoice.setChoices([{
+                    label: l('PleaseSelectCity'),
+                    value: '',
+                    selected: true,
+                    disabled: true,
+                },...items]);
+            } else {
+                cityChoice.disable();
             }
-            
+
             if (typeof onDone === 'function') {
                 onDone();
             }
         });
     }
+    function clearCities() {
+        // Clear all old city
+        cityChoice.clearStore();
+        cityChoice.clearInput();
+        cityChoice.disable();
+    }
+    // =======================================   END DATA CHOICE STORES   ======================================= //
 })(jQuery);

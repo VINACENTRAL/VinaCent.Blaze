@@ -16,8 +16,8 @@
 				    </div>
                     
                     <label class="form-label" asp-for="ConfirmCode"></label>
-                    <div class="input-group mb-3">           
-					    <input asp-for="ConfirmCode" class="form-control" autocomplete="off"/>
+                    <div class="input-group mb-3">
+                        <input asp-for="ConfirmCode" class="form-control" id="ref-@Guid.NewGuid()" autocomplete="off" />
 					    <button type="button" class="btn btn-outline-danger send-code-btn">
 						    @L(LKConstants.SendCode) <span></span>
 					    </button>
@@ -28,7 +28,7 @@
                         @L(LKConstants.Confirm)
                     </button>
                 </div>
-            </form>       
+            </form>
         </div>
     </div>
 </div>

@@ -29,6 +29,9 @@
     static InvalidEmail = 'InvalidEmail';
     static Member = 'Member';
     static AreYouSureWantToDelete = 'AreYouSureWantToDelete';
+    static PleaseSelectCountry = 'PleaseSelectCountry';
+    static PleaseSelectState = 'PleaseSelectState';
+    static PleaseSelectCity = 'PleaseSelectCity';
 
     // ============================== START BUSINESS CORE ============================== //
     static UpdateExchangeRate = 'UpdateExchangeRate';

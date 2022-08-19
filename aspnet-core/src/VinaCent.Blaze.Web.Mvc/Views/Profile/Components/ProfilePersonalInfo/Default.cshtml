@@ -43,7 +43,7 @@
 				<label asp-for="PhoneNumber" class="form-label"></label>		
 				<div class="input-group mb-3">
 					<input asp-for="PhoneNumber" class="form-control" readonly disabled/>
-					<button type="button" id="change-phone-btn" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#ChangePhoneModal">
+					<button type="button" id="change-phone-btn" class="btn btn-outline-danger z-index-0" data-bs-toggle="modal" data-bs-target="#ChangePhoneModal">
 						@L(LKConstants.Change)
 					</button>
 				</div>
@@ -57,7 +57,7 @@
 					<input asp-for="MaskedEmailAddress" class="form-control" readonly disabled/>
 					@if(isEmailUpdateEnabled)
 					{
-						<button type="button" id="change-email-btn" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#ConfirmChangeEmailModal">
+						<button type="button" id="change-email-btn" class="btn btn-outline-danger z-index-0" data-bs-toggle="modal" data-bs-target="#ConfirmChangeEmailModal">
 							@L(LKConstants.Change)
 						</button>
 					}				
@@ -100,7 +100,7 @@
 				<select asp-for="Country" class="form-select" id="countrySelector"
 						data-default="@Model?.Country"
 						asp-items="ViewBag.Countries">
-					<option value="">@L(LKConstants.PleaseSelectCountry)</option>
+					<option value="" disabled selected>@L(LKConstants.PleaseSelectCountry)</option>
 				</select>
 				<span asp-validation-for="Country" class="text-danger"></span>
 			</div>

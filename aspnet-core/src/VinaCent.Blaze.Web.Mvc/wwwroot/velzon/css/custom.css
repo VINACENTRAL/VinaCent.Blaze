@@ -102,3 +102,7 @@
 .profile-wid-bg::before {
     opacity: 0.3;
 }
+
+.z-index-0 {
+    z-index: 0 !important;
+}

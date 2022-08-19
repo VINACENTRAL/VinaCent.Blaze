@@ -16,7 +16,7 @@
                         @L(LKConstants.ClickToReceiveConfirmCode).
                         @L(LKConstants.ConfirmEmailWillBeSentToYourEmailInbox).
                     </div>
-                    <label class="form-label" asp-for="ConfirmCode">@L(LKConstants.ConfirmCode)</label>
+                    <label class="form-label" asp-for="ConfirmCode" id="ref-@Guid.NewGuid()">@L(LKConstants.ConfirmCode)</label>
                     <div class="input-group mb-3">           
 					    <input asp-for="ConfirmCode" class="form-control" autocomplete="off"/>
 					    <button type="button" class="btn btn-outline-danger send-code-btn">
