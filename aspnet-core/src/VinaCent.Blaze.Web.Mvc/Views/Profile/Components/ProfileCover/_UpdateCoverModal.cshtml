@@ -2,30 +2,25 @@
 @using VinaCent.Blaze.Web.Resources
 @using VinaCent.Blaze.Web.Models.Common.Modals
 @inject IWebResourceManager WebResourceManager
-@model UpdateAvatarDto
+@model UpdateCoverDto
 @{
     Layout = null;
-    WebResourceManager.AddScript(ApplicationPath + "libs/croppie/croppie.min.js", false);
-    WebResourceManager.AddStyle(ApplicationPath + "libs/croppie/croppie.css", false);
-    WebResourceManager.AddScript(ApplicationPath + "view-resources/Views/Profiles/_UpdateAvatarModal.js", false);
+    WebResourceManager.AddScript(ApplicationPath + "view-resources/Views/Profiles/_UpdateCoverModal.js", false);
 }
-<div class="modal fade" id="UpdateAvatarModal" tabindex="-1" role="dialog" aria-labelledby="UpdateAvatarModalLabel" data-backdrop="static">
+<div class="modal fade" id="UpdateCoverModal" tabindex="-1" role="dialog" aria-labelledby="UpdateCoverModalLabel" data-backdrop="static">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
-            @await Html.PartialAsync("~/Views/Shared/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L(LKConstants.UpdateAvatar)))
-            <form id="uploadAvatarForm" role="form" class="form-horizontal" enctype="multipart/form-data">
+            @await Html.PartialAsync("~/Views/Shared/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L(LKConstants.UpdateCover)))
+            <form id="uploadCoverForm" role="form" class="form-horizontal" enctype="multipart/form-data">
                 <div class="modal-body">
                     <div class="mb-3">
-                        <input type="file" style="display: none;" id="image-picker">
-                        <div id="crr-user-avt">
-                            @if (!Model.Avatar.IsNullOrEmpty())
-                            {
-                                <img alt="avatar" src="@Model.Avatar" class="d-flex mx-auto" avatar/>
-                            }
+                        <input type="file" style="display: none;" id="cover-picker" accept="image/gif, image/jpeg, image/png"/>
+                        <div id="holder">
+                            <img id="crr-user-cover" alt="avatar" src="@Model.Cover" class="d-flex mx-auto" style="max-width:820px;max-height:312px"/>
                         </div>
                     </div>
                     <div class="text-center">
-                        <button class="btn btn-danger select-image">@L(LKConstants.SelectImageAndEdit)</button>
+                        <button type="button" class="btn btn-danger select-image">@L(LKConstants.SelectImageAndEdit)</button>
                     </div>
                 </div>
                 @await Html.PartialAsync("~/Views/Shared/Modals/_ModalFooterWithSaveAndCancel.cshtml")

@@ -162,6 +162,38 @@ namespace VinaCent.Blaze.Profiles
             return ObjectMapper.Map<ProfileDto>(user);
         }
 
+        public async Task<ProfileDto> UpdateCover([FromForm] UpdateCoverDto input)
+        {
+            var user = await GetCurrentUserAsync();
+            if (user == null)
+            {
+                throw new UserFriendlyException(L(LKConstants.PleaseLogInBeforeDoThisAction));
+            }
+
+            var userDirPictures = await _fileUnitManager.GetUserSelfPictureDir();
+
+            var result = await _fileUnitManager.UploadFileAsync(new FileUnit
+            {
+                ParentId = userDirPictures.Id,
+                Description = ""
+            }, input.File);
+
+            if (result == null || result.Id == Guid.Empty || result.FullName.IsNullOrWhiteSpace())
+                throw new UserFriendlyException(L(LKConstants.ChangeCoverFail));
+
+            if (!user.Cover.IsNullOrEmpty())
+            {
+                // If user has previous data, remove it
+                var coverFilePath = user.Cover.ResourceFullName();
+                var coverFile = await _fileUnitManager.GetByFullName(coverFilePath);
+                if (coverFile != null && coverFile.Id != Guid.Empty)
+                    await _fileUnitManager.DeleteAsync(coverFile.Id);
+            }
+
+            user.Cover = result.FullName.ToResourcePath();
+            return ObjectMapper.Map<ProfileDto>(user);
+        }
+
         public async Task<string> SendConfirmCodeAsync(RequestEmailDto input)
         {
             if (_httpContextAccessor.HttpContext == null)

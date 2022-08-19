@@ -337,4 +337,7 @@ public static class LKConstants
     public const string YouCannotDeleteYourAccount = "YouCannotDeleteYourAccount";
     public const string CannotDeleteAccountInAdminRole = "CannotDeleteAccountInAdminRole";
     public const string Member = "Member";
+    public const string ChangeCover = "ChangeCover";
+    public const string UpdateCover = "UpdateCover";
+    public const string ChangeCoverFail = "ChangeCoverFail"; 
 }

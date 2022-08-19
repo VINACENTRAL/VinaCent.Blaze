@@ -168,7 +168,7 @@ namespace VinaCent.Blaze.AppCore.FileUnits
 
         public async Task<FileUnit> UploadFileAsync(FileUnit input, IFormFile file)
         {
-            input.Id = new Guid();
+            input.Id = Guid.NewGuid();
 
             if (file is not { Length: > 0 })
             {
@@ -224,7 +224,7 @@ namespace VinaCent.Blaze.AppCore.FileUnits
 
             if (!File.Exists(input.PhysicalPath))
             {
-                throw new Exception("Save file fail!");
+                throw new Exception("Save file fail!"); // TODO: Localize message
             }
 
             return await _repository.InsertAsync(input);
@@ -346,13 +346,13 @@ namespace VinaCent.Blaze.AppCore.FileUnits
                 throw new UserFriendlyException(L(LKConstants.CanNotGetOrCreateDirectory_X));
             }
 
-            await _repository.GetDbContext().SaveChangesAsync();
+            await _repository.GetDbContext().SaveChangesAsync(); // TODO: Wrap with if check, run only when userDir have Id equals Guid.Empty
 
             var randomGuid = Guid.NewGuid().ToString().Replace("-", "");
             var name = $"{randomGuid}{userId}";
             var userIdStr = userId?.ToString() ?? "";
 
-            var dir = await _repository.FirstOrDefaultAsync(x => x.IsFolder && x.Directory.ToLower() == usersDir.FullName.ToLower());
+            var dir = await _repository.FirstOrDefaultAsync(x => x.IsFolder && x.Name.Substring(randomGuid.Length) == userIdStr && x.Directory.ToLower() == usersDir.FullName.ToLower());
 
             var specifiedUserDir = dir ?? await CreateDirectoryAsync(new FileUnit
             {
