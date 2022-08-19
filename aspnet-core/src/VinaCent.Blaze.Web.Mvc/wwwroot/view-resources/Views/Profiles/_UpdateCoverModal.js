@@ -4,10 +4,10 @@
         _$form = _$modal.find('form'),
         _$saveBtn = _$form.closest('div.modal-content').find(".save-button");
 
-    const userCoverEl = $('#crr-user-cover');
+    const userCoverEl = _$form.find('.profile-wid-img');
     const imagePicker = $("#cover-picker");
 
-    _$form.find('.select-image').on('click', (e) => {
+    $('#pick-cover').on('click', (e) => {
         e.preventDefault();
         imagePicker.click();
     });
@@ -45,13 +45,16 @@
                     abp.ui.clearBusy(_$form);
                 });
             });
-        }        
+
+            // Show modal
+            _$modal.modal('show');
+        }
     });
 
     _$modal.on('shown.bs.modal', () => {
-        _$saveBtn.attr('disabled', 'disabled');
     }).on('hidden.bs.modal', () => {
         _$form.clearForm();
+        _$saveBtn.attr('disabled', 'disabled');
     });
 
 })(jQuery);

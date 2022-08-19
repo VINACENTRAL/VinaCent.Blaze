@@ -339,5 +339,6 @@ public static class LKConstants
     public const string Member = "Member";
     public const string ChangeCover = "ChangeCover";
     public const string UpdateCover = "UpdateCover";
-    public const string ChangeCoverFail = "ChangeCoverFail"; 
+    public const string ChangeCoverFail = "ChangeCoverFail";
+    public const string PickCoverImageSuccessful = "PickCoverImageSuccessful";
 }

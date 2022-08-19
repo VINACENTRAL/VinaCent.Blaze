@@ -13,14 +13,24 @@
             @await Html.PartialAsync("~/Views/Shared/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L(LKConstants.UpdateCover)))
             <form id="uploadCoverForm" role="form" class="form-horizontal" enctype="multipart/form-data">
                 <div class="modal-body">
-                    <div class="mb-3">
-                        <input type="file" style="display: none;" id="cover-picker" accept="image/gif, image/jpeg, image/png"/>
-                        <div id="holder">
-                            <img id="crr-user-cover" alt="avatar" src="@Model.Cover" class="d-flex mx-auto" style="max-width:820px;max-height:312px"/>
+                    <div>
+                        <input type="file" style="display: none;" id="cover-picker" accept="image/gif, image/jpeg, image/png" />
+
+                        <div class="alert alert-success alert-additional mb-0" role="alert">
+                            <div class="alert-body">
+                                <div class="profile-wid-bg profile-setting-img">
+                                    <img class="profile-wid-img" />
+                                    <div class="overlay-content">
+                                        <div></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="alert-content">
+                                <p class="mb-0">
+                                    @L(LKConstants.PickCoverImageSuccessful)
+                                </p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="text-center">
-                        <button type="button" class="btn btn-danger select-image">@L(LKConstants.SelectImageAndEdit)</button>
                     </div>
                 </div>
                 @await Html.PartialAsync("~/Views/Shared/Modals/_ModalFooterWithSaveAndCancel.cshtml")
