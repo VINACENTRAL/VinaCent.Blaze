@@ -98,3 +98,7 @@
 .profile-wid-bg::before, .profile-wid-img {
     border-radius: 10px;
 }
+
+.profile-wid-bg::before {
+    opacity: 0.3;
+}

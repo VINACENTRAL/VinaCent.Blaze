@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Http;
 
 namespace VinaCent.Blaze.Profiles.Dto
 {
     public class UpdateCoverDto
     {
         public string Cover { get; set; }
+        public IFormFile File { get; set; }
     }
 }
