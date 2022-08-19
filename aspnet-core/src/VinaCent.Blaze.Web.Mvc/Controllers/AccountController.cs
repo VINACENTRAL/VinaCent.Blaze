@@ -117,7 +117,7 @@ namespace VinaCent.Blaze.Web.Controllers
             {
                 return RedirectToAppHome();
             }
-            
+
             if (string.IsNullOrWhiteSpace(returnUrl))
             {
                 returnUrl = GetAppHomeUrl();
@@ -125,7 +125,7 @@ namespace VinaCent.Blaze.Web.Controllers
 
             var model = new LoginFormViewModel
             {
-                UsernameOrEmailAddress = GetLoggedInUserName(),
+                UsernameOrEmailAddress = GetLoggedInUserName(userNameOrEmailAddress),
                 ReturnUrl = returnUrl,
                 IsMultiTenancyEnabled = _multiTenancyConfig.IsEnabled,
                 IsSelfRegistrationAllowed = IsSelfRegistrationEnabled(),
@@ -135,7 +135,14 @@ namespace VinaCent.Blaze.Web.Controllers
             if (!string.IsNullOrWhiteSpace(model.UsernameOrEmailAddress))
             {
                 var previousLoggedUser = await _userManager.FindByNameOrEmailAsync(model.UsernameOrEmailAddress);
-                ViewBag.UserLoginInfo = ObjectMapper.Map<UserLoginInfoDto>(previousLoggedUser);
+                if (previousLoggedUser != null)
+                {
+                    ViewBag.UserLoginInfo = ObjectMapper.Map<UserLoginInfoDto>(previousLoggedUser);
+                } else
+                {
+                    model.UsernameOrEmailAddress = string.Empty;
+                    SetOrRemoveLoggedInUserName(); // Remove old value
+                }
             }
 
             return View(model);
@@ -760,8 +767,13 @@ namespace VinaCent.Blaze.Web.Controllers
             Response.Cookies.Append(key, value, option);
         }
 
-        private string GetLoggedInUserName()
+        private string GetLoggedInUserName(string defaultEmailAddress)
         {
+            if (!defaultEmailAddress.IsNullOrWhiteSpace())
+            {
+                return defaultEmailAddress;
+            }
+
             var key = $"{BlazeWebConstants.PreviousAccount}${AbpSession.TenantId ?? 0}";
             var value = Request.Cookies[key] ?? "";
 
