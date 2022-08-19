@@ -21,6 +21,7 @@
 @await Html.PartialAsync("~/Views/Shared/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(title))
 <form id="UpdateForm" role="form" class="form-horizontal">
     <div class="modal-body">
+        <input type="hidden" asp-for="Id"/>
         @if (currentLevel != 0)
         {
             <div class="required mb-3">
