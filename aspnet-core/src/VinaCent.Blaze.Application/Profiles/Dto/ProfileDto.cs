@@ -1,5 +1,7 @@
 ﻿using Abp.AutoMapper;
+using Abp.Extensions;
 using Abp.Localization;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -100,8 +102,20 @@ namespace VinaCent.Blaze.Profiles.Dto
 
         public string Avatar { get; set; }
         
-        public string Background { get; set; }
+        public string Cover { get; set; }
         
         public bool HasPassword { get; set; }
+
+        public string ListSocialNetworkRawJson { get; set; }
+
+        public List<SocialNetwork> SocialNetworks
+        {
+            get
+            {
+                if (ListSocialNetworkRawJson.IsNullOrWhiteSpace()) return new List<SocialNetwork>();
+                return JsonConvert.DeserializeObject<List<SocialNetwork>>(ListSocialNetworkRawJson);
+            }
+            set { ListSocialNetworkRawJson = JsonConvert.SerializeObject(this); }
+        }
     }
 }

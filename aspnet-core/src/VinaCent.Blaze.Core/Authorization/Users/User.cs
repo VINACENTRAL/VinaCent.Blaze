@@ -28,7 +28,7 @@ namespace VinaCent.Blaze.Authorization.Users
         public string Avatar { get; set; }
 
         [StringLength(255)]
-        public string Background { get; set; }
+        public string Cover { get; set; }
 
         public DateTime? Birthday { get; set; }
 
@@ -37,6 +37,8 @@ namespace VinaCent.Blaze.Authorization.Users
 
         public string AddressLine1 { get; set; }
         public string AddressLine2 { get; set; }
+
+        public string ListSocialNetworkRawJson { get; set; }
 
         public static string CreateRandomPassword()
         {
