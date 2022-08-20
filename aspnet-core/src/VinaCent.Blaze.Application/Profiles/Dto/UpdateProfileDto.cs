@@ -10,13 +10,6 @@ namespace VinaCent.Blaze.Profiles.Dto
     [AutoMap(typeof(User))]
     public class UpdateProfileDto
     {
-        [AppRequired]
-        [AbpDisplayName(BlazeConsts.LocalizationSourceName, LKConstants.UserName)]
-        public string UserName { get; set; }
-
-        [AppRequired]
-        [AbpDisplayName(BlazeConsts.LocalizationSourceName, LKConstants.EmailAddress)]
-        public string EmailAddress { get; set; }
 
         [AppRequired]
         [AbpDisplayName(BlazeConsts.LocalizationSourceName, LKConstants.Name)]
@@ -25,10 +18,6 @@ namespace VinaCent.Blaze.Profiles.Dto
         [AppRequired]
         [AbpDisplayName(BlazeConsts.LocalizationSourceName, LKConstants.Surname)]
         public string Surname { get; set; }
-
-        [AbpDisplayName(BlazeConsts.LocalizationSourceName, LKConstants.PhoneNumber)]
-        [RegularExpression(@"^\+(?:[0-9]●?){6,14}[0-9]$")]
-        public string PhoneNumber { get; set; }
 
         [AppRequired]
         public string ConcurrencyStamp { get; set; }

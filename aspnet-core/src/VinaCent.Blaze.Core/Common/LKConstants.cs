@@ -340,5 +340,9 @@ public static class LKConstants
     public const string ChangeCover = "ChangeCover";
     public const string UpdateCover = "UpdateCover";
     public const string ChangeCoverFail = "ChangeCoverFail";
+    public const string SocialNetworkLinks = "SocialNetworkLinks";
+    public const string Add = "Add";
     public const string PickCoverImageSuccessful = "PickCoverImageSuccessful";
+    public const string AddSocialLink = "AddSocialLink";
+    
 }

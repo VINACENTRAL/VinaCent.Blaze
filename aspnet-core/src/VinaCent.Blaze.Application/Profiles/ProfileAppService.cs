@@ -95,32 +95,15 @@ namespace VinaCent.Blaze.Profiles
             {
                 input.City = null;
             }
-            input.Birthday = DateTime.Parse(input.BirthdayStr);
+
+            if (!input.BirthdayStr.IsNullOrWhiteSpace()) { 
+                input.Birthday = DateTime.Parse(input.BirthdayStr);
+            }
+
             user = ObjectMapper.Map(input, user);
             if (!input.ConcurrencyStamp.IsNullOrEmpty())
             {
                 user.ConcurrencyStamp = input.ConcurrencyStamp;
-            }
-
-            if (!string.Equals(user.UserName, input.UserName, StringComparison.InvariantCultureIgnoreCase))
-            {
-                if (await SettingManager.IsTrueAsync(AppSettingNames.User.IsUserNameUpdateEnabled))
-                {
-                    (await UserManager.SetUserNameAsync(user, input.UserName)).CheckErrors();
-                }
-            }
-
-            if (!string.Equals(user.EmailAddress, input.EmailAddress, StringComparison.InvariantCultureIgnoreCase))
-            {
-                if (await SettingManager.IsTrueAsync(AppSettingNames.User.IsEmailUpdateEnabled))
-                {
-                    (await UserManager.SetEmailAsync(user, input.EmailAddress)).CheckErrors();
-                }
-            }
-
-            if (!string.Equals(user.PhoneNumber, input.PhoneNumber, StringComparison.InvariantCultureIgnoreCase))
-            {
-                (await UserManager.SetPhoneNumberAsync(user, input.PhoneNumber)).CheckErrors();
             }
 
             (await UserManager.UpdateAsync(user)).CheckErrors();

@@ -158,7 +158,7 @@
             .done(function () {
                 changeEmailModal.modal('hide');
                 changeEmailForm[0].reset();
-                abp.notifyStack.success(LKConstants.ChangeEmailSuccessMessage);
+                abp.notifyStack.success(l(LKConstants.ChangeEmailSuccessMessage));
                 window.location.reload();
             })
             .always(function () {
@@ -185,7 +185,7 @@
         }
 
         _profileService.changePassword(input).then(function () {
-            abp.message.success(LKConstants.YouWillSignOutAllOfYourDevicesForSecurity,
+            abp.message.success(l(LKConstants.YouWillSignOutAllOfYourDevicesForSecurity),
                 l(LKConstants.PasswordChanged), {
                 closeOnEsc: false,
                 closeOnClickOutside: false,
@@ -213,5 +213,55 @@
         _profileService.get().then(function (profile) {
             $("#ConcurrencyStamp").val(profile.concurrencyStamp);
         });
+    }
+
+    //-------------------
+    const snContainerEl = $('#social-network-container');
+    const lsnrj = $("#ListSocialNetworkRawJson").val();
+    if (lsnrj && lsnrj.length > 0) {
+        var socials = JSON.parse(lsnrj);
+        if (socials) {
+            socials.forEach((el) => {
+                generateSocial(el.icon, el.url, el.name);
+            })
+        }
+    } else {
+        generateSocialTest();
+    }
+
+    function generateSocial(icon, url, name) {
+        snContainerEl.append(`
+            <div class="mb-3 d-flex align-items-center">
+                <div class="avatar-xs d-block flex-shrink-0 me-3">
+                    <span class="avatar-title rounded-circle fs-16 bg-dark text-light shadow">
+                        <i class="${icon}"></i>
+                    </span>
+                </div>
+                <div class="input-group">
+                    <input type="email" class="form-control" id="gitUsername" placeholder="Username" value="${name}" readonly>
+                    <div type="button" class="btn btn-danger" id="social-network-delete">
+                        <i class="fas fa-trash"></i>
+                    </div>
+                </div>
+            </div>
+        `);
+        //initSocialRemoveIcon();
+    }
+
+    function generateSocialTest() {
+        snContainerEl.append(`
+            <div class="mb-3 d-flex align-items-center">
+                <div class="avatar-xs d-block flex-shrink-0 me-3 social-box-icon">
+                    <span class="avatar-title rounded-circle fs-16 bg-dark text-light shadow normal">
+                        <i class="ri-github-fill"></i>
+                    </span>
+                    <span class="avatar-title rounded-circle fs-16 bg-danger text-light shadow removal">
+                        <i class="mdi mdi-close"></i>
+                    </span>
+                </div>
+                <input type="email" class="form-control" id="gitUsername" placeholder="Username" value="@daveadame" readonly>
+            </div>
+        `);
+        //initSocialRemoveIcon();
     }
 });
