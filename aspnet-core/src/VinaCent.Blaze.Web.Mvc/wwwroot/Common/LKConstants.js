@@ -29,6 +29,7 @@
     static InvalidEmail = 'InvalidEmail';
     static Member = 'Member';
     static AreYouSureWantToDelete = 'AreYouSureWantToDelete';
+    static YouWillSignOutAllOfYourDevicesForSecurity = 'YouWillSignOutAllOfYourDevicesForSecurity';
     static PleaseSelectCountry = 'PleaseSelectCountry';
     static PleaseSelectState = 'PleaseSelectState';
     static PleaseSelectCity = 'PleaseSelectCity';
