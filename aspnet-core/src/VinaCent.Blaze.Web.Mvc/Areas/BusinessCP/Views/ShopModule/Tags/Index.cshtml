@@ -1,56 +1,88 @@
+﻿@using System.Text.RegularExpressions
+@using VinaCent.Blaze.BusinessCore.ShopModule.Tags.Dto
+@using VinaCent.Blaze.Utilities
 @using VinaCent.Blaze.Web.Areas.BusinessCP.Common
+@using VinaCent.Blaze.Web.Areas.BusinessCP.Models.ShopModule.Categories
+@using VinaCent.Blaze.Web.Areas.BusinessCP.Models.ShopModule.Tags
 @using VinaCent.Blaze.Web.Themes.Velzon.ThemeOptions
+@using Microsoft.AspNetCore.Mvc.Rendering
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using VinaCent.Blaze.BusinessCore.ShopModule.Categories.Dto
+@using Abp.Extensions
+@using Abp.Json
 @inject IVelzonThemeOptions ThemeOptions
+@model TagViewModel
 
 @{
-    ThemeOptions.AddBreadcrumb(L(LKConstants.BusinessCP)).AddBreadcrumb(L(LKConstants.Shop)).AddBreadcrumb(L(LKConstants.Shop_TagManagement)).Commit(this);
+    ThemeOptions
+    .AddBreadcrumb(L(LKConstants.BusinessCP))
+    .AddBreadcrumb(L(LKConstants.Shop))
+    .AddBreadcrumb(L(LKConstants.Shop_TagManagement))
+    .Commit(this);
+
     ViewBag.Title = L(LKConstants.Shop_TagManagement);
     ViewBag.CurrentPageName = BusinessCpPageNames.ShopPageNames.Shop_TagManagement;
+
+    var commonRef = new
+    {
+        ServiceName = "shopTag",
+        TableAction = "getAll",
+        CreateAction = "create",
+        UpdateAction = "update",
+        DeleteAction = "delete",
+        OnModalCreateShow = "",
+        OnModalCreateHide = "",
+        OnModalUpdateShow = "OnModalUpdateShow",
+        OnModalUpdateHide = "",
+        UpdateHtmlInnerAction = Url.Action("EditModal", "Tags", new { Area = "BusinessCP" })?.TrimStart('/')
+    }.ToJsonString(true);
+
 }
-@section scripts
-{
+
+@section scripts {
     <script src="~/view-resources/Views/BusinessCP/ShopModule/Tags/Index.js" asp-append-version="true"></script>
+    <script src="~/Common/vinacent.db.js" asp-append-version="true"></script>
 }
-<div class="card">
-    <div class="card-header">
-        <div class="row">
-            <div class="col-md-6">
-                <button type="button" data-bs-toggle="modal" data-bs-target="#LanguageCreateModal" class="btn btn-success waves-effect waves-light mb-3 mb-lg-0">
-                    <i class="fa fa-plus-square"></i>
-                    @L(LKConstants.Create)
-                </button>
-            </div>
-            <div class="col-md-6">
-                @await Html.PartialAsync("~/Areas/BusinessCP/Views/ShopModule/Tags/Index.AdvancedSearch.cshtml")
-            </div>
-        </div>
-    </div>
-    <div class="card-body">
-        <div class="table-responsive">
-            <table id="LanguagesTable" class="table table-striped table-bordered">
-                <thead>
-                <tr>
-                    <th></th>
-                    <th>@L(LKConstants.DisplayName)</th>
-                    <th>@L(LKConstants.UiCultureName)</th>
-                    <th>@L(LKConstants.IsDefault)</th>
-                    <th>@L(LKConstants.IsEnabled)</th>
-                    <th>@L(LKConstants.FlagIcon)</th>
-                    <th style="width: 150px">@L(LKConstants.Actions)</th>
-                </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
 
-@await Html.PartialAsync("~/Areas/BusinessCP/Views/ShopModule/Tags/_CreateModal.cshtml")
-
-<div class="modal fade" id="LanguageEditModal" tabindex="-1" role="dialog" aria-labelledby="LanguageEditModalLabel" data-backdrop="static">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
+    <section app-main-section="@commonRef">
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-md-6">
+                        <button type="button" class="btn btn-success waves-effect waves-light mb-3 mb-lg-0 create-btn">
+                            <i class="fa fa-plus-square"></i>
+                            @L(LKConstants.Create)
+                        </button>
+                    </div>
+                    <div class="col-md-6">
+                        @await Html.PartialAsync("~/Areas/BusinessCP/Views/ShopModule/Tags/Index.AdvancedSearch.cshtml", new FilterTagDto())
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered main-table">
+                        <thead>
+                            <tr>
+                                <th data-ref="@nameof(TagDto.Title).ToCamelCase()" data-render="RenderTitleColumn">@L(LKConstants.Title)</th>
+                                <th data-ref="@nameof(TagDto.Slug).ToCamelCase()">@L(LKConstants.Slug)</th>
+                                <th data-ref="@nameof(TagDto.Content).ToCamelCase()">@L(LKConstants.Content)</th>
+                                <th data-action="" data-primary="@nameof(TagDto.Id).ToCamelCase()" data-name="@nameof(TagDto.Title).ToCamelCase()" style="width: 150px">@L(LKConstants.Actions)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
+
+        @await Html.PartialAsync("~/Areas/BusinessCP/Views/ShopModule/Tags/_CreateModal.cshtml", new CreateTagDto())
+
+        <div class="modal fade update-modal" tabindex="-1" role="dialog" data-backdrop="static">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                </div>
+            </div>
+        </div>
+    </section>

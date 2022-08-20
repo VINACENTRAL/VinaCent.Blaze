@@ -14,6 +14,10 @@ namespace VinaCent.Blaze.Web.Areas.AdminCP.Controllers
     [Route("admincp/language-texts")]
     public class LanguageTextsController : BlazeControllerBase
     {
+        private const string IndexView = "~/Areas/AdminCP/Views/LanguageTexts/Index.cshtml";
+        private const string EditView = "~/Areas/AdminCP/Views/LanguageTexts/_EditModal.cshtml";
+        private const string GroupLanguageView = "~/Areas/AdminCP/Views/LanguageTexts/_GroupLanguageModal.cshtml";
+
         private readonly ILanguageTextManagementAppService _languageTextManagementAppService;
 
         public LanguageTextsController(ILanguageTextManagementAppService languageTextManagementAppService)
@@ -23,15 +27,22 @@ namespace VinaCent.Blaze.Web.Areas.AdminCP.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return View(IndexView);
         }
 
         [HttpPost("edit-modal")]
-        public async Task<ActionResult> EditModal(int languageTextId)
+        public async Task<ActionResult> EditModal(long id)
         {
-            var languageTextDto = await _languageTextManagementAppService.GetAsync(new EntityDto<long>(languageTextId));
+            var languageTextDto = await _languageTextManagementAppService.GetAsync(new EntityDto<long>(id));
             var model = ObjectMapper.Map<UpdateLanguageTextDto>(languageTextDto);
-            return PartialView("_EditModal", model);
+            return PartialView(EditView, model);
+        }
+
+        [HttpPost("render-group-modal")]
+        public async Task<ActionResult> RenderGroupModal(long? id)
+        {
+            var group = await _languageTextManagementAppService.GetGroupLanguageTextAsync(id);
+            return PartialView(GroupLanguageView, group);
         }
     }
 }

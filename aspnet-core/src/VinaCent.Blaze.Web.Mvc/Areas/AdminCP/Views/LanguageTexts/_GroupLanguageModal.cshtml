@@ -1,0 +1,61 @@
+﻿@using Abp
+@using Abp.Authorization.Users
+@using Abp.MultiTenancy
+@using Abp.Zero
+@using VinaCent.Blaze
+@using VinaCent.Blaze.AppCore.LanguageTexts.Dto
+@using VinaCent.Blaze.MultiTenancy
+@using VinaCent.Blaze.Web.Models.Common.Modals
+@model GroupLanguageText
+@{
+    Layout = null;
+    var languages = LanguageManager.GetLanguages();
+}
+@await Html.PartialAsync("~/Views/Shared/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L(Model.RefLanguageTextId.HasValue ? LKConstants.EditLanguageText : LKConstants.CreateNewLanguageText)))
+<form name="tenantCreateForm" role="form" class="form-horizontal">
+    <input type="hidden" asp-for="TenantId" />
+    <input type="hidden" asp-for="RefLanguageTextId" />
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="required mb-3">
+                    <label class="form-label" asp-for="Source"></label>
+                    <select class="form-control" asp-for="Source">
+                        <option value="@BlazeConsts.LocalizationSourceName">@BlazeConsts.LocalizationSourceName</option>
+                        <option value="@AbpZeroConsts.LocalizationSourceName">@AbpZeroConsts.LocalizationSourceName</option>
+                        <option value="@AbpConsts.LocalizationSourceName">@AbpConsts.LocalizationSourceName</option>
+                    </select>
+                    <span asp-validation-for="Source" class="invalid-feedback"></span>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="required mb-3">
+                    <label class="form-label" asp-for="Key"></label>
+                    @if (Model.RefLanguageTextId.HasValue)
+                    {
+                        <input type="hidden" asp-for="Key" required />
+                        <input type="text" class="form-control disabled" disabled readonly value="@Model.Key" />
+                    }
+                    else
+                    {
+                        <input type="text" asp-for="Key" class="form-control" required />
+                    }
+                    <span asp-validation-for="Key" class="invalid-feedback"></span>
+                </div>
+            </div>
+        </div>
+
+        @for (var i = 0; i < Model.Pairs.Count; i++)
+        {
+            var currentLanguage = languages.FirstOrDefault(x => x.Name == Model.Pairs[i].LanguageName);
+            <input type="hidden" asp-for="Pairs[i].LanguageName" required />
+            <div class="required mb-3">
+                <label class="form-label d-flex" asp-for="Pairs[i].Value">@currentLanguage.DisplayName</label>
+                <input type="text" asp-for="Pairs[i].Value" class="form-control" required data-val-required="@L(LKConstants.Field_X_IsRequired, currentLanguage.DisplayName)" />
+                <span asp-validation-for="Pairs[i].Value" class="invalid-feedback"></span>
+            </div>
+        }
+    </div>
+    @await Html.PartialAsync("~/Views/Shared/Modals/_ModalFooterWithSaveAndCancel.cshtml")
+</form>
+<script src="~/libs/jquery-validate/jquery.validate.unobtrusive.min.js" asp-append-version="true"></script>

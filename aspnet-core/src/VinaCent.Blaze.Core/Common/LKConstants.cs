@@ -341,4 +341,8 @@ public static class LKConstants
     public const string UpdateCover = "UpdateCover";
     public const string ChangeCoverFail = "ChangeCoverFail";
     public const string PickCoverImageSuccessful = "PickCoverImageSuccessful";
+    public const string ShopModule_CreateTag = "ShopModule_CreateTag";
+    public const string ShopModule_UpdateTag = "ShopModule_UpdateTag";
+    public const string Value = "Value";
+    public const string UpdateTranslateSet = "UpdateTranslateSet";
 }

@@ -17,7 +17,7 @@ $('section[app-main-section]').each((index, section) => {
         return {
             data: $(el).attr('data-ref'),
             render: (data, type, row) => {
-                if (renderFuncName && renderFuncName.length > 0 && typeof window[renderFuncName] === "function")
+                if (renderFuncName && renderFuncName.length > 0 && typeof renderFuncName === 'string' && typeof window[renderFuncName] === 'function')
                     return eval(renderFuncName)(row, masterName);
                 return data;
             }
@@ -40,7 +40,7 @@ $('section[app-main-section]').each((index, section) => {
         }
 
         actionRender = (row) => {
-            if (actionRenderFuncName && actionRenderFuncName.length > 0 && typeof window[actionRenderFuncName] === "function")
+            if (actionRenderFuncName && actionRenderFuncName.length > 0 && typeof actionRenderFuncName === 'string' && typeof window[actionRenderFuncName] === 'function')
                 return eval(actionRenderFuncName)(row, masterName);
             return [
                 `   <button type="button" class="btn btn-sm btn-warning edit-${masterName.toLowerCase()}" data-${masterName.toLowerCase()}-id="${row[primaryKey]}">`,

@@ -37,10 +37,8 @@
     ViewBag.CurrentLevel = Model.CurrentLevel;
 }
 
-@section scripts
-    {
+@section scripts {
     <script src="~/Common/vinacent.db.js" asp-append-version="true"></script>
-
     <script src="~/view-resources/Views/BusinessCP/ShopModule/Categories/Index.js" asp-append-version="true"></script>
 }
 
@@ -55,7 +53,7 @@
                         </button>
                     </div>
                     <div class="col-md-6">
-                        @await Html.PartialAsync("~/Areas/BusinessCP/Views/ShopModule/Categories/Index.AdvancedSearch.cshtml", new FilterCategoryDto())
+                        @await Html.PartialAsync("~/Areas/BusinessCP/Views/ShopModule/Categories/Index.AdvancedSearch.cshtml", new FilterCategoryDto {Level = Model.CurrentLevel})
                     </div>
                 </div>
             </div>

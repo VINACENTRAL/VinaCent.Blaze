@@ -35,6 +35,14 @@ public class ShopCategoryAppService : BlazeAppServiceBase,
 
     public async Task DeleteAsync(EntityDto input)
     {
+        // Recursive remove child category
+        var children = await _repository.GetAllListAsync(x=>x.ParentId == input.Id);
+        foreach (var item in children)
+        {
+            await DeleteAsync(new EntityDto(item.Id));
+        }
+
+        // Remove
         await _translationRepository.DeleteAsync(x => x.CoreId == input.Id);
         await _repository.DeleteAsync(input.Id);
     }
@@ -72,8 +80,9 @@ public class ShopCategoryAppService : BlazeAppServiceBase,
 
         if (category.ParentId.HasValue)
         {
-            category.Level = _repository.Get(category.ParentId.Value)?.Level ?? 0;
-        } else
+            category.Level = (_repository.Get(category.ParentId.Value)?.Level ?? 0) + 1;
+        }
+        else
         {
             category.Level = 0;
         }
@@ -99,7 +108,7 @@ public class ShopCategoryAppService : BlazeAppServiceBase,
 
         if (category.ParentId.HasValue)
         {
-            category.Level = _repository.Get(category.ParentId.Value)?.Level ?? 0;
+            category.Level = (_repository.Get(category.ParentId.Value)?.Level ?? 0) + 1;
         }
         else
         {
@@ -125,6 +134,7 @@ public class ShopCategoryAppService : BlazeAppServiceBase,
         var query = _repository.GetAll();
 
         query = query.WhereIf(input.ParentId != null, x => x.ParentId == input.ParentId);
+        query = query.WhereIf(input.Level != null, x => x.Level == input.Level);
 
         if (!input.Keyword.IsNullOrWhiteSpace())
         {
@@ -166,6 +176,6 @@ public class ShopCategoryAppService : BlazeAppServiceBase,
     public async Task<List<CategoryListDto>> GetAllListByLevelAsync(int level)
     {
         var listResult = await _repository.GetAllListAsync(x => x.Level == level && x.IsActive);
-        return ObjectMapper.Map<List<CategoryListDto>>(listResult);
+        return listResult.Select(MapToEntityDto).ToList();
     }
 }

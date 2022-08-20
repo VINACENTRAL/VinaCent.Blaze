@@ -11,7 +11,7 @@
     Layout = null;
     var languages = LanguageManager.GetLanguages().Select(x => new SelectListItem(x.DisplayName, x.Name));
 }
-<div class="modal fade" id="LanguageTextCreateModal" tabindex="-1" role="dialog" aria-labelledby="LanguageTextCreateModalLabel" data-backdrop="static">
+<div class="modal fade create-modal" tabindex="-1" role="dialog" data-backdrop="static">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             @await Html.PartialAsync("~/Views/Shared/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L(LKConstants.CreateNewLanguageText)))
