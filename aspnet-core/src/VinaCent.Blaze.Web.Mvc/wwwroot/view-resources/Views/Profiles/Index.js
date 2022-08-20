@@ -185,7 +185,7 @@
         }
 
         _profileService.changePassword(input).then(function () {
-            abp.message.success('You will sign out all of your devices for security!',
+            abp.message.success(LKConstants.YouWillSignOutAllOfYourDevicesForSecurity,
                 l(LKConstants.PasswordChanged), {
                 closeOnEsc: false,
                 closeOnClickOutside: false,
