@@ -60,6 +60,16 @@ namespace VinaCent.Blaze.BusinessCore.Shop.Products
         /// The column used to store the additional details of the product.
         /// </summary>
         public string Content { get; set; }
+        
+        /// <summary>
+        /// The column used to store private content, only visible when product was bought and processed
+        /// </summary>
+        public string BuyerVisibleContent { get; set; }
+        
+        /// <summary>
+        /// The column used to store private content only for Seller/Product Owner
+        /// </summary>
+        public string SellerVisibleContent { get; set; }
 
         /// <summary>
         /// Columns are used to store product states.

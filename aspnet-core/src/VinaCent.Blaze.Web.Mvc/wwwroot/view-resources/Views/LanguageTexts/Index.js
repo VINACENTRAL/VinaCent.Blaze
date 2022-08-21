@@ -34,6 +34,7 @@
 
         const refId = _$form.find('input[name="RefLanguageTextId"]').val() + '';
         if (!refId || refId?.length === 0 || refId <= 0) {
+            _$form.find(`input[data-pair]`).attr('disabled', true);
             autoLoadExistTranslate(_$form);
         }
 
@@ -51,7 +52,7 @@
                 return;
             }
 
-            var dataSet = _$form.serializeFormToObject();
+            const dataSet = _$form.serializeFormToObject();
 
             abp.ui.setBusy(transateSetModal);
             services
@@ -71,7 +72,7 @@
 
     // ============================ START AUTO FETCH ============================ //
     function fetchExistRecords(_$form) {
-        var dataSet = _$form.serializeFormToObject();
+        const dataSet = _$form.serializeFormToObject();
         dataSet["Pairs"] = null;
 
         abp.ui.setBusy(transateSetModal);
@@ -84,8 +85,12 @@
                 });
 
                 if (result && result?.refLanguageTextId > 0) {
-
-                    abp.notify.info(l(LKConstants.SystemFoundThisKeyWasHaveExistsTranslate));
+                    $('#alert-area').html(`
+                    <div class="alert alert-warning alert-dismissible alert-label-icon rounded-label shadow fade show" role="alert">
+                        <i class="ri-alert-line label-icon"></i><strong>${l(LKConstants.Warning)}</strong> - ${l(LKConstants.SystemFoundThisKeyWasHaveExistsTranslate)}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    `);
                 }
             })
             .always(function () {
@@ -94,20 +99,19 @@
     }
 
     function autoLoadExistTranslate(_$form) {
-        const checkContainer = _$form[0].querySelector('[data-check-exist]');
-
+        const input = _$form[0].querySelector('input[data-check-exist]');
         let previousTimeoutId = null;
-        checkContainer.querySelector('input').oninput = (e) => {
+        input.oninput = (e) => {
             clearTimeout(previousTimeoutId);
             previousTimeoutId = setTimeout(() => {
                 fetchExistRecords(_$form);
-            }, 1000);
-        }
+            }, 500);
 
-        checkContainer.querySelector('button').addEventListener('click', () => {
-            fetchExistRecords(_$form);
-        });
+            _$form.find(`input[data-pair]`).attr('disabled', input.value.length === 0);
+            $('#alert-area').html('');
+        }
     }
+
     // ============================  END AUTO FETCH  ============================ //
 
 });
