@@ -2053,6 +2053,9 @@ namespace VinaCent.Blaze.Migrations
                     b.Property<DateTime?>("EndSellAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("FeatureImage")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
@@ -2063,6 +2066,9 @@ namespace VinaCent.Blaze.Migrations
                         .HasColumnType("bigint");
 
                     b.Property<string>("MetaTitle")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NormalizedTitle")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Price")
@@ -2076,6 +2082,9 @@ namespace VinaCent.Blaze.Migrations
 
                     b.Property<DateTime?>("StartSellAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<int>("State")
+                        .HasColumnType("int");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");

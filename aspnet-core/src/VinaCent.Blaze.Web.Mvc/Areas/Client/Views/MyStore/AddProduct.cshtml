@@ -1,0 +1,45 @@
+@using VinaCent.Blaze.Web.Areas.Client.Common
+@using VinaCent.Blaze.Web.Themes.Velzon.ThemeOptions
+@inject IVelzonThemeOptions ThemeOptions
+@{
+    ThemeOptions.LayoutHorizontal().AddBreadcrumb(L(LKConstants.HomePage)).AddBreadcrumb(L(LKConstants.Shop)).AddBreadcrumb(L(LKConstants.MyStore)).AddBreadcrumb(L(LKConstants.AddProduct)).Commit(this);
+    ViewBag.Title = L(LKConstants.AddProduct);
+    ViewBag.CurrentPageName = ClientPageNames.MyStore_AddProductPage;
+}
+
+@section styles {
+    <!-- Plugins css -->
+    <link href="velzon/libs/dropzone/dropzone.css" rel="stylesheet" type="text/css"/>
+}
+
+@section scripts {
+    <!-- ckeditor -->
+    <script src="velzon/libs/@@ckeditor/ckeditor5-build-classic/build/ckeditor.js"></script>
+
+    <!-- dropzone js -->
+    <script src="velzon/libs/dropzone/dropzone-min.js"></script>
+
+    <script src="velzon/js/pages/ecommerce-product-create.init.js"></script>
+}
+
+
+<form id="createproduct-form" autocomplete="off" class="needs-validation" novalidate>
+    <div class="row">
+        <div class="col-lg-8">
+            <partial name="~/Areas/Client/Views/MyStore/Partials/_Product_BasicInfo.cshtml"/>
+            <partial name="~/Areas/Client/Views/MyStore/Partials/_Product_Gallery.cshtml"/>
+            <partial name="~/Areas/Client/Views/MyStore/Partials/_Product_CommonTabs.cshtml"/>
+        </div>
+        <div class="col-lg-4">
+            <partial name="~/Areas/Client/Views/MyStore/Partials/_Product_Publish.cshtml"/>
+            <partial name="~/Areas/Client/Views/MyStore/Partials/_Product_PublicSchedule.cshtml"/>
+            <partial name="~/Areas/Client/Views/MyStore/Partials/_Product_Categories.cshtml"/>
+            <partial name="~/Areas/Client/Views/MyStore/Partials/_Product_Tags.cshtml"/>
+            <partial name="~/Areas/Client/Views/MyStore/Partials/_Product_ShortDescription.cshtml"/>
+            
+                <div class="text-end mb-3 d-grid">
+                    <button type="submit" class="btn btn-success w-sm">Submit</button>
+                </div>
+        </div>
+    </div>
+</form>

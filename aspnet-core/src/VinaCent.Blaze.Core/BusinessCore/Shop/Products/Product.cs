@@ -13,6 +13,11 @@ namespace VinaCent.Blaze.BusinessCore.Shop.Products
         /// The product title to be displayed on the Shop Page and Product Page.
         /// </summary>
         public string Title { get; set; }
+        
+        /// <summary>
+        /// Store uppercase title, reduce time standardize string
+        /// </summary>
+        public string NormalizedTitle { get; set; }
 
         /// <summary>
         /// The meta title to be used for browser title and SEO.
@@ -72,8 +77,18 @@ namespace VinaCent.Blaze.BusinessCore.Shop.Products
         public string SellerVisibleContent { get; set; }
 
         /// <summary>
+        /// Product feature image
+        /// </summary>
+        public string FeatureImage { get; set; }
+
+        /// <summary>
         /// Columns are used to store product states.
         /// </summary>
-        public CensorshipStatus Status { get; set; }
+        public CensorshipStatus State { get; set; }
+        
+        /// <summary>
+        /// Columns are used to store product status.
+        /// </summary>
+        public SubmitStatus Status { get; set; }
     }
 }

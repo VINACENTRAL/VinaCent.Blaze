@@ -18,17 +18,17 @@
 
     //serializeFormToObject plugin for jQuery
     $.fn.serializeFormToObject = function (camelCased = false) {
-        const regex = /^(\w+)\[(\d+)\]\.(\w+)$/;
+        const regex = /^(\w+)\[(\d+)]\.(\w+)$/;
         //serialize to array
-        var data = $(this).serializeArray();
+        const data = $(this).serializeArray();
 
         //add also disabled items
         $(':disabled[name]', this).each(function () {
-            data.push({ name: this.name, value: $(this).val() });
+            data.push({name: this.name, value: $(this).val()});
         });
 
         //map to object
-        var obj = {};
+        const obj = {};
         data.map(function (x) { // Prevent duplicated in checkbox
             let m = regex.exec(x.name);
             if (m) {
@@ -78,7 +78,7 @@
     });
 
     function convertToCamelCasedObject(obj) {
-        var newObj, origKey, newKey, value;
+        let newObj, origKey, newKey, value;
         if (obj instanceof Array) {
             return obj.map(value => {
                 if (typeof value === 'object') {
@@ -109,7 +109,7 @@
 
     function initAdvSearch() {
         $('.abp-advanced-search').each((i, obj) => {
-            var $advSearch = $(obj);
+            const $advSearch = $(obj);
             setAdvSearchDropdownMenuWidth($advSearch);
             setAdvSearchStopingPropagations($advSearch);
         });
@@ -125,7 +125,7 @@
     });
 
     function setAdvSearchDropdownMenuWidth($advSearch) {
-        var advSearchWidth = 0;
+        let advSearchWidth = 0;
         $advSearch.each((i, obj) => {
             advSearchWidth += parseInt($(obj).width(), 10);
         });
@@ -140,7 +140,7 @@
     }
 
     $.fn.clearForm = function () {
-        var $this = $(this);
+        const $this = $(this);
         $this.validate().resetForm();
         $('[name]', $this).each((i, obj) => {
             $(obj).removeClass('is-invalid');
@@ -156,7 +156,7 @@
                 sortable: false,
                 autoWidth: false,
                 defaultContent: '',
-                render: (data, type, row, meta) => action(row)
+                render: (data, type, row) => action(row)
             });
         }
         _columnDefs = _columnDefs.map((el, index) => {
@@ -205,7 +205,7 @@
                 return;
             }
 
-            var formObjected = _$formCreate.serializeFormToObject();
+            const formObjected = _$formCreate.serializeFormToObject();
 
             abp.ui.setBusy(_$modal);
             ajaxFunction(formObjected)
@@ -251,7 +251,7 @@
                 return;
             }
 
-            var formObjected = _$formUpdate.serializeFormToObject();
+            const formObjected = _$formUpdate.serializeFormToObject();
 
             abp.ui.setBusy(_$formUpdate);
             ajaxFunction(formObjected).done(function () {
@@ -301,4 +301,30 @@
         if (result.length === 1) return result[0];
         return result;
     }
+
+    $.fn.initQuickKey = function () {
+        const validateKeys = ['F1', 'F2', 'F8', 'F9', 'F10'];
+        const currentElement = $(this);
+        const targetKey = currentElement.data('quick-key');
+        if (!validateKeys.includes(targetKey)) {
+            return; // Not valid
+        }
+        let badgeClass = 'bg-success';
+        
+        currentElement.removeClass('waves-effect');
+        currentElement.removeClass('waves-light');
+        currentElement.addClass('me-3');
+        if (currentElement.hasClass('btn-success')) {
+            badgeClass = 'bg-warning';
+        }
+        currentElement.append(`<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill ${badgeClass}">${targetKey}</span>`);
+        $(document).on('keydown', (e) => {
+            if (e.originalEvent.code === targetKey) {
+                e.preventDefault();
+                currentElement.click();
+            }
+        })
+    }
+
+    $('[data-quick-key]').initQuickKey();
 })(jQuery);
