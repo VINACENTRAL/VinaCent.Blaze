@@ -5,7 +5,11 @@
 @model PagedLanguageTextResultRequestDto
 
 @{
-    var languages = LanguageManager.GetLanguages().Select(x => new SelectListItem(x.DisplayName, x.Name));
+    var languages = LanguageManager.GetActiveLanguages();
+    var defaultLanguges = languages.Select(x => new SelectListItem(x.DisplayName, x.Name, x.IsDefault || (x.Name != CultureInfo.CurrentUICulture.Name)));
+    var currentLanguages = languages.Select(x => new SelectListItem(x.DisplayName, x.Name, x.Name == CultureInfo.CurrentUICulture.Name));
+
+    var defaultLanguage = languages.FirstOrDefault(x => x.IsDefault);
 }
 
 <div class="abp-advanced-search">
@@ -25,10 +29,10 @@
                 <div class="card" style="margin-bottom: 0">
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-@(defaultLanguage != null ? "6":"4")">
                                 <div class="required mb-3">
                                     <label class="form-label" asp-for="SourceName"></label>
-                                    <select class="form-control" asp-for="SourceName" asp-items="@languages">
+                                    <select class="form-control" asp-for="SourceName">
                                         <option value="">@L(LKConstants.All)</option>
                                         <option value="@BlazeConsts.LocalizationSourceName">@BlazeConsts.LocalizationSourceName</option>
                                         <option value="@AbpZeroConsts.LocalizationSourceName">@AbpZeroConsts.LocalizationSourceName</option>
@@ -37,20 +41,27 @@
                                     <span asp-validation-for="SourceName" class="invalid-feedback"></span>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            @if (defaultLanguage != null)
+                            {
+                                <input type="hidden" asp-for="DefaultLanguageName" value="@defaultLanguage.Name" />
+                            }
+                            else
+                            {
+                                <div class="col-md-4">
+                                    <div class="required mb-3">
+                                        <label class="form-label" asp-for="DefaultLanguageName"></label>
+                                        <select class="form-control" asp-for="DefaultLanguageName" asp-items="@defaultLanguges">
+                                        </select>
+                                        <span asp-validation-for="DefaultLanguageName" class="invalid-feedback"></span>
+                                    </div>
+                                </div>
+                            }
+                            <div class="col-md-@(defaultLanguage != null ? "6":"4")">
                                 <div class="required mb-3">
                                     <label class="form-label" asp-for="CurrentLanguageName"></label>
-                                    <select class="form-control" asp-for="CurrentLanguageName" asp-items="@languages">
+                                    <select class="form-control" asp-for="CurrentLanguageName" asp-items="@currentLanguages">
                                     </select>
                                     <span asp-validation-for="CurrentLanguageName" class="invalid-feedback"></span>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="required mb-3">
-                                    <label class="form-label" asp-for="DefaultLanguageName"></label>
-                                    <select class="form-control" asp-for="DefaultLanguageName" asp-items="@languages">
-                                    </select>
-                                    <span asp-validation-for="DefaultLanguageName" class="invalid-feedback"></span>
                                 </div>
                             </div>
                         </div>

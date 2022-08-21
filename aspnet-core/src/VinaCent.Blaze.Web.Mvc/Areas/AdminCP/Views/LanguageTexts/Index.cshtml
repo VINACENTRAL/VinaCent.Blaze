@@ -22,6 +22,8 @@
         OnModalUpdateHide = "",
         UpdateHtmlInnerAction = Url.Action("EditModal", "LanguageTexts", new { Area = "AdminCP" })?.TrimStart('/')
     }.ToJsonString(true);
+
+    var defaultLanguage = LanguageManager.GetActiveLanguages().FirstOrDefault(x => x.IsDefault);
 }
 @section scripts {
     <script src="~/Common/vinacent.db.js" asp-append-version="true"></script>
@@ -33,8 +35,8 @@
             <div class="card-header">
                 <div class="row">
                     <div class="col-md-6">
-                        <button type="button" class="btn btn-success waves-effect waves-light mb-3 mb-lg-0" id="translate-set-btn">
-                            <i class="fa fa-plus-square"></i> @L(LKConstants.UpdateTranslateSet)
+                        <button type="button" class="btn btn-primary waves-effect waves-light mb-3 mb-lg-0" data-translate-set="">
+                            <i class="mdi mdi-plus-box-multiple"></i> @L(LKConstants.UpdateTranslateSet)
                         </button>
 
                         <button type="button" class="btn btn-success waves-effect waves-light mb-3 mb-lg-0 create-btn">
@@ -52,10 +54,10 @@
                         <thead>
                             <tr>
                                 <th data-ref="@nameof(LanguageTextDto.Key).ToCamelCase()">@L(LKConstants.Key)</th>
-                                <th data-ref="@nameof(LanguageTextDto.DefaultValue).ToCamelCase()" class="text-start">@L(LKConstants.DefaultTranslate)</th>
-                                <th data-ref="@nameof(LanguageTextDto.Value).ToCamelCase()" class="text-start">@L(LKConstants.CurrentTranslate)</th>
+                                <th data-ref="@nameof(LanguageTextDto.DefaultValue).ToCamelCase()" class="text-start">@L(LKConstants.DefaultTranslate) (<span id="default-lang">@defaultLanguage?.DisplayName</span>)</th>
+                                <th data-ref="@nameof(LanguageTextDto.Value).ToCamelCase()" class="text-start">@L(LKConstants.CurrentTranslate) (<span id="current-lang"></span>)</th>
                                 <th data-ref="@nameof(LanguageTextDto.Source).ToCamelCase()" class="text-start">@L(LKConstants.SourceName)</th>
-                                <th data-action="" data-primary="@nameof(LanguageTextDto.Id).ToCamelCase()" data-name="@nameof(LanguageTextDto.Value).ToCamelCase()" style="width: 150px">@L(LKConstants.Actions)</th>
+                                <th data-action="RenderAction" data-primary="@nameof(LanguageTextDto.Id).ToCamelCase()" data-name="@nameof(LanguageTextDto.Value).ToCamelCase()" style="width: 330px">@L(LKConstants.Actions)</th>
                             </tr>
                         </thead>
                         <tbody></tbody>

@@ -6,7 +6,7 @@
     Layout = null;
 }
 @await Html.PartialAsync("~/Views/Shared/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L(LKConstants.EditLanguage)))
-<form name="LanguageEditForm" role="form" class="form-horizontal">
+<form role="form" class="form-horizontal">
     <input type="hidden" asp-for="Id" />
     <input type="hidden" asp-for="TenantId" />
     <div class="modal-body">
@@ -39,5 +39,4 @@
     </div>
     @await Html.PartialAsync("~/Views/Shared/Modals/_ModalFooterWithSaveAndCancel.cshtml")
 </form>
-
-<script src="~/view-resources/Views/Languages/_EditModal.js" asp-append-version="true"></script>
+<script src="~/libs/jquery-validate/jquery.validate.unobtrusive.min.js" asp-append-version="true"></script>

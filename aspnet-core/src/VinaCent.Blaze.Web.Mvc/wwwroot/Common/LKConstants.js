@@ -33,10 +33,9 @@
     static PleaseSelectCountry = 'PleaseSelectCountry';
     static PleaseSelectState = 'PleaseSelectState';
     static PleaseSelectCity = 'PleaseSelectCity';
-
-    // ============================== START BUSINESS CORE ============================== //
     static UpdateExchangeRate = 'UpdateExchangeRate';
     static ExchangeRateHistory = 'ExchangeRateHistory';
     static ExchangeRateWasSettedThat = 'ExchangeRateWasSettedThat';
-    // ==============================  END BUSINESS CORE  ============================== //
+    static UpdateTranslateSet = 'UpdateTranslateSet';
+    static SystemFoundThisKeyWasHaveExistsTranslate = 'SystemFoundThisKeyWasHaveExistsTranslate';
 }

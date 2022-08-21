@@ -345,4 +345,5 @@ public static class LKConstants
     public const string ShopModule_UpdateTag = "ShopModule_UpdateTag";
     public const string Value = "Value";
     public const string UpdateTranslateSet = "UpdateTranslateSet";
+    public const string Check = "Check";
 }

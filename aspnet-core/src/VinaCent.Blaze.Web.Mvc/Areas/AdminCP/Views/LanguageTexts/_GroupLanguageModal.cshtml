@@ -38,9 +38,12 @@
                     }
                     else
                     {
-                        <input type="text" asp-for="Key" class="form-control" required />
+                        <div class="input-group" data-check-exist>
+                            <input type="text" asp-for="Key" class="form-control" required />
+                            <button class="btn btn-success shadow-none" type="button">@L(LKConstants.Check)</button>
+                        </div>
+                        <span asp-validation-for="Key" class="invalid-feedback d-block"></span>
                     }
-                    <span asp-validation-for="Key" class="invalid-feedback"></span>
                 </div>
             </div>
         </div>
@@ -51,7 +54,7 @@
             <input type="hidden" asp-for="Pairs[i].LanguageName" required />
             <div class="required mb-3">
                 <label class="form-label d-flex" asp-for="Pairs[i].Value">@currentLanguage.DisplayName</label>
-                <input type="text" asp-for="Pairs[i].Value" class="form-control" required data-val-required="@L(LKConstants.Field_X_IsRequired, currentLanguage.DisplayName)" />
+                <input type="text" asp-for="Pairs[i].Value" class="form-control" required data-val-required="@L(LKConstants.Field_X_IsRequired, currentLanguage.DisplayName)" data-pair="@currentLanguage.Name" />
                 <span asp-validation-for="Pairs[i].Value" class="invalid-feedback"></span>
             </div>
         }

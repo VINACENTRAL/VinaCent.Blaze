@@ -7,6 +7,7 @@ using Abp.Extensions;
 using Abp.Linq.Extensions;
 using Abp.Localization;
 using Abp.UI;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Globalization;
@@ -129,6 +130,10 @@ namespace VinaCent.Blaze.AppCore.LanguageTexts
 
                 group = ObjectMapper.Map<GroupLanguageText>(refLanguageText);
 
+                // Reset value
+                group.RefLanguageTextId = refLanguageTextId;
+                group.Pairs = new List<LanguageTextPair>();
+
                 var allRefSet = await Repository.GetAllListAsync(x => x.TenantId == refLanguageText.TenantId && x.Source == refLanguageText.Source && x.Key == refLanguageText.Key);
                 group.Pairs.AddRange(allRefSet.Select(x => ObjectMapper.Map<LanguageTextPair>(x)).ToList());
 
@@ -178,5 +183,14 @@ namespace VinaCent.Blaze.AppCore.LanguageTexts
                 await Repository.InsertAsync(languageText);
             }
         }
+
+        [HttpPost]
+        public async Task<GroupLanguageText> GetGroupLanguageTextAlreadyExistsAsync(GroupLanguageTextRequestInput input)
+        {
+            var data = await Repository.FirstOrDefaultAsync(x => x.TenantId == input.TenantId && x.Key == input.Key && x.Source == input.Source);
+            return await GetGroupLanguageTextAsync(data?.Id);
+        }
+        
+        
     }
 }

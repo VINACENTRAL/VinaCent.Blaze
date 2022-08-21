@@ -22,11 +22,32 @@ namespace VinaCent.Blaze.AppCore.Languages
         ILanguageManagementAppService
     {
         private readonly IApplicationLanguageManager _applicationLanguageManager;
+        private readonly ILanguageManager _languageManager;
 
-        public LanguageManagementAppService(IRepository<ApplicationLanguage> repository, IApplicationLanguageManager applicationLanguageManager) : base(repository)
+        public LanguageManagementAppService(IRepository<ApplicationLanguage> repository, IApplicationLanguageManager applicationLanguageManager, ILanguageManager languageManager) : base(repository)
         {
             LocalizationSourceName = BlazeConsts.LocalizationSourceName;
             _applicationLanguageManager = applicationLanguageManager;
+            _languageManager = languageManager;
+        }
+
+        public override async Task<LanguageDto> GetAsync(EntityDto<int> input)
+        {
+            var data = await base.GetAsync(input);
+            var defaultLanguageName = (await _applicationLanguageManager.GetDefaultLanguageOrNullAsync(AbpSession.TenantId))?.Name ?? _languageManager.GetActiveLanguages().FirstOrDefault(x=>x.IsDefault)?.Name;
+            data.IsDefault = data.Name == defaultLanguageName;
+            return data;
+        }
+
+        public override async Task<PagedResultDto<LanguageDto>> GetAllAsync(PagedLanguageResultRequestDto input)
+        {
+            var data = await base.GetAllAsync(input);
+            var defaultLanguageName = (await _applicationLanguageManager.GetDefaultLanguageOrNullAsync(AbpSession.TenantId))?.Name ?? _languageManager.GetActiveLanguages().FirstOrDefault(x => x.IsDefault)?.Name;
+            foreach (var item in data.Items)
+            {
+                item.IsDefault = item.Name == defaultLanguageName;
+            }
+            return data;
         }
 
         public override async Task<LanguageDto> CreateAsync(CreateLanguageDto input)
@@ -84,6 +105,7 @@ namespace VinaCent.Blaze.AppCore.Languages
 
             if (currentLanguage.TenantId == null && AbpSession.TenantId != null)
             {
+                // TODO: Update translate
                 throw new UserFriendlyException("Can not delete a host language from tenant!");
             }
 
@@ -118,6 +140,7 @@ namespace VinaCent.Blaze.AppCore.Languages
             var isExist = CultureInfo.GetCultures(CultureTypes.AllCultures).Any(culture => string.Equals(culture.Name, cultureName, StringComparison.CurrentCultureIgnoreCase));
             if (!isExist)
             {
+                // TODO: Update translate
                 throw new UserFriendlyException("Language Name was not exist in the world!!!");
             }
         }

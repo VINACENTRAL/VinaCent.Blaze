@@ -4,7 +4,7 @@ using VinaCent.Blaze.DataAnnotations;
 
 namespace VinaCent.Blaze.AppCore.LanguageTexts.Dto.QuickAction
 {
-    [AutoMapTo(typeof(ApplicationLanguageText))]
+    [AutoMap(typeof(ApplicationLanguageText))]
     public class LanguageTextPair
     {
         /// <summary>

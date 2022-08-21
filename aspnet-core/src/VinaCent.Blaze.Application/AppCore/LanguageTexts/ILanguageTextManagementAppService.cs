@@ -9,5 +9,6 @@ namespace VinaCent.Blaze.AppCore.LanguageTexts
     {
         Task<GroupLanguageText> GetGroupLanguageTextAsync(long? refLanguageTextId);
         Task SaveGroupLanguageTextAsync(GroupLanguageText input);
+        Task<GroupLanguageText> GetGroupLanguageTextAlreadyExistsAsync(GroupLanguageTextRequestInput input);
     }
 }
