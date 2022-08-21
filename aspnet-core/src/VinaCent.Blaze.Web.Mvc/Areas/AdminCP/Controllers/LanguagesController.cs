@@ -27,9 +27,9 @@ namespace VinaCent.Blaze.Web.Areas.AdminCP.Controllers
         }
 
         [HttpPost("edit-modal")]
-        public async Task<ActionResult> EditModal(int languageId)
+        public async Task<ActionResult> EditModal(int id)
         {
-            var languageDto = await _languageManagementAppService.GetAsync(new EntityDto<int>(languageId));
+            var languageDto = await _languageManagementAppService.GetAsync(new EntityDto<int>(id));
             var model = ObjectMapper.Map<UpdateLanguageDto>(languageDto);
             return PartialView("_EditModal", model);
         }

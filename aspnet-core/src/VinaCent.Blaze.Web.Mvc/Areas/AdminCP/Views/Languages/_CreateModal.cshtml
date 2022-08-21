@@ -5,11 +5,11 @@
 @{
     Layout = null;
 }
-<div class="modal fade" id="LanguageCreateModal" tabindex="-1" role="dialog" aria-labelledby="LanguageCreateModalLabel" data-backdrop="static">
+<div class="modal fade create-modal" tabindex="-1" role="dialog" aria-labelledby="LanguageCreateModalLabel" data-backdrop="static">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             @await Html.PartialAsync("~/Views/Shared/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L(LKConstants.CreateNewLanguage)))
-            <form name="LanguageCreateForm" role="form" class="form-horizontal">
+            <form role="form" class="form-horizontal">
                 <input type="hidden" asp-for="TenantId" />
                 <div class="modal-body">
                     <div class="row">

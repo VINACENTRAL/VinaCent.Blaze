@@ -230,14 +230,14 @@
                     _$formCreate.find('.save-button').click();
                 }
             });
-            if (onShow && typeof onShow === 'function') {
-                onShow();
+            if (onShow && typeof onShow === 'string' && typeof window[onShow] === 'function') {
+                window[onShow]();
             }
         }).on('hidden.bs.modal', () => {
             _$formCreate.clearForm();
             _$formCreate.find('.field-validation-valid').html('');
-            if (onHide && typeof onHide === 'function') {
-                onHide();
+            if (onHide && typeof onHide === 'string' && typeof window[onHide] === 'function') {
+                window[onHide]();
             }
         });
     }
@@ -279,14 +279,14 @@
 
         _$modal.on('shown.bs.modal', () => {
             _$modal.find('input:not([type=hidden]):first').focus();
-            if (onShow && typeof onShow === 'function') {
-                onShow();
+            if (onShow && typeof onShow === 'string' && typeof window[onShow] === 'function') {
+                window[onShow]();
             }
         }).on('hidden.bs.modal', () => {
             _$formUpdate.clearForm();
             _$formUpdate.find('.field-validation-valid').html('');
-            if (onHide && typeof onHide === 'function') {
-                onHide();
+            if (onHide && typeof onHide === 'string' && typeof window[onHide] === 'function') {
+                window[onHide]();
             }
         });
     }
