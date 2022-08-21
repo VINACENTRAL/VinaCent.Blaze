@@ -1,7 +1,9 @@
 ﻿using Abp.Domain.Entities;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using VinaCent.Blaze.BusinessCore.Shop.Categories;
+using VinaCent.Blaze.BusinessCore.Shop.ProductImages;
 using VinaCent.Blaze.BusinessCore.Shop.Products;
 
 namespace VinaCent.Blaze.BusinessCore.Shop.ProductCategories
@@ -19,10 +21,8 @@ namespace VinaCent.Blaze.BusinessCore.Shop.ProductCategories
         /// </summary>
         public long ProductId { get; set; }
 
-        [ForeignKey(nameof(ProductId))]
-        public virtual Product Product { get; set; }
+        [ForeignKey(nameof(ProductId))] public virtual Product Product { get; set; }
 
-        [ForeignKey(nameof(CategoryId))]
-        public virtual Category Category { get; set; }
+        [ForeignKey(nameof(CategoryId))] public virtual Category Category { get; set; }
     }
 }

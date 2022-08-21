@@ -1,10 +1,16 @@
 using System;
+using System.Collections.Generic;
 using Abp.Application.Services.Dto;
+using Abp.AutoMapper;
 using Abp.Domain.Entities;
 using VinaCent.Blaze.BusinessCore.Shop.Common;
+using VinaCent.Blaze.BusinessCore.Shop.ProductImages;
+using VinaCent.Blaze.BusinessCore.Shop.Products;
 
 namespace VinaCent.Blaze.BusinessCore.ShopModule.Products.Dto;
 
+[AutoMap(typeof(Product))]
+[AutoMapFrom(typeof(ProductDto))]
 public class UpdateProductDto: EntityDto<long>, IPassivable
 {
     /// <summary>
@@ -56,9 +62,21 @@ public class UpdateProductDto: EntityDto<long>, IPassivable
     /// The column used to store the additional details of the product.
     /// </summary>
     public string Content { get; set; }
+    
+    /// <summary>
+    /// The column used to store private content, only visible when product was bought and processed
+    /// </summary>
+    public string BuyerVisibleContent { get; set; }
+        
+    /// <summary>
+    /// The column used to store private content only for Seller/Product Owner
+    /// </summary>
+    public string SellerVisibleContent { get; set; }
 
     /// <summary>
     /// Columns are used to store product states.
     /// </summary>
     public CensorshipStatus Status { get; set; }
+    
+    public List<ProductImage> Images { get; set; }
 }
