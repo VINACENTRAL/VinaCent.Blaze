@@ -1,56 +1,85 @@
-@using VinaCent.Blaze.Web.Areas.BusinessCP.Common
+﻿@using VinaCent.Blaze.Web.Areas.BusinessCP.Common
+@using VinaCent.Blaze.Web.Areas.BusinessCP.Models.ShopModule.Products
 @using VinaCent.Blaze.Web.Themes.Velzon.ThemeOptions
+@using Microsoft.AspNetCore.Mvc.Rendering
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using Abp.Extensions
+@using Abp.Json
+@using VinaCent.Blaze.BusinessCore.ShopModule.Products.Dto
 @inject IVelzonThemeOptions ThemeOptions
+@model ProductViewModel
 
 @{
-    ThemeOptions.AddBreadcrumb(L(LKConstants.BusinessCP)).AddBreadcrumb(L(LKConstants.Shop)).AddBreadcrumb(L(LKConstants.Shop_ProductManagement)).Commit(this);
+    ThemeOptions
+        .AddBreadcrumb(L(LKConstants.BusinessCP))
+        .AddBreadcrumb(L(LKConstants.Shop))
+        .AddBreadcrumb(L(LKConstants.Shop_ProductManagement))
+        .Commit(this);
+
     ViewBag.Title = L(LKConstants.Shop_ProductManagement);
     ViewBag.CurrentPageName = BusinessCpPageNames.ShopPageNames.Shop_ProductManagement;
+
+    var commonRef = new
+    {
+        ServiceName = "shopProduct",
+        TableAction = "getAll",
+        CreateAction = "create",
+        UpdateAction = "update",
+        DeleteAction = "delete",
+        OnModalCreateShow = "OnModalCreateShow",
+        OnModalCreateHide = "",
+        OnModalUpdateShow = "OnModalUpdateShow",
+        OnModalUpdateHide = "",
+        UpdateHtmlInnerAction = Url.Action("EditModal", "Tags", new { Area = "BusinessCP" })?.TrimStart('/')
+    }.ToJsonString(true);
+
 }
-@section scripts
-{
-<script src="~/view-resources/Views/BusinessCP/ShopModule/Products/Index.js" asp-append-version="true"></script>
+
+@section scripts {
+    <script src="~/libs/tinymce/tinymce.min.js"></script>
+    <script src="~/Common/vinacent.db.js" asp-append-version="true"></script>
+    <script src="~/view-resources/Views/BusinessCP/ShopModule/Products/Index.js" asp-append-version="true"></script>
 }
-<div class="card">
-    <div class="card-header">
-        <div class="row">
-            <div class="col-md-6">
-                <button type="button" data-bs-toggle="modal" data-bs-target="#LanguageCreateModal" class="btn btn-success waves-effect waves-light mb-3 mb-lg-0">
-                    <i class="fa fa-plus-square"></i>
-                    @L(LKConstants.Create)
-                </button>
-            </div>
-            <div class="col-md-6">
-                @await Html.PartialAsync("~/Areas/BusinessCP/Views/ShopModule/Products/Index.AdvancedSearch.cshtml")
+
+<section app-main-section="@commonRef">
+    <div class="card">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-md-6">
+                    <a asp-area="Client" asp-controller="MyStore" asp-action="AddProduct" type="button" class="btn btn-success waves-effect waves-light mb-3 mb-lg-0" data-quick-key="F2">
+                        <i class="fa fa-plus-square"></i>
+                        @L(LKConstants.AddProduct)
+                    </a>
+                </div>
+                <div class="col-md-6">
+                    @await Html.PartialAsync("~/Areas/BusinessCP/Views/ShopModule/Products/Index.AdvancedSearch.cshtml", new FilterProductDto())
+                </div>
             </div>
         </div>
-    </div>
-    <div class="card-body">
-        <div class="table-responsive">
-            <table id="LanguagesTable" class="table table-striped table-bordered">
-                <thead>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered main-table">
+                    <thead>
                     <tr>
-                        <th></th>
-                        <th>@L(LKConstants.DisplayName)</th>
-                        <th>@L(LKConstants.UiCultureName)</th>
-                        <th>@L(LKConstants.IsDefault)</th>
-                        <th>@L(LKConstants.IsEnabled)</th>
-                        <th>@L(LKConstants.FlagIcon)</th>
-                        <th style="width: 150px">@L(LKConstants.Actions)</th>
+                        <th data-ref="@nameof(ProductDto.Title).ToCamelCase()" data-render="RenderTitleColumn">@L(LKConstants.Title)</th>
+                        <th data-ref="@nameof(ProductDto.Slug).ToCamelCase()">@L(LKConstants.Slug)</th>
+                        <th data-ref="@nameof(ProductDto.Content).ToCamelCase()">@L(LKConstants.Content)</th>
+                        <th data-action="" data-primary="@nameof(ProductDto.Id).ToCamelCase()" data-name="@nameof(ProductDto.Title).ToCamelCase()" style="width: 150px">@L(LKConstants.Actions)</th>
                     </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
-</div>
 
-@await Html.PartialAsync("~/Areas/BusinessCP/Views/ShopModule/Products/_CreateModal.cshtml")
+    @await Html.PartialAsync("~/Areas/BusinessCP/Views/ShopModule/Products/_CreateModal.cshtml", new CreateProductDto())
 
-<div class="modal fade" id="LanguageEditModal" tabindex="-1" role="dialog" aria-labelledby="LanguageEditModalLabel" data-backdrop="static">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
+    <div class="modal fade update-modal" tabindex="-1" role="dialog" data-backdrop="static">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+            </div>
         </div>
     </div>
-</div>
+</section>

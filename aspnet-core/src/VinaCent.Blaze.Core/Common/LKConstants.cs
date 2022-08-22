@@ -343,6 +343,15 @@ public static class LKConstants
     public const string SocialNetworkLinks = "SocialNetworkLinks";
     public const string Add = "Add";
     public const string PickCoverImageSuccessful = "PickCoverImageSuccessful";
+    public const string ShopModule_CreateTag = "ShopModule_CreateTag";
+    public const string ShopModule_UpdateTag = "ShopModule_UpdateTag";
+    public const string Value = "Value";
+    public const string UpdateTranslateSet = "UpdateTranslateSet";
+    public const string Check = "Check";
+    public const string ShopModule_CreateNewProduct = "ShopModule_CreateNewProduct";
+    public const string ShopModule_UpdateProduct = "ShopModule_UpdateProduct";
+    public const string MyStore = "MyStore";
+    public const string AddProduct = "AddProduct";
     public const string AddSocialLink = "AddSocialLink";
     
 }

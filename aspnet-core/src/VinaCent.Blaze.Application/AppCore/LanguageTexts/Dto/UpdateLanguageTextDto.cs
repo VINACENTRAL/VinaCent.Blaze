@@ -14,6 +14,7 @@ namespace VinaCent.Blaze.AppCore.LanguageTexts.Dto
         /// <summary>
         /// TenantId of this entity. Can be null for host.
         /// </summary>
+        [AbpDisplayName(BlazeConsts.LocalizationSourceName, LKConstants.TenantId)]
         public int? TenantId { get; set; }
 
         /// <summary>
@@ -21,6 +22,7 @@ namespace VinaCent.Blaze.AppCore.LanguageTexts.Dto
         /// </summary>
         [AppRequired]
         [AppStringLength(ApplicationLanguage.MaxNameLength)]
+        [AbpDisplayName(BlazeConsts.LocalizationSourceName, LKConstants.LanguageName)]
         public string LanguageName { get; set; }
 
         /// <summary>
@@ -28,6 +30,7 @@ namespace VinaCent.Blaze.AppCore.LanguageTexts.Dto
         /// </summary>
         [AppRequired]
         [AppStringLength(ApplicationLanguageText.MaxSourceNameLength)]
+        [AbpDisplayName(BlazeConsts.LocalizationSourceName, LKConstants.SourceName)]
         public string Source { get; set; }
 
         /// <summary>
@@ -35,6 +38,7 @@ namespace VinaCent.Blaze.AppCore.LanguageTexts.Dto
         /// </summary>
         [AppRequired]
         [AppStringLength(ApplicationLanguageText.MaxKeyLength)]
+        [AbpDisplayName(BlazeConsts.LocalizationSourceName, LKConstants.Key)]
         public string Key { get; set; }
 
         /// <summary>
@@ -42,6 +46,7 @@ namespace VinaCent.Blaze.AppCore.LanguageTexts.Dto
         /// </summary>
         [AppRequired(AllowEmptyStrings = true)]
         [AppStringLength(ApplicationLanguageText.MaxValueLength)]
+        [AbpDisplayName(BlazeConsts.LocalizationSourceName, LKConstants.Value)]
         public string Value { get; set; }
     }
 }

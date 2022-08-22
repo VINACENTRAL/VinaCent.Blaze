@@ -559,5 +559,27 @@
     <_ContentIncludedByDefault Remove="wwwroot\libs-ext\famfamfam-flags\LICENSE.md" />
     <_ContentIncludedByDefault Remove="wwwroot\libs-ext\famfamfam-flags\README.md" />
     <_ContentIncludedByDefault Remove="wwwroot\libs-ext\spin\jquery.spin.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\libs\tinymce\plugins\codesample\css\prism.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\libs\tinymce\plugins\emoticons\img\smiley-cool.gif" />
+    <_ContentIncludedByDefault Remove="wwwroot\libs\tinymce\plugins\emoticons\img\smiley-cry.gif" />
+    <_ContentIncludedByDefault Remove="wwwroot\libs\tinymce\plugins\emoticons\img\smiley-embarassed.gif" />
+    <_ContentIncludedByDefault Remove="wwwroot\libs\tinymce\plugins\emoticons\img\smiley-foot-in-mouth.gif" />
+    <_ContentIncludedByDefault Remove="wwwroot\libs\tinymce\plugins\emoticons\img\smiley-frown.gif" />
+    <_ContentIncludedByDefault Remove="wwwroot\libs\tinymce\plugins\emoticons\img\smiley-innocent.gif" />
+    <_ContentIncludedByDefault Remove="wwwroot\libs\tinymce\plugins\emoticons\img\smiley-kiss.gif" />
+    <_ContentIncludedByDefault Remove="wwwroot\libs\tinymce\plugins\emoticons\img\smiley-laughing.gif" />
+    <_ContentIncludedByDefault Remove="wwwroot\libs\tinymce\plugins\emoticons\img\smiley-money-mouth.gif" />
+    <_ContentIncludedByDefault Remove="wwwroot\libs\tinymce\plugins\emoticons\img\smiley-sealed.gif" />
+    <_ContentIncludedByDefault Remove="wwwroot\libs\tinymce\plugins\emoticons\img\smiley-smile.gif" />
+    <_ContentIncludedByDefault Remove="wwwroot\libs\tinymce\plugins\emoticons\img\smiley-surprised.gif" />
+    <_ContentIncludedByDefault Remove="wwwroot\libs\tinymce\plugins\emoticons\img\smiley-tongue-out.gif" />
+    <_ContentIncludedByDefault Remove="wwwroot\libs\tinymce\plugins\emoticons\img\smiley-undecided.gif" />
+    <_ContentIncludedByDefault Remove="wwwroot\libs\tinymce\plugins\emoticons\img\smiley-wink.gif" />
+    <_ContentIncludedByDefault Remove="wwwroot\libs\tinymce\plugins\emoticons\img\smiley-yell.gif" />
+    <_ContentIncludedByDefault Remove="wwwroot\libs\tinymce\plugins\help\img\logo.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\libs\tinymce\plugins\visualblocks\css\visualblocks.css" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Areas\BusinessCP\Views\ShopModule\Products\Partials" />
   </ItemGroup>
 </Project>

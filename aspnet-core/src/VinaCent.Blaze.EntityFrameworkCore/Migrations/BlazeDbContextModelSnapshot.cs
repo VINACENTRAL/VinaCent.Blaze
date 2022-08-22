@@ -1938,6 +1938,28 @@ namespace VinaCent.Blaze.Migrations
                     b.ToTable("BusinessCore.Shop.ProductCategories");
                 });
 
+            modelBuilder.Entity("VinaCent.Blaze.BusinessCore.Shop.ProductImages.ProductImage", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("IsFeature")
+                        .HasColumnType("bit");
+
+                    b.Property<long>("ProductId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Uri")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("BusinessCore.Shop.ProductImages");
+                });
+
             modelBuilder.Entity("VinaCent.Blaze.BusinessCore.Shop.ProductMetas.ProductMeta", b =>
                 {
                     b.Property<Guid>("Id")
@@ -2013,6 +2035,9 @@ namespace VinaCent.Blaze.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
 
+                    b.Property<string>("BuyerVisibleContent")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Content")
                         .HasColumnType("nvarchar(max)");
 
@@ -2028,6 +2053,9 @@ namespace VinaCent.Blaze.Migrations
                     b.Property<DateTime?>("EndSellAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("FeatureImage")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
@@ -2040,14 +2068,23 @@ namespace VinaCent.Blaze.Migrations
                     b.Property<string>("MetaTitle")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("NormalizedTitle")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(25,12)");
+
+                    b.Property<string>("SellerVisibleContent")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Slug")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("StartSellAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<int>("State")
+                        .HasColumnType("int");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
@@ -2444,6 +2481,17 @@ namespace VinaCent.Blaze.Migrations
                         .IsRequired();
 
                     b.Navigation("Category");
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("VinaCent.Blaze.BusinessCore.Shop.ProductImages.ProductImage", b =>
+                {
+                    b.HasOne("VinaCent.Blaze.BusinessCore.Shop.Products.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Product");
                 });

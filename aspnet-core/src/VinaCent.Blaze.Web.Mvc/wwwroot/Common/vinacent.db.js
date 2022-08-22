@@ -17,7 +17,7 @@ $('section[app-main-section]').each((index, section) => {
         return {
             data: $(el).attr('data-ref'),
             render: (data, type, row) => {
-                if (renderFuncName && renderFuncName.length > 0 && typeof window[renderFuncName] === "function")
+                if (renderFuncName && renderFuncName.length > 0 && typeof renderFuncName === 'string' && typeof window[renderFuncName] === 'function')
                     return eval(renderFuncName)(row, masterName);
                 return data;
             }
@@ -40,25 +40,28 @@ $('section[app-main-section]').each((index, section) => {
         }
 
         actionRender = (row) => {
-            if (actionRenderFuncName && actionRenderFuncName.length > 0 && typeof window[actionRenderFuncName] === "function")
-                return eval(actionRenderFuncName)(row, masterName);
-            return [
-                `   <button type="button" class="btn btn-sm btn-warning edit-${masterName.toLowerCase()}" data-${masterName.toLowerCase()}-id="${row[primaryKey]}">`,
+            const defaultButtons = [
+                `   <button type="button" class="btn btn-sm waves-effect waves-light btn-warning edit-${masterName.toLowerCase()}" data-${masterName.toLowerCase()}-id="${row[primaryKey]}">`,
                 `       <i class="fas fa-pencil-alt"></i> ${l(LKConstants.Edit)}`,
                 '   </button>',
-                `   <button type="button" class="btn btn-sm btn-danger delete-${masterName.toLowerCase()}" data-${masterName.toLowerCase()}-id="${row[primaryKey]}" data-${masterName.toLowerCase()}-name="${row[nameKey]}">`,
+                `   <button type="button" class="btn btn-sm waves-effect waves-light btn-danger delete-${masterName.toLowerCase()}" data-${masterName.toLowerCase()}-id="${row[primaryKey]}" data-${masterName.toLowerCase()}-name="${row[nameKey]}">`,
                 `       <i class="fas fa-trash"></i> ${l(LKConstants.Delete)}`,
                 '   </button>',
             ].join('');
+
+            if (actionRenderFuncName && actionRenderFuncName.length > 0 && typeof actionRenderFuncName === 'string' && typeof window[actionRenderFuncName] === 'function')
+                return eval(actionRenderFuncName)(row, masterName, defaultButtons);
+
+            return defaultButtons;
         };
 
         // Default process edit
         $(document).on('click', `.edit-${masterName.toLowerCase()}`, function (e) {
             const id = $(this).attr(`data-${masterName.toLowerCase()}-id`);
             e.preventDefault();
-            
+
             modalUpdate?.modal('show');
-            
+
             abp.ajax({
                 url: abp.appPath + commonRef.updateHtmlInnerAction + '?id=' + id,
                 type: 'POST',
@@ -70,7 +73,7 @@ $('section[app-main-section]').each((index, section) => {
                 }
             })
         });
-        
+
         // Default process delete
         $(document).on('click', `.delete-${masterName.toLowerCase()}`, function () {
             var id = $(this).attr(`data-${masterName.toLowerCase()}-id`);
@@ -109,13 +112,13 @@ $('section[app-main-section]').each((index, section) => {
 
     // ========================================== START MODAL OF UPDATE ========================================== //
     const modalUpdate = currentSection.find('.update-modal');
-    
+
     const modalUpdateInit = (content) => {
         if (modalUpdate) {
             modalUpdate.find('div.modal-content').html(content);
-            modalUpdate.modalUpdate(_services[commonRef.updateAction], ()=> {
+            modalUpdate.modalUpdate(_services[commonRef.updateAction], () => {
                 _$dataTable.ajax.reload();
-            }, commonRef.onModalUpdateShow, commonRef.onModalUpdateHide);   
+            }, commonRef.onModalUpdateShow, commonRef.onModalUpdateHide);
         }
     }
     // ==========================================  END MODAL OF UPDATE  ========================================== //    
