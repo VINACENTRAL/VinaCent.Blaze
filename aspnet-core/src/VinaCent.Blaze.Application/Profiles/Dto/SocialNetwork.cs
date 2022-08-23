@@ -1,4 +1,7 @@
-﻿namespace VinaCent.Blaze.Profiles.Dto
+﻿using VinaCent.Blaze.DataAnnotations;
+using VinaCent.Blaze.Validation;
+
+namespace VinaCent.Blaze.Profiles.Dto
 {
     /// <summary>
     /// Liên kết mạng xã hội
@@ -8,16 +11,20 @@
         /// <summary>
         /// Icon
         /// </summary>
-        public string Icon { get; set; }
+        [AppRequired]
+        public string SocialIcon { get; set; }
 
         /// <summary>
         /// Tên tài khoản
         /// </summary>
-        public string Name { get; set; }
+        [AppRequired]
+        public string SocialName { get; set; }
 
         /// <summary>
         /// Đường dẫn liên kết
         /// </summary>
-        public string Url { get; set; }
+        [AppRequired]
+        [AppRegex(ValidationHelper.UrlWithHttpRegex)]
+        public string SocialUrl { get; set; }
     }
 }

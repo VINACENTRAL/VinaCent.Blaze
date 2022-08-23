@@ -16,6 +16,8 @@ namespace VinaCent.Blaze.Profiles
 
         Task<ProfileDto> UpdateCover(UpdateCoverDto input);
 
+        Task<ProfileDto> UpdateSocialNetwork(UpdateSocialDto input);
+
         Task<string> SendConfirmCodeAsync(RequestEmailDto input);
 
         Task<string> ConfirmCodeAsync(ConfirmCodeDto input);

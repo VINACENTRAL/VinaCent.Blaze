@@ -217,51 +217,82 @@
 
     //-------------------
     const snContainerEl = $('#social-network-container');
-    const lsnrj = $("#ListSocialNetworkRawJson").val();
+    let lsnrj = $("#ListSocialNetworkRawJson").val();
     if (lsnrj && lsnrj.length > 0) {
-        var socials = JSON.parse(lsnrj);
+        let socials = JSON.parse(lsnrj);
         if (socials) {
             socials.forEach((el) => {
                 generateSocial(el.icon, el.url, el.name);
             })
         }
-    } else {
-        generateSocialTest();
     }
+
+    abp.event.on('reloadSocial', () => {
+        reloadSocialNetwork();
+    });
 
     function generateSocial(icon, url, name) {
         snContainerEl.append(`
             <div class="mb-3 d-flex align-items-center">
-                <div class="avatar-xs d-block flex-shrink-0 me-3">
-                    <span class="avatar-title rounded-circle fs-16 bg-dark text-light shadow">
-                        <i class="${icon}"></i>
-                    </span>
-                </div>
-                <div class="input-group">
-                    <input type="email" class="form-control" id="gitUsername" placeholder="Username" value="${name}" readonly>
-                    <div type="button" class="btn btn-danger" id="social-network-delete">
-                        <i class="fas fa-trash"></i>
-                    </div>
-                </div>
-            </div>
-        `);
-        //initSocialRemoveIcon();
-    }
-
-    function generateSocialTest() {
-        snContainerEl.append(`
-            <div class="mb-3 d-flex align-items-center">
                 <div class="avatar-xs d-block flex-shrink-0 me-3 social-box-icon">
                     <span class="avatar-title rounded-circle fs-16 bg-dark text-light shadow normal">
-                        <i class="ri-github-fill"></i>
+                        <i class="${icon}"></i>
                     </span>
-                    <span class="avatar-title rounded-circle fs-16 bg-danger text-light shadow removal">
+                    <span class="avatar-title rounded-circle fs-16 bg-danger text-light shadow removal remove-social-network">
                         <i class="mdi mdi-close"></i>
                     </span>
                 </div>
-                <input type="email" class="form-control" id="gitUsername" placeholder="Username" value="@daveadame" readonly>
+                <a href="${url}">${name}</a>
             </div>
-        `);
-        //initSocialRemoveIcon();
+        `)
+        initSocialRemove();
+    }
+
+    function reloadSocialNetwork() {
+        snContainerEl.empty();
+        lsnrj = $("#ListSocialNetworkRawJson").val();
+        let socials = JSON.parse(lsnrj);
+        socials.forEach((el) => {
+            generateSocial(el.icon, el.url, el.name);
+        });
+    }
+
+    function initSocialRemove() {
+        $(".remove-social-network").unbind();
+        $(".remove-social-network").click((ev) => {
+            let obj = JSON.parse(lsnrj);
+            const el = $(ev.currentTarget).parent().next('a')[0];
+
+            const requiredIndex = obj.findIndex(item => {
+                return item.url.replace(/\/$/, "") === el.href.replace(/\/$/, "");
+            });
+
+            console.log(requiredIndex);
+            if (requiredIndex === -1) {
+                return;
+            }
+
+            obj.splice(requiredIndex, 1);
+            const result = JSON.stringify(obj);
+
+            const input = { "listSocialNetworkRawJson": result };
+            abp.message.confirm(
+                abp.utils.formatString(
+                    l(LKConstants.AreYouSureWantToDelete)
+                ),
+                null,
+                (isConfirmed) => {
+                    if (isConfirmed) {
+                        _profileService
+                            .updateSocialNetwork(input)
+                            .done(function () {
+                                abp.notify.info(l(LKConstants.SuccessfullyDeleted));
+                                $("#ListSocialNetworkRawJson").val(lsnrj);
+                                abp.event.trigger('reloadSocial');
+                            })
+                    }
+                }
+            );
+        });
     }
 });

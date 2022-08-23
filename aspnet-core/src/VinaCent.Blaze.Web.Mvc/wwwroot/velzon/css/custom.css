@@ -139,3 +139,8 @@
     transition: opacity .5s ease-in-out;
     cursor: pointer;
 }
+
+.social-icons.show{
+    display: flex;
+    max-width: 306px;
+}

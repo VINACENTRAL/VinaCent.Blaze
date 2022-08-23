@@ -353,5 +353,6 @@ public static class LKConstants
     public const string MyStore = "MyStore";
     public const string AddProduct = "AddProduct";
     public const string AddSocialLink = "AddSocialLink";
-    
+    public const string SocialNetworkLink = "SocialNetworkLink";
+
 }

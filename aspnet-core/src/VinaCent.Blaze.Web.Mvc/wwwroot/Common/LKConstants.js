@@ -38,4 +38,5 @@
     static UpdateTranslateSet = 'UpdateTranslateSet';
     static SystemFoundThisKeyWasHaveExistsTranslate = 'SystemFoundThisKeyWasHaveExistsTranslate';
     static Warning = 'Warning';
+    static UrlIsExisted = 'UrlIsExisted';
 }

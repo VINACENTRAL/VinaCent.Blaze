@@ -253,5 +253,16 @@ namespace VinaCent.Blaze.Profiles
 
             throw new UserFriendlyException(L(LKConstants.InvalidCode));
         }
+
+        public async Task<ProfileDto> UpdateSocialNetwork(UpdateSocialDto input)
+        {
+            var user = await GetCurrentUserAsync();
+            user.ListSocialNetworkRawJson = input.ListSocialNetworkRawJson;
+
+            (await UserManager.UpdateAsync(user)).CheckErrors();
+            await CurrentUnitOfWork.SaveChangesAsync();
+
+            return ObjectMapper.Map<ProfileDto>(user);
+        }
     }
 }
