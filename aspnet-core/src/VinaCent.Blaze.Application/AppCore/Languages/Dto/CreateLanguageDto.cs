@@ -20,6 +20,7 @@ namespace VinaCent.Blaze.AppCore.Languages.Dto
         /// </summary>
         [AppRequired]
         [AppStringLength(ApplicationLanguage.MaxNameLength)]
+        [AbpDisplayName(BlazeConsts.LocalizationSourceName, LKConstants.Name)]
         public string Name { get; set; }
 
         /// <summary>
@@ -27,17 +28,20 @@ namespace VinaCent.Blaze.AppCore.Languages.Dto
         /// </summary>
         [AppRequired]
         [AppStringLength(ApplicationLanguage.MaxDisplayNameLength)]
+        [AbpDisplayName(BlazeConsts.LocalizationSourceName, LKConstants.DisplayName)]
         public string DisplayName { get; set; }
 
         /// <summary>
         /// Gets or sets the icon.
         /// </summary>
         [AppStringLength(ApplicationLanguage.MaxIconLength)]
+        [AbpDisplayName(BlazeConsts.LocalizationSourceName, LKConstants.Icon)]
         public string Icon { get; set; }
 
         /// <summary>
         /// Is this language active. Inactive languages are not get by <see cref="IApplicationLanguageManager"/>.
         /// </summary>
+        [AbpDisplayName(BlazeConsts.LocalizationSourceName, LKConstants.IsDisabled)]
         public bool IsDisabled { get; set; }
 
     }
