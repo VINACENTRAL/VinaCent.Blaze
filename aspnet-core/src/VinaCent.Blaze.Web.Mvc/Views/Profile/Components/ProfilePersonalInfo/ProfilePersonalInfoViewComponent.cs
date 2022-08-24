@@ -35,6 +35,7 @@ namespace VinaCent.Blaze.Web.Views.Profile.Components.ProfilePersonalInfo
             });
             await uow.CompleteAsync();
             ViewData["Countries"] = countries.Items.OrderBy(x => x.Value).Select(x => new SelectListItem($"{x.Value} ({x.Description})", x.Key));
+            ViewData["CurrentUser"] = user;
             return View("~/Views/Profile/Components/ProfilePersonalInfo/Default.cshtml", user);
         }
     }

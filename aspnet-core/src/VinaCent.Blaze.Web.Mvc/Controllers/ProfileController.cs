@@ -33,7 +33,8 @@ namespace VinaCent.Blaze.Web.Controllers
         {
             var model = new ProfilePageModel
             {
-                ProfileManagementPageCreationContext = new ProfileManagementPageCreationContext(ServiceProvider)
+                ProfileManagementPageCreationContext = new ProfileManagementPageCreationContext(ServiceProvider),
+                CurrentUser = await _profileAppService.GetAsync()
             };
 
             foreach (var contributor in Options.Contributors)

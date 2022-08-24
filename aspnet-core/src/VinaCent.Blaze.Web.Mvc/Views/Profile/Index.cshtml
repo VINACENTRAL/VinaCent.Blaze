@@ -2,15 +2,13 @@
 @using VinaCent.Blaze.Web.Common
 @using VinaCent.Blaze.Web.Models.Profile
 @using VinaCent.Blaze.Web.Themes.Velzon.ThemeOptions
-@using VinaCent.Blaze.Web.Views.Profile.Components.ProfileAvatar
-@using VinaCent.Blaze.Web.Views.Profile.Components.ProfileCover
-@using VinaCent.Blaze.Web.Views.Profile.Components.ProfileSocial
 @inject IVelzonThemeOptions ThemeOptions
 @model ProfilePageModel
 @{
     ThemeOptions.LayoutHorizontal().AddBreadcrumb(L(LKConstants.HomePage)).AddBreadcrumb(L(LKConstants.ProfileSettings)).Commit(this);
     ViewBag.Title = L(LKConstants.ProfileSettings);
     ViewBag.CurrentPageName = CommonPageNames.ProfileSettings;
+    ViewBag.FullName = Model.CurrentUser.FullName;
 }
 
 @section scripts {
@@ -18,12 +16,12 @@
 }
 
 <div class="position-relative mx-n4">
-    @(await Component.InvokeAsync<ProfileCoverViewComponent>())
+    @await Html.PartialAsync("~/Views/Profile/Partials/_ProfileCoverPartial.cshtml", new UpdateCoverDto {Cover = Model.CurrentUser.Cover})
 </div>
 
 <div class="row">
     <div class="col-lg-3">
-        @(await Component.InvokeAsync<ProfileAvatarViewComponent>())
+        @await Html.PartialAsync("~/Views/Profile/Partials/_ProfileAvatarPartial.cshtml", new UpdateAvatarDto {Avatar = Model.CurrentUser.Avatar})
         <!--end card-->
         <div class="card">
             <div class="card-body">
@@ -42,7 +40,7 @@
                 </div>
             </div>
         </div>
-        @(await Component.InvokeAsync<ProfileSocialViewComponent>())
+         @await Html.PartialAsync("~/Views/Profile/Partials/_ProfileSocialPartial.cshtml", new UpdateSocialDto {ListSocialNetworkRawJson = Model.CurrentUser.ListSocialNetworkRawJson})
         <!--end card-->
     </div>
     <!--end col-->
