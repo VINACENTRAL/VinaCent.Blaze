@@ -1,0 +1,51 @@
+﻿@using VinaCent.Blaze
+@using VinaCent.Blaze.AppCore.CommonDatas.Dto
+@using VinaCent.Blaze.Web.Models.Common.Modals
+@model UpdateCommonDataDto
+@{
+    Layout = null;
+}
+<div class="modal fade create-modal" tabindex="-1" role="dialog" data-backdrop="static">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            @await Html.PartialAsync("~/Views/Shared/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L(LKConstants.EditCommonData)))
+            <form role="form" class="form-horizontal">
+                <input type="hidden" asp-for="Id" />
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label" asp-for="ParentKey"></label>
+                        <input type="text" asp-for="ParentKey" class="form-control" />
+                        <span asp-validation-for="ParentKey" class="invalid-feedback"></span>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="required mb-3">
+                                <label class="form-label" asp-for="Type"></label>
+                                <input asp-for="Type" class="form-control"/>
+                                <span asp-validation-for="Type" class="invalid-feedback"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="required mb-3">
+                                <label class="form-label" asp-for="Key"></label>
+                                <input asp-for="Key" class="form-control"/>
+                                <span asp-validation-for="Key" class="invalid-feedback"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="required mb-3">
+                        <label class="form-label" asp-for="Value"></label>
+                        <input type="text" asp-for="Value" class="form-control" />
+                        <span asp-validation-for="Value" class="invalid-feedback"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" asp-for="Description"></label>
+                        <textarea type="text" asp-for="Description" class="form-control"></textarea>
+                        <span asp-validation-for="Description" class="invalid-feedback"></span>
+                    </div>
+                </div>
+                @await Html.PartialAsync("~/Views/Shared/Modals/_ModalFooterWithSaveAndCancel.cshtml")
+            </form>
+        </div>
+    </div>
+</div>

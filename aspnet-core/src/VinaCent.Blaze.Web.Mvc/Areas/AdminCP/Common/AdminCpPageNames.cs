@@ -6,6 +6,7 @@ public class AdminCpPageNames
     public const string About = "About";
     public const string Dashboard = "Dashboard";
     public const string FileManagement = "FileManagement";
+    public const string CommonDataManagement = "CommonDataManagement"; 
 
     public const string Tenants = "Tenants";
 

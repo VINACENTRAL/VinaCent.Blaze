@@ -37,6 +37,16 @@ public class AdminCpNavigationProvider : NavigationProvider
             )
             .AddItem(
                 new MenuItemDefinition(
+                    AdminCpPageNames.CommonDataManagement,
+                    L(LKConstants.CommonDataManagement),
+                    url: "admincp/common-datas",
+                    icon: "mdi mdi-creative-commons",
+                    requiresAuthentication: true,
+                    permissionDependency: new SimplePermissionDependency(PermissionNames.Pages_CommonDataManagement)
+                )
+            )
+            .AddItem(
+                new MenuItemDefinition(
                     AdminCpPageNames.Tenants,
                     L(LKConstants.Tenants),
                     isEnabled: BlazeConsts.MultiTenancyEnabled,

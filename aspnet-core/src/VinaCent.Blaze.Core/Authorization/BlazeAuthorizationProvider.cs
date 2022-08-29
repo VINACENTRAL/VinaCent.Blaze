@@ -13,6 +13,7 @@ namespace VinaCent.Blaze.Authorization
             context.CreatePermission(PermissionNames.Pages_Roles, L(LKConstants.Roles));
             context.CreatePermission(PermissionNames.Pages_Tenants, L(LKConstants.Tenants), multiTenancySides: MultiTenancySides.Host);
             context.CreatePermission(PermissionNames.Pages_FileManagement, L(LKConstants.FileManagement));
+            context.CreatePermission(PermissionNames.Pages_CommonDataManagement, L(LKConstants.CommonDataManagement));
             context.CreatePermission(PermissionNames.Pages_Languages, L(LKConstants.LanguageManagement));
             context.CreatePermission(PermissionNames.Pages_LanguageTexts, L(LKConstants.LanguageTextManagement));
             context.CreatePermission(PermissionNames.Pages_AuditLogs, L(LKConstants.AuditLogs));

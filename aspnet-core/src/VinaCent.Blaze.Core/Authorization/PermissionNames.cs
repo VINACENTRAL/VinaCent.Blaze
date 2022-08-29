@@ -11,6 +11,8 @@
 
         public const string Pages_FileManagement = "Pages.FileManagement";
 
+        public const string Pages_CommonDataManagement = "Pages.CommonDataManagement";
+
         public const string Pages_Languages = "Pages.Languages";
         public const string Pages_LanguageTexts = "Pages.LanguageTexts";
 

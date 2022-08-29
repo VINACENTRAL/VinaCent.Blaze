@@ -1,4 +1,5 @@
 ﻿using Abp.Application.Services.Dto;
+using Abp.Localization;
 
 namespace VinaCent.Blaze.AppCore.CommonDatas.Dto
 {
@@ -9,8 +10,10 @@ namespace VinaCent.Blaze.AppCore.CommonDatas.Dto
         /// <summary>
         /// Loại giá trị
         /// </summary>
+        [AbpDisplayName(BlazeConsts.LocalizationSourceName, LKConstants.Type)]
         public string Type { get; set; }
 
+        [AbpDisplayName(BlazeConsts.LocalizationSourceName, LKConstants.ParentKey)]
         public string ParentKey { get; set; }
     }
 }
