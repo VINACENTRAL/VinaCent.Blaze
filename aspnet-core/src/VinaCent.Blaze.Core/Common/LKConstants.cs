@@ -369,5 +369,10 @@ public static class LKConstants
     public const string SocialNetworkLink = "SocialNetworkLink";
     public const string IsDisabled = "IsDisabled";
     public const string Icon = "Icon";
-
+    public const string CommonDataManagement = "CommonDataManagement";
+    public const string Type = "Type";
+    public const string ParentKey = "ParentKey";
+    public const string CreateNewCommonData = "CreateNewCommonData";
+    public const string EditCommonData = "EditCommonData";
+    
 }
