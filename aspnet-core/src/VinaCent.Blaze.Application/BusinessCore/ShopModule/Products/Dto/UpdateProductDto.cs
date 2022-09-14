@@ -74,6 +74,11 @@ public class UpdateProductDto: EntityDto<long>, IPassivable
     public string SellerVisibleContent { get; set; }
 
     /// <summary>
+    /// Product currency Symbol
+    /// </summary>
+    public string ISOCurrencySymbol { get; set; }
+
+    /// <summary>
     /// Columns are used to store product states.
     /// </summary>
     public CensorshipStatus Status { get; set; }

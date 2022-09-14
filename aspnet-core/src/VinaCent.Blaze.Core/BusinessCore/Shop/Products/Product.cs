@@ -13,7 +13,7 @@ namespace VinaCent.Blaze.BusinessCore.Shop.Products
         /// The product title to be displayed on the Shop Page and Product Page.
         /// </summary>
         public string Title { get; set; }
-        
+
         /// <summary>
         /// Store uppercase title, reduce time standardize string
         /// </summary>
@@ -65,12 +65,12 @@ namespace VinaCent.Blaze.BusinessCore.Shop.Products
         /// The column used to store the additional details of the product.
         /// </summary>
         public string Content { get; set; }
-        
+
         /// <summary>
         /// The column used to store private content, only visible when product was bought and processed
         /// </summary>
         public string BuyerVisibleContent { get; set; }
-        
+
         /// <summary>
         /// The column used to store private content only for Seller/Product Owner
         /// </summary>
@@ -82,10 +82,20 @@ namespace VinaCent.Blaze.BusinessCore.Shop.Products
         public string FeatureImage { get; set; }
 
         /// <summary>
+        /// Product currency Symbol
+        /// </summary>
+        public string ISOCurrencySymbol { get; set; }
+
+        /// <summary>
         /// Columns are used to store product states.
         /// </summary>
         public CensorshipStatus State { get; set; }
-        
+
+        /// <summary>
+        /// Column are used to store product visibility
+        /// </summary>
+        public VisibilityType Visibility { get; set; }
+
         /// <summary>
         /// Columns are used to store product status.
         /// </summary>

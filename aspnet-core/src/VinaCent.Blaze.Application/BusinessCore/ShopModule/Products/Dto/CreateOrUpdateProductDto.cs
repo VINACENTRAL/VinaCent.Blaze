@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Abp.Application.Services.Dto;
 using Abp.AutoMapper;
-using Abp.Domain.Entities;
 using Abp.Localization;
 using VinaCent.Blaze.BusinessCore.Shop.Common;
 using VinaCent.Blaze.BusinessCore.Shop.ProductImages;
@@ -16,7 +15,7 @@ namespace VinaCent.Blaze.BusinessCore.ShopModule.Products.Dto;
 
 [AutoMap(typeof(Product),
     typeof(ProductDto))]
-public class CreateOrUpdateProductDto: EntityDto<long>, IPassivable
+public class CreateOrUpdateProductDto : EntityDto<long>
 {
     /// <summary>
     /// The product title to be displayed on the Shop Page and Product Page.
@@ -24,7 +23,7 @@ public class CreateOrUpdateProductDto: EntityDto<long>, IPassivable
     [AppRequired]
     [AbpDisplayName(BlazeConsts.LocalizationSourceName, LKConstants.Title)]
     public string Title { get; set; }
-    
+
     /// <summary>
     /// The meta title to be used for browser title and SEO.
     /// </summary>
@@ -51,12 +50,6 @@ public class CreateOrUpdateProductDto: EntityDto<long>, IPassivable
     /// </summary>
     [AbpDisplayName(BlazeConsts.LocalizationSourceName, LKConstants.Discount)]
     public decimal Discount { get; set; }
-
-    /// <summary>
-    /// It can be used to identify whether the product is publicly available for shopping.
-    /// </summary>
-    [AbpDisplayName(BlazeConsts.LocalizationSourceName, LKConstants.IsActive)]
-    public bool IsActive { get; set; }
 
     /// <summary>
     /// It stores the date and time at which the product sale starts.
@@ -98,10 +91,10 @@ public class CreateOrUpdateProductDto: EntityDto<long>, IPassivable
     public string FeatureImage { get; set; }
 
     /// <summary>
-    /// Columns are used to store product states.
+    /// Column are used to store product visibility
     /// </summary>
-    [AbpDisplayName(BlazeConsts.LocalizationSourceName, LKConstants.State)]
-    public CensorshipStatus State { get; set; }
+    [AbpDisplayName(BlazeConsts.LocalizationSourceName, LKConstants.Visibility)]
+    public VisibilityType Visibility { get; set; }
 
     /// <summary>
     /// Columns are used to store product status.
@@ -111,10 +104,10 @@ public class CreateOrUpdateProductDto: EntityDto<long>, IPassivable
 
     [AbpDisplayName(BlazeConsts.LocalizationSourceName, LKConstants.Product_Categories)]
     public virtual List<CategoryDto> Categories { get; set; }
-    
+
     [AbpDisplayName(BlazeConsts.LocalizationSourceName, LKConstants.Product_Tags)]
     public virtual List<TagDto> Tags { get; set; }
-    
+
     [AbpDisplayName(BlazeConsts.LocalizationSourceName, LKConstants.Product_Images)]
     public virtual List<ProductImage> Images { get; set; }
 }

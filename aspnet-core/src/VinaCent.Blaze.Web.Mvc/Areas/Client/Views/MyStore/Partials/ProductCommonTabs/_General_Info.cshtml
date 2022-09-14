@@ -1,56 +1,43 @@
+@using VinaCent.Blaze.BusinessCore
+@using VinaCent.Blaze.BusinessCore.CurrencyUnits.Dto
 @model VinaCent.Blaze.BusinessCore.ShopModule.Products.Dto.CreateOrUpdateProductDto
-
+@{
+    var currencyUnit = (CurrencyUnitDto)ViewBag.DefaultCurrencyUnit;
+    var pattern = CurrencyUnit.CurrencyPositivePatterns[currencyUnit.CurrencyPositivePattern];
+}
 <div class="row">
-    <div class="col-lg-6">
+    <div class="col-md-6">
         <div class="mb-3">
-            <label class="form-label" for="manufacturer-name-input">Manufacturer Name</label>
-            <input type="text" class="form-control" id="manufacturer-name-input" placeholder="Enter manufacturer name">
-        </div>
-    </div>
-    <div class="col-lg-6">
-        <div class="mb-3">
-            <label class="form-label" for="manufacturer-brand-input">Manufacturer Brand</label>
-            <input type="text" class="form-control" id="manufacturer-brand-input" placeholder="Enter manufacturer brand">
-        </div>
-    </div>
-</div>
-<!-- end row -->
-
-<div class="row">
-    <div class="col-lg-3 col-sm-6">
-        <div class="mb-3">
-            <label class="form-label" for="stocks-input">Stocks</label>
-            <input type="text" class="form-control" id="stocks-input" placeholder="Stocks" required>
-            <div class="invalid-feedback">Please Enter a product stocks.</div>
-        </div>
-    </div>
-    <div class="col-lg-3 col-sm-6">
-        <div class="mb-3">
-            <label class="form-label" for="product-price-input">Price</label>
+            <label class="form-label" asp-for="Price"></label>
             <div class="input-group has-validation mb-3">
-                <span class="input-group-text" id="product-price-addon">$</span>
-                <input type="text" class="form-control" id="product-price-input" placeholder="Enter price" aria-label="Price" aria-describedby="product-price-addon" required>
-                <div class="invalid-feedback">Please Enter a product price.</div>
+                @if (pattern.StartsWith('$'))
+                {
+                    <span class="input-group-text">@currencyUnit.CurrencySymbol</span>
+                }
+                <input type="text" class="form-control" asp-for="Price">
+                @if (pattern.EndsWith('$'))
+                {
+                    <span class="input-group-text">@currencyUnit.CurrencySymbol</span>
+                }
             </div>
-
+            <span asp-validation-for="Price" class="invalid-feedback"></span>
         </div>
     </div>
-    <div class="col-lg-3 col-sm-6">
+    <div class="col-md-6">
         <div class="mb-3">
-            <label class="form-label" for="product-discount-input">Discount</label>
+            <label class="form-label" asp-for="Discount"></label>
             <div class="input-group mb-3">
-                <span class="input-group-text" id="product-discount-addon">%</span>
-                <input type="text" class="form-control" id="product-discount-input" placeholder="Enter discount" aria-label="discount" aria-describedby="product-discount-addon">
+                @if (pattern.StartsWith('$'))
+                {
+                    <span class="input-group-text">@currencyUnit.CurrencySymbol</span>
+                }
+                <input type="text" class="form-control" asp-for="Discount">
+                @if (pattern.EndsWith('$'))
+                {
+                    <span class="input-group-text">@currencyUnit.CurrencySymbol</span>
+                }
             </div>
+            <span asp-validation-for="Discount" class="invalid-feedback"></span>
         </div>
     </div>
-    <div class="col-lg-3 col-sm-6">
-        <div class="mb-3">
-            <label class="form-label" for="orders-input">Orders</label>
-            <input type="text" class="form-control" id="orders-input" placeholder="Orders" required>
-            <div class="invalid-feedback">Please Enter a product orders.</div>
-        </div>
-    </div>
-    <!-- end col -->
 </div>
-<!-- end row -->

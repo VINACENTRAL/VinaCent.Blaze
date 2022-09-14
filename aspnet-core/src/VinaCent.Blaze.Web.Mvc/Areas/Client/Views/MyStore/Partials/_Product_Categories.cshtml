@@ -1,25 +1,20 @@
+@using VinaCent.Blaze.BusinessCore.ShopModule.Categories.Dto
 @model VinaCent.Blaze.BusinessCore.ShopModule.Products.Dto.CreateOrUpdateProductDto
+@{
+    var categoryItems = (IEnumerable<SelectListItem>)ViewBag.CategoryItems;
+}
 <div class="card">
     <div class="card-header">
         <h5 class="card-title mb-0">@L(LKConstants.Product_Categories)</h5>
     </div>
     <div class="card-body">
         <p class="text-muted mb-2">
-            <a href="#" class="float-end text-decoration-underline">
-                Add
-                New
-            </a>Select product category
+            @L(LKConstants.SelectProductCategory)
         </p>
-        <select class="form-select" id="choices-category-input" name="choices-category-input" data-choices data-choices-search-false>
-            <option value="Appliances">Appliances</option>
-            <option value="Automotive Accessories">Automotive Accessories</option>
-            <option value="Electronics">Electronics</option>
-            <option value="Fashion">Fashion</option>
-            <option value="Furniture">Furniture</option>
-            <option value="Grocery">Grocery</option>
-            <option value="Kids">Kids</option>
-            <option value="Watches">Watches</option>
+        <select class="form-select" id="choices-category-input"
+                asp-for="Categories"
+                asp-items="categoryItems"
+                name="choices-category-input" data-choices data-choices-search-false>
         </select>
     </div>
-    <!-- end card body -->
 </div>

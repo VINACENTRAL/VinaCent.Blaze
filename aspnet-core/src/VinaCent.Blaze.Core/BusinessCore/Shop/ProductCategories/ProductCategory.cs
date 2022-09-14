@@ -1,9 +1,7 @@
 ﻿using Abp.Domain.Entities;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using VinaCent.Blaze.BusinessCore.Shop.Categories;
-using VinaCent.Blaze.BusinessCore.Shop.ProductImages;
 using VinaCent.Blaze.BusinessCore.Shop.Products;
 
 namespace VinaCent.Blaze.BusinessCore.Shop.ProductCategories

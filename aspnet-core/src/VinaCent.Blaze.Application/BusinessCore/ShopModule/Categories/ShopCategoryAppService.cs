@@ -36,7 +36,7 @@ public class ShopCategoryAppService : BlazeAppServiceBase,
     public async Task DeleteAsync(EntityDto input)
     {
         // Recursive remove child category
-        var children = await _repository.GetAllListAsync(x=>x.ParentId == input.Id);
+        var children = await _repository.GetAllListAsync(x => x.ParentId == input.Id);
         foreach (var item in children)
         {
             await DeleteAsync(new EntityDto(item.Id));
@@ -62,6 +62,19 @@ public class ShopCategoryAppService : BlazeAppServiceBase,
     private CategoryListDto MapToEntityDto(Category inpt)
     {
         var dto = ObjectMapper.Map<CategoryListDto>(inpt);
+        var currentLanguage = CultureInfo.CurrentUICulture.Name;
+
+        var trans = _translationRepository.FirstOrDefault(x => x.CoreId == inpt.Id && x.Language.Equals(currentLanguage));
+
+        dto = ObjectMapper.Map(trans, dto);
+        dto.Id = inpt.Id;
+
+        return dto;
+    }
+
+    private CategoryListItemDto MapToEntityItemDto(Category inpt)
+    {
+        var dto = ObjectMapper.Map<CategoryListItemDto>(inpt);
         var currentLanguage = CultureInfo.CurrentUICulture.Name;
 
         var trans = _translationRepository.FirstOrDefault(x => x.CoreId == inpt.Id && x.Language.Equals(currentLanguage));
@@ -177,5 +190,15 @@ public class ShopCategoryAppService : BlazeAppServiceBase,
     {
         var listResult = await _repository.GetAllListAsync(x => x.Level == level && x.IsActive);
         return listResult.Select(MapToEntityDto).ToList();
+    }
+
+    public async Task<List<CategoryListItemDto>> GetAllListItems()
+    {
+        var parentResult = (await _repository.GetAllListAsync(x => x.ParentId == null && x.Level == 0)).Select(MapToEntityItemDto).ToList();
+        foreach (var item in parentResult)
+        {
+            item.Items = (await _repository.GetAllListAsync(x => x.ParentId == item.Id && x.Level == item.Level + 1)).Select(MapToEntityItemDto).ToList();
+        }
+        return parentResult;
     }
 }

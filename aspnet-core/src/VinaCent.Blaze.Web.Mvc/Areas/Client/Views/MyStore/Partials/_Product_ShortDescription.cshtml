@@ -5,7 +5,11 @@
     </div>
     <div class="card-body">
         <p class="text-muted mb-2">Add short description for product</p>
-        <textarea class="form-control" placeholder="Must enter minimum of a 100 characters" rows="3"></textarea>
+        <div>
+            <label class="form-label" asp-for="Summary"></label>
+            <textarea asp-for="Summary" class="form-control" placeholder="Must enter minimum of a 100 characters" rows="3"></textarea>
+            <span asp-validation-for="Summary" class="invalid-feedback"></span>
+        </div>
     </div>
     <!-- end card body -->
 </div>

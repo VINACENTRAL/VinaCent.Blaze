@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Abp.Application.Services.Dto;
 using Abp.AutoMapper;
 using Abp.Domain.Entities;
+using Abp.Localization;
 using VinaCent.Blaze.BusinessCore.Shop.Common;
 using VinaCent.Blaze.BusinessCore.Shop.ProductImages;
 using VinaCent.Blaze.BusinessCore.Shop.Products;
@@ -85,9 +86,20 @@ public class ProductDto : AuditedEntityDto<long>, IPassivable
     public string FeatureImage { get; set; }
 
     /// <summary>
+    /// Product currency Symbol
+    /// </summary>
+    public string ISOCurrencySymbol { get; set; }
+
+    /// <summary>
     /// Columns are used to store product states.
     /// </summary>
     public CensorshipStatus State { get; set; }
+
+    /// <summary>
+    /// Column are used to store product visibility
+    /// </summary>
+    [AbpDisplayName(BlazeConsts.LocalizationSourceName, LKConstants.Visibility)]
+    public VisibilityType Visibility { get; set; }
 
     /// <summary>
     /// Columns are used to store product status.
