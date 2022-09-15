@@ -1,8 +1,11 @@
+const form = document.getElementById('create-product-form');
+
 window.addEventListener('load', () => {
     tinymce.init({
         selector: '.editor',
         menubar: '',
         init_instance_callback: (editor) => {
+            editor.targetElm.classList.add('flyaway');
             const aTag = editor.editorContainer.childNodes[1].querySelector('.tox-statusbar__branding a');
             aTag.href = "https://vinacent.com";
             aTag.innerHTML = '';//`<img src="/vinacent/brand/light.png" style="height: 15px;"/>`;
@@ -11,8 +14,22 @@ window.addEventListener('load', () => {
 
     initPublishScheduleWatch();
     initEndSellAtVisible();
-
     initDropzone();
+    const tagsInput = initTags();
+    form.addEventListener('submit', (e) => {
+        if (!$(form).valid()) {
+            e.preventDefault();
+            return;
+        }
+        form.querySelectorAll('[name="TagTitles[]"]').forEach((item) => item.remove());
+        [...tagsInput.getValue(true)].forEach((item, index) => {
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = 'TagTitles[]';
+            input.value = item;
+            form.appendChild(input);
+        });
+    });
 })
 
 
@@ -20,12 +37,12 @@ function initDropzone() {
     const dropDiv = document.querySelector('[data-dropzone]');
     if (!dropDiv) return null;
 
-    if (dropDiv.id?.length == 0) {
+    if (dropDiv.id?.length === 0) {
         dropDiv.id = `ref-zone-${new Date().getTime()}`;
     }
     const dropPreviewContainer = dropDiv.querySelector('.drop-preview');
     if (!dropPreviewContainer) return null;
-    if (dropPreviewContainer.id?.length == 0) {
+    if (dropPreviewContainer.id?.length === 0) {
         dropPreviewContainer.id = `ref-preview-${new Date().getTime()}`;
     }
     const dropzonePreviewNode = dropPreviewContainer.querySelector("li");
@@ -47,7 +64,7 @@ function initDropzone() {
         if (dropDiv.hasAttribute('data-max-files')) {
             dropOptions['maxFiles'] = dropDiv.dataset.maxFiles;
             dropOptions['init'] = function () {
-                this.on("maxfilesexceeded", function (file) {
+                this.on('maxfilesexceeded', function (file) {
                     this.removeFile(file);
                 });
             }
@@ -106,4 +123,13 @@ function initEndSellAtVisible() {
             input.classList.remove('d-none');
         }
     });
+}
+
+function initTags() {
+    const tagsInputElement = document.getElementById('product-tags-input');
+    const tagsInput = new Choices(tagsInputElement, {
+        removeItemButton: true
+    });
+
+    return tagsInput;
 }

@@ -1,7 +1,6 @@
-@using VinaCent.Blaze.BusinessCore.ShopModule.Categories.Dto
 @model VinaCent.Blaze.BusinessCore.ShopModule.Products.Dto.CreateOrUpdateProductDto
 @{
-    var categoryItems = (IEnumerable<SelectListItem>)ViewBag.CategoryItems;
+    var categoryItems = (IEnumerable<SelectListItem>) ViewBag.CategoryItems;
 }
 <div class="card">
     <div class="card-header">
@@ -12,9 +11,10 @@
             @L(LKConstants.SelectProductCategory)
         </p>
         <select class="form-select" id="choices-category-input"
-                asp-for="Categories"
+                asp-for="CategoryIds"
                 asp-items="categoryItems"
                 name="choices-category-input" data-choices data-choices-search-false>
         </select>
+        <span asp-validation-for="CategoryIds" class="invalid-feedback"></span>
     </div>
 </div>

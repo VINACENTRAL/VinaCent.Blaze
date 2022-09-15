@@ -12,6 +12,7 @@
         <div class="mb-3">
             <label asp-for="StartSellAt" class="form-label">Publish Date & Time</label>
             <input type="text" asp-for="StartSellAt" class="form-control" placeholder="Enter publish date" data-provider="flatpickr" data-date-format="d.m.y" data-enable-time>
+            <span asp-validation-for="StartSellAt" class="invalid-feedback"></span>
         </div>
         <div>
             <div class="form-check form-switch d-flex p-0 mb-2">
@@ -19,6 +20,7 @@
                 <input class="form-check-input ms-auto" type="checkbox" id="@endSellVisibleId">
             </div>
             <input type="text" data-disable-follow="@endSellVisibleId" asp-for="EndSellAt" class="form-control" placeholder="Enter end of publish date" data-provider="flatpickr" data-date-format="d.m.y" data-enable-time>
+            <span asp-validation-for="EndSellAt" class="invalid-feedback"></span>
         </div>
     </div>
 </div>

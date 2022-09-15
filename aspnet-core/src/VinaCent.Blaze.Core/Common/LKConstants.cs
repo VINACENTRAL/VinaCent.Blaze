@@ -384,5 +384,7 @@ public static class LKConstants
     public const string PublishSchedule = nameof(PublishSchedule);
     public const string GeneralInfo = nameof(GeneralInfo);
     public const string MetaData = nameof(MetaData);
+    public const string ProductTags = nameof(ProductTags);
+    public const string AddNewProductSuccessfullyMessage = nameof(AddNewProductSuccessfullyMessage);
 
 }

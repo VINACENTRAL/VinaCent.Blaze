@@ -1,4 +1,4 @@
-﻿(function ($) {
+﻿(function () {
     const l = abp.localization.getSource('Blaze');
 
     const countrySelector = document.getElementById('countrySelector');
@@ -25,7 +25,7 @@
     }
 
     // =======================================  START DATA CHOICE STORES  ======================================= //
-    let countryChoice = new Choices(countrySelector, {
+    new Choices(countrySelector, {
         placeholder: l('PleaseSelectCountry'),
         shouldSort: false,
     });
@@ -38,7 +38,7 @@
         shouldSort: false,
     });
 
-    // Proceess country
+    // Process country
     countrySelector.addEventListener('choice', (e) => {
         clearCities();
         loadStates(e.detail.choice.value);
@@ -48,7 +48,7 @@
     function loadStates(countryCode, onDone) {
         clearStates();
 
-        if (countryCode?.length == 0) {
+        if (countryCode?.length === 0) {
             return;
         }
 

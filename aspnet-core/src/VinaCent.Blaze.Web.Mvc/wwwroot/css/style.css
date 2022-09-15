@@ -36,9 +36,9 @@
     opacity: 1 !important;
 }
 
-    #toast-container > div:hover {
-        box-shadow: none;
-    }
+#toast-container > div:hover {
+    box-shadow: none;
+}
 
 .swal-text {
     text-align: center;
@@ -49,16 +49,25 @@
     width: 100px;
 }
 
-    .mid-truncate p {
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        overflow: hidden;
-    }
+.mid-truncate p {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
 
-    .mid-truncate:after {
-        content: attr(data-type);
-        position: absolute;
-        left: 100%;
-        top: 0;
-        cursor: text;
-    }
+.mid-truncate:after {
+    content: attr(data-type);
+    position: absolute;
+    left: 100%;
+    top: 0;
+    cursor: text;
+}
+
+.flyaway {
+    width: 0 !important;
+    height: 0 !important;
+    position: absolute !important;
+    left: -1000rem !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}

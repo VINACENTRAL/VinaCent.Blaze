@@ -1,14 +1,10 @@
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Abp.Application.Services.Dto;
 using Abp.AutoMapper;
 using Abp.Localization;
 using VinaCent.Blaze.BusinessCore.Shop.Common;
-using VinaCent.Blaze.BusinessCore.Shop.ProductImages;
 using VinaCent.Blaze.BusinessCore.Shop.Products;
-using VinaCent.Blaze.BusinessCore.ShopModule.Categories.Dto;
-using VinaCent.Blaze.BusinessCore.ShopModule.Tags.Dto;
 using VinaCent.Blaze.DataAnnotations;
 
 namespace VinaCent.Blaze.BusinessCore.ShopModule.Products.Dto;
@@ -102,12 +98,13 @@ public class CreateOrUpdateProductDto : EntityDto<long>
     [AbpDisplayName(BlazeConsts.LocalizationSourceName, LKConstants.Status)]
     public SubmitStatus Status { get; set; }
 
+    [AppRequired]
     [AbpDisplayName(BlazeConsts.LocalizationSourceName, LKConstants.Product_Categories)]
-    public virtual List<CategoryDto> Categories { get; set; }
+    public Guid CategoryIds { get; set; }
 
     [AbpDisplayName(BlazeConsts.LocalizationSourceName, LKConstants.Product_Tags)]
-    public virtual List<TagDto> Tags { get; set; }
+    public string[] TagTitles { get; set; }
 
     [AbpDisplayName(BlazeConsts.LocalizationSourceName, LKConstants.Product_Images)]
-    public virtual List<ProductImage> Images { get; set; }
+    public string[] ImageUris { get; set; }
 }

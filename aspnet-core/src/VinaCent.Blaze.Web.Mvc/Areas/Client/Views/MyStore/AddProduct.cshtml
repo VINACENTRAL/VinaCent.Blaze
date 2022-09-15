@@ -11,10 +11,10 @@
 
 @section styles {
     <!-- Plugins css -->
-    <link href="velzon/libs/dropzone/dropzone.css" rel="stylesheet" type="text/css" />
+    <link href="velzon/libs/dropzone/dropzone.css" rel="stylesheet" type="text/css"/>
 }
 
-    @section scripts {
+@section scripts {
     <script src="~/libs/tinymce/tinymce.min.js"></script>
 
     <!-- dropzone js -->
@@ -23,23 +23,23 @@
     <script src="~/view-resources/Views/MyStore/ceproduct.js" asp-append-version="true"></script>
 }
 
-    <form id="createproduct-form" autocomplete="off" class="needs-validation" novalidate>
-        <div class="row">
-            <div class="col-lg-8">
-                <partial name="~/Areas/Client/Views/MyStore/Partials/_Product_BasicInfo.cshtml" />
-                <partial name="~/Areas/Client/Views/MyStore/Partials/_Product_Gallery.cshtml" />
-                <partial name="~/Areas/Client/Views/MyStore/Partials/_Product_CommonTabs.cshtml" />
-            </div>
-            <div class="col-lg-4">
-                <partial name="~/Areas/Client/Views/MyStore/Partials/_Product_Publish.cshtml" />
-                <partial name="~/Areas/Client/Views/MyStore/Partials/_Product_PublicSchedule.cshtml" />
-                <partial name="~/Areas/Client/Views/MyStore/Partials/_Product_Categories.cshtml" />
-                <partial name="~/Areas/Client/Views/MyStore/Partials/_Product_Tags.cshtml" />
-                <partial name="~/Areas/Client/Views/MyStore/Partials/_Product_ShortDescription.cshtml" />
+<form id="create-product-form" autocomplete="off" class="needs-validation" asp-area="Client" asp-controller="MyStore" asp-action="AddProduct" method="post">
+    <div class="row">
+        <div class="col-lg-8">
+            <partial name="~/Areas/Client/Views/MyStore/Partials/_Product_BasicInfo.cshtml"/>
+            <partial name="~/Areas/Client/Views/MyStore/Partials/_Product_Gallery.cshtml"/>
+            <partial name="~/Areas/Client/Views/MyStore/Partials/_Product_CommonTabs.cshtml"/>
+        </div>
+        <div class="col-lg-4">
+            <partial name="~/Areas/Client/Views/MyStore/Partials/_Product_Publish.cshtml"/>
+            <partial name="~/Areas/Client/Views/MyStore/Partials/_Product_PublicSchedule.cshtml"/>
+            <partial name="~/Areas/Client/Views/MyStore/Partials/_Product_Categories.cshtml"/>
+            <partial name="~/Areas/Client/Views/MyStore/Partials/_Product_Tags.cshtml"/>
+            <partial name="~/Areas/Client/Views/MyStore/Partials/_Product_ShortDescription.cshtml"/>
 
-                <div class="text-end mb-3 d-grid">
-                    <button type="submit" class="btn btn-success w-sm">@L(LKConstants.Submit)</button>
-                </div>
+            <div class="text-end mb-3 d-grid">
+                <button type="submit" class="btn btn-success w-sm">@L(LKConstants.Submit)</button>
             </div>
         </div>
-    </form>
+    </div>
+</form>

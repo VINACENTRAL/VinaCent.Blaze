@@ -19,6 +19,7 @@
                     asp-items="submitStatus"
                     data-choices data-choices-search-false>
             </select>
+            <span asp-validation-for="Status" class="invalid-feedback"></span>
         </div>
 
         <div>
@@ -28,6 +29,7 @@
                     asp-items="visibilityTypes"
                     data-choices data-choices-search-false>
             </select>
+            <span asp-validation-for="Visibility" class="invalid-feedback"></span>
         </div>
     </div>
     <!-- end card body -->
