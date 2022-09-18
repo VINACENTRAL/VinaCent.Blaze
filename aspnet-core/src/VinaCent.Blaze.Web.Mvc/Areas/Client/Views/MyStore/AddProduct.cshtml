@@ -2,7 +2,7 @@
 @using VinaCent.Blaze.Web.Themes.Velzon.ThemeOptions
 @using Microsoft.AspNetCore.Mvc.TagHelpers
 @inject IVelzonThemeOptions ThemeOptions
-@model VinaCent.Blaze.BusinessCore.ShopModule.Products.Dto.CreateOrUpdateProductDto
+@model VinaCent.Blaze.BusinessCore.ShopModule.Products.Dto.CreateProductDto
 @{
     ThemeOptions.LayoutHorizontal().AddBreadcrumb(L(LKConstants.HomePage)).AddBreadcrumb(L(LKConstants.Shop)).AddBreadcrumb(L(LKConstants.MyStore)).AddBreadcrumb(L(LKConstants.AddProduct)).Commit(this);
     ViewBag.Title = L(LKConstants.AddProduct);
@@ -34,7 +34,7 @@
     <script src="~/view-resources/Views/MyStore/ceproduct.js" asp-append-version="true"></script>
 }
 
-<form id="create-product-form" autocomplete="off" class="needs-validation" asp-area="Client" asp-controller="MyStore" asp-action="AddProduct" method="post">
+<form id="create-product-form" autocomplete="off" class="needs-validation">
     <div class="row">
         <div class="col-lg-8">
             <partial name="~/Areas/Client/Views/MyStore/Partials/_Product_BasicInfo.cshtml"/>

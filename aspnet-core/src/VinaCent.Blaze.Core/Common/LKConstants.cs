@@ -388,5 +388,6 @@ public static class LKConstants
     public const string ProductTags = nameof(ProductTags);
     public const string AddNewProductSuccessfullyMessage = nameof(AddNewProductSuccessfullyMessage);
     public const string DropFilesHereOrClickToUpload = nameof(DropFilesHereOrClickToUpload);
+    public const string PleaseAddProductFeatureImage = nameof(PleaseAddProductFeatureImage);
 
 }

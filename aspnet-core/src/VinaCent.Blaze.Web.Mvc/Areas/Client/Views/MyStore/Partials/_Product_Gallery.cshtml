@@ -1,4 +1,4 @@
-@model VinaCent.Blaze.BusinessCore.ShopModule.Products.Dto.CreateOrUpdateProductDto
+@model VinaCent.Blaze.BusinessCore.ShopModule.Products.Dto.CreateProductDto
 <div class="card">
     <div class="card-header">
         <h5 class="card-title mb-0">@L(LKConstants.ProductGallery)</h5>
@@ -8,8 +8,7 @@
             <h5 class="fs-14 mb-1">@L(LKConstants.FeatureImage)</h5>
             <p class="text-muted">@L(LKConstants.AddProductMainImage)</p>
             <div class="mx-auto">
-                <input type="file" class="filepond product-feature-image" accept="image/png, image/jpeg, image/gif"
-                       asp-for="FeatureImage"/>
+                <input type="file" class="filepond product-feature-image" accept="image/png, image/jpeg, image/gif"/>
             </div>
 
             <h5 class="fs-14 mb-1">@L(LKConstants.ProductImage)</h5>

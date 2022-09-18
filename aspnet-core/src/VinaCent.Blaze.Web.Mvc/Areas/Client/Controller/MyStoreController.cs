@@ -2,8 +2,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Linq;
 using System.Threading.Tasks;
-using Abp.Runtime.Validation;
-using Microsoft.AspNetCore.Http;
 using VinaCent.Blaze.BusinessCore.CurrencyUnits;
 using VinaCent.Blaze.BusinessCore.ShopModule.Categories;
 using VinaCent.Blaze.BusinessCore.ShopModule.Products.Dto;
@@ -29,25 +27,25 @@ public class MyStoreController : BlazeControllerBase
     public async Task<IActionResult> AddProduct()
     {
         await PreloadAsync();
-        var viewModel = new CreateOrUpdateProductDto();
+        var viewModel = new CreateProductDto();
 
         return View(viewModel);
     }
 
-    [DisableValidation]
-    [HttpPost("add-product")]
-    public async Task<IActionResult> AddProduct([FromForm]CreateOrUpdateProductDto input)
-    {
-        if (!ModelState.IsValid)
-        {
-            await PreloadAsync();
-            return View(input);
-        }
-        
-        AddSuccessNotify(L(LKConstants.AddNewProductSuccessfullyMessage));
-
-        return Redirect("/");
-    }
+    // [DisableValidation]
+    // [HttpPost("add-product")]
+    // public async Task<IActionResult> AddProduct([FromForm]CreateOrUpdateProductDto input)
+    // {
+    //     if (!ModelState.IsValid)
+    //     {
+    //         await PreloadAsync();
+    //         return View(input);
+    //     }
+    //     
+    //     AddSuccessNotify(L(LKConstants.AddNewProductSuccessfullyMessage));
+    //
+    //     return Redirect("/");
+    // }
 
     private async Task PreloadAsync()
     {

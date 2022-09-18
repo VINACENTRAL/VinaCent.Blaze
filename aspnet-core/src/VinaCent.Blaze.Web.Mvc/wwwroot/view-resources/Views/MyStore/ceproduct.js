@@ -15,19 +15,24 @@ window.addEventListener('load', () => {
 
     initPublishScheduleWatch();
     initEndSellAtVisible();
-    initDropzone();
+    
+    const dropzone = initDropzone();
     const featureImage = initFeatureImageUpload();
-    console.log(featureImage);
-    setTimeout(()=> {
-        console.log(featureImage.getFile()?.file)
-    }, 10000)
-
     const tagsInput = initTags();
     form.addEventListener('submit', (e) => {
+        e.preventDefault();
         if (!$(form).valid()) {
-            e.preventDefault();
             return;
         }
+        
+        if (!featureImage.getFile()?.file) {
+            abp.message.warn(l(LKConstants.PleaseAddProductFeatureImage));
+            return;
+        }
+
+        abp.ui.setBusy($(form));
+        
+        // Process to  render tags
         form.querySelectorAll('[name="TagTitles[]"]').forEach((item) => item.remove());
         [...tagsInput.getValue(true)].forEach((item, index) => {
             const input = document.createElement('input');
@@ -35,6 +40,32 @@ window.addEventListener('load', () => {
             input.name = 'TagTitles[]';
             input.value = item;
             form.appendChild(input);
+        });
+
+        // Process form data
+        const formData = new FormData(form);
+
+        // Add feature image to formData
+        formData.append('FeatureImage', featureImage.getFile()?.file);
+
+        // Add product images
+        const productImages = dropzone?.getAcceptedFiles();
+        if (productImages?.length > 0) {
+            [...productImages].forEach((item)=> {
+                formData.append('Images', item);
+            });
+        }
+
+        abp.ajax({
+            url: abp.appPath + 'api/services/app/ShopProduct/Create',
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+        }).done(function () {
+            abp.notify.info(l(LKConstants.SavedSuccessfully));
+        }).always(function () {
+            abp.ui.clearBusy($(form));
         });
     });
 })
@@ -151,9 +182,6 @@ function initFeatureImageUpload() {
         labelIdle: l(LKConstants.DropFilesHereOrClickToUpload),
         imagePreviewHeight: 400,
         storeAsFile: true,
-        onaddfile: (e, f) => {
-            console.log(e, f)
-        }
     };
 
     return FilePond.create(document.querySelector('.product-feature-image'), options);
