@@ -39,4 +39,5 @@
     static SystemFoundThisKeyWasHaveExistsTranslate = 'SystemFoundThisKeyWasHaveExistsTranslate';
     static Warning = 'Warning';
     static UrlIsExisted = 'UrlIsExisted';
+    static DropFilesHereOrClickToUpload = 'DropFilesHereOrClickToUpload';
 }

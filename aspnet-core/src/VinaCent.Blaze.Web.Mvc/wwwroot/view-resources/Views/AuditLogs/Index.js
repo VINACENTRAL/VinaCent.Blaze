@@ -1,9 +1,9 @@
 ﻿(function ($) {
-    var _auditLogService = abp.services.app.auditLog,
+    const _auditLogService = abp.services.app.auditLog,
         l = abp.localization.getSource('Blaze'),
         _$table = $('#AuditLogsTable');
 
-    var _$auditLogsTable = _$table.DataTable({
+    const _$auditLogsTable = _$table.DataTable({
         paging: true,
         serverSide: true,
         listAction: {
@@ -38,7 +38,7 @@
             },
             {
                 targets: 2,
-                data: 'executionTimeStr', 
+                data: 'executionTimeStr',
             },
             {
                 targets: 3,

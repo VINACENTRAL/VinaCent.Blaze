@@ -379,6 +379,7 @@ public static class LKConstants
     public const string ProductGallery = nameof(ProductGallery);
     public const string ProductImage = nameof(ProductImage);
     public const string AddProductMainImage = nameof(AddProductMainImage);
+    public const string AddImagesOfProduct = nameof(AddImagesOfProduct);
     public const string Visibility = nameof(Visibility);
     public const string Publish = nameof(Publish);
     public const string PublishSchedule = nameof(PublishSchedule);
@@ -386,5 +387,6 @@ public static class LKConstants
     public const string MetaData = nameof(MetaData);
     public const string ProductTags = nameof(ProductTags);
     public const string AddNewProductSuccessfullyMessage = nameof(AddNewProductSuccessfullyMessage);
+    public const string DropFilesHereOrClickToUpload = nameof(DropFilesHereOrClickToUpload);
 
 }

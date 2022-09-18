@@ -5,19 +5,26 @@
     </div>
     <div class="card-body">
         <div class="mb-4">
-            <h5 class="fs-14 mb-1">@L(LKConstants.ProductImage)</h5>
+            <h5 class="fs-14 mb-1">@L(LKConstants.FeatureImage)</h5>
             <p class="text-muted">@L(LKConstants.AddProductMainImage)</p>
+            <div class="mx-auto">
+                <input type="file" class="filepond product-feature-image" accept="image/png, image/jpeg, image/gif"
+                       asp-for="FeatureImage"/>
+            </div>
+
+            <h5 class="fs-14 mb-1">@L(LKConstants.ProductImage)</h5>
+            <p class="text-muted">@L(LKConstants.AddImagesOfProduct)</p>
             <div data-dropzone data-max-files="5">
                 <div class="dropzone">
                     <div class="fallback">
-                        <input name="file" type="file" multiple="multiple" >
+                        <input name="file" type="file" multiple="multiple">
                     </div>
                     <div class="dz-message needsclick">
                         <div class="mb-3">
                             <i class="display-4 text-muted ri-upload-cloud-2-fill"></i>
                         </div>
 
-                        <h4>Drop files here or click to upload.</h4>
+                        <h4>@L(LKConstants.DropFilesHereOrClickToUpload)</h4>
                     </div>
                 </div>
 
@@ -28,7 +35,7 @@
                             <div class="d-flex p-2">
                                 <div class="flex-shrink-0 me-3">
                                     <div class="avatar-sm bg-light rounded">
-                                        <img data-dz-thumbnail class="img-fluid rounded d-block" src="#" alt="Dropzone-Image" />
+                                        <img data-dz-thumbnail class="img-fluid rounded d-block" src="#" alt="Dropzone-Image"/>
                                     </div>
                                 </div>
                                 <div class="flex-grow-1">

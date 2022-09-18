@@ -1,3 +1,4 @@
+const l = abp.localization.getSource('Blaze')
 const form = document.getElementById('create-product-form');
 
 window.addEventListener('load', () => {
@@ -15,6 +16,12 @@ window.addEventListener('load', () => {
     initPublishScheduleWatch();
     initEndSellAtVisible();
     initDropzone();
+    const featureImage = initFeatureImageUpload();
+    console.log(featureImage);
+    setTimeout(()=> {
+        console.log(featureImage.getFile()?.file)
+    }, 10000)
+
     const tagsInput = initTags();
     form.addEventListener('submit', (e) => {
         if (!$(form).valid()) {
@@ -132,4 +139,22 @@ function initTags() {
     });
 
     return tagsInput;
+}
+
+function initFeatureImageUpload() {
+    // FilePond
+    FilePond.registerPlugin(
+        FilePondPluginImagePreview
+    );
+
+    const options = {
+        labelIdle: l(LKConstants.DropFilesHereOrClickToUpload),
+        imagePreviewHeight: 400,
+        storeAsFile: true,
+        onaddfile: (e, f) => {
+            console.log(e, f)
+        }
+    };
+
+    return FilePond.create(document.querySelector('.product-feature-image'), options);
 }
