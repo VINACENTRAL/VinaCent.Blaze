@@ -75,12 +75,7 @@ namespace VinaCent.Blaze.BusinessCore.Shop.Products
         /// The column used to store private content only for Seller/Product Owner
         /// </summary>
         public string SellerVisibleContent { get; set; }
-
-        /// <summary>
-        /// Product feature image
-        /// </summary>
-        public string FeatureImage { get; set; }
-
+        
         /// <summary>
         /// Product currency Symbol
         /// </summary>

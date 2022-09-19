@@ -46,7 +46,7 @@ window.addEventListener('load', () => {
         const formData = new FormData(form);
 
         // Add feature image to formData
-        formData.append('FeatureImage', featureImage.getFile()?.file);
+        formData.append('FeatureImageFile', featureImage.getFile()?.file);
 
         // Add product images
         const productImages = dropzone?.getAcceptedFiles();

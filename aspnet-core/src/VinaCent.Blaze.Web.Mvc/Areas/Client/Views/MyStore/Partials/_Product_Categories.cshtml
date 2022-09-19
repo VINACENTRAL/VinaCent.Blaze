@@ -11,10 +11,10 @@
             @L(LKConstants.SelectProductCategory)
         </p>
         <select class="form-select" id="choices-category-input"
-                asp-for="CategoryIds"
+                asp-for="CategoryId"
                 asp-items="categoryItems"
                 name="choices-category-input" data-choices data-choices-search-false>
         </select>
-        <span asp-validation-for="CategoryIds" class="invalid-feedback"></span>
+        <span asp-validation-for="CategoryId" class="invalid-feedback"></span>
     </div>
 </div>

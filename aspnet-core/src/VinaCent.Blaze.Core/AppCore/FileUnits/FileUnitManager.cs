@@ -1,5 +1,4 @@
 ﻿using Abp;
-using Abp.Configuration;
 using Abp.Dependency;
 using Abp.Domain.Repositories;
 using Abp.Domain.Uow;
@@ -14,7 +13,6 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using VinaCent.Blaze.Authorization.Users;
 using VinaCent.Blaze.Configuration;
 using VinaCent.Blaze.Helpers;
 using VinaCent.Blaze.Utilities;
@@ -34,12 +32,12 @@ namespace VinaCent.Blaze.AppCore.FileUnits
         /// Current content folder of current tenant
         /// </summary>
         /// <returns></returns>
-        public string GetCurrentTenantContentPath => StringHelper.TrueCombieAndEnsureDirExist(GetAppContentPath, AbpSession.TenantId == null ? "root" : $"tenant_{AbpSession.TenantId}");
+        public string GetCurrentTenantContentPath => StringHelper.TrueCombieAndEnsureDirExist(GetAppContentPath, _abpSession.TenantId == null ? "root" : $"tenant_{_abpSession.TenantId}");
 
         /// <summary>
         /// Get content folder of current User
         /// </summary>
-        public string GetCurrentUserContentPath => StringHelper.TrueCombieAndEnsureDirExist(GetCurrentTenantContentPath, AbpSession.UserId == null ? "anonymous" : $"user_{AbpSession.UserId}");
+        public string GetCurrentUserContentPath => StringHelper.TrueCombieAndEnsureDirExist(GetCurrentTenantContentPath, _abpSession.UserId == null ? "anonymous" : $"user_{_abpSession.UserId}");
 
         /// <summary>
         /// Get today content folder
@@ -47,20 +45,17 @@ namespace VinaCent.Blaze.AppCore.FileUnits
         public string GetTodayContentPath => StringHelper.TrueCombieAndEnsureDirExist(GetCurrentUserContentPath, DateTime.Now.ToString("yyyy/MM/dd"));
         #endregion
 
-        private readonly IAbpSession AbpSession;
+        private readonly IAbpSession _abpSession;
         private readonly IRepository<FileUnit, Guid> _repository;
-        private readonly IRepository<User, long> _userRepository;
         private readonly IWebHostEnvironment _webHostEnvironment;
 
         public FileUnitManager(
             IAbpSession abpSession,
             IRepository<FileUnit, Guid> repository,
-            IRepository<User, long> userRepository,
             IWebHostEnvironment webHostEnvironment)
         {
-            AbpSession = abpSession;
+            _abpSession = abpSession;
             _repository = repository;
-            _userRepository = userRepository;
             _webHostEnvironment = webHostEnvironment;
 
         }
@@ -141,7 +136,7 @@ namespace VinaCent.Blaze.AppCore.FileUnits
 
             NameValidation(input.Name);
 
-            input.TenantId = AbpSession.TenantId;
+            input.TenantId = _abpSession.TenantId;
             input.IsFolder = true;
 
             if (input.ParentId != null && input.ParentId != Guid.Empty)
@@ -178,7 +173,7 @@ namespace VinaCent.Blaze.AppCore.FileUnits
             var allowedUploadFormats = (await SettingManager.GetSettingValueAsync(AppSettingNames.AllowedUploadFormats))
                 ?.Split(",", StringSplitOptions.RemoveEmptyEntries).Select(x => x.Trim());
 
-            input.TenantId = AbpSession.TenantId;
+            input.TenantId = _abpSession.TenantId;
             input.IsFolder = false;
 
             if (input.ParentId != null && input.ParentId != Guid.Empty)
@@ -329,7 +324,7 @@ namespace VinaCent.Blaze.AppCore.FileUnits
         {
             if (userId is null or <= 0)
             {
-                userId = AbpSession.UserId;
+                userId = _abpSession.UserId;
             }
 
             var usersDir = await GetByFullName(FileUnitConsts.UsersDirName) ??
@@ -372,7 +367,7 @@ namespace VinaCent.Blaze.AppCore.FileUnits
 
         public async Task<FileUnit> GetUserSelfPictureDir()
         {
-            var specifiedUserDir = await GetUserDirAsync(AbpSession.UserId);
+            var specifiedUserDir = await GetUserDirAsync(_abpSession.UserId);
             var userDirPicturesPath = StringHelper.TrueCombine(specifiedUserDir.FullName, "Pictures");
 
             var userDirPictures = await GetByFullName(userDirPicturesPath) ?? await CreateDirectoryAsync(new FileUnit
@@ -429,7 +424,7 @@ namespace VinaCent.Blaze.AppCore.FileUnits
         private void PreventStaticObjectChange(string directory, long? creatorId)
         {
             // // If changer isn't creator => Deney
-            if (AbpSession.UserId == creatorId) return;
+            if (_abpSession.UserId == creatorId) return;
 
             // If changer is creator => Permit
             directory = directory.EnsureStartsWith(StringHelper.FileSeparator.First());

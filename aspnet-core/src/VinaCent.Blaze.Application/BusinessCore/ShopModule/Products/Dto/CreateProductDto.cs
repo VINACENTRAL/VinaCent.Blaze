@@ -83,16 +83,6 @@ public class CreateProductDto : EntityDto<long>
     public string SellerVisibleContent { get; set; }
 
     /// <summary>
-    /// Product feature image
-    /// </summary>
-    [AppRequired]
-    [AbpDisplayName(BlazeConsts.LocalizationSourceName, LKConstants.FeatureImage)]
-    public IFormFile FeatureImage { get; set; }
-
-    [AbpDisplayName(BlazeConsts.LocalizationSourceName, LKConstants.Product_Images)]
-    public IFormFileCollection Images { get; set; }
-
-    /// <summary>
     /// Column are used to store product visibility
     /// </summary>
     [AbpDisplayName(BlazeConsts.LocalizationSourceName, LKConstants.Visibility)]
@@ -104,9 +94,19 @@ public class CreateProductDto : EntityDto<long>
     [AbpDisplayName(BlazeConsts.LocalizationSourceName, LKConstants.Status)]
     public SubmitStatus Status { get; set; }
 
+    /// <summary>
+    /// Product feature image
+    /// </summary>
+    [AppRequired]
+    [AbpDisplayName(BlazeConsts.LocalizationSourceName, LKConstants.FeatureImage)]
+    public IFormFile FeatureImageFile { get; set; }
+
+    [AbpDisplayName(BlazeConsts.LocalizationSourceName, LKConstants.Product_Images)]
+    public IFormFileCollection Images { get; set; }
+    
     [AppRequired]
     [AbpDisplayName(BlazeConsts.LocalizationSourceName, LKConstants.Product_Categories)]
-    public Guid CategoryIds { get; set; }
+    public int CategoryId { get; set; }
 
     [AbpDisplayName(BlazeConsts.LocalizationSourceName, LKConstants.Product_Tags)]
     public string[] TagTitles { get; set; }

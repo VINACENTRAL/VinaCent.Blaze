@@ -81,11 +81,6 @@ public class ProductDto : AuditedEntityDto<long>, IPassivable
     public string SellerVisibleContent { get; set; }
 
     /// <summary>
-    /// Product feature image
-    /// </summary>
-    public string FeatureImage { get; set; }
-
-    /// <summary>
     /// Product currency Symbol
     /// </summary>
     public string ISOCurrencySymbol { get; set; }
