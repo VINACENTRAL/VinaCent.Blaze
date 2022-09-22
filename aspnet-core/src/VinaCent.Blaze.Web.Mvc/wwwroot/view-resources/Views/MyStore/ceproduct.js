@@ -10,6 +10,11 @@ window.addEventListener('load', () => {
             const aTag = editor.editorContainer.childNodes[1].querySelector('.tox-statusbar__branding a');
             aTag.href = "https://vinacent.com";
             aTag.innerHTML = '';//`<img src="/vinacent/brand/light.png" style="height: 15px;"/>`;
+        },
+        setup: function (ed) {
+            ed.on("input", function () {
+                ed.targetElm.value = ed.getBody().innerHTML;
+            })
         }
     });
 
