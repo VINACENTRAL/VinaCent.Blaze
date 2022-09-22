@@ -1,9 +1,11 @@
-@model VinaCent.Blaze.BusinessCore.ShopModule.Products.Dto.CreateOrUpdateProductDto
+@model VinaCent.Blaze.BusinessCore.ShopModule.Products.Dto.CreateProductDto
 @{
     var tabs = new Dictionary<string, string>
     {
-        { "General Info", "~/Areas/Client/Views/MyStore/Partials/ProductCommonTabs/_General_Info.cshtml" },
-        { "Meta Data", "~/Areas/Client/Views/MyStore/Partials/ProductCommonTabs/_Meta_Data.cshtml" },
+        {L(LKConstants.GeneralInfo), "~/Areas/Client/Views/MyStore/Partials/ProductCommonTabs/_General_Info.cshtml"},
+        {L(LKConstants.MetaData), "~/Areas/Client/Views/MyStore/Partials/ProductCommonTabs/_Meta_Data.cshtml"},
+        {L(LKConstants.BuyerVisibleContent), "~/Areas/Client/Views/MyStore/Partials/ProductCommonTabs/_Buyer_Visible_Content.cshtml"},
+        {L(LKConstants.SellerVisibleContent), "~/Areas/Client/Views/MyStore/Partials/ProductCommonTabs/_Seller_Visible_Content.cshtml"},
     };
 }
 <div class="card">

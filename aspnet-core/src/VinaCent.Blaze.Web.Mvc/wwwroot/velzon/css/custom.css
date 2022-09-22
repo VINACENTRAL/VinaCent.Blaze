@@ -140,7 +140,11 @@
     cursor: pointer;
 }
 
-.social-icons.show{
+.social-icons.show {
     display: flex;
     max-width: 306px;
+}
+
+.dropzone {
+    border: 2px dashed var(--vz-border-color) !important;
 }

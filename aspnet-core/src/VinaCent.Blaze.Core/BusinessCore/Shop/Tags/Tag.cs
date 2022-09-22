@@ -8,6 +8,10 @@ namespace VinaCent.Blaze.BusinessCore.Shop.Tags
     public class Tag : Entity<Guid>
     {
         public string Title { get; set; }
+        /// <summary>
+        /// Store uppercase title, reduce time standardize string
+        /// </summary>
+        public string NormalizedTitle { get; set; }
         public string MetaTitle { get; set; }
         public string Slug { get; set; }
         public string Content { get; set; }

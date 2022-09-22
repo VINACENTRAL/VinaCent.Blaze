@@ -1,13 +1,26 @@
-@model VinaCent.Blaze.BusinessCore.ShopModule.Products.Dto.CreateOrUpdateProductDto
-<div class="card">
+@using VinaCent.Blaze.BusinessCore.Shop.Common
+@model VinaCent.Blaze.BusinessCore.ShopModule.Products.Dto.CreateProductDto
+@{
+    var endSellVisibleId = $"ref-{Guid.NewGuid().ToString("N")}";
+}
+<div class="card" data-watch="#product-submit-status" data-when="@SubmitStatus.Scheduled.ToString()">
     <div class="card-header">
-        <h5 class="card-title mb-0">Publish Schedule</h5>
+        <h5 class="card-title mb-0">@L(LKConstants.PublishSchedule)</h5>
     </div>
     <!-- end card body -->
     <div class="card-body">
+        <div class="mb-3">
+            <label asp-for="StartSellAt" class="form-label">Publish Date & Time</label>
+            <input type="text" asp-for="StartSellAt" class="form-control" placeholder="Enter publish date" data-provider="flatpickr" data-date-format="d.m.y" data-enable-time>
+            <span asp-validation-for="StartSellAt" class="invalid-feedback"></span>
+        </div>
         <div>
-            <label for="datepicker-publish-input" class="form-label">Publish Date & Time</label>
-            <input type="text" id="datepicker-publish-input" class="form-control" placeholder="Enter publish date" data-provider="flatpickr" data-date-format="d.m.y" data-enable-time>
+            <div class="form-check form-switch d-flex p-0 mb-2">
+                <label class="form-check-label" for="@endSellVisibleId">Have end of publish date & Time</label>
+                <input class="form-check-input ms-auto" type="checkbox" id="@endSellVisibleId">
+            </div>
+            <input type="text" data-disable-follow="@endSellVisibleId" asp-for="EndSellAt" class="form-control" placeholder="Enter end of publish date" data-provider="flatpickr" data-date-format="d.m.y" data-enable-time>
+            <span asp-validation-for="EndSellAt" class="invalid-feedback"></span>
         </div>
     </div>
 </div>

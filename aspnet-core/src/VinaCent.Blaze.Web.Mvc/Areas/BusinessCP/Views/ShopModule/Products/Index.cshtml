@@ -26,11 +26,10 @@
         CreateAction = "create",
         UpdateAction = "update",
         DeleteAction = "delete",
-        OnModalCreateShow = "OnModalCreateShow",
+        OnModalCreateShow = "",
         OnModalCreateHide = "",
-        OnModalUpdateShow = "OnModalUpdateShow",
+        OnModalUpdateShow = "",
         OnModalUpdateHide = "",
-        UpdateHtmlInnerAction = Url.Action("EditModal", "Tags", new { Area = "BusinessCP" })?.TrimStart('/')
     }.ToJsonString(true);
 
 }
@@ -46,7 +45,7 @@
         <div class="card-header">
             <div class="row">
                 <div class="col-md-6">
-                    <a asp-area="Client" asp-controller="MyStore" asp-action="AddProduct" type="button" class="btn btn-success waves-effect waves-light mb-3 mb-lg-0" data-quick-key="F2">
+                    <a asp-area="Client" asp-controller="MyStore" asp-action="AddProduct" type="button" class="btn btn-success waves-effect waves-light mb-3 mb-lg-0">
                         <i class="fa fa-plus-square"></i>
                         @L(LKConstants.AddProduct)
                     </a>
@@ -70,15 +69,6 @@
                     <tbody>
                     </tbody>
                 </table>
-            </div>
-        </div>
-    </div>
-
-    @await Html.PartialAsync("~/Areas/BusinessCP/Views/ShopModule/Products/_CreateModal.cshtml", new CreateProductDto())
-
-    <div class="modal fade update-modal" tabindex="-1" role="dialog" data-backdrop="static">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
             </div>
         </div>
     </div>

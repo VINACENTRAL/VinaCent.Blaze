@@ -1,25 +1,35 @@
-@model VinaCent.Blaze.BusinessCore.ShopModule.Products.Dto.CreateOrUpdateProductDto
+@using VinaCent.Blaze.BusinessCore.Shop.Common
+@using VinaCent.Blaze.Helpers
+@model VinaCent.Blaze.BusinessCore.ShopModule.Products.Dto.CreateProductDto
+@{
+    var submitStatus = EnumHelper.ToSelectListItemst<SubmitStatus>();
+    var visibilityTypes = EnumHelper.ToSelectListItemst<VisibilityType>();
+}
 <div class="card">
     <div class="card-header">
-        <h5 class="card-title mb-0">Publish</h5>
+        <h5 class="card-title mb-0">@L(LKConstants.Publish)</h5>
     </div>
     <div class="card-body">
         <div class="mb-3">
-            <label for="choices-publish-status-input" class="form-label">Status</label>
+            <label asp-for="Status" class="form-label"></label>
 
-            <select class="form-select" id="choices-publish-status-input" data-choices data-choices-search-false>
-                <option value="Published" selected>Published</option>
-                <option value="Scheduled">Scheduled</option>
-                <option value="Draft">Draft</option>
+            <select class="form-select"
+                    id="product-submit-status"
+                    asp-for="Status"
+                    asp-items="submitStatus"
+                    data-choices data-choices-search-false>
             </select>
+            <span asp-validation-for="Status" class="invalid-feedback"></span>
         </div>
 
         <div>
-            <label for="choices-publish-visibility-input" class="form-label">Visibility</label>
-            <select class="form-select" id="choices-publish-visibility-input" data-choices data-choices-search-false>
-                <option value="Public" selected>Public</option>
-                <option value="Hidden">Hidden</option>
+            <label asp-for="Visibility" class="form-label"></label>
+            <select class="form-select"
+                    asp-for="Visibility"
+                    asp-items="visibilityTypes"
+                    data-choices data-choices-search-false>
             </select>
+            <span asp-validation-for="Visibility" class="invalid-feedback"></span>
         </div>
     </div>
     <!-- end card body -->

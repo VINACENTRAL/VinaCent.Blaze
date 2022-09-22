@@ -1,4 +1,4 @@
-@model VinaCent.Blaze.BusinessCore.ShopModule.Products.Dto.CreateOrUpdateProductDto
+@model VinaCent.Blaze.BusinessCore.ShopModule.Products.Dto.CreateProductDto
 <div class="card">
     <div class="card-body">
         <div class="mb-3">
@@ -8,7 +8,7 @@
         </div>
         <div>
             <label asp-for="Content"></label>
-            <textarea asp-for="Content" class="form-control editor" rows="8"></textarea>
+            <textarea asp-for="Content" class="form-control editor d-block"></textarea>
             <span asp-validation-for="Content" class="invalid-feedback"></span>
         </div>
     </div>

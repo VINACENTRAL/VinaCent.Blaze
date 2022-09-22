@@ -228,7 +228,7 @@ public static class LKConstants
     public const string PleaseSelectCountry = "PleaseSelectCountry";
     public const string PleaseSelectState = "PleaseSelectState";
     public const string PleaseSelectCity = "PleaseSelectCity";
-    
+
     public const string SiteFavicon = "SiteFavicon";
     public const string AppCommonSettings = "AppCommonSettings";
     public const string AppSys_DoNotShowLogoutScreen = "AppSys_DoNotShowLogoutScreen";
@@ -314,7 +314,7 @@ public static class LKConstants
     public const string Shop_CategoryManagement_ChildrenLevel = "Shop_CategoryManagement_ChildrenLevel";
     public const string Shop_TagManagement = "Shop_TagManagement";
     public const string Shop_ProductManagement = "Shop_ProductManagement";
-    public const string LoginSuccessMessage = "LoginSuccessMessage";    
+    public const string LoginSuccessMessage = "LoginSuccessMessage";
     public const string Title = "Title";
     public const string Slug = "Slug";
     public const string ShopModule_CreateNewParentCategory = "ShopModule_CreateNewParentCategory";
@@ -363,16 +363,31 @@ public static class LKConstants
     public const string Product_Categories = nameof(Product_Categories);
     public const string Product_Tags = nameof(Product_Tags);
     public const string Product_Images = nameof(Product_Images);
-    public const string SocialNetworkLinks = "SocialNetworkLinks";
-    public const string Add = "Add";
-    public const string AddSocialLink = "AddSocialLink";
-    public const string SocialNetworkLink = "SocialNetworkLink";
-    public const string IsDisabled = "IsDisabled";
-    public const string Icon = "Icon";
-    public const string CommonDataManagement = "CommonDataManagement";
-    public const string Type = "Type";
-    public const string ParentKey = "ParentKey";
-    public const string CreateNewCommonData = "CreateNewCommonData";
-    public const string EditCommonData = "EditCommonData";
-    
+    public const string SocialNetworkLinks = nameof(SocialNetworkLinks);
+    public const string Add = nameof(Add);
+    public const string AddSocialLink = nameof(AddSocialLink);
+    public const string SocialNetworkLink = nameof(SocialNetworkLink);
+    public const string IsDisabled = nameof(IsDisabled);
+    public const string Icon = nameof(Icon);
+    public const string CommonDataManagement = nameof(CommonDataManagement);
+    public const string Type = nameof(Type);
+    public const string ParentKey = nameof(ParentKey);
+    public const string CreateNewCommonData = nameof(CreateNewCommonData);
+    public const string EditCommonData = nameof(EditCommonData);
+    public const string AddNew = nameof(AddNew);
+    public const string SelectProductCategory = nameof(SelectProductCategory);
+    public const string ProductGallery = nameof(ProductGallery);
+    public const string ProductImage = nameof(ProductImage);
+    public const string AddProductMainImage = nameof(AddProductMainImage);
+    public const string AddImagesOfProduct = nameof(AddImagesOfProduct);
+    public const string Visibility = nameof(Visibility);
+    public const string Publish = nameof(Publish);
+    public const string PublishSchedule = nameof(PublishSchedule);
+    public const string GeneralInfo = nameof(GeneralInfo);
+    public const string MetaData = nameof(MetaData);
+    public const string ProductTags = nameof(ProductTags);
+    public const string AddNewProductSuccessfullyMessage = nameof(AddNewProductSuccessfullyMessage);
+    public const string DropFilesHereOrClickToUpload = nameof(DropFilesHereOrClickToUpload);
+    public const string PleaseAddProductFeatureImage = nameof(PleaseAddProductFeatureImage);
+
 }

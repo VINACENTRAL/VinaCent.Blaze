@@ -1,14 +1,13 @@
-@model VinaCent.Blaze.BusinessCore.ShopModule.Products.Dto.CreateOrUpdateProductDto
+@model VinaCent.Blaze.BusinessCore.ShopModule.Products.Dto.CreateProductDto
 <div class="card">
     <div class="card-header">
-        <h5 class="card-title mb-0">Product Tags</h5>
+        <h5 class="card-title mb-0">@L(LKConstants.ProductTags)</h5>
     </div>
     <div class="card-body">
         <div class="hstack gap-3 align-items-start">
             <div class="flex-grow-1">
-                <input class="form-control" data-choices data-choices-multiple-remove="true" placeholder="Enter tags" type="text" value="Cotton"/>
+                <input class="form-control" id="product-tags-input" placeholder="Enter tags" type="text" value=""/>
             </div>
         </div>
     </div>
-    <!-- end card body -->
 </div>

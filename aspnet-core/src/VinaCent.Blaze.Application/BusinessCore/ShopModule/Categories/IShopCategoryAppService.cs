@@ -26,7 +26,7 @@ public interface IShopCategoryAppService: IApplicationService
 
     Task<List<CategoryListDto>> GetAllListByLevelAsync(int level);
 
-
+    Task<List<CategoryListItemDto>> GetAllListItems();
 
     //
     // /// <summary>

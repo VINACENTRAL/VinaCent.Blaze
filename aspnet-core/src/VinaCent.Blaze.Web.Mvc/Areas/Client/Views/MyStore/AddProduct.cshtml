@@ -2,7 +2,7 @@
 @using VinaCent.Blaze.Web.Themes.Velzon.ThemeOptions
 @using Microsoft.AspNetCore.Mvc.TagHelpers
 @inject IVelzonThemeOptions ThemeOptions
-@model VinaCent.Blaze.BusinessCore.ShopModule.Products.Dto.CreateOrUpdateProductDto
+@model VinaCent.Blaze.BusinessCore.ShopModule.Products.Dto.CreateProductDto
 @{
     ThemeOptions.LayoutHorizontal().AddBreadcrumb(L(LKConstants.HomePage)).AddBreadcrumb(L(LKConstants.Shop)).AddBreadcrumb(L(LKConstants.MyStore)).AddBreadcrumb(L(LKConstants.AddProduct)).Commit(this);
     ViewBag.Title = L(LKConstants.AddProduct);
@@ -12,6 +12,10 @@
 @section styles {
     <!-- Plugins css -->
     <link href="velzon/libs/dropzone/dropzone.css" rel="stylesheet" type="text/css"/>
+
+    <!-- Filepond css -->
+    <link rel="stylesheet" href="velzon/libs/filepond/filepond.min.css" type="text/css"/>
+    <link rel="stylesheet" href="velzon/libs/filepond-plugin-image-preview/filepond-plugin-image-preview.min.css">
 }
 
 @section scripts {
@@ -20,12 +24,17 @@
     <!-- dropzone js -->
     <script src="velzon/libs/dropzone/dropzone-min.js"></script>
 
-    <script src="velzon/js/pages/ecommerce-product-create.init.js"></script>
-    
+    <!-- filepond js -->
+    <script src="velzon/libs/filepond/filepond.min.js"></script>
+    <script src="velzon/libs/filepond-plugin-image-preview/filepond-plugin-image-preview.min.js"></script>
+    <script src="velzon/libs/filepond-plugin-file-validate-size/filepond-plugin-file-validate-size.min.js"></script>
+    <script src="velzon/libs/filepond-plugin-image-exif-orientation/filepond-plugin-image-exif-orientation.min.js"></script>
+    <script src="velzon/libs/filepond-plugin-file-encode/filepond-plugin-file-encode.min.js"></script>
+
     <script src="~/view-resources/Views/MyStore/ceproduct.js" asp-append-version="true"></script>
 }
 
-<form id="createproduct-form" autocomplete="off" class="needs-validation" novalidate>
+<form id="create-product-form" autocomplete="off" class="needs-validation">
     <div class="row">
         <div class="col-lg-8">
             <partial name="~/Areas/Client/Views/MyStore/Partials/_Product_BasicInfo.cshtml"/>
@@ -38,10 +47,10 @@
             <partial name="~/Areas/Client/Views/MyStore/Partials/_Product_Categories.cshtml"/>
             <partial name="~/Areas/Client/Views/MyStore/Partials/_Product_Tags.cshtml"/>
             <partial name="~/Areas/Client/Views/MyStore/Partials/_Product_ShortDescription.cshtml"/>
-            
-                <div class="text-end mb-3 d-grid">
-                    <button type="submit" class="btn btn-success w-sm">@L(LKConstants.Submit)</button>
-                </div>
+
+            <div class="text-end mb-3 d-grid">
+                <button type="submit" class="btn btn-success w-sm">@L(LKConstants.Submit)</button>
+            </div>
         </div>
     </div>
 </form>
