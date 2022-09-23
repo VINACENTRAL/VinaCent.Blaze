@@ -1,11 +1,11 @@
 #refs: https://zellwk.com/blog/github-actions-deploy/
-name: Dev/QUA Deploy CI
+name: Deploy CI
 on:
   # push:
   #   branches: [develop]
   # Triggers the workflow on push or pull request events but only for the master branch
   pull_request:
-    branches: [develop]
+    branches: [master]
     types: [closed]
 
   # Allows you to run this workflow manually from the Actions tab
@@ -38,7 +38,7 @@ jobs:
 
       # Destination dir in remote server should be existed
       - name: Deploy with rsync
-        run: rsync -avzr -e "ssh -p ${{ secrets.SSH_PORT }}" ./aspnet-core/src/VinaCent.Blaze.Web.Mvc/bin/Release/net6.0/publish/ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/home/deploy/apps/blaze.vinacent.com/
+        run: rsync -avzr -e "ssh -p ${{ secrets.SSH_PORT }}" ./aspnet-core/src/VinaCent.Blaze.Web.Mvc/bin/Release/net6.0/publish/ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/home/deploy/apps/vinacent.com/
 
       - name: Restart Web Server
         uses: appleboy/ssh-action@master
@@ -48,5 +48,5 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.SSH_PORT }}
           script: |
-            sudo chown -R www-data:www-data /home/deploy/apps/blaze.vinacent.com
-            sudo supervisorctl restart blaze.vinacent.com
+            sudo chown -R www-data:www-data /home/deploy/apps/vinacent.com
+            sudo supervisorctl restart vinacent.com
