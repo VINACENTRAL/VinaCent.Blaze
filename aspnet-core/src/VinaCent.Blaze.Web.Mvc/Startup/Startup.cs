@@ -23,6 +23,7 @@ using Newtonsoft.Json.Serialization;
 using VinaCent.Blaze.Web.Contributors.ProfileManagement;
 using System;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.HttpOverrides;
 
 namespace VinaCent.Blaze.Web.Startup
 {
@@ -96,9 +97,11 @@ namespace VinaCent.Blaze.Web.Startup
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
+            app.UseForwardedHeaders(new ForwardedHeadersOptions
+            {
+                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+            });
             app.UseAbp(); // Initializes ABP framework.
-
-            app.UseHttpsRedirection();
 
             if (env.IsDevelopment())
             {
@@ -106,6 +109,7 @@ namespace VinaCent.Blaze.Web.Startup
             }
             else
             {
+                app.UseHttpsRedirection();
                 //app.UseExceptionHandler("/Error");
                 app.UseStatusCodePagesWithReExecute("/Error", "?statusCode={0}");
                 //app.UseHsts();

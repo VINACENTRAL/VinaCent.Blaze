@@ -1,3 +1,4 @@
+#refs: https://zellwk.com/blog/github-actions-deploy/
 name: Dev/QUA Deploy CI
 on:
   # push:
@@ -35,6 +36,7 @@ jobs:
       - name: Adding Known Hosts
         run: ssh-keyscan -p ${{ secrets.SSH_PORT}} -H ${{ secrets.SSH_HOST }}  >> ~/.ssh/known_hosts
 
+      # Destination dir in remote server should be existed
       - name: Deploy with rsync
         run: rsync -avzr -e "ssh -p ${{ secrets.SSH_PORT }}" ./aspnet-core/src/VinaCent.Blaze.Web.Mvc/bin/Release/net6.0/publish/ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/home/deploy/apps/blaze.vinacent.com/
 
