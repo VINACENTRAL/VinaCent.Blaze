@@ -1,13 +1,13 @@
 @model VinaCent.Blaze.BusinessCore.ShopModule.Products.Dto.CreateProductDto
 <div class="card">
     <div class="card-header">
-        <h5 class="card-title mb-0">Product Short Description</h5>
+        <h5 class="card-title mb-0">@L(LKConstants.Summary)</h5>
     </div>
     <div class="card-body">
-        <p class="text-muted mb-2">Add short description for product</p>
+        <p class="text-muted mb-2">@L(LKConstants.SummaryDescription)</p>
         <div>
             <label class="form-label" asp-for="Summary"></label>
-            <textarea asp-for="Summary" class="form-control" placeholder="Must enter minimum of a 100 characters" rows="3"></textarea>
+            <textarea asp-for="Summary" class="form-control" rows="3"></textarea>
             <span asp-validation-for="Summary" class="invalid-feedback"></span>
         </div>
     </div>

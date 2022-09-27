@@ -1,5 +1,4 @@
-﻿using System.Security.Authentication;
-using Abp.AspNetCore.Dependency;
+﻿using Abp.AspNetCore.Dependency;
 using Abp.Dependency;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
@@ -18,13 +17,6 @@ namespace VinaCent.Blaze.Web.Startup
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
-                    webBuilder.UseKestrel(options =>
-                    {
-                        options.ConfigureHttpsDefaults(httpsOptions =>
-                        {
-                            httpsOptions.SslProtocols = SslProtocols.Tls12 | SslProtocols.Tls13;
-                        });
-                    });
                 })
                 .UseCastleWindsor(IocManager.Instance.IocContainer);
     }
